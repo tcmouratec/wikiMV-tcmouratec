@@ -165,10 +165,10 @@
 
   // --- Форматирование ---
   function fmtDistance(meters) {
-    if (!meters || meters < 0.1) return '0 м';
-    if (meters < 1000) return Math.round(meters) + ' м';
+    if (!meters || meters < 0.1) return WM.t('0 м');
+    if (meters < 1000) return WM.t('{0} м', Math.round(meters));
     const km = meters / 1000;
-    return (km < 10 ? km.toFixed(2) : km.toFixed(1)) + ' км';
+    return WM.t('{0} км', km < 10 ? km.toFixed(2) : km.toFixed(1));
   }
 
   function fmtDuration(seconds) {
@@ -261,7 +261,7 @@
             if (settings.powerProfile !== 'eco') {
               settings.powerProfile = 'eco';
               if (WM.ui && WM.ui.showToast) {
-                WM.ui.showToast('🔋 Низкий заряд батареи! Запись переведена в режим Эко');
+                WM.ui.showToast(WM.t('🔋 Низкий заряд батареи! Запись переведена в режим Эко'));
               }
             }
           }
@@ -290,7 +290,7 @@
     }, 1000);
 
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast(`⚠️ Аномалия GPS (${reasonText})! Запись приостановлена.`, 4000);
+      WM.ui.showToast(WM.t('⚠️ Аномалия GPS ({0})! Запись приостановлена.', reasonText), 4000);
     }
   }
 
@@ -327,7 +327,7 @@
     updateFloatingBtnState();
 
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast('🗑️ Запись трека отменена');
+      WM.ui.showToast(WM.t('🗑️ Запись трека отменена'));
     }
   }
 
@@ -356,7 +356,7 @@
         if (cameraFollowActive) {
           cameraFollowActive = false;
           if (settings.cameraMode !== 'free' && WM.ui && WM.ui.showToast) {
-            WM.ui.showToast('🔓 Камера откреплена (ручное смещение)');
+            WM.ui.showToast(WM.t('🔓 Камера откреплена (ручное смещение)'));
           }
         }
       }
@@ -391,7 +391,7 @@
       if (isVisible) {
         if (!cameraFollowActive && idleSeconds >= 5) {
           cameraFollowActive = true;
-          if (WM.ui && WM.ui.showToast) WM.ui.showToast('🎯 Камера возвращена к GPS');
+          if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🎯 Камера возвращена к GPS'));
         }
       } else {
         cameraFollowActive = false;
@@ -399,7 +399,7 @@
     } else if (mode === 'auto') {
       if (!cameraFollowActive && idleSeconds >= 30) {
         cameraFollowActive = true;
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast('🎯 Камера вернулась к точке (30 с бездействия)');
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🎯 Камера вернулась к точке (30 с бездействия)'));
       }
     }
 
@@ -432,7 +432,7 @@
     }
 
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast('🛰️ Определение позиции спутников GPS…', 2200);
+      WM.ui.showToast(WM.t('🛰️ Определение позиции спутников GPS…'), 2200);
     }
 
     return new Promise((resolve, reject) => {
@@ -448,7 +448,7 @@
           { enableHighAccuracy: true, timeout: 8000, maximumAge: 5000 }
         );
       } else {
-        reject(new Error('Геолокация не поддерживается'));
+        reject(new Error(WM.t('Геолокация не поддерживается')));
       }
     });
   }
@@ -461,21 +461,21 @@
       initialPos = await ensureGpsOrPdrAvailable();
     } catch (err) {
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast('❌ Нет сигнала GPS или шагомера! Запись не может быть начата.', 3500);
+        WM.ui.showToast(WM.t('❌ Нет сигнала GPS или шагомера! Запись не может быть начата.'), 3500);
       }
       return;
     }
 
     if (!initialPos) {
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast('⚠️ Координаты не получены. Включите GPS или режим «Я тут» (🧲)', 3500);
+        WM.ui.showToast(WM.t('⚠️ Координаты не получены. Включите GPS или режим «Я тут» (🧲)'), 3500);
       }
       return;
     }
 
     loadStoredTracks();
     const trackIndex = tracks.length + 1;
-    const name = (customName || '').trim() || `Трек ${trackIndex}`;
+    const name = (customName || '').trim() || WM.t('Трек {0}', trackIndex);
     const trackColor = color || settings.defaultColor || TRACK_COLORS[0];
 
     const interval = intervalSec || settings.minIntervalSec || 3;
@@ -533,7 +533,7 @@
     handleGpsUpdate([initialPos.lat, initialPos.lng], initialCoords, Date.now());
 
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast(`⏺️ Начата запись: «${name}»`);
+      WM.ui.showToast(WM.t('⏺️ Начата запись: «{0}»', name));
     }
     updateFloatingBtnState();
   }
@@ -555,7 +555,7 @@
 
     loadStoredTracks();
     const trackIndex = tracks.length + 1;
-    const name = `Тестовый трек ${trackIndex}`;
+    const name = WM.t('Тестовый трек {0}', trackIndex);
     const trackColor = settings.defaultColor || TRACK_COLORS[0];
 
     activeSession = {
@@ -638,7 +638,7 @@
     }, 1000);
 
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast(`🚶 Начата тестовая запись трека (5–15 км/ч)`);
+      WM.ui.showToast(WM.t('🚶 Начата тестовая запись трека (5–15 км/ч)'));
     }
     updateFloatingBtnState();
   }
@@ -648,7 +648,7 @@
     isPaused = true;
     updateLiveHUD();
     if (userInitiated && WM.ui && WM.ui.showToast) {
-      WM.ui.showToast('⏸️ Запись трека на паузе');
+      WM.ui.showToast(WM.t('⏸️ Запись трека на паузе'));
     }
     updateFloatingBtnState();
   }
@@ -660,7 +660,7 @@
     lastMovementTime = Date.now();
     updateLiveHUD();
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast('▶️ Запись трека возобновлена');
+      WM.ui.showToast(WM.t('▶️ Запись трека возобновлена'));
     }
     updateFloatingBtnState();
   }
@@ -677,11 +677,11 @@
       tracks.push(activeSession);
       saveStoredTracks();
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast(`💾 Трек «${activeSession.name}» сохранён (${fmtDistance(activeSession.distance)})`);
+        WM.ui.showToast(WM.t('💾 Трек «{0}» сохранён ({1})', activeSession.name, fmtDistance(activeSession.distance)));
       }
     } else {
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast('⚠️ Трек слишком короткий (менее 2 точек) и не был сохранён');
+        WM.ui.showToast(WM.t('⚠️ Трек слишком короткий (менее 2 точек) и не был сохранён'));
       }
     }
 
@@ -793,7 +793,7 @@
 
       if (distFromLast > 2000 || impliedSpeedKmh > 190) {
         pauseRecording(false);
-        triggerAnomalyAlert(`Скачок ${Math.round(distFromLast)}м / ${Math.round(impliedSpeedKmh)}км/ч`);
+        triggerAnomalyAlert(WM.t('Скачок {0}м / {1}км/ч', Math.round(distFromLast), Math.round(impliedSpeedKmh)));
         return;
       }
     }
@@ -804,14 +804,14 @@
       if (isAutoPaused) {
         isAutoPaused = false;
         isPaused = false;
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast('▶️ Движение возобновлено');
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('▶️ Движение возобновлено'));
       }
     } else if (settings.autoPause && !isPaused && !isAutoPaused) {
       const idleSeconds = (now - lastMovementTime) / 1000;
       if (idleSeconds >= settings.autoPauseStopDelaySec) {
         isAutoPaused = true;
         isPaused = true;
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast('⏸️ Автопауза (остановка на месте)');
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('⏸️ Автопауза (остановка на месте)'));
         updateLiveHUD();
         return;
       }
@@ -1055,17 +1055,17 @@
         <b class="wm-track-popup-title">${escapeHtml(track.name)}</b>
       </div>
       <div class="wm-track-popup-grid">
-        <div class="cell"><span class="lbl">Дистанция</span><b class="val">${fmtDistance(track.distance)}</b></div>
-        <div class="cell"><span class="lbl">Время</span><b class="val">${durStr}</b></div>
-        <div class="cell"><span class="lbl">Ср. скорость</span><b class="val">${avgSpeedKmh.toFixed(1)} км/ч</b></div>
-        <div class="cell"><span class="lbl">Макс. скор.</span><b class="val">${maxSpeedKmh.toFixed(1)} км/ч</b></div>
-        <div class="cell"><span class="lbl">Подъём</span><b class="val">+${Math.round(track.eleGain || 0)} м</b></div>
-        <div class="cell"><span class="lbl">Спуск</span><b class="val">-${Math.round(track.eleLoss || 0)} м</b></div>
+        <div class="cell"><span class="lbl">${WM.t('Дистанция')}</span><b class="val">${fmtDistance(track.distance)}</b></div>
+        <div class="cell"><span class="lbl">${WM.t('Время')}</span><b class="val">${durStr}</b></div>
+        <div class="cell"><span class="lbl">${WM.t('Ср. скорость')}</span><b class="val">${WM.t('{0} км/ч', avgSpeedKmh.toFixed(1))}</b></div>
+        <div class="cell"><span class="lbl">${WM.t('Макс. скор.')}</span><b class="val">${WM.t('{0} км/ч', maxSpeedKmh.toFixed(1))}</b></div>
+        <div class="cell"><span class="lbl">${WM.t('Подъём')}</span><b class="val">${WM.t('+{0} м', Math.round(track.eleGain || 0))}</b></div>
+        <div class="cell"><span class="lbl">${WM.t('Спуск')}</span><b class="val">${WM.t('-{0} м', Math.round(track.eleLoss || 0))}</b></div>
       </div>
       <div class="wm-track-popup-actions">
-        <button type="button" class="btn btn-secondary js-btn-zoom">🎯 Центр</button>
-        <button type="button" class="btn btn-primary js-btn-details">📊 Подробнее</button>
-        <button type="button" class="btn btn-secondary js-btn-share" title="Поделиться треком">🌐</button>
+        <button type="button" class="btn btn-secondary js-btn-zoom">${WM.t('🎯 Центр')}</button>
+        <button type="button" class="btn btn-primary js-btn-details">${WM.t('📊 Подробнее')}</button>
+        <button type="button" class="btn btn-secondary js-btn-share" title="${WM.t('Поделиться треком')}">🌐</button>
         <button type="button" class="btn btn-secondary js-btn-gpx">💾 GPX</button>
         <button type="button" class="btn btn-danger-outline js-btn-del" style="flex:0.6;">🗑️</button>
       </div>
@@ -1094,7 +1094,7 @@
       exportTrackGpx(track.id);
     };
     popupContent.querySelector('.js-btn-del').onclick = () => {
-      if (confirm(`Удалить трек «${track.name}»?`)) {
+      if (confirm(WM.t('Удалить трек «{0}»?', track.name))) {
         deleteTrack(track.id);
         mapInstance.closePopup();
       }
@@ -1113,16 +1113,16 @@
     popupContent.innerHTML = `
       <div class="wm-track-popup-head">
         <span class="wm-track-popup-dot" style="background-color: ${escapeHtml(track.color || '#06b6d4')};"></span>
-        <b class="wm-track-popup-title">🌐 ${escapeHtml(track.name)} (Общий)</b>
+        <b class="wm-track-popup-title">${WM.t('🌐 {0} (Общий)', escapeHtml(track.name))}</b>
       </div>
       <div class="wm-track-popup-grid">
-        <div class="cell"><span class="lbl">Дистанция</span><b class="val">${fmtDistance(track.distance)}</b></div>
-        <div class="cell"><span class="lbl">Время</span><b class="val">${durStr}</b></div>
-        <div class="cell"><span class="lbl">Подъём</span><b class="val">+${Math.round(track.eleGain || 0)} м</b></div>
-        <div class="cell"><span class="lbl">Точек</span><b class="val">${track.points ? track.points.length : 0}</b></div>
+        <div class="cell"><span class="lbl">${WM.t('Дистанция')}</span><b class="val">${fmtDistance(track.distance)}</b></div>
+        <div class="cell"><span class="lbl">${WM.t('Время')}</span><b class="val">${durStr}</b></div>
+        <div class="cell"><span class="lbl">${WM.t('Подъём')}</span><b class="val">${WM.t('+{0} м', Math.round(track.eleGain || 0))}</b></div>
+        <div class="cell"><span class="lbl">${WM.t('Точек')}</span><b class="val">${track.points ? track.points.length : 0}</b></div>
       </div>
       <div class="wm-track-popup-actions">
-        <button type="button" class="btn btn-primary js-btn-save-remote">💾 Сохранить к себе</button>
+        <button type="button" class="btn btn-primary js-btn-save-remote">${WM.t('💾 Сохранить к себе')}</button>
         <button type="button" class="btn btn-secondary js-btn-remote-gpx">💾 GPX</button>
       </div>
     `;
@@ -1148,7 +1148,7 @@
     const imported = {
       ...JSON.parse(JSON.stringify(remoteTrack)),
       id: 'track_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
-      name: `${remoteTrack.name} (из облака)`,
+      name: WM.t('{0} (из облака)', remoteTrack.name),
       isShared: false
     };
     tracks.push(imported);
@@ -1156,7 +1156,7 @@
     renderAllLayers();
     if (window.renderTrackSettingsList) window.renderTrackSettingsList();
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast(`✅ Трек «${remoteTrack.name}» сохранён в ваши локальные треки!`);
+      WM.ui.showToast(WM.t('✅ Трек «{0}» сохранён в ваши локальные треки!', remoteTrack.name));
     }
   }
 
@@ -1182,7 +1182,7 @@
     const avgMovingSpd = movingSec > 0 ? (track.distance / movingSec) * 3.6 : 0;
     const maxSpd = (track.maxSpeed || 0) * 3.6;
 
-    const startDateStr = track.startTime ? new Date(track.startTime).toLocaleString('ru', {
+    const startDateStr = track.startTime ? new Date(track.startTime).toLocaleString(WM.i18n.locale, {
       day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
     }) : '—';
 
@@ -1191,41 +1191,41 @@
       const paceSecPerKm = movingSec / (track.distance / 1000);
       const pM = Math.floor(paceSecPerKm / 60);
       const pS = Math.floor(paceSecPerKm % 60);
-      paceStr = `${pM}:${String(pS).padStart(2, '0')} /км`;
+      paceStr = WM.t('{0}:{1} /км', pM, String(pS).padStart(2, '0'));
     }
 
     const grid = $('track-details-metrics-grid');
     if (grid) {
       grid.innerHTML = `
         <div class="track-metric-card">
-          <span class="lbl">Дистанция</span>
+          <span class="lbl">${WM.t('Дистанция')}</span>
           <b class="val">${fmtDistance(track.distance)}</b>
-          <span class="sub">${track.points.length} точек</span>
+          <span class="sub">${WM.t('{0} точек', track.points.length)}</span>
         </div>
         <div class="track-metric-card">
-          <span class="lbl">Общее время</span>
+          <span class="lbl">${WM.t('Общее время')}</span>
           <b class="val">${fmtDuration(durationSec)}</b>
-          <span class="sub">Старт: ${startDateStr}</span>
+          <span class="sub">${WM.t('Старт: {0}', startDateStr)}</span>
         </div>
         <div class="track-metric-card">
-          <span class="lbl">В движении</span>
+          <span class="lbl">${WM.t('В движении')}</span>
           <b class="val">${fmtDuration(movingSec)}</b>
-          <span class="sub">Темп: ${paceStr}</span>
+          <span class="sub">${WM.t('Темп: {0}', paceStr)}</span>
         </div>
         <div class="track-metric-card">
-          <span class="lbl">Ср. скорость</span>
-          <b class="val">${avgSpd.toFixed(1)} км/ч</b>
-          <span class="sub">В движении: ${avgMovingSpd.toFixed(1)} км/ч</span>
+          <span class="lbl">${WM.t('Ср. скорость')}</span>
+          <b class="val">${WM.t('{0} км/ч', avgSpd.toFixed(1))}</b>
+          <span class="sub">${WM.t('В движении: {0} км/ч', avgMovingSpd.toFixed(1))}</span>
         </div>
         <div class="track-metric-card">
-          <span class="lbl">Макс. скорость</span>
-          <b class="val">${maxSpd.toFixed(1)} км/ч</b>
-          <span class="sub">Пиковый замер</span>
+          <span class="lbl">${WM.t('Макс. скорость')}</span>
+          <b class="val">${WM.t('{0} км/ч', maxSpd.toFixed(1))}</b>
+          <span class="sub">${WM.t('Пиковый замер')}</span>
         </div>
         <div class="track-metric-card">
-          <span class="lbl">Набор высоты</span>
-          <b class="val">+${Math.round(track.eleGain || 0)} м</b>
-          <span class="sub">Спуск: -${Math.round(track.eleLoss || 0)} м</span>
+          <span class="lbl">${WM.t('Набор высоты')}</span>
+          <b class="val">${WM.t('+{0} м', Math.round(track.eleGain || 0))}</b>
+          <span class="sub">${WM.t('Спуск: -{0} м', Math.round(track.eleLoss || 0))}</span>
         </div>
       `;
     }
@@ -1254,11 +1254,11 @@
     const probeVal = $('track-chart-probe-val');
     if (!svgWrap || !svg) return;
 
-    if (probeVal) probeVal.textContent = 'Нажмите или проведите по графику';
+    if (probeVal) probeVal.textContent = WM.t('Нажмите или проведите по графику');
 
     const pts = track.points || [];
     if (pts.length < 2) {
-      svg.innerHTML = '<text x="50%" y="50%" text-anchor="middle" fill="#64748b" font-size="12">Недостаточно данных о высоте</text>';
+      svg.innerHTML = `<text x="50%" y="50%" text-anchor="middle" fill="#64748b" font-size="12">${WM.t('Недостаточно данных о высоте')}</text>`;
       return;
     }
 
@@ -1294,8 +1294,8 @@
     const plotMinY = minA - padY;
     const plotMaxY = maxA + padY;
 
-    $('track-chart-min-alt').textContent = `Мин: ${Math.round(minA)} м`;
-    $('track-chart-max-alt').textContent = `Макс: ${Math.round(maxA)} м`;
+    $('track-chart-min-alt').textContent = WM.t('Мин: {0} м', Math.round(minA));
+    $('track-chart-max-alt').textContent = WM.t('Макс: {0} м', Math.round(maxA));
     $('track-chart-total-dist').textContent = fmtDistance(accumDist);
 
     const W = svgWrap.clientWidth || 360;
@@ -1387,7 +1387,7 @@
       const spdKmh = (nearest.speed * 3.6).toFixed(1);
 
       if (probeVal) {
-        probeVal.textContent = `📍 ${fmtDistance(nearest.dist)} · ⛰️ ${Math.round(nearest.alt)} м · ⚡ ${spdKmh} км/ч · ⏱️ ${fmtDuration(timeElapsed)}`;
+        probeVal.textContent = WM.t('📍 {0} · ⛰️ {1} м · ⚡ {2} км/ч · ⏱️ {3}', fmtDistance(nearest.dist), Math.round(nearest.alt), spdKmh, fmtDuration(timeElapsed));
       }
 
       if (mapInstance) {
@@ -1429,7 +1429,7 @@
     const modal = $('modal-track-share');
     if (!modal) return;
 
-    $('track-share-title').textContent = `🌐 Поделиться «${track.name}»`;
+    $('track-share-title').textContent = WM.t('🌐 Поделиться «{0}»', track.name);
     const passInput = $('track-share-password');
     const statusEl = $('track-share-status');
     const unpubBtn = $('btn-track-share-unpublish');
@@ -1441,8 +1441,8 @@
       if (track.isShared) {
         statusEl.hidden = false;
         statusEl.innerHTML = track.sharePassword 
-          ? `🔒 Трек опубликован в защищённой комнате (пароль: <b>${escapeHtml(track.sharePassword)}</b>)`
-          : `🌐 Трек опубликован в общем доступе`;
+          ? `${WM.t('🔒 Трек опубликован в защищённой комнате (пароль:')} <b>${escapeHtml(track.sharePassword)}</b>)`
+          : WM.t('🌐 Трек опубликован в общем доступе');
         statusEl.style.color = '#10b981';
       } else {
         statusEl.hidden = true;
@@ -1462,7 +1462,7 @@
 
   async function shareTrackToCloud(track, password) {
     if (!track || !track.points || !track.points.length) {
-      throw new Error('У трека нет точек для публикации');
+      throw new Error(WM.t('У трека нет точек для публикации'));
     }
 
     calculateTrackAggregates(track);
@@ -1495,7 +1495,7 @@
     });
 
     if (!res.ok) {
-      throw new Error(`Ошибка облака HTTP ${res.status}`);
+      throw new Error(WM.t('Ошибка облака HTTP {0}', res.status));
     }
 
     if (track.isShared) {
@@ -1556,16 +1556,16 @@
 
   async function downloadTracksByPassword(password) {
     const pass = (password || '').trim();
-    if (!pass) throw new Error('Введите пароль комнаты');
+    if (!pass) throw new Error(WM.t('Введите пароль комнаты'));
 
     const hash = await hashPassword(pass);
     const res = await fetch(`${DATABASE_URL}/shared_tracks/protected/${hash}.json`);
-    if (!res.ok) throw new Error(`Ошибка загрузки: HTTP ${res.status}`);
+    if (!res.ok) throw new Error(WM.t('Ошибка загрузки: HTTP {0}', res.status));
     const data = await res.json();
-    if (!data) throw new Error('В этой комнате пока нет треков');
+    if (!data) throw new Error(WM.t('В этой комнате пока нет треков'));
 
     const list = Object.values(data).filter(t => t && Array.isArray(t.points) && t.points.length >= 2);
-    if (!list.length) throw new Error('В комнате не найдено корректных треков');
+    if (!list.length) throw new Error(WM.t('В комнате не найдено корректных треков'));
 
     loadStoredTracks();
     let importedCount = 0;
@@ -1593,7 +1593,7 @@
   function exportTrackGpx(trackId) {
     const track = tracks.find(t => t.id === trackId) || activeSession;
     if (!track || !track.points || !track.points.length) {
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('Нет точек для экспорта');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('Нет точек для экспорта'));
       return;
     }
     downloadBlobGpx(track);
@@ -1631,7 +1631,7 @@
     }, 500);
   }
 
-  function importTrackFile(fileContent, fileName = 'Импортированный трек') {
+  function importTrackFile(fileContent, fileName = WM.t('Импортированный трек')) {
     let pts = [];
     let name = fileName.replace(/\.[^/.]+$/, '');
 
@@ -1669,7 +1669,7 @@
     }
 
     if (pts.length < 2) {
-      throw new Error('Файл не содержит корректных координат трека');
+      throw new Error(WM.t('Файл не содержит корректных координат трека'));
     }
 
     const newTrack = {
@@ -1721,7 +1721,7 @@
     if (!hud) return;
 
     $('btn-track-record')?.classList.add('active');
-    $('track-config-name').value = `Трек ${tracks.length + 1}`;
+    $('track-config-name').value = WM.t('Трек {0}', tracks.length + 1);
     
     if ($('track-config-interval')) $('track-config-interval').value = settings.minIntervalSec || 3;
     if ($('track-config-dist')) $('track-config-dist').value = settings.minDistanceMeters || 5;
@@ -1776,7 +1776,7 @@
     if (elDist) elDist.textContent = fmtDistance(activeSession.distance);
 
     const curSpeedKmh = lastRecordedPoint && lastRecordedPoint.speed ? (lastRecordedPoint.speed * 3.6).toFixed(1) : '0.0';
-    if (elSpeed) elSpeed.textContent = `${curSpeedKmh} км/ч`;
+    if (elSpeed) elSpeed.textContent = WM.t('{0} км/ч', curSpeedKmh);
 
     if (elEle) {
       elEle.textContent = `▲+${Math.round(activeSession.eleGain || 0)} ▼-${Math.round(activeSession.eleLoss || 0)}`;
@@ -1784,7 +1784,7 @@
 
     if (btnPause) {
       btnPause.textContent = isPaused ? '▶️' : '⏸️';
-      btnPause.title = isPaused ? 'Возобновить запись' : 'Пауза';
+      btnPause.title = isPaused ? WM.t('Возобновить запись') : WM.t('Пауза');
     }
 
     if (dotPulse) {
@@ -1798,8 +1798,8 @@
     btn.classList.toggle('recording', isRecording && !isPaused);
     btn.classList.toggle('paused', isRecording && isPaused);
     btn.title = isRecording 
-      ? (isPaused ? '⏸️ Запись трека на паузе' : '⏺️ Идёт запись трека…') 
-      : 'Запись трека (GPS Logger)';
+      ? (isPaused ? WM.t('⏸️ Запись трека на паузе') : WM.t('⏺️ Идёт запись трека…')) 
+      : WM.t('Запись трека (GPS Logger)');
   }
 
   // =========================================================================
@@ -1812,10 +1812,10 @@
       initCrashDb().then(async () => {
         const pts = await dbGetActivePoints();
         if (pts && pts.length >= 2) {
-          if (confirm(`Найден незавершённый трек (${pts.length} точек). Сохранить его?`)) {
+          if (confirm(WM.t('Найден незавершённый трек ({0} точек). Сохранить его?', pts.length))) {
             const newTrack = {
               id: 'restored_' + Date.now(),
-              name: `Восстановленный трек`,
+              name: WM.t('Восстановленный трек'),
               color: '#ef4444',
               startTime: pts[0].time || Date.now(),
               endTime: pts[pts.length - 1].time || Date.now(),
@@ -1875,7 +1875,7 @@
       });
 
       $('btn-track-live-cancel')?.addEventListener('click', () => {
-        if (confirm('Отменить запись трека без сохранения?')) {
+        if (confirm(WM.t('Отменить запись трека без сохранения?'))) {
           cancelRecording();
         }
       });
@@ -1888,7 +1888,7 @@
       });
 
       $('btn-track-live-stop')?.addEventListener('click', () => {
-        if (confirm('Завершить и сохранить этот трек?')) {
+        if (confirm(WM.t('Завершить и сохранить этот трек?'))) {
           stopAndSaveRecording();
         }
       });
@@ -1932,39 +1932,39 @@
         const submitBtn = $('btn-track-share-submit');
         if (submitBtn) {
           submitBtn.disabled = true;
-          submitBtn.textContent = '⏳ Публикация…';
+          submitBtn.textContent = WM.t('⏳ Публикация…');
         }
         try {
           await shareTrackToCloud(currentSharingTrack, pass);
           closeShareTrackModal();
           if (WM.ui && WM.ui.showToast) {
             WM.ui.showToast(pass 
-              ? '🔒 Трек опубликован в комнате с паролем!' 
-              : '🌐 Трек опубликован в общем доступе!');
+              ? WM.t('🔒 Трек опубликован в комнате с паролем!') 
+              : WM.t('🌐 Трек опубликован в общем доступе!'));
           }
         } catch (err) {
-          alert('Ошибка публикации трека: ' + err.message);
+          alert(WM.t('Ошибка публикации трека: {0}', err.message));
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Опубликовать';
+            submitBtn.textContent = WM.t('Опубликовать');
           }
         }
       });
 
       $('btn-track-share-unpublish')?.addEventListener('click', async () => {
         if (!currentSharingTrack) return;
-        if (!confirm(`Удалить трек «${currentSharingTrack.name}» из облака Firebase?`)) return;
+        if (!confirm(WM.t('Удалить трек «{0}» из облака Firebase?', currentSharingTrack.name))) return;
         const btn = $('btn-track-share-unpublish');
         if (btn) btn.disabled = true;
         try {
           await unshareTrackFromCloud(currentSharingTrack);
           closeShareTrackModal();
           if (WM.ui && WM.ui.showToast) {
-            WM.ui.showToast('🗑️ Трек удалён из облака Firebase');
+            WM.ui.showToast(WM.t('🗑️ Трек удалён из облака Firebase'));
           }
         } catch (err) {
-          alert('Ошибка удаления из облака: ' + err.message);
+          alert(WM.t('Ошибка удаления из облака: {0}', err.message));
         } finally {
           if (btn) btn.disabled = false;
         }
@@ -1985,17 +1985,17 @@
         const statusEl = $('track-dl-pass-status');
 
         if (!pass.trim()) {
-          alert('Введите пароль комнаты');
+          alert(WM.t('Введите пароль комнаты'));
           return;
         }
 
         if (submitBtn) {
           submitBtn.disabled = true;
-          submitBtn.textContent = '⏳ Поиск…';
+          submitBtn.textContent = WM.t('⏳ Поиск…');
         }
         if (statusEl) {
           statusEl.hidden = false;
-          statusEl.textContent = 'Подключение к Firebase…';
+          statusEl.textContent = WM.t('Подключение к Firebase…');
           statusEl.style.color = 'var(--text-muted)';
         }
 
@@ -2004,7 +2004,7 @@
           modalDlPass?.classList.remove('open');
           if (passInput) passInput.value = '';
           if (WM.ui && WM.ui.showToast) {
-            WM.ui.showToast(`✅ Загружено треков: ${res.imported} (всего в комнате: ${res.total})`);
+            WM.ui.showToast(WM.t('✅ Загружено треков: {0} (всего в комнате: {1})', res.imported, res.total));
           }
         } catch (err) {
           if (statusEl) {
@@ -2012,12 +2012,12 @@
             statusEl.textContent = '⚠️ ' + err.message;
             statusEl.style.color = 'var(--danger)';
           } else {
-            alert('Ошибка: ' + err.message);
+            alert(WM.t('Ошибка: {0}', err.message));
           }
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.textContent = '📥 Загрузить';
+            submitBtn.textContent = WM.t('📥 Загрузить');
           }
         }
       });

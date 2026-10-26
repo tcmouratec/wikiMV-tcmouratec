@@ -177,7 +177,7 @@
         if (pin) pin.classList.add('dragging');
         if (navigator.vibrate) navigator.vibrate(40);
         if (WM.ui && WM.ui.showToast) {
-          WM.ui.showToast('📍 Перемещайте метку, отпустите для фиксации', 1600);
+          WM.ui.showToast(WM.t('📍 Перемещайте метку, отпустите для фиксации'), 1600);
         }
       }, 420); // 420 мс порог долгого нажатия
     }
@@ -202,7 +202,7 @@
       if (pin) pin.classList.remove('dragging');
 
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast('📍 Позиция метки сохранена');
+        WM.ui.showToast(WM.t('📍 Позиция метки сохранена'));
       }
 
       // Защита от открытия диалога сразу после перетаскивания
@@ -256,7 +256,7 @@
     // Пользовательский цвет
     const customLabel = document.createElement('label');
     customLabel.className = 'color-palette-custom';
-    customLabel.title = 'Выбрать свой цвет';
+    customLabel.title = WM.t('Выбрать свой цвет');
     customLabel.innerHTML = '<span>🌈</span><input type="color">';
     const input = customLabel.querySelector('input');
     input.value = selectedColor;
@@ -291,7 +291,7 @@
       if (item) {
         targetBtn.hidden = false;
         const isCurrentTarget = WM.navTarget && WM.navTarget.isTarget(item.id);
-        targetBtn.textContent = isCurrentTarget ? '🛑 Снять цель' : '🎯 Как цель';
+        targetBtn.textContent = isCurrentTarget ? WM.t('🛑 Снять цель') : WM.t('🎯 Как цель');
         targetBtn.classList.toggle('active', isCurrentTarget);
       } else {
         targetBtn.hidden = true;
@@ -344,15 +344,15 @@
     }
 
     if (item) {
-      if (titleEl) titleEl.textContent = '✏️ Редактирование метки';
+      if (titleEl) titleEl.textContent = WM.t('✏️ Редактирование метки');
       if (inputEl) inputEl.value = item.text || '';
       if (deleteBtn) deleteBtn.hidden = false;
-      if (saveBtn) saveBtn.textContent = 'Сохранить';
+      if (saveBtn) saveBtn.textContent = WM.t('Сохранить');
     } else {
-      if (titleEl) titleEl.textContent = '📍 Новая метка в центре карты';
+      if (titleEl) titleEl.textContent = WM.t('📍 Новая метка в центре карты');
       if (inputEl) inputEl.value = '';
       if (deleteBtn) deleteBtn.hidden = true;
-      if (saveBtn) saveBtn.textContent = 'Поставить';
+      if (saveBtn) saveBtn.textContent = WM.t('Поставить');
     }
 
     if (charCount && inputEl) {
@@ -422,9 +422,9 @@
 
       if (WM.ui && WM.ui.showToast) {
         if (isPublicVal) {
-          WM.ui.showToast(passwordVal ? '🔒 Заметка с паролем сохранена и опубликована' : '🌐 Публичная метка добавлена');
+          WM.ui.showToast(passwordVal ? WM.t('🔒 Заметка с паролем сохранена и опубликована') : WM.t('🌐 Публичная метка добавлена'));
         } else {
-          WM.ui.showToast('📍 Метка добавлена в центре карты');
+          WM.ui.showToast(WM.t('📍 Метка добавлена в центре карты'));
         }
       }
     }
@@ -436,7 +436,7 @@
 
   function deleteCurrentMarker() {
     if (!currentEditingId) return;
-    if (!confirm('Удалить эту метку с карты?')) return;
+    if (!confirm(WM.t('Удалить эту метку с карты?'))) return;
 
     const item = markersData.find(m => m.id === currentEditingId);
     if (item && item.isPublic && WM.sharedMarkers) {
@@ -459,7 +459,7 @@
     if (WM.sharedMarkers && WM.sharedMarkers.renderVisible) WM.sharedMarkers.renderVisible();
 
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast('🗑️ Метка удалена');
+      WM.ui.showToast(WM.t('🗑️ Метка удалена'));
     }
     closeMarkerModal();
   }
@@ -495,7 +495,7 @@
               id: item.id,
               lat: item.lat,
               lng: item.lng,
-              title: item.text || item.emoji || 'Метка'
+              title: item.text || item.emoji || WM.t('Метка')
             });
           }
           closeMarkerModal();

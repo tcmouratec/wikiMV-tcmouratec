@@ -311,11 +311,11 @@
     attribution: '© Microsoft Bing'
   });
 
-  const satYandex = new YandexTileLayer('https://core-sat.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}&scale=1&lang=ru_RU', {
+  const satYandex = new YandexTileLayer('https://core-sat.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}&scale=1&lang=' + (WM.i18n.lang === 'ru' ? 'ru_RU' : 'en_US'), {
     ...COMMON_TILE_OPTIONS,
     maxNativeZoom: 19,
     maxZoom: 20,
-    attribution: '© Яндекс'
+    attribution: WM.t('© Яндекс')
   });
 
   // --- 2. Топографические карты ---
@@ -336,7 +336,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 13,
     maxZoom: 20,
-    attribution: 'Топокарта Арбалет (МО)'
+    attribution: WM.t('Топокарта Арбалет (МО)')
   });
 
   const ggc2000 = L.tileLayer('https://tiles.nakarte.me/ggc2000/{z}/{x}/{-y}', {
@@ -344,7 +344,7 @@
     minNativeZoom: 5,
     maxNativeZoom: 12,
     maxZoom: 20,
-    attribution: 'ГосГисЦентр 2 км (ГГЦ)'
+    attribution: WM.t('ГосГисЦентр 2 км (ГГЦ)')
   });
 
   const ggc1000 = L.tileLayer('https://tiles.nakarte.me/ggc1000/{z}/{x}/{-y}', {
@@ -353,7 +353,7 @@
     maxNativeZoom: 13,
     maxZoom: 20,
     zIndex: 1,
-    attribution: 'ГосГисЦентр (ГГЦ)'
+    attribution: WM.t('ГосГисЦентр (ГГЦ)')
   });
 
   const ggc500 = L.tileLayer('https://tiles.nakarte.me/ggc500/{z}/{x}/{-y}', {
@@ -379,7 +379,7 @@
     minNativeZoom: 7,
     maxNativeZoom: 13,
     maxZoom: 20,
-    attribution: 'Генштаб 1-2 км 1980-е (topomapper / russia3d)'
+    attribution: WM.t('Генштаб 1-2 км 1980-е (topomapper / russia3d)')
   });
 
   const openTopo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
@@ -407,11 +407,11 @@
     attribution: '© Google'
   });
 
-  const schemeYandex = new YandexTileLayer('https://core-renderer-tiles.maps.yandex.net/tiles?l=map&x={x}&y={y}&z={z}&scale=1&lang=ru_RU', {
+  const schemeYandex = new YandexTileLayer('https://core-renderer-tiles.maps.yandex.net/tiles?l=map&x={x}&y={y}&z={z}&scale=1&lang=' + (WM.i18n.lang === 'ru' ? 'ru_RU' : 'en_US'), {
     ...COMMON_TILE_OPTIONS,
     maxNativeZoom: 19,
     maxZoom: 20,
-    attribution: '© Яндекс'
+    attribution: WM.t('© Яндекс')
   });
 
   const YANDEX_SL = [
@@ -438,7 +438,7 @@
       subdomains: ['01', '02', '03', '04'],
       maxNativeZoom: 19,
       maxZoom: 20,
-      attribution: '© Народная карта Яндекс'
+      attribution: WM.t('© Народная карта Яндекс')
     }
   );
 
@@ -470,7 +470,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 13,
     maxZoom: 20,
-    attribution: 'Карта РККА (ЭтоМесто / russia3d)'
+    attribution: WM.t('Карта РККА (ЭтоМесто / russia3d)')
   });
 
   const vtk3v = L.tileLayer('https://russia3d.ru/maps/tiles/etomesto_3v_mb/mercator/{z}/{x}/{y}.png', {
@@ -478,7 +478,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 13,
     maxZoom: 20,
-    attribution: 'ВТК 3 версты в дюйме (ЭтоМесто / russia3d)'
+    attribution: WM.t('ВТК 3 версты в дюйме (ЭтоМесто / russia3d)')
   });
 
   const mendeVladimir = L.tileLayer('https://russia3d.ru/maps/tiles/etomesto_mende_vladimir_mb/mercator/{z}/{x}/{y}.png', {
@@ -486,7 +486,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 14,
     maxZoom: 20,
-    attribution: 'Карта Менде: Владимирская губ. (ЭтоМесто / russia3d)'
+    attribution: WM.t('Карта Менде: Владимирская губ. (ЭтоМесто / russia3d)')
   });
 
   const mendeNN = L.tileLayer('https://russia3d.ru/maps/tiles/etomesto_mende_nn_mb/mercator/{z}/{x}/{y}.png', {
@@ -494,7 +494,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 14,
     maxZoom: 20,
-    attribution: 'Карта Менде: Нижегородская губ. (ЭтоМесто / russia3d)'
+    attribution: WM.t('Карта Менде: Нижегородская губ. (ЭтоМесто / russia3d)')
   });
 
   const mendePenza = L.tileLayer('https://russia3d.ru/maps/tiles/etomesto_mende_penza_mb/mercator/{z}/{x}/{y}.png', {
@@ -502,7 +502,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 14,
     maxZoom: 20,
-    attribution: 'Карта Менде: Пензенская губ. (ЭтоМесто / russia3d)'
+    attribution: WM.t('Карта Менде: Пензенская губ. (ЭтоМесто / russia3d)')
   });
 
   const mendeRyazan = L.tileLayer('https://russia3d.ru/maps/tiles/etomesto_mende_ryazan_mb/mercator/{z}/{x}/{y}.png', {
@@ -510,7 +510,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 14,
     maxZoom: 20,
-    attribution: 'Карта Менде: Рязанская губ. (ЭтоМесто / russia3d)'
+    attribution: WM.t('Карта Менде: Рязанская губ. (ЭтоМесто / russia3d)')
   });
 
   const mendeSimbirsk = L.tileLayer('https://russia3d.ru/maps/tiles/etomesto_mende_simbirsk_mb/mercator/{z}/{x}/{y}.png', {
@@ -518,7 +518,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 14,
     maxZoom: 20,
-    attribution: 'Карта Менде: Симбирская губ. (ЭтоМесто / russia3d)'
+    attribution: WM.t('Карта Менде: Симбирская губ. (ЭтоМесто / russia3d)')
   });
 
   const mendeTambov = L.tileLayer('https://russia3d.ru/maps/tiles/etomesto_mende_tambov_mb/mercator/{z}/{x}/{y}.png', {
@@ -526,7 +526,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 14,
     maxZoom: 20,
-    attribution: 'Карта Менде: Тамбовская губ. (ЭтоМесто / russia3d)'
+    attribution: WM.t('Карта Менде: Тамбовская губ. (ЭтоМесто / russia3d)')
   });
 
   const mendeTver = L.tileLayer('https://russia3d.ru/maps/tiles/etomesto_mende_tver_mb/mercator/{z}/{x}/{y}.png', {
@@ -534,7 +534,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 14,
     maxZoom: 20,
-    attribution: 'Карта Менде: Тверская губ. (ЭтоМесто / russia3d)'
+    attribution: WM.t('Карта Менде: Тверская губ. (ЭтоМесто / russia3d)')
   });
 
   const mendeYaroslavl = L.tileLayer('https://russia3d.ru/maps/tiles/etomesto_mende_yaroslavl_mb/mercator/{z}/{x}/{y}.png', {
@@ -542,7 +542,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 14,
     maxZoom: 20,
-    attribution: 'Карта Менде: Ярославская губ. (ЭтоМесто / russia3d)'
+    attribution: WM.t('Карта Менде: Ярославская губ. (ЭтоМесто / russia3d)')
   });
 
   const mendeMoscow = L.tileLayer('https://russia3d.ru/maps/tiles/etomesto_mos_1860_all_mb/mercator/{z}/{x}/{y}.png', {
@@ -550,7 +550,7 @@
     minNativeZoom: 8,
     maxNativeZoom: 14,
     maxZoom: 20,
-    attribution: 'Карта Московской губ. 1860 г. (ЭтоМесто / russia3d)'
+    attribution: WM.t('Карта Московской губ. 1860 г. (ЭтоМесто / russia3d)')
   });
 
   // --- Гуманитарная карта OSM (HOT) ---
@@ -565,43 +565,46 @@
 
   WM.baseMapsCatalog = [
     // 1. Спутниковые карты
-    { id: 'satEsri', name: 'Спутник (Esri)', category: 'satellite', group: 'satellite', layer: satEsri, testUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'satClarity', name: 'Спутник (Esri Clarity)', category: 'satellite', group: 'satellite', layer: satClarity, testUrl: 'https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'satGoogle', name: 'Спутник + Дороги (Google)', category: 'satellite', group: 'satellite', layer: satGoogle, testUrl: 'https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', subdomains: ['0', '1', '2', '3'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'satBing', name: 'Спутник (Bing)', category: 'satellite', group: 'satellite', layer: satBing, testUrl: 'https://ecn.t{s}.tiles.virtualearth.net/tiles/a{q}.jpeg?g=1', subdomains: ['0', '1', '2', '3'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'satYandex', name: 'Спутник (Яндекс)', category: 'satellite', group: 'satellite', layer: satYandex, testUrl: 'https://core-sat.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}&scale=1&lang=ru_RU', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'satEsri', name: WM.t('Спутник (Esri)'), key: 'Спутник (Esri)', category: 'satellite', group: 'satellite', layer: satEsri, testUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'satClarity', name: WM.t('Спутник (Esri Clarity)'), key: 'Спутник (Esri Clarity)', category: 'satellite', group: 'satellite', layer: satClarity, testUrl: 'https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'satGoogle', name: WM.t('Спутник + Дороги (Google)'), key: 'Спутник + Дороги (Google)', category: 'satellite', group: 'satellite', layer: satGoogle, testUrl: 'https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', subdomains: ['0', '1', '2', '3'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'satBing', name: WM.t('Спутник (Bing)'), key: 'Спутник (Bing)', category: 'satellite', group: 'satellite', layer: satBing, testUrl: 'https://ecn.t{s}.tiles.virtualearth.net/tiles/a{q}.jpeg?g=1', subdomains: ['0', '1', '2', '3'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'satYandex', name: WM.t('Спутник (Яндекс)'), key: 'Спутник (Яндекс)', category: 'satellite', group: 'satellite', layer: satYandex, testUrl: 'https://core-sat.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}&scale=1&lang=' + (WM.i18n.lang === 'ru' ? 'ru_RU' : 'en_US'), testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
 
     // 2. Схемы
-    { id: 'schemeYandex', name: 'Схема (Яндекс)', category: 'scheme', group: 'scheme', layer: schemeYandex, testUrl: 'https://core-renderer-tiles.maps.yandex.net/tiles?l=map&x={x}&y={y}&scale=1&lang=ru_RU', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'narodYandex', name: 'Народная карта (Яндекс)', category: 'scheme', group: 'scheme', layer: narodYandex, testUrl: `https://{s}.core-nmaps-renderer-nmaps.maps.yandex.net/tile2?x={x}&y={y}&z={z}&l=mpmap&sl=${YANDEX_SL}&token=`, subdomains: ['01', '02', '03', '04'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'schemeGoogle', name: 'Схема (Google)', category: 'scheme', group: 'scheme', layer: schemeGoogle, testUrl: 'https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', subdomains: ['0', '1', '2', '3'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'osmClassic', name: 'Схема OSM (Классика)', category: 'scheme', group: 'scheme', layer: osmClassic, testUrl: 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', subdomains: ['a', 'b', 'c'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'osmHot', name: 'Гуманитарная карта OSM ', category: 'scheme', group: 'scheme', layer: osmHot, testUrl: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', subdomains: ['a', 'b', 'c'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'schemeEsri', name: 'Схема (Esri Streets)', category: 'scheme', group: 'scheme', layer: schemeEsri, testUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'schemeDark', name: 'Тёмная карта (Esri)', category: 'scheme', group: 'scheme', layer: schemeDark, testUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'schemeYandex', name: WM.t('Схема (Яндекс)'), key: 'Схема (Яндекс)', category: 'scheme', group: 'scheme', layer: schemeYandex, testUrl: 'https://core-renderer-tiles.maps.yandex.net/tiles?l=map&x={x}&y={y}&scale=1&lang=ru_RU', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'narodYandex', name: WM.t('Народная карта (Яндекс)'), key: 'Народная карта (Яндекс)', category: 'scheme', group: 'scheme', layer: narodYandex, testUrl: `https://{s}.core-nmaps-renderer-nmaps.maps.yandex.net/tile2?x={x}&y={y}&z={z}&l=mpmap&sl=${YANDEX_SL}&token=`, subdomains: ['01', '02', '03', '04'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'schemeGoogle', name: WM.t('Схема (Google)'), key: 'Схема (Google)', category: 'scheme', group: 'scheme', layer: schemeGoogle, testUrl: 'https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', subdomains: ['0', '1', '2', '3'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'osmClassic', name: WM.t('Схема OSM (Классика)'), key: 'Схема OSM (Классика)', category: 'scheme', group: 'scheme', layer: osmClassic, testUrl: 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', subdomains: ['a', 'b', 'c'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'osmHot', name: WM.t('Гуманитарная карта OSM '), key: 'Гуманитарная карта OSM ', category: 'scheme', group: 'scheme', layer: osmHot, testUrl: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', subdomains: ['a', 'b', 'c'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'schemeEsri', name: WM.t('Схема (Esri Streets)'), key: 'Схема (Esri Streets)', category: 'scheme', group: 'scheme', layer: schemeEsri, testUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'schemeDark', name: WM.t('Тёмная карта (Esri)'), key: 'Тёмная карта (Esri)', category: 'scheme', group: 'scheme', layer: schemeDark, testUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
 
     // 3. Топографические карты
-    { id: 'cyclOSM', name: 'Тропы и грунтовки (CyclOSM)', category: 'topo', group: 'topo', layer: cyclOSM, testUrl: 'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', subdomains: ['a', 'b', 'c'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'openTopo', name: 'Топокарта OpenTopoMap', category: 'topo', group: 'topo', layer: openTopo, testUrl: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', subdomains: ['a', 'b', 'c'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'ggc', name: 'Топокарты ГГЦ 250-1000м', category: 'topo', group: 'topo', layer: ggc, testUrl: 'https://tiles.nakarte.me/ggc1000/{z}/{x}/{-y}', isTms: true, testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'ggc2000', name: 'Топокарта ГГЦ 2 км', category: 'topo', group: 'topo', layer: ggc2000, testUrl: 'https://tiles.nakarte.me/ggc2000/{z}/{x}/{-y}', isTms: true, testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'arbaletMO', name: 'Топокарта Арбалет (Москва и МО)', category: 'topo', group: 'topo', layer: arbaletMO, testUrl: 'https://tiles.nakarte.me/ArbaletMO/{z}/{x}/{-y}', isTms: true, testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'genshtab1980', name: 'Топокарта Генштаб 1-2 км (1980-е)', category: 'topo', group: 'topo', layer: genshtab1980, testUrl: 'https://russia3d.ru/maps/tiles/topomaper1-2km1980/webmercator/{z}/{x}/{y}.png', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'cyclOSM', name: WM.t('Тропы и грунтовки (CyclOSM)'), key: 'Тропы и грунтовки (CyclOSM)', category: 'topo', group: 'topo', layer: cyclOSM, testUrl: 'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', subdomains: ['a', 'b', 'c'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'openTopo', name: WM.t('Топокарта OpenTopoMap'), key: 'Топокарта OpenTopoMap', category: 'topo', group: 'topo', layer: openTopo, testUrl: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', subdomains: ['a', 'b', 'c'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'ggc', name: WM.t('Топокарты ГГЦ 250-1000м'), key: 'Топокарты ГГЦ 250-1000м', category: 'topo', group: 'topo', layer: ggc, testUrl: 'https://tiles.nakarte.me/ggc1000/{z}/{x}/{-y}', isTms: true, testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'ggc2000', name: WM.t('Топокарта ГГЦ 2 км'), key: 'Топокарта ГГЦ 2 км', category: 'topo', group: 'topo', layer: ggc2000, testUrl: 'https://tiles.nakarte.me/ggc2000/{z}/{x}/{-y}', isTms: true, testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'arbaletMO', name: WM.t('Топокарта Арбалет (Москва и МО)'), key: 'Топокарта Арбалет (Москва и МО)', category: 'topo', group: 'topo', layer: arbaletMO, testUrl: 'https://tiles.nakarte.me/ArbaletMO/{z}/{x}/{-y}', isTms: true, testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'genshtab1980', name: WM.t('Топокарта Генштаб 1-2 км (1980-е)'), key: 'Топокарта Генштаб 1-2 км (1980-е)', category: 'topo', group: 'topo', layer: genshtab1980, testUrl: 'https://russia3d.ru/maps/tiles/topomaper1-2km1980/webmercator/{z}/{x}/{y}.png', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
     { id: 'tfOutdoors', name: 'Thunderforest Outdoors', category: 'topo', group: 'topo', layer: tfOutdoors, testUrl: 'https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}@2x.png', subdomains: ['a', 'b', 'c'], testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
 
     // 4. Старинные и прочее
-    { id: 'rkkaEtomesto', name: 'Карта РККА (ЭтоМесто)', category: 'historical', group: 'historical', layer: rkkaEtomesto, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_rkka_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'vtk3v', name: 'ВТК 3 версты (Юго-Запад России)', category: 'historical', group: 'historical', layer: vtk3v, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_3v_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 53.50, lng: 37.00, z: 10 } },
-    { id: 'mendeMoscow', name: 'Карта Московской губ. (1860)', category: 'historical', group: 'historical', layer: mendeMoscow, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mos_1860_all_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
-    { id: 'mendeVladimir', name: 'Менде: Владимирская губ.', category: 'historical', group: 'historical', layer: mendeVladimir, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_vladimir_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 56.13, lng: 40.40, z: 10 } },
-    { id: 'mendeNN', name: 'Менде: Нижегородская губ.', category: 'historical', group: 'historical', layer: mendeNN, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_nn_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 56.32, lng: 44.00, z: 10 } },
-    { id: 'mendeTver', name: 'Менде: Тверская губ.', category: 'historical', layer: mendeTver, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_tver_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 56.85, lng: 35.90, z: 10 } },
-    { id: 'mendeYaroslavl', name: 'Менде: Ярославская губ.', category: 'historical', group: 'historical', layer: mendeYaroslavl, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_yaroslavl_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 57.62, lng: 39.87, z: 10 } },
-    { id: 'mendeRyazan', name: 'Менде: Рязанская губ.', category: 'historical', group: 'historical', layer: mendeRyazan, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_ryazan_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 54.62, lng: 39.73, z: 10 } },
-    { id: 'mendeTambov', name: 'Менде: Тамбовская губ.', category: 'historical', group: 'historical', layer: mendeTambov, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_tambov_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 52.72, lng: 41.44, z: 10 } },
-    { id: 'mendePenza', name: 'Менде: Пензенская губ.', category: 'historical', group: 'historical', layer: mendePenza, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_penza_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 53.20, lng: 45.00, z: 10 } },
-    { id: 'mendeSimbirsk', name: 'Менде: Симбирская губ.', category: 'historical', group: 'historical', layer: mendeSimbirsk, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_simbirsk_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 54.32, lng: 48.38, z: 10 } }
+    { id: 'rkkaEtomesto', name: WM.t('Карта РККА (ЭтоМесто)'), key: 'Карта РККА (ЭтоМесто)', category: 'historical', group: 'historical', layer: rkkaEtomesto, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_rkka_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'vtk3v', name: WM.t('ВТК 3 версты (Юго-Запад России)'), key: 'ВТК 3 версты (Юго-Запад России)', category: 'historical', group: 'historical', layer: vtk3v, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_3v_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 53.50, lng: 37.00, z: 10 } },
+    { id: 'mendeMoscow', name: WM.t('Карта Московской губ. (1860)'), key: 'Карта Московской губ. (1860)', category: 'historical', group: 'historical', layer: mendeMoscow, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mos_1860_all_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 55.75, lng: 37.62, z: 10 } },
+    { id: 'mendeVladimir', name: WM.t('Менде: Владимирская губ.'), key: 'Менде: Владимирская губ.', category: 'historical', group: 'historical', layer: mendeVladimir, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_vladimir_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 56.13, lng: 40.40, z: 10 } },
+    { id: 'mendeNN', name: WM.t('Менде: Нижегородская губ.'), key: 'Менде: Нижегородская губ.', category: 'historical', group: 'historical', layer: mendeNN, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_nn_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 56.32, lng: 44.00, z: 10 } },
+    { id: 'mendeTver', name: WM.t('Менде: Тверская губ.'), key: 'Менде: Тверская губ.', category: 'historical', layer: mendeTver, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_tver_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 56.85, lng: 35.90, z: 10 } },
+    { id: 'mendeYaroslavl', name: WM.t('Менде: Ярославская губ.'), key: 'Менде: Ярославская губ.', category: 'historical', group: 'historical', layer: mendeYaroslavl, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_yaroslavl_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 57.62, lng: 39.87, z: 10 } },
+    { id: 'mendeRyazan', name: WM.t('Менде: Рязанская губ.'), key: 'Менде: Рязанская губ.', category: 'historical', group: 'historical', layer: mendeRyazan, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_ryazan_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 54.62, lng: 39.73, z: 10 } },
+    { id: 'mendeTambov', name: WM.t('Менде: Тамбовская губ.'), key: 'Менде: Тамбовская губ.', category: 'historical', group: 'historical', layer: mendeTambov, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_tambov_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 52.72, lng: 41.44, z: 10 } },
+    { id: 'mendePenza', name: WM.t('Менде: Пензенская губ.'), key: 'Менде: Пензенская губ.', category: 'historical', group: 'historical', layer: mendePenza, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_penza_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 53.20, lng: 45.00, z: 10 } },
+    { id: 'mendeSimbirsk', name: WM.t('Менде: Симбирская губ.'), key: 'Менде: Симбирская губ.', category: 'historical', group: 'historical', layer: mendeSimbirsk, testUrl: 'https://russia3d.ru/maps/tiles/etomesto_mende_simbirsk_mb/mercator/{z}/{x}/{y}.png', testPoint: { lat: 54.32, lng: 48.38, z: 10 } }
   ];
+  // Идентичность карты не зависит от языка интерфейса: key = исходное (русское) название.
+  // name — локализованное название только для показа.
+  WM.baseMapsCatalog.forEach(m => { if (!m.key) m.key = m.name; });
 
    function getDefaultDisabledBaseMaps() {
     return WM.baseMapsCatalog
@@ -610,7 +613,7 @@
         m.id === 'schemeDark' || 
         m.id === 'ggc2000'
       )
-      .map(m => m.name);
+      .map(m => m.key);
   }
   WM.getDefaultDisabledBaseMaps = getDefaultDisabledBaseMaps;
 
@@ -628,22 +631,24 @@
 
   // Категории базовых карт
   const BASE_CATEGORIES = {
-    satellite: { title: '🛰️ Спутниковые', order: 1 },
-    scheme: { title: '🗺️ Схемы', order: 2 },
-    topo: { title: '⛰️ Топографические', order: 3 },
-    historical: { title: '📜 Прочее (исторические)', order: 4 }
+    satellite: { title: WM.t('🛰️ Спутниковые'), order: 1 },
+    scheme: { title: WM.t('🗺️ Схемы'), order: 2 },
+    topo: { title: WM.t('⛰️ Топографические'), order: 3 },
+    historical: { title: WM.t('📜 Прочее (исторические)'), order: 4 }
   };
 
   // Определение категории для наложений
   function getOverlayCategory(name) {
+    const ruName = WM.i18n.src(name);
+    const has = (s) => ruName.includes(s) || name.includes(WM.t(s));
     if (name.includes('Wikimapia')) return { key: 'wikimapia', title: '🌐 Wikimapia', order: 1 };
-    if (name.includes('Рельеф') || name.includes('отмывка') || name.includes('Горизонтали') || name.includes('Тени') || name.includes('Гипсометрия')) {
-      return { key: 'relief', title: '🏔️ Рельеф', order: 2 };
+    if (has('Рельеф') || has('отмывка') || has('Горизонтали') || has('Тени') || has('Гипсометрия')) {
+      return { key: 'relief', title: WM.t('🏔️ Рельеф'), order: 2 };
     }
-    if (name.includes('KML') || name.includes('Наложение') || name.includes('План') || name.startsWith('📜') || name.includes('Слой:')) {
-      return { key: 'custom', title: '🗺️ Пользовательские (KML/Слои)', order: 4 };
+    if (name.includes('KML') || has('Наложение') || has('План') || name.startsWith('📜') || has('Слой:')) {
+      return { key: 'custom', title: WM.t('🗺️ Пользовательские (KML/Слои)'), order: 4 };
     }
-    return { key: 'places', title: '🌿 Находки и объекты', order: 3 };
+    return { key: 'places', title: WM.t('🌿 Находки и объекты'), order: 3 };
   }
 
   function getBaseMapCategory(name) {
@@ -762,11 +767,11 @@
       if (!Array.isArray(disabledList)) disabledList = [];
     } catch (e) { disabledList = getDefaultDisabledBaseMaps(); }
 
-    const enabledMaps = WM.baseMapsCatalog.filter(m => !disabledList.includes(m.name));
+    const enabledMaps = WM.baseMapsCatalog.filter(m => !disabledList.includes(m.key));
     const effectiveEnabled = enabledMaps.length ? enabledMaps : [WM.baseMapsCatalog[0]];
 
     const activeBaseMapName = localStorage.getItem('wm_base_layer') || 'Схема (Яндекс)';
-    const isCurrentActiveAllowed = effectiveEnabled.some(m => m.name === activeBaseMapName);
+    const isCurrentActiveAllowed = effectiveEnabled.some(m => m.key === activeBaseMapName);
 
     if (!isCurrentActiveAllowed) {
       const fallbackMap = effectiveEnabled[0];
@@ -774,9 +779,9 @@
         if (map.hasLayer(m.layer)) map.removeLayer(m.layer);
       });
       fallbackMap.layer.addTo(map);
-      localStorage.setItem('wm_base_layer', fallbackMap.name);
+      localStorage.setItem('wm_base_layer', fallbackMap.key);
     } else {
-      const activeObj = WM.baseMapsCatalog.find(m => m.name === activeBaseMapName);
+      const activeObj = WM.baseMapsCatalog.find(m => m.key === activeBaseMapName);
       if (activeObj && !map.hasLayer(activeObj.layer)) {
         activeObj.layer.addTo(map);
       }
@@ -792,7 +797,7 @@
     if (WM.imageOverlay && WM.imageOverlay.getAllOverlays) {
       const customOverlays = WM.imageOverlay.getAllOverlays();
       customOverlays.forEach(ov => {
-        const ovName = `Слой: ${ov.name || 'Карта'}`;
+        const ovName = WM.t('Слой: {0}', ov.name || WM.t('Карта'));
         if (ov.layer) {
           effectiveOverlays[ovName] = ov.layer;
         }
@@ -808,7 +813,7 @@
   WM.rebuildBaseLayersControl = rebuildBaseLayersControl;
 
   function switchToBaseMap(mapName) {
-    const targetObj = WM.baseMapsCatalog.find(m => m.name === mapName);
+    const targetObj = WM.baseMapsCatalog.find(m => m.key === mapName || m.name === mapName);
     if (!targetObj || !map) return;
 
     WM.baseMapsCatalog.forEach(m => {
@@ -816,7 +821,7 @@
     });
 
     targetObj.layer.addTo(map);
-    localStorage.setItem('wm_base_layer', mapName);
+    localStorage.setItem('wm_base_layer', targetObj.key);
     rebuildBaseLayersControl();
 
     if (window.updateQuickSwapUI) window.updateQuickSwapUI();
@@ -882,8 +887,8 @@
         const isVisible = kml.visible !== false;
         btnQuickSwap.classList.toggle('active-target', isVisible);
         btnQuickSwap.title = isVisible 
-          ? `Скрыть слой «${kml.name}» (удерживайте для выбора)` 
-          : `Показать слой «${kml.name}» (удерживайте для выбора)`;
+          ? WM.t('Скрыть слой «{0}» (удерживайте для выбора)', kml.name) 
+          : WM.t('Показать слой «{0}» (удерживайте для выбора)', kml.name);
         return;
       }
     }
@@ -893,8 +898,8 @@
 
     btnQuickSwap.classList.toggle('active-target', isCurrentlyTarget);
     btnQuickSwap.title = isCurrentlyTarget 
-      ? `Вернуться на предыдущую карту (удерживайте для выбора второй карты)` 
-      : `Переключить на «${targetMap}» (удерживайте для выбора второй карты)`;
+      ? WM.t('Вернуться на предыдущую карту (удерживайте для выбора второй карты)') 
+      : WM.t('Переключить на «{0}» (удерживайте для выбора второй карты)', WM.t(targetMap));
   }
   window.updateQuickSwapUI = updateQuickSwapUI;
 
@@ -920,7 +925,7 @@
     if (kmlOverlays.length > 0) {
       const kmlHeader = document.createElement('div');
       kmlHeader.style.cssText = 'padding: 6px 12px; font-size: 11px; font-weight: 700; color: var(--accent); background: var(--bg-secondary); border-bottom: 1px solid var(--border);';
-      kmlHeader.textContent = '📜 МНОГОТАЙЛОВЫЕ KML КАРТЫ (ВКЛ / ВЫКЛ ПО КНОПКЕ)';
+      kmlHeader.textContent = WM.t('📜 МНОГОТАЙЛОВЫЕ KML КАРТЫ (ВКЛ / ВЫКЛ ПО КНОПКЕ)');
       listEl.appendChild(kmlHeader);
 
       kmlOverlays.forEach(kml => {
@@ -937,10 +942,10 @@
           <span class="quick-menu-item-icon">📜</span>
           <div class="quick-menu-item-text">
             <span class="quick-menu-item-title" ${isTarget ? 'style="color:var(--accent);"' : ''}>
-              ${kml.name} ${isTarget ? '✓ (Назначена на кнопку)' : ''}
+              ${kml.name} ${isTarget ? WM.t('✓ (Назначена на кнопку)') : ''}
             </span>
             <span class="quick-menu-item-sub">
-              KML слой (${kml.tiles ? kml.tiles.length : 0} тайлов) · Статус: ${isVisible ? 'Включён' : 'Скрыт'}
+              ${WM.t('KML слой ({0} тайлов) · Статус: {1}', kml.tiles ? kml.tiles.length : 0, isVisible ? WM.t('Включён') : WM.t('Скрыт'))}
             </span>
           </div>
         `;
@@ -953,7 +958,7 @@
           }
           modal.classList.remove('open');
           if (WM.ui && WM.ui.showToast) {
-            WM.ui.showToast(`🔀 На кнопку назначена KML-карта: ${kml.name}`);
+            WM.ui.showToast(WM.t('🔀 На кнопку назначена KML-карта: {0}', kml.name));
           }
         };
 
@@ -962,43 +967,43 @@
 
       const baseHeader = document.createElement('div');
       baseHeader.style.cssText = 'padding: 6px 12px; font-size: 11px; font-weight: 700; color: var(--text-muted); background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);';
-      baseHeader.textContent = '🗺️ БАЗОВЫЕ ПОДЛОЖКИ КАРТ';
+      baseHeader.textContent = WM.t('🗺️ БАЗОВЫЕ ПОДЛОЖКИ КАРТ');
       listEl.appendChild(baseHeader);
     }
 
-    const availableMaps = WM.baseMapsCatalog.filter(m => !disabledList.includes(m.name));
+    const availableMaps = WM.baseMapsCatalog.filter(m => !disabledList.includes(m.key));
     const mapsToDisplay = availableMaps.length ? availableMaps : WM.baseMapsCatalog;
 
     mapsToDisplay.forEach(m => {
-      const isTarget = (m.name === currentTarget);
-      const isCurrentActive = (m.name === currentBase);
+      const isTarget = (m.key === currentTarget);
+      const isCurrentActive = (m.key === currentBase);
 
       const itemBtn = document.createElement('button');
       itemBtn.type = 'button';
       itemBtn.className = 'quick-menu-item' + (isTarget ? ' active' : '');
       itemBtn.style.padding = '10px 12px';
 
-      const icon = m.category === 'historical' ? '📜' : (m.name.includes('Спутник') ? '🛰️' : '🗺️');
+      const icon = m.category === 'historical' ? '📜' : (m.key.includes('Спутник') ? '🛰️' : '🗺️');
 
       itemBtn.innerHTML = `
         <span class="quick-menu-item-icon">${icon}</span>
         <div class="quick-menu-item-text">
           <span class="quick-menu-item-title" ${isTarget ? 'style="color:var(--accent);"' : ''}>
-            ${m.name} ${isTarget ? '✓ (Активная вторая)' : (isCurrentActive ? ' (Текущая)' : '')}
+            ${m.name} ${isTarget ? WM.t('✓ (Активная вторая)') : (isCurrentActive ? WM.t(' (Текущая)') : '')}
           </span>
-          <span class="quick-menu-item-sub">${m.category === 'historical' ? 'Историческая карта' : 'Современная карта'}</span>
+          <span class="quick-menu-item-sub">${m.category === 'historical' ? WM.t('Историческая карта') : WM.t('Современная карта')}</span>
         </div>
       `;
 
       itemBtn.onclick = () => {
-        localStorage.setItem('wm_quick_swap_target', m.name);
+        localStorage.setItem('wm_quick_swap_target', m.key);
         updateQuickSwapUI();
         if (WM.ui && WM.ui.updateQuickSwapTargetBtn) {
           WM.ui.updateQuickSwapTargetBtn();
         }
         modal.classList.remove('open');
         if (WM.ui && WM.ui.showToast) {
-          WM.ui.showToast(`🔀 Вторая карта: ${m.name}`);
+          WM.ui.showToast(WM.t('🔀 Вторая карта: {0}', m.name));
         }
       };
 
@@ -1088,9 +1093,9 @@
       if (kml && WM.imageOverlay.toggleOverlayVisibility) {
         const isVisible = WM.imageOverlay.toggleOverlayVisibility(kmlId);
         updateQuickSwapUI();
-        WM.ui.showToast(isVisible ? `📜 «${kml.name}» включена` : `🕶️ «${kml.name}» скрыта`);
+        WM.ui.showToast(isVisible ? WM.t('📜 «{0}» включена', kml.name) : WM.t('🕶️ «{0}» скрыта', kml.name));
       } else {
-        WM.ui.showToast('⚠️ KML-карта не найдена или была удалена');
+        WM.ui.showToast(WM.t('⚠️ KML-карта не найдена или была удалена'));
       }
       return;
     }
@@ -1101,18 +1106,19 @@
     if (currentMap !== targetMap) {
       localStorage.setItem('wm_quick_swap_previous', currentMap);
       switchToBaseMap(targetMap);
-      WM.ui.showToast(`🔀 Карта: ${targetMap}`);
+      WM.ui.showToast(WM.t('🔀 Карта: {0}', WM.t(targetMap)));
     } else {
-      const returnMap = (prevMap && prevMap !== targetMap) ? prevMap : 'Схема (Яндекс)';
+      const returnMap = (prevMap && prevMap !== targetMap) ? prevMap : WM.t('Схема (Яндекс)');
       switchToBaseMap(returnMap);
-      WM.ui.showToast(`🔀 Возврат: ${returnMap}`);
+      WM.ui.showToast(WM.t('🔀 Возврат: {0}', WM.t(returnMap)));
     }
   };
 
   updateQuickSwapUI();
 
   map.on('baselayerchange', (e) => {
-    localStorage.setItem('wm_base_layer', e.name);
+    const baseItem = WM.baseMapsCatalog.find(m => m.name === e.name);
+    localStorage.setItem('wm_base_layer', baseItem ? baseItem.key : WM.i18n.src(e.name));
   });
 
   // =========================================================================
@@ -1279,55 +1285,55 @@
   }
 
   const overlayLayers = {
-    'Контуры Wikimapia': wmContours,
-    'Полигоны Wikimapia (вектор)': vectorPolygonsLayer,
-    '3D Рельеф: WebGL отмывка (GPU)': demLayers ? demLayers.hillshadeLayer : esriHillshade,
-    '3D Рельеф: Горизонтали (DEM)': demLayers ? demLayers.contoursLayer : mffRelief,
-    'Рельеф: Тени (Esri)': esriHillshade,
-    'Рельеф: Гипсометрия (Esri)': esriShadedRelief,
-    'Рельеф: Художественный SRTM': mffRelief,
-    'Тайники (Geocaching.su)': geocachingLayer,
-    'Растения и грибы (iNaturalist)': inatLayer
+    [WM.t('Контуры Wikimapia')]: wmContours,
+    [WM.t('Полигоны Wikimapia (вектор)')]: vectorPolygonsLayer,
+    [WM.t('3D Рельеф: WebGL отмывка (GPU)')]: demLayers ? demLayers.hillshadeLayer : esriHillshade,
+    [WM.t('3D Рельеф: Горизонтали (DEM)')]: demLayers ? demLayers.contoursLayer : mffRelief,
+    [WM.t('Рельеф: Тени (Esri)')]: esriHillshade,
+    [WM.t('Рельеф: Гипсометрия (Esri)')]: esriShadedRelief,
+    [WM.t('Рельеф: Художественный SRTM')]: mffRelief,
+    [WM.t('Тайники (Geocaching.su)')]: geocachingLayer,
+    [WM.t('Растения и грибы (iNaturalist)')]: inatLayer
   };
 
   map.on('overlayadd', (e) => {
     if (isProgrammaticLayerChange) return;
-    if (e.name.includes('WebGL отмывка')) {
+    if (WM.i18n.src(e.name).includes('WebGL отмывка')) {
       localStorage.setItem('wm_dem_hillshade_enabled', 'true');
       const chk = document.getElementById('toggle-dem-hillshade');
       if (chk) chk.checked = true;
-    } else if (e.name.includes('Горизонтали (DEM)')) {
+    } else if (WM.i18n.src(e.name).includes('Горизонтали (DEM)')) {
       localStorage.setItem('wm_dem_contours_enabled', 'true');
       const chk = document.getElementById('toggle-dem-contours');
       if (chk) chk.checked = true;
     }
-    if (e.name.includes('WebGL отмывка')) {
+    if (WM.i18n.src(e.name).includes('WebGL отмывка')) {
       localStorage.setItem('wm_dem_hillshade_enabled', 'true');
       if (WM.demRelief) WM.demRelief.setConfig({ hillshadeEnabled: true });
-    } else if (e.name.includes('Горизонтали (DEM)')) {
+    } else if (WM.i18n.src(e.name).includes('Горизонтали (DEM)')) {
       localStorage.setItem('wm_dem_contours_enabled', 'true');
       if (WM.demRelief) WM.demRelief.setConfig({ contoursEnabled: true });
     }
-    if (e.name === 'Контуры Wikimapia') {
+    if (WM.i18n.src(e.name) === 'Контуры Wikimapia') {
       isContoursEnabled = true;
       localStorage.setItem('wm_overlay_contours', 'true');
       syncOverlayMode();
-    } else if (e.name === 'Полигоны Wikimapia (вектор)') {
+    } else if (WM.i18n.src(e.name) === 'Полигоны Wikimapia (вектор)') {
       isVectorsEnabled = true; // БЫЛО: false
       localStorage.setItem('wm_overlay_vectors', 'true'); // БЫЛО: 'false'
       WM.view.setVisible(true); // БЫЛО: false
       refreshStatus();
-    } else if (e.name.includes('Тени (Esri)')) {
+    } else if (WM.i18n.src(e.name).includes('Тени (Esri)')) {
       localStorage.setItem('wm_overlay_hillshade', 'true');
-    } else if (e.name.includes('Гипсометрия (Esri)')) {
+    } else if (WM.i18n.src(e.name).includes('Гипсометрия (Esri)')) {
       localStorage.setItem('wm_overlay_shaded_relief', 'true');
-    } else if (e.name.includes('Художественный SRTM')) {
+    } else if (WM.i18n.src(e.name).includes('Художественный SRTM')) {
       localStorage.setItem('wm_overlay_mff_relief', 'true');
-    } else if (e.name === 'Тайники (Geocaching.su)') {
+    } else if (WM.i18n.src(e.name) === 'Тайники (Geocaching.su)') {
       localStorage.setItem('wm_overlay_geocaching', 'true');
       if (WM.geocaching && WM.geocaching.enable) WM.geocaching.enable();
     }
-    if (e.name === 'Растения и грибы (iNaturalist)') {
+    if (WM.i18n.src(e.name) === 'Растения и грибы (iNaturalist)') {
       localStorage.setItem('wm_overlay_inat', 'true');
       if (WM.inat && WM.inat.enable) WM.inat.enable();
     }
@@ -1335,42 +1341,42 @@
 
   map.on('overlayremove', (e) => {
     if (isProgrammaticLayerChange) return;
-    if (e.name.includes('WebGL отмывка')) {
+    if (WM.i18n.src(e.name).includes('WebGL отмывка')) {
       localStorage.setItem('wm_dem_hillshade_enabled', 'false');
       const chk = document.getElementById('toggle-dem-hillshade');
       if (chk) chk.checked = false;
-    } else if (e.name.includes('Горизонтали (DEM)')) {
+    } else if (WM.i18n.src(e.name).includes('Горизонтали (DEM)')) {
       localStorage.setItem('wm_dem_contours_enabled', 'false');
       const chk = document.getElementById('toggle-dem-contours');
       if (chk) chk.checked = false;
     }
-    if (e.name.includes('WebGL отмывка')) {
+    if (WM.i18n.src(e.name).includes('WebGL отмывка')) {
       localStorage.setItem('wm_dem_hillshade_enabled', 'false');
       if (WM.demRelief) WM.demRelief.setConfig({ hillshadeEnabled: false });
-    } else if (e.name.includes('Горизонтали (DEM)')) {
+    } else if (WM.i18n.src(e.name).includes('Горизонтали (DEM)')) {
       localStorage.setItem('wm_dem_contours_enabled', 'false');
       if (WM.demRelief) WM.demRelief.setConfig({ contoursEnabled: false });
     }
-    if (e.name === 'Контуры Wikimapia') {
+    if (WM.i18n.src(e.name) === 'Контуры Wikimapia') {
       isContoursEnabled = false;
       localStorage.setItem('wm_overlay_contours', 'false');
       syncOverlayMode();
-    } else if (e.name === 'Полигоны Wikimapia (вектор)') {
+    } else if (WM.i18n.src(e.name) === 'Полигоны Wikimapia (вектор)') {
       isVectorsEnabled = false; // БЫЛО: true
       localStorage.setItem('wm_overlay_vectors', 'false'); // БЫЛО: 'true'
       WM.view.setVisible(false); // БЫЛО: true
       refreshStatus();
-    } else if (e.name.includes('Тени (Esri)')) {
+    } else if (WM.i18n.src(e.name).includes('Тени (Esri)')) {
       localStorage.setItem('wm_overlay_hillshade', 'false');
-    } else if (e.name.includes('Гипсометрия (Esri)')) {
+    } else if (WM.i18n.src(e.name).includes('Гипсометрия (Esri)')) {
       localStorage.setItem('wm_overlay_shaded_relief', 'false');
-    } else if (e.name.includes('Художественный SRTM')) {
+    } else if (WM.i18n.src(e.name).includes('Художественный SRTM')) {
       localStorage.setItem('wm_overlay_mff_relief', 'false');
-    } else if (e.name === 'Тайники (Geocaching.su)') {
+    } else if (WM.i18n.src(e.name) === 'Тайники (Geocaching.su)') {
       localStorage.setItem('wm_overlay_geocaching', 'false');
       if (WM.geocaching && WM.geocaching.disable) WM.geocaching.disable();
     }
-    if (e.name === 'Растения и грибы (iNaturalist)') {
+    if (WM.i18n.src(e.name) === 'Растения и грибы (iNaturalist)') {
       localStorage.setItem('wm_overlay_inat', 'false');
       if (WM.inat && WM.inat.disable) WM.inat.disable();
     }
@@ -1443,28 +1449,28 @@
     }
 
     if (s.blocked) return WM.ui.setStatus('⚠ ' + s.blocked, true);
-    if (s.isRateWaiting) return WM.ui.setStatus(`⏳ Лимит ключей\nПауза: ${WM.ui.fmtTimer ? WM.ui.fmtTimer(s.waitMs) : ''}`, true);
+    if (s.isRateWaiting) return WM.ui.setStatus(WM.t('⏳ Лимит ключей\nПауза: {0}', WM.ui.fmtTimer ? WM.ui.fmtTimer(s.waitMs) : ''), true);
 
     if (mode === 'manual') {
-      let t = `Ручной режим (только растр)\n${autoHover ? 'Наведите или кликните' : 'Кликните для загрузки'}`;
-      t += ` · в памяти: ${WM.view.count()}`;
-      if (s.detailsQueueCount > 0) t += `\n📥 Карточки: в очереди ${s.detailsQueueCount}`;
+      let t = WM.t('Ручной режим (только растр)\n{0}', autoHover ? WM.t('Наведите или кликните') : WM.t('Кликните для загрузки'));
+      t += WM.t(' · в памяти: {0}', WM.view.count());
+      if (s.detailsQueueCount > 0) t += WM.t('\n📥 Карточки: в очереди {0}', s.detailsQueueCount);
       return WM.ui.setStatus(t);
     }
 
-    if (map.getZoom() < C.MIN_ZOOM) return WM.ui.setStatus(`Масштаб < ${C.MIN_ZOOM}\n(приблизьте карту)`);
+    if (map.getZoom() < C.MIN_ZOOM) return WM.ui.setStatus(WM.t('Масштаб < {0}\n(приблизьте карту)', C.MIN_ZOOM));
 
     if (mode === 'hybrid' && map.getZoom() < C.VECTOR_ZOOM) {
-      let t = `Гибридный режим (растр)\n${autoHover ? 'Наведите или кликните' : 'Кликните для загрузки'}`;
-      t += ` · в памяти: ${WM.view.count()}`;
-      if (s.detailsQueueCount > 0) t += `\n📥 Карточки: в очереди ${s.detailsQueueCount}`;
+      let t = WM.t('Гибридный режим (растр)\n{0}', autoHover ? WM.t('Наведите или кликните') : WM.t('Кликните для загрузки'));
+      t += WM.t(' · в памяти: {0}', WM.view.count());
+      if (s.detailsQueueCount > 0) t += WM.t('\n📥 Карточки: в очереди {0}', s.detailsQueueCount);
       return WM.ui.setStatus(t);
     }
 
-    let t = `Объектов: ${WM.view.count()}`;
-    if (s.active) t += `\nЗагрузка тайлов: ${s.active}`;
-    else if (s.detailsQueueCount > 0) t += `\n📥 Карточки: в очереди ${s.detailsQueueCount}`;
-    if (s.errors) t += s.failed ? ` · ошибок: ${s.failed}` : ' · повтор…';
+    let t = WM.t('Объектов: {0}', WM.view.count());
+    if (s.active) t += WM.t('\nЗагрузка тайлов: {0}', s.active);
+    else if (s.detailsQueueCount > 0) t += WM.t('\n📥 Карточки: в очереди {0}', s.detailsQueueCount);
+    if (s.errors) t += s.failed ? WM.t(' · ошибок: {0}', s.failed) : WM.t(' · повтор…');
     WM.ui.setStatus(t, !!s.failed);
   }
   window.refreshAppStatus = refreshStatus;
@@ -1683,11 +1689,11 @@
     if (!btn) return;
     btn.classList.toggle('searching', !!isSearching);
     if (isSearching) {
-      btn.title = '🛰️ Определение геопозиции…';
+      btn.title = WM.t('🛰️ Определение геопозиции…');
     } else {
       btn.title = isFollowMode 
-        ? '🎯 Слежение активно (удерживайте или сдвиньте карту для отключения)'
-        : '🛰️ Моя геопозиция (удерживайте для слежения)';
+        ? WM.t('🎯 Слежение активно (удерживайте или сдвиньте карту для отключения)')
+        : WM.t('🛰️ Моя геопозиция (удерживайте для слежения)');
     }
   }
 
@@ -1732,18 +1738,18 @@
     const iconEl = pill.querySelector('.pdr-pill-icon');
 
     const distFmt = pdrSessionDist >= 1000 
-      ? (pdrSessionDist / 1000).toFixed(2) + ' км' 
-      : Math.round(pdrSessionDist) + ' м';
+      ? WM.t('{0} км', (pdrSessionDist / 1000).toFixed(2)) 
+      : WM.t('{0} м', Math.round(pdrSessionDist));
 
     if (isVehicular) {
       if (iconEl) iconEl.textContent = '🚗';
-      if (textEl) textEl.textContent = 'Ведение:';
+      if (textEl) textEl.textContent = WM.t('Ведение:');
       if (stepsEl) stepsEl.textContent = distFmt;
-      if (distEl) distEl.textContent = `· ${pdrCfg.vehicularSpeedKmh || 18} км/ч`;
+      if (distEl) distEl.textContent = WM.t('· {0} км/ч', pdrCfg.vehicularSpeedKmh || 18);
     } else {
       if (iconEl) iconEl.textContent = '🧲';
-      if (textEl) textEl.textContent = 'Шагомер:';
-      if (stepsEl) stepsEl.textContent = `${pdrSessionSteps} ш.`;
+      if (textEl) textEl.textContent = WM.t('Шагомер:');
+      if (stepsEl) stepsEl.textContent = WM.t('{0} ш.', pdrSessionSteps);
       if (distEl) distEl.textContent = `(${distFmt})`;
     }
   }
@@ -1761,12 +1767,12 @@
     if (isSpoofed) {
       if (limitRowEl) limitRowEl.style.display = 'none';
       if (spoofPanelEl) spoofPanelEl.hidden = false;
-      if (spoofReasonEl) spoofReasonEl.textContent = reason || 'Глушение сигнала';
+      if (spoofReasonEl) spoofReasonEl.textContent = reason || WM.t('Глушение сигнала');
 
       if (pdrCfg.autoEngageOnSpoof && WM.pdr && !WM.pdr.isActive()) {
         startPdrTracking();
         if (WM.ui && WM.ui.showToast) {
-          WM.ui.showToast('🛡️ Глушение GPS! Автоматически включён шагомер PDR', 2800);
+          WM.ui.showToast(WM.t('🛡️ Глушение GPS! Автоматически включён шагомер PDR'), 2800);
         }
       }
     } else {
@@ -1837,15 +1843,15 @@
 
     if (dist > 350 && impliedSpeed > MAX_REALISTIC_SPEED) {
       isAnomalous = true;
-      anomalyReason = `Скачок на ${dist > 1000 ? (dist / 1000).toFixed(1) + ' км' : Math.round(dist) + ' м'} (${Math.round(impliedSpeed * 3.6)} км/ч)`;
+      anomalyReason = WM.t('Скачок на {0} ({1} км/ч)', dist > 1000 ? WM.t('{0} км', (dist / 1000).toFixed(1)) : WM.t('{0} м', Math.round(dist)), Math.round(impliedSpeed * 3.6));
     } else if (speed > 65) {
       isAnomalous = true;
-      anomalyReason = `Аномальная скорость (${Math.round(speed * 3.6)} км/ч)`;
+      anomalyReason = WM.t('Аномальная скорость ({0} км/ч)', Math.round(speed * 3.6));
     } else if (altitude !== null && lastGoodGpsFix.alt !== null) {
       const dAlt = Math.abs(altitude - lastGoodGpsFix.alt);
       if (dAlt > 600 && (dAlt / dt) > 80) {
         isAnomalous = true;
-        anomalyReason = `Резкий скачок высоты (${Math.round(dAlt)} м)`;
+        anomalyReason = WM.t('Резкий скачок высоты ({0} м)', Math.round(dAlt));
       }
     }
 
@@ -1860,7 +1866,7 @@
       if (cleanGpsSamplesCount >= 3) {
         setSpoofState(false);
         lastGoodGpsFix = { ll: targetLL, time: now, alt: altitude, speed: speed };
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast('✅ Сигнал GPS нормализовался');
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('✅ Сигнал GPS нормализовался'));
         return true;
       }
       return false;
@@ -1948,7 +1954,7 @@
         rawGpsPointsBuffer = [];
         cleanGpsSamplesCount = 0;
         stopPdrTracking();
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast('🛰️ Возврат к штатному GPS');
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🛰️ Возврат к штатному GPS'));
       } else {
         isManualPdrActive = true;
         const c = map.getCenter();
@@ -1956,7 +1962,7 @@
         lastGoodGpsFix = { ll: L.latLng(ll[0], ll[1]), time: Date.now(), alt: null, speed: 0 };
         setGpsCoords(ll, { latitude: ll[0], longitude: ll[1], accuracy: 5, speed: 0, heading: currentHeading || 0 }, Date.now(), true);
         startPdrTracking();
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast('🧲 Позиция привязана к центру. Шагомер активен!');
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🧲 Позиция привязана к центру. Шагомер активен!'));
       }
       if (WM.ui && WM.ui.updateManualPdrBtnState) WM.ui.updateManualPdrBtnState();
     }
@@ -2011,7 +2017,7 @@
       setGpsCoords(ll, { latitude: ll[0], longitude: ll[1], accuracy: 5, speed: 0, heading: currentHeading || 0 }, Date.now(), true);
       isManualPdrActive = true;
       startPdrTracking();
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('🧲 Позиция привязана к центру перекрестия');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🧲 Позиция привязана к центру перекрестия'));
       if (WM.ui && WM.ui.updateManualPdrBtnState) WM.ui.updateManualPdrBtnState();
     });
   });
@@ -2023,11 +2029,11 @@
     acquireLocation(
       () => {
         if (probeBtn) probeBtn.classList.remove('loading');
-        if (!isSpoofed && WM.ui && WM.ui.showToast) WM.ui.showToast('✅ Сигнал проверен: глушения нет');
+        if (!isSpoofed && WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('✅ Сигнал проверен: глушения нет'));
       },
       (err) => {
         if (probeBtn) probeBtn.classList.remove('loading');
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast('⚠️ Ошибка GPS: ' + err.message);
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('⚠️ Ошибка GPS: {0}', err.message));
       }
     );
   });
@@ -2035,7 +2041,7 @@
   document.getElementById('btn-spoof-dismiss')?.addEventListener('click', (e) => {
     e.stopPropagation();
     WM.antiSpoof.reset();
-    if (WM.ui && WM.ui.showToast) WM.ui.showToast('Тревога глушения снята вручную');
+    if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('Тревога глушения снята вручную'));
   });
 
   // =========================================================================
@@ -2442,11 +2448,11 @@
 
       await startOrientationListener();
       if (currentHeading !== null) {
-        const arr = ['С', 'ССВ', 'СВ', 'ВСВ', 'В', 'ВЮВ', 'ЮВ', 'ЮЮВ', 'Ю', 'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ'];
+        const arr = [WM.t('С'), WM.t('ССВ'), WM.t('СВ'), WM.t('ВСВ'), WM.t('В'), WM.t('ВЮВ'), WM.t('ЮВ'), WM.t('ЮЮВ'), WM.t('Ю'), WM.t('ЮЮЗ'), WM.t('ЮЗ'), WM.t('ЗЮЗ'), WM.t('З'), WM.t('ЗСЗ'), WM.t('СЗ'), WM.t('ССЗ')];
         const compDir = arr[Math.floor((currentHeading / 22.5) + 0.5) % 16];
-        WM.ui.showToast(`🧭 Курс: ${Math.round(currentHeading)}° (${compDir}) · Удерживайте для юстировки`);
+        WM.ui.showToast(WM.t('🧭 Курс: {0}° ({1}) · Удерживайте для юстировки', Math.round(currentHeading), compDir));
       } else {
-        WM.ui.showToast('🧭 Калибровка сенсоров… Поверните смартфон «восьмёркой» (∞)');
+        WM.ui.showToast(WM.t('🧭 Калибровка сенсоров… Поверните смартфон «восьмёркой» (∞)'));
       }
     };
   }
@@ -2472,9 +2478,9 @@
     const s = sec % 60;
     const sign = isNeg ? '-' : '';
 
-    if (h > 0) return `${sign}${h}ч ${m}м`;
-    if (m > 0) return `${sign}${m} мин`;
-    return `${sign}${s} сек`;
+    if (h > 0) return WM.t('{0}{1}ч {2}м', sign, h, m);
+    if (m > 0) return WM.t('{0}{1} мин', sign, m);
+    return WM.t('{0}{1} сек', sign, s);
   }
 
   function getVisibleSegmentPoint(map, llA, llB, pad = { left: 90, right: 90, top: 110, bottom: 120 }) {
@@ -2609,15 +2615,15 @@
     const degText = Math.round(bearing) + '°';
 
     const distMeters = Math.hypot(vx, vy);
-    const distFmt = distMeters >= 1000 ? (distMeters / 1000).toFixed(1) + ' км' : Math.round(distMeters) + ' м';
+    const distFmt = distMeters >= 1000 ? WM.t('{0} км', (distMeters / 1000).toFixed(1)) : WM.t('{0} м', Math.round(distMeters));
 
     el.innerHTML = `<span class="wm-mv-arrow">${sec.arrow}</span><span class="wm-mv-deg">${degText}</span>`;
     el.style.transform = `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px))`;
-    el.title = `Траектория за экраном: ${degText} (~${distFmt}). Нажмите для центрирования на GPS`;
+    el.title = WM.t('Траектория за экраном: {0} (~{1}). Нажмите для центрирования на GPS', degText, distFmt);
     el.onclick = (e) => {
       e.stopPropagation();
       map.panTo(originLL);
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('🧲 Переход к геопозиции');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🧲 Переход к геопозиции'));
     };
     el.hidden = false;
   }
@@ -2875,8 +2881,8 @@
 
     if (isEnteringFromOutside) {
       const speedKmh = Math.round(speed * 3.6);
-      const infoText = speedKmh > 0 ? `${speedKmh} км/ч` : `${Math.round(course)}°`;
-      const badgeHtml = `<div class="wm-motion-vector-badge">▲ Вектор курса (${infoText})</div>`;
+      const infoText = speedKmh > 0 ? WM.t('{0} км/ч', speedKmh) : `${Math.round(course)}°`;
+      const badgeHtml = `<div class="wm-motion-vector-badge">${WM.t('▲ Вектор курса ({0})', infoText)}</div>`;
       if (!motionVectorBadge) {
         motionVectorBadge = L.marker(startLL, {
           icon: L.divIcon({
@@ -2953,10 +2959,10 @@
   // РАССТОЯНИЕ, СКОРОСТЬ И ВРЕМЯ ДО ЦЕНТРА ЭКРАНА
   // =========================================================================
   function fmtGpsDistance(meters) {
-    if (!meters || meters < 0.1) return '0 м';
-    if (meters < 1000) return Math.round(meters) + ' м';
+    if (!meters || meters < 0.1) return WM.t('0 м');
+    if (meters < 1000) return WM.t('{0} м', Math.round(meters));
     const km = meters / 1000;
-    return (km < 10 ? km.toFixed(2) : km.toFixed(1)) + ' км';
+    return WM.t('{0} км', km < 10 ? km.toFixed(2) : km.toFixed(1));
   }
 
   function escapeHtml(str) {
@@ -3032,14 +3038,14 @@
 
       if (speed >= 0.35) {
         if (diffAngle <= 5) {
-          driftText = '🟢 Прямо к цели';
+          driftText = WM.t('🟢 Прямо к цели');
         } else if (signedDiff > 0) {
-          driftText = `Крен вправо ${Math.round(diffAngle)}°`;
+          driftText = WM.t('Крен вправо {0}°', Math.round(diffAngle));
         } else {
-          driftText = `Крен влево ${Math.round(diffAngle)}°`;
+          driftText = WM.t('Крен влево {0}°', Math.round(diffAngle));
         }
       } else {
-        driftText = 'Стоянка';
+        driftText = WM.t('Стоянка');
       }
 
       if (diffAngle <= 25) {
@@ -3056,7 +3062,7 @@
         strokeColor = '#ef4444';
       }
     } else if (speed < 0.35) {
-      driftText = 'Стоянка';
+      driftText = WM.t('Стоянка');
     }
 
     let durationText = '—';
@@ -3064,7 +3070,7 @@
     let isMovingAway = false;
 
     if (speed < 0.35) {
-      durationText = 'Стоянка';
+      durationText = WM.t('Стоянка');
       etaClock = '—';
     } else {
       const radDiff = diffAngle * Math.PI / 180;
@@ -3076,7 +3082,7 @@
         const arrDate = new Date(Date.now() + timeSec * 1000);
         etaClock = `${String(arrDate.getHours()).padStart(2, '0')}:${String(arrDate.getMinutes()).padStart(2, '0')}`;
       } else {
-        durationText = 'Удаление';
+        durationText = WM.t('Удаление');
         etaClock = '—';
         isMovingAway = true;
       }
@@ -3097,8 +3103,8 @@
     }
 
     const distFormatted = fmtGpsDistance(dist);
-    const speedFormatted = `${speedKmh.toFixed(1)} км/ч`;
-    const moveActionLabel = speedKmh > 6 ? 'Ещё ехать:' : 'Ещё идти:';
+    const speedFormatted = WM.t('{0} км/ч', speedKmh.toFixed(1));
+    const moveActionLabel = speedKmh > 6 ? WM.t('Ещё ехать:') : WM.t('Ещё идти:');
 
     if (!gpsDistBadgeMarker) {
       gpsDistBadgeMarker = L.marker(badgeLL, {
@@ -3128,12 +3134,12 @@
       gpsDistBadgeMarker._renderedMode = currentMode;
       if (isGpsDistCollapsed) {
         root.innerHTML = `
-          <div class="wm-gps-dist-badge col-badge compact over-crosshair ${colorClass}" title="Нажмите, чтобы развернуть">
+          <div class="wm-gps-dist-badge col-badge compact over-crosshair ${colorClass}" title="${WM.t('Нажмите, чтобы развернуть')}">
             <div class="wm-gdb-compact-lines">
               <span class="wm-gdb-compact-val js-dist">${distFormatted}</span>
               <span class="wm-gdb-compact-sub js-speed">${speedFormatted}</span>
             </div>
-            <button type="button" class="wm-gdb-toggle-btn" title="Развернуть подробности">▼</button>
+            <button type="button" class="wm-gdb-toggle-btn" title="${WM.t('Развернуть подробности')}">▼</button>
           </div>
         `;
       } else {
@@ -3141,16 +3147,16 @@
           <div class="wm-gps-dist-badge col-badge over-crosshair ${colorClass}">
             <div class="wm-gdb-head">
               <span class="wm-gdb-icon">🧭</span>
-              <span class="wm-gdb-name">К центру экрана</span>
-              <button type="button" class="wm-gdb-toggle-btn" title="Свернуть подробности">▲</button>
+              <span class="wm-gdb-name">${WM.t('К центру экрана')}</span>
+              <button type="button" class="wm-gdb-toggle-btn" title="${WM.t('Свернуть подробности')}">▲</button>
             </div>
             <div class="wm-gdb-grid">
               <div class="wm-gdb-row">
-                <span class="wm-gdb-lbl">Дистанция:</span>
+                <span class="wm-gdb-lbl">${WM.t('Дистанция:')}</span>
                 <span class="wm-gdb-val js-dist">${distFormatted}</span>
               </div>
               <div class="wm-gdb-row">
-                <span class="wm-gdb-lbl">Скорость:</span>
+                <span class="wm-gdb-lbl">${WM.t('Скорость:')}</span>
                 <span class="wm-gdb-val js-speed">${speedFormatted}</span>
               </div>
               <div class="wm-gdb-row">
@@ -3158,11 +3164,11 @@
                 <span class="wm-gdb-val js-duration ${isMovingAway ? 'negative' : ''}">${durationText}</span>
               </div>
               <div class="wm-gdb-row">
-                <span class="wm-gdb-lbl">Прибытие:</span>
+                <span class="wm-gdb-lbl">${WM.t('Прибытие:')}</span>
                 <span class="wm-gdb-val js-eta ${isMovingAway ? 'negative' : ''}">${etaClock}</span>
               </div>
               <div class="wm-gdb-row">
-                <span class="wm-gdb-lbl">Курс:</span>
+                <span class="wm-gdb-lbl">${WM.t('Курс:')}</span>
                 <span class="wm-gdb-val js-drift ${diffAngle > 55 ? 'negative' : ''}">${driftText}</span>
               </div>
             </div>
@@ -3250,14 +3256,14 @@
 
       if (speed >= 0.35) {
         if (diffAngle <= 5) {
-          driftText = '🟢 Прямо к цели';
+          driftText = WM.t('🟢 Прямо к цели');
         } else if (signedDiff > 0) {
-          driftText = `Крен вправо ${Math.round(diffAngle)}°`;
+          driftText = WM.t('Крен вправо {0}°', Math.round(diffAngle));
         } else {
-          driftText = `Крен влево ${Math.round(diffAngle)}°`;
+          driftText = WM.t('Крен влево {0}°', Math.round(diffAngle));
         }
       } else {
-        driftText = 'Стоянка';
+        driftText = WM.t('Стоянка');
       }
 
       if (diffAngle <= 25) {
@@ -3274,7 +3280,7 @@
         strokeColor = '#ef4444';
       }
     } else if (speed < 0.35) {
-      driftText = 'Стоянка';
+      driftText = WM.t('Стоянка');
     }
 
     let durationText = '—';
@@ -3282,7 +3288,7 @@
     let isMovingAway = false;
 
     if (speed < 0.35) {
-      durationText = 'Стоянка';
+      durationText = WM.t('Стоянка');
       etaClock = '—';
     } else {
       const radDiff = diffAngle * Math.PI / 180;
@@ -3294,7 +3300,7 @@
         const arrDate = new Date(Date.now() + timeSec * 1000);
         etaClock = `${String(arrDate.getHours()).padStart(2, '0')}:${String(arrDate.getMinutes()).padStart(2, '0')}`;
       } else {
-        durationText = 'Удаление';
+        durationText = WM.t('Удаление');
         etaClock = '—';
         isMovingAway = true;
       }
@@ -3315,9 +3321,9 @@
     }
 
     const distFormatted = fmtGpsDistance(dist);
-    const speedFormatted = `${speedKmh.toFixed(1)} км/ч`;
-    const targetTitle = activeNavTarget.title ? escapeHtml(activeNavTarget.title) : 'Цель';
-    const moveActionLabel = speedKmh > 6 ? 'Ещё ехать:' : 'Ещё идти:';
+    const speedFormatted = WM.t('{0} км/ч', speedKmh.toFixed(1));
+    const targetTitle = activeNavTarget.title ? escapeHtml(activeNavTarget.title) : WM.t('Цель');
+    const moveActionLabel = speedKmh > 6 ? WM.t('Ещё ехать:') : WM.t('Ещё идти:');
 
 
     if (!navTargetBadgeMarker) {
@@ -3367,14 +3373,14 @@
       navTargetBadgeMarker._renderedMode = currentMode;
       if (isNavTargetCollapsed) {
         root.innerHTML = `
-          <div class="wm-gps-dist-badge col-badge compact ${colorClass}" title="Нажмите, чтобы развернуть">
+          <div class="wm-gps-dist-badge col-badge compact ${colorClass}" title="${WM.t('Нажмите, чтобы развернуть')}">
             <div class="wm-gdb-compact-lines">
               <span class="wm-gdb-compact-val js-dist">${distFormatted}</span>
               <span class="wm-gdb-compact-sub js-speed">${speedFormatted}</span>
             </div>
             <div class="wm-gdb-actions">
-              <button type="button" class="wm-gdb-toggle-btn" title="Развернуть подробности">▼</button>
-              <button type="button" class="wm-nav-close-btn" title="Отменить следование">✕</button>
+              <button type="button" class="wm-gdb-toggle-btn" title="${WM.t('Развернуть подробности')}">▼</button>
+              <button type="button" class="wm-nav-close-btn" title="${WM.t('Отменить следование')}">✕</button>
             </div>
           </div>
         `;
@@ -3385,17 +3391,17 @@
               <span class="wm-gdb-icon">🎯</span>
               <span class="wm-gdb-name" title="${targetTitle}">${targetTitle}</span>
               <div class="wm-gdb-actions">
-                <button type="button" class="wm-gdb-toggle-btn" title="Свернуть подробности">▲</button>
-                <button type="button" class="wm-nav-close-btn" title="Отменить следование">✕</button>
+                <button type="button" class="wm-gdb-toggle-btn" title="${WM.t('Свернуть подробности')}">▲</button>
+                <button type="button" class="wm-nav-close-btn" title="${WM.t('Отменить следование')}">✕</button>
               </div>
             </div>
             <div class="wm-gdb-grid">
               <div class="wm-gdb-row">
-                <span class="wm-gdb-lbl">Дистанция:</span>
+                <span class="wm-gdb-lbl">${WM.t('Дистанция:')}</span>
                 <span class="wm-gdb-val js-dist">${distFormatted}</span>
               </div>
               <div class="wm-gdb-row">
-                <span class="wm-gdb-lbl">Скорость:</span>
+                <span class="wm-gdb-lbl">${WM.t('Скорость:')}</span>
                 <span class="wm-gdb-val js-speed">${speedFormatted}</span>
               </div>
               <div class="wm-gdb-row">
@@ -3403,11 +3409,11 @@
                 <span class="wm-gdb-val js-duration ${isMovingAway ? 'negative' : ''}">${durationText}</span>
               </div>
               <div class="wm-gdb-row">
-                <span class="wm-gdb-lbl">Прибытие:</span>
+                <span class="wm-gdb-lbl">${WM.t('Прибытие:')}</span>
                 <span class="wm-gdb-val js-eta ${isMovingAway ? 'negative' : ''}">${etaClock}</span>
               </div>
               <div class="wm-gdb-row">
-                <span class="wm-gdb-lbl">Курс:</span>
+                <span class="wm-gdb-lbl">${WM.t('Курс:')}</span>
                 <span class="wm-gdb-val js-drift ${diffAngle > 55 ? 'negative' : ''}">${driftText}</span>
               </div>
             </div>
@@ -3458,20 +3464,20 @@
       syncWakeLockState();
       syncGpsWatchState();
       if (!userLatLng) {
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast('🛰️ Определение геопозиции для навигации…', 1800);
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🛰️ Определение геопозиции для навигации…'), 1800);
         acquireLocation(
           () => {
             updateNavTargetVisuals();
-            if (WM.ui && WM.ui.showToast) WM.ui.showToast(`🎯 Направление к цели: ${target.title || 'Точка'}`);
+            if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🎯 Направление к цели: {0}', target.title || WM.t('Точка')));
           },
           (err) => {
-            if (WM.ui && WM.ui.showToast) WM.ui.showToast('Ошибка геопозиции: ' + err.message);
+            if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('Ошибка геопозиции: {0}', err.message));
           }
         );
         return;
       }
       updateNavTargetVisuals();
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast(`🎯 Направление к цели: ${target.title || 'Точка'}`);
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🎯 Направление к цели: {0}', target.title || WM.t('Точка')));
     },
     clear() {
       const hadTarget = !!activeNavTarget;
@@ -3480,7 +3486,7 @@
       syncGpsWatchState();
       updateNavTargetVisuals();
       if (hadTarget && WM.ui && WM.ui.showToast) {
-        WM.ui.showToast('🛑 Навигация к цели отключена');
+        WM.ui.showToast(WM.t('🛑 Навигация к цели отключена'));
       }
     },
     toggle(target) {
@@ -3572,7 +3578,7 @@
     const btnLoc = document.getElementById('btn-location');
     if (btnLoc) {
       btnLoc.classList.add('following');
-      btnLoc.title = '🎯 Слежение активно (удерживайте или сдвиньте карту для отключения)';
+      btnLoc.title = WM.t('🎯 Слежение активно (удерживайте или сдвиньте карту для отключения)');
     }
 
     if (WM.compass && WM.compass.start) {
@@ -3582,24 +3588,24 @@
     if (userLatLng) {
       map.panTo(userLatLng, { animate: true, duration: 0.35 });
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast('🎯 Режим слежения включён (камера привязана к точке)');
+        WM.ui.showToast(WM.t('🎯 Режим слежения включён (камера привязана к точке)'));
       }
     } else {
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast('🎯 Поиск позиции и включение слежения…');
+        WM.ui.showToast(WM.t('🎯 Поиск позиции и включение слежения…'));
       }
       acquireLocation(
         (ll) => {
           if (isFollowMode) {
             map.panTo(ll, { animate: true, duration: 0.35 });
             if (WM.ui && WM.ui.showToast) {
-              WM.ui.showToast('🎯 Режим слежения включён');
+              WM.ui.showToast(WM.t('🎯 Режим слежения включён'));
             }
           }
         },
         (err) => {
           if (WM.ui && WM.ui.showToast) {
-            WM.ui.showToast('Ошибка геопозиции: ' + err.message);
+            WM.ui.showToast(WM.t('Ошибка геопозиции: {0}', err.message));
           }
         }
       );
@@ -3615,10 +3621,10 @@
     const btnLoc = document.getElementById('btn-location');
     if (btnLoc) {
       btnLoc.classList.remove('following');
-      btnLoc.title = '🛰️ Моя геопозиция (удерживайте для слежения)';
+      btnLoc.title = WM.t('🛰️ Моя геопозиция (удерживайте для слежения)');
     }
     if (!silent && WM.ui && WM.ui.showToast) {
-      WM.ui.showToast('🔓 Режим слежения отключён');
+      WM.ui.showToast(WM.t('🔓 Режим слежения отключён'));
     }
   }
 
@@ -3668,7 +3674,7 @@
     if (hasExceededDragThreshold) {
       stopFollowMode(true);
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast('🔓 Слежение отключено (смещение карты)');
+        WM.ui.showToast(WM.t('🔓 Слежение отключено (смещение карты)'));
       }
     } else {
       if (userLatLng) {
@@ -3799,7 +3805,7 @@
 
   function acquireLocation(onSuccess, onError) {
     if (!navigator.geolocation) {
-      if (onError) onError(new Error('Геолокация не поддерживается устройством'));
+      if (onError) onError(new Error(WM.t('Геолокация не поддерживается устройством')));
       return;
     }
 
@@ -3942,11 +3948,11 @@
         if (userLatLng) {
           map.setView(userLatLng, Math.max(map.getZoom(), 16));
           if (WM.ui && WM.ui.showToast) {
-            WM.ui.showToast('⚠️ Показана безопасная точка (глушение активно)');
+            WM.ui.showToast(WM.t('⚠️ Показана безопасная точка (глушение активно)'));
           }
         } else {
           if (WM.ui && WM.ui.showToast) {
-            WM.ui.showToast('⚠️ GPS заглушен! Наведите прицел и нажмите «Я тут»');
+            WM.ui.showToast(WM.t('⚠️ GPS заглушен! Наведите прицел и нажмите «Я тут»'));
           }
         }
         return;
@@ -3962,7 +3968,7 @@
         },
         (err) => {
           if (!userLatLng && WM.ui && WM.ui.showToast) {
-            WM.ui.showToast('Ошибка геопозиции: ' + err.message);
+            WM.ui.showToast(WM.t('Ошибка геопозиции: {0}', err.message));
           }
         }
       );
@@ -3994,20 +4000,20 @@
       if (btn) btn.classList.add('active');
 
       if (!userLatLng) {
-        WM.ui.showToast('🛰️ Определение геопозиции…', 1500);
+        WM.ui.showToast(WM.t('🛰️ Определение геопозиции…'), 1500);
         acquireLocation(
           () => {
             updateGpsDistVisuals();
-            WM.ui.showToast('🧭 Линия до GPS включена');
+            WM.ui.showToast(WM.t('🧭 Линия до GPS включена'));
           },
           (err) => {
-            WM.ui.showToast('Ошибка геопозиции: ' + err.message);
+            WM.ui.showToast(WM.t('Ошибка геопозиции: {0}', err.message));
           }
         );
         return;
       }
       updateGpsDistVisuals();
-      WM.ui.showToast('🧭 Линия до GPS включена');
+      WM.ui.showToast(WM.t('🧭 Линия до GPS включена'));
     },
     disable() {
       if (!isGpsDistEnabled) return;
@@ -4016,7 +4022,7 @@
       const btn = document.getElementById('btn-gps-dist');
       if (btn) btn.classList.remove('active');
       updateGpsDistVisuals();
-      WM.ui.showToast('🧭 Линия до GPS скрыта');
+      WM.ui.showToast(WM.t('🧭 Линия до GPS скрыта'));
     },
     toggle() {
       if (isGpsDistEnabled) this.disable();
@@ -4072,69 +4078,69 @@
     const logEl = document.getElementById('sw-debug-log');
     if (!logEl) return;
     
-    logEl.textContent = '⏳ Выполняется диагностика...\n';
+    logEl.textContent = WM.t('⏳ Выполняется диагностика...\n');
     const out = [];
     const log = (msg) => { out.push(msg); logEl.textContent = out.join('\n'); };
 
-    log(`[Окружение]`);
+    log(WM.t('[Окружение]'));
     log(`• Origin: ${window.location.origin}`);
     log(`• Protocol: ${window.location.protocol}`);
-    log(`• Capacitor: ${typeof window.Capacitor !== 'undefined' ? 'Да (Native APK)' : 'Нет (Браузер)'}`);
+    log(`• Capacitor: ${typeof window.Capacitor !== 'undefined' ? WM.t('Да (Native APK)') : WM.t('Нет (Браузер)')}`);
     log(`• UserAgent: ${navigator.userAgent.slice(0, 70)}...`);
 
-    log(`\n[Поддержка API]`);
+    log(WM.t('\n[Поддержка API]'));
     log(`• 'serviceWorker' in navigator: ${'serviceWorker' in navigator}`);
     log(`• 'caches' in window: ${'caches' in window}`);
 
-    log(`\n[Проверка доступности sw.js]`);
+    log(WM.t('\n[Проверка доступности sw.js]'));
     try {
       const swFetch = await fetch('./sw.js', { cache: 'no-store' });
       log(`• fetch('./sw.js') HTTP: ${swFetch.status} ${swFetch.statusText}`);
       log(`• Content-Type: ${swFetch.headers.get('content-type')}`);
       const text = await swFetch.text();
-      log(`• Размер файла: ${text.length} байт`);
+      log(WM.t('• Размер файла: {0} байт', text.length));
     } catch (err) {
-      log(`❌ ОШИБКА загрузки sw.js: ${err.name} - ${err.message}`);
+      log(WM.t('❌ ОШИБКА загрузки sw.js: {0} - {1}', err.name, err.message));
     }
 
-    log(`\n[Регистрация Service Worker]`);
+    log(WM.t('\n[Регистрация Service Worker]'));
     if ('serviceWorker' in navigator) {
       log(`• controller: ${navigator.serviceWorker.controller ? navigator.serviceWorker.controller.state : 'null'}`);
       try {
         const regs = await navigator.serviceWorker.getRegistrations();
-        log(`• Найдено регистраций: ${regs.length}`);
+        log(WM.t('• Найдено регистраций: {0}', regs.length));
         regs.forEach((r, idx) => {
           log(`  [${idx + 1}] scope: ${r.scope}`);
-          log(`      active: ${r.active ? r.active.state : 'нет'}`);
+          log(`      active: ${r.active ? r.active.state : WM.t('нет')}`);
         });
 
         if (regs.length === 0) {
-          log(`⚠️ Попытка принудительной регистрации './sw.js'...`);
+          log(WM.t('⚠️ Попытка принудительной регистрации \'./sw.js\'...'));
           const newReg = await navigator.serviceWorker.register('./sw.js');
-          log(`✅ Успешно зарегистрирован! Scope: ${newReg.scope}`);
+          log(WM.t('✅ Успешно зарегистрирован! Scope: {0}', newReg.scope));
         }
       } catch (err) {
-        log(`❌ ОШИБКА регистрации SW: ${err.name} - ${err.message}`);
+        log(WM.t('❌ ОШИБКА регистрации SW: {0} - {1}', err.name, err.message));
       }
     }
 
-    log(`\n[Анализ CacheStorage]`);
+    log(WM.t('\n[Анализ CacheStorage]'));
     if ('caches' in window) {
       try {
         const keys = await caches.keys();
-        log(`• Найдено кэшей: ${keys.length} [${keys.join(', ')}]`);
+        log(WM.t('• Найдено кэшей: {0} [{1}]', keys.length, keys.join(', ')));
 
         for (const k of keys) {
           const c = await caches.open(k);
           const reqs = await c.keys();
-          log(`  - "${k}": ${reqs.length} записей`);
+          log(WM.t('  - "{0}": {1} записей', k, reqs.length));
         }
       } catch (err) {
-        log(`❌ ОШИБКА чтения CacheStorage: ${err.message}`);
+        log(WM.t('❌ ОШИБКА чтения CacheStorage: {0}', err.message));
       }
     }
 
-    log(`\n--- Диагностика завершена ---`);
+    log(WM.t('\n--- Диагностика завершена ---'));
   }
 
   document.getElementById('btn-open-sw-debug')?.addEventListener('click', () => {
@@ -4145,7 +4151,7 @@
   document.getElementById('btn-sw-debug-copy')?.addEventListener('click', () => {
     const text = document.getElementById('sw-debug-log')?.textContent || '';
     navigator.clipboard.writeText(text).then(() => {
-      if (window.WM && WM.ui) WM.ui.showToast('📋 Отчёт скопирован');
+      if (window.WM && WM.ui) WM.ui.showToast(WM.t('📋 Отчёт скопирован'));
     });
   });
 })();
@@ -4168,10 +4174,10 @@
       clearInterval(simTimer);
       simTimer = null;
       if (btn) {
-        btn.textContent = '🚶 Тест ходьбы GPS (лес)';
+        btn.textContent = WM.t('🚶 Тест ходьбы GPS (лес)');
         btn.classList.remove('active');
       }
-      if (window.WM && WM.ui && WM.ui.showToast) WM.ui.showToast('🛑 Эмуляция ходьбы остановлена');
+      if (window.WM && WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🛑 Эмуляция ходьбы остановлена'));
     } else {
       simActive = true;
       simStep = 0;
@@ -4182,10 +4188,10 @@
       simAngle = Math.random() * Math.PI * 2;
 
       if (btn) {
-        btn.textContent = '🛑 Стоп GPS-тест (ходьба)';
+        btn.textContent = WM.t('🛑 Стоп GPS-тест (ходьба)');
         btn.classList.add('active');
       }
-      if (window.WM && WM.ui && WM.ui.showToast) WM.ui.showToast('🚶 Запущена ходьба по лесу (~4.8 км/ч)');
+      if (window.WM && WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🚶 Запущена ходьба по лесу (~4.8 км/ч)'));
 
       simTimer = setInterval(() => {
         simStep++;
@@ -4295,13 +4301,13 @@ function initPerfMonitor() {
       }
 
       if (elFtime) {
-        elFtime.textContent = `${avgFrameTime.toFixed(1)} мс (пик ${maxFrameDelta.toFixed(0)} мс)`;
+        elFtime.textContent = WM.t('{0} мс (пик {1} мс)', avgFrameTime.toFixed(1), maxFrameDelta.toFixed(0));
         elFtime.style.color = maxFrameDelta > 33 ? '#ef4444' : '#22c55e';
       }
       maxFrameDelta = 0;
 
       if (elSensors) {
-        elSensors.textContent = sensorHz + ' Гц';
+        elSensors.textContent = WM.t('{0} Гц', sensorHz);
         elSensors.style.color = sensorHz > 40 ? '#f59e0b' : '#22c55e';
       }
 

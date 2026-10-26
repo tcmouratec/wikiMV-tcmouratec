@@ -21,7 +21,7 @@
       opacity: 0.85,
       pane: 'overlayPane',
       blendMode: 'normal',
-      name: 'Карта KML'
+      name: WM.t('Карта KML')
     },
 
     initialize: function (tiles, totalBounds, options) {
@@ -141,8 +141,8 @@
         const inner = L.DomUtil.create('div', 'wm-kml-placeholder-inner', this._placeholder);
         inner.innerHTML = `
           <div class="wm-kml-placeholder-icon">📜</div>
-          <div class="wm-kml-placeholder-title">${escapeHtml(this.options.name || 'Карта KML')}</div>
-          <div class="wm-kml-placeholder-hint">🔍 Приблизьте для просмотра</div>
+          <div class="wm-kml-placeholder-title">${escapeHtml(this.options.name || WM.t('Карта KML'))}</div>
+          <div class="wm-kml-placeholder-hint">${WM.t('🔍 Приблизьте для просмотра')}</div>
         `;
 
         L.DomEvent.on(this._placeholder, 'click', (e) => {
@@ -677,7 +677,7 @@
         }
 
         if (tiles.length > 1 || (tiles.length === 1 && tiles[0].href && /^https?:\/\//i.test(tiles[0].href))) {
-          const docName = getTagText(xml, 'name') || 'KML Слой';
+          const docName = getTagText(xml, 'name') || WM.t('KML Слой');
           const center = L.latLng((minLat + maxLat) / 2, (minLng + maxLng) / 2);
           const heightMeters = Math.abs(maxLat - minLat) * METERS_PER_DEG_LAT;
           const widthMeters = Math.abs(maxLng - minLng) * getMetersPerDegLng(center.lat);
@@ -790,7 +790,7 @@
     const pinIcon = L.divIcon({
       className: 'wm-overlay-select-pin-wrap',
       html: `
-        <div class="wm-overlay-select-pin ${isAct ? 'active' : ''}" title="Редактировать «${escapeHtml(item.name)}»">
+        <div class="wm-overlay-select-pin ${isAct ? 'active' : ''}" title="${WM.t('Редактировать «{0}»', escapeHtml(item.name))}">
           <span class="ov-pin-icon">⚙️</span>
           <span class="ov-pin-label">${escapeHtml(item.name)}</span>
         </div>
@@ -844,7 +844,7 @@
     // 1. Центральный маркер сдвига
     const centerIcon = L.divIcon({
       className: 'wm-overlay-handle-wrap',
-      html: '<div class="wm-overlay-handle-dot center" title="Переместить карту (тяните)">✥</div>',
+      html: `<div class="wm-overlay-handle-dot center" title="${WM.t('Переместить карту (тяните)')}">✥</div>`,
       iconSize: [28, 28],
       iconAnchor: [14, 14]
     });
@@ -878,7 +878,7 @@
     // 2. Угловой маркер изменения размера (NE)
     const scaleIcon = L.divIcon({
       className: 'wm-overlay-handle-wrap',
-      html: '<div class="wm-overlay-handle-dot corner" title="Изменить размер (потяните)">⤢</div>',
+      html: `<div class="wm-overlay-handle-dot corner" title="${WM.t('Изменить размер (потяните)')}">⤢</div>`,
       iconSize: [24, 24],
       iconAnchor: [12, 12]
     });
@@ -948,7 +948,7 @@
 
     const rotIcon = L.divIcon({
       className: 'wm-overlay-handle-wrap',
-      html: '<div class="wm-overlay-handle-dot rotate" title="Повернуть карту (потяните)">↻</div>',
+      html: `<div class="wm-overlay-handle-dot rotate" title="${WM.t('Повернуть карту (потяните)')}">↻</div>`,
       iconSize: [26, 26],
       iconAnchor: [13, 13]
     });
@@ -1158,7 +1158,7 @@
       }
       saveOverlay(it);
       updateHudUI(it);
-      WM.ui.showToast('↺ Параметры слоя сброшены');
+      WM.ui.showToast(WM.t('↺ Параметры слоя сброшены'));
       return;
     }
 
@@ -1179,7 +1179,7 @@
     restoreAspectRatio(it);
     renderOverlayLayer(it);
     updateHudUI(it);
-    WM.ui.showToast('↺ Параметры слоя сброшены к начальным');
+    WM.ui.showToast(WM.t('↺ Параметры слоя сброшены к начальным'));
   }
 
   function toggleAspectLock() {
@@ -1192,10 +1192,10 @@
 
     if (nextLocked) {
       restoreAspectRatio(it);
-      WM.ui.showToast('🔒 Пропорции зафиксированы и восстановлены');
+      WM.ui.showToast(WM.t('🔒 Пропорции зафиксированы и восстановлены'));
     } else {
       saveOverlay(it);
-      WM.ui.showToast('🔓 Свободное изменение сторон');
+      WM.ui.showToast(WM.t('🔓 Свободное изменение сторон'));
     }
 
     updateHudUI(it);
@@ -1235,12 +1235,12 @@
     if (visBtn) {
       const isVis = item.visible !== false;
       visBtn.textContent = isVis ? '👁️' : '🕶️';
-      visBtn.title = isVis ? 'Скрыть этот слой' : 'Показать этот слой';
+      visBtn.title = isVis ? WM.t('Скрыть этот слой') : WM.t('Показать этот слой');
       visBtn.classList.toggle('off', !isVis);
     }
     // ------------------------------------------------------
 
-    if (title) title.textContent = (item.isMultiTile ? '📜 ' : '🗺️ ') + (item.name || 'Слой карты');
+    if (title) title.textContent = (item.isMultiTile ? '📜 ' : '🗺️ ') + (item.name || WM.t('Слой карты'));
     if (opacitySlider) opacitySlider.value = item.opacity !== undefined ? item.opacity : 80;
     if (opacityVal) opacityVal.textContent = (item.opacity !== undefined ? item.opacity : 80) + '%';
     if (rotVal) rotVal.textContent = Math.round(item.rotation || 0) + '°';
@@ -1267,7 +1267,7 @@
       const isVisible = WM.imageOverlay.toggleOverlayVisibility(activeOverlayId);
       updateHudUI(it);
       if (window.updateQuickSwapUI) window.updateQuickSwapUI();
-      WM.ui.showToast(isVisible ? `👁️ Слой «${it.name}» показан` : `🕶️ Слой «${it.name}» скрыт`);
+      WM.ui.showToast(isVisible ? WM.t('👁️ Слой «{0}» показан', it.name) : WM.t('🕶️ Слой «{0}» скрыт', it.name));
     });
     // -----------------------------------------
 
@@ -1330,7 +1330,7 @@
 
     document.getElementById('ov-btn-delete')?.addEventListener('click', () => {
       if (!activeOverlayId || !overlays.has(activeOverlayId)) return;
-      if (!confirm('Удалить эту наложенную карту?')) return;
+      if (!confirm(WM.t('Удалить эту наложенную карту?'))) return;
       WM.imageOverlay.deleteOverlay(activeOverlayId);
     });
 
@@ -1365,12 +1365,12 @@
 
           const b = computeUnrotatedBounds(it.center, it.widthMeters, it.heightMeters);
           map.fitBounds(b, { padding: [40, 40], maxZoom: 18 });
-          WM.ui.showToast('✅ Новая привязка KML успешно применена!');
+          WM.ui.showToast(WM.t('✅ Новая привязка KML успешно применена!'));
         } else {
-          alert('Файл не содержит одиночной привязки GroundOverlay.');
+          alert(WM.t('Файл не содержит одиночной привязки GroundOverlay.'));
         }
       } catch (err) {
-        alert('Ошибка чтения KML: ' + err.message);
+        alert(WM.t('Ошибка чтения KML: {0}', err.message));
       } finally {
         hudKmlInput.value = '';
       }
@@ -1419,7 +1419,7 @@
         URL.revokeObjectURL(url);
       }, 400);
 
-      WM.ui.showToast('📄 Файл KML успешно сохранён');
+      WM.ui.showToast(WM.t('📄 Файл KML успешно сохранён'));
     });
 
     document.getElementById('ov-btn-close')?.addEventListener('click', deselectOverlay);
@@ -1462,7 +1462,7 @@
         btnCurCenter.style.pointerEvents = '';
       }
       if (kmlHint) {
-        kmlHint.textContent = 'Если выбран .kml (GroundOverlay), координаты и границы заполнятся автоматически.';
+        kmlHint.textContent = WM.t('Если выбран .kml (GroundOverlay), координаты и границы заполнятся автоматически.');
         kmlHint.style.color = '';
       }
       const nameInput = document.getElementById('ov-input-name');
@@ -1518,19 +1518,19 @@
 
         if (parsedKml.isMultiTile) {
           if (kmlHint) {
-            kmlHint.textContent = `🌐 Найдено тайлов: ${parsedKml.tiles.length} шт. Файл картинки выбирать не нужно!`;
+            kmlHint.textContent = WM.t('🌐 Найдено тайлов: {0} шт. Файл картинки выбирать не нужно!', parsedKml.tiles.length);
             kmlHint.style.color = 'var(--accent)';
           }
-          WM.ui.showToast(`✅ Найдено ${parsedKml.tiles.length} тайлов. Нажмите «Поместить на карту»!`);
+          WM.ui.showToast(WM.t('✅ Найдено {0} тайлов. Нажмите «Поместить на карту»!', parsedKml.tiles.length));
         } else {
           if (kmlHint) {
-            kmlHint.textContent = '🔒 Координаты и границы зафиксированы из KML.';
+            kmlHint.textContent = WM.t('🔒 Координаты и границы зафиксированы из KML.');
             kmlHint.style.color = 'var(--accent)';
           }
-          WM.ui.showToast('✅ Параметры взяты из KML! Теперь выберите файл картинки.');
+          WM.ui.showToast(WM.t('✅ Параметры взяты из KML! Теперь выберите файл картинки.'));
         }
       } else {
-        alert('Не удалось найти блоки <LatLonBox> или <GroundOverlay> в файле KML');
+        alert(`${WM.t('Не удалось найти блоки')} <LatLonBox> ${WM.t('или')} <GroundOverlay> ${WM.t('в файле KML')}`);
         fileKmlInput.value = '';
         if (btnClearKml) btnClearKml.hidden = true;
       }
@@ -1554,7 +1554,7 @@
         btnCurCenter.style.pointerEvents = '';
       }
       if (kmlHint) {
-        kmlHint.textContent = 'Если выбран .kml (GroundOverlay), координаты и границы заполнятся автоматически.';
+        kmlHint.textContent = WM.t('Если выбран .kml (GroundOverlay), координаты и границы заполнятся автоматически.');
         kmlHint.style.color = '';
       }
     });
@@ -1564,7 +1564,7 @@
       if (parsedKml && parsedKml.isMultiTile) {
         const overlayName = document.getElementById('ov-input-name').value.trim() 
           || parsedKml.name 
-          || 'Карта KML';
+          || WM.t('Карта KML');
 
         const customLayerId = 'kml_layer_' + Date.now();
         const layerDisplayName = '📜 ' + overlayName;
@@ -1601,19 +1601,19 @@
 
         modal.classList.remove('open');
         resetAddModalForm();
-        WM.ui.showToast(`✅ Слой «${overlayName}» добавлен на карту!`);
+        WM.ui.showToast(WM.t('✅ Слой «{0}» добавлен на карту!', overlayName));
         return;
       }
 
       // 2. СТАНДАРТНАЯ ОДИНОЧНАЯ КАРТИНКА
       const file = fileImgInput.files[0];
       if (!file) {
-        alert('Пожалуйста, выберите файл изображения (или укажите KML файл с тайлами)');
+        alert(WM.t('Пожалуйста, выберите файл изображения (или укажите KML файл с тайлами)'));
         return;
       }
 
       if (file.size > MAX_FILE_SIZE_BYTES) {
-        alert(`Файл слишком большой (${(file.size / (1024 * 1024)).toFixed(1)} МБ). Лимит — 25 МБ.`);
+        alert(WM.t('Файл слишком большой ({0} МБ). Лимит — 25 МБ.', (file.size / (1024 * 1024)).toFixed(1)));
         return;
       }
 
@@ -1624,7 +1624,7 @@
         img.onload = () => {
           const pixels = img.naturalWidth * img.naturalHeight;
           if (pixels > MAX_IMAGE_PIXELS) {
-            alert(`Слишком высокое разрешение (${img.naturalWidth}x${img.naturalHeight} px). Максимальный лимит — 4096x4096 px.`);
+            alert(WM.t('Слишком высокое разрешение ({0}x{1} px). Максимальный лимит — 4096x4096 px.', img.naturalWidth, img.naturalHeight));
             return;
           }
 
@@ -1686,7 +1686,7 @@
 
           modal.classList.remove('open');
           resetAddModalForm();
-          WM.ui.showToast(`🗺️ Слой «${overlayName}» наложен на карту!`);
+          WM.ui.showToast(WM.t('🗺️ Слой «{0}» наложен на карту!', overlayName));
         };
         img.src = dataUrl;
       };
@@ -1710,7 +1710,7 @@
     const list = Array.from(overlays.values());
 
     if (!list.length) {
-      container.innerHTML = '<div class="muted">Наложенных карт пока нет. Нажмите «+ Добавить карту».</div>';
+      container.innerHTML = `<div class="muted">${WM.t('Наложенных карт пока нет. Нажмите «+ Добавить карту».')}</div>`;
     } else {
       list.forEach(item => {
         const row = document.createElement('div');
@@ -1718,8 +1718,8 @@
         
         const isKml = !!item.isMultiTile;
         const metaText = isKml
-          ? `🌐 KML-тайлы (${item.tiles ? item.tiles.length : 0} шт.) · Прозрачность: ${item.opacity !== undefined ? item.opacity : 85}%`
-          : `Прозрачность: ${item.opacity}% · Поворот: ${Math.round(item.rotation || 0)}° · ${Math.round(item.widthMeters)}×${Math.round(item.heightMeters)} м`;
+          ? WM.t('🌐 KML-тайлы ({0} шт.) · Прозрачность: {1}%', item.tiles ? item.tiles.length : 0, item.opacity !== undefined ? item.opacity : 85)
+          : WM.t('Прозрачность: {0}% · Поворот: {1}° · {2}×{3} м', item.opacity, Math.round(item.rotation || 0), Math.round(item.widthMeters), Math.round(item.heightMeters));
 
         row.innerHTML = `
           <div class="overlay-list-info" style="cursor: pointer;">
@@ -1727,10 +1727,10 @@
             <small class="overlay-list-meta">${metaText}</small>
           </div>
           <div class="overlay-list-actions">
-            <button type="button" class="icon-btn-sm btn-vis" title="${item.visible !== false ? 'Скрыть' : 'Показать'}">${item.visible !== false ? '👁️' : '🕶️'}</button>
-            <button type="button" class="icon-btn-sm btn-reset" title="Сбросить прозрачность">↺</button>
-            <button type="button" class="icon-btn-sm btn-edit" title="Панель настроек">⚙️</button>
-            <button type="button" class="icon-btn-sm btn-del" title="Удалить" style="color:var(--danger);">🗑️</button>
+            <button type="button" class="icon-btn-sm btn-vis" title="${item.visible !== false ? WM.t('Скрыть') : WM.t('Показать')}">${item.visible !== false ? '👁️' : '🕶️'}</button>
+            <button type="button" class="icon-btn-sm btn-reset" title="${WM.t('Сбросить прозрачность')}">↺</button>
+            <button type="button" class="icon-btn-sm btn-edit" title="${WM.t('Панель настроек')}">⚙️</button>
+            <button type="button" class="icon-btn-sm btn-del" title="${WM.t('Удалить')}" style="color:var(--danger);">🗑️</button>
           </div>
         `;
 
@@ -1785,7 +1785,7 @@
 
         row.querySelector('.btn-del').onclick = (e) => {
           e.stopPropagation();
-          if (confirm(`Удалить карту «${item.name}»?`)) {
+          if (confirm(WM.t('Удалить карту «{0}»?', item.name))) {
             WM.imageOverlay.deleteOverlay(item.id);
             openOverlaysListModal();
           }
@@ -1985,7 +1985,7 @@
       overlays.delete(id);
       dbDelete(id);
       if (activeOverlayId === id) deselectOverlay();
-      WM.ui.showToast('🗑️ Карта удалена');
+      WM.ui.showToast(WM.t('🗑️ Карта удалена'));
     },
 
     exportData() {

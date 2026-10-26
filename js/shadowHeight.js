@@ -21,10 +21,10 @@
   let badgeMarker = null;
 
   function fmtDist(meters) {
-    if (!meters || meters < 0.1) return '0 м';
-    if (meters < 1000) return (meters < 10 ? meters.toFixed(1) : Math.round(meters)) + ' м';
+    if (!meters || meters < 0.1) return WM.t('0 м');
+    if (meters < 1000) return WM.t('{0} м', meters < 10 ? meters.toFixed(1) : Math.round(meters));
     const km = meters / 1000;
-    return (km < 10 ? km.toFixed(2) : km.toFixed(1)) + ' км';
+    return WM.t('{0} км', km < 10 ? km.toFixed(2) : km.toFixed(1));
   }
 
   function getMode() {
@@ -61,7 +61,7 @@
       html: `
         <div class="wm-sh-badge">
           <span class="wm-sh-badge-h">🏢 ${heightText}</span>
-          <span class="wm-sh-badge-s">тень: ${shadowText}</span>
+          <span class="wm-sh-badge-s">${WM.t('тень: {0}', shadowText)}</span>
         </div>
       `,
       iconSize: [130, 36],
@@ -92,12 +92,12 @@
     }
 
     if (!data) {
-      if (valEl) valEl.textContent = '0 м';
+      if (valEl) valEl.textContent = WM.t('0 м');
       if (floorsEl) floorsEl.textContent = '';
       if (hintEl) {
         hintEl.textContent = p1
-          ? (getMode() === 'cross' ? 'Наведите перекрестие на кончик тени (B)' : 'Укажите кончик тени (B)')
-          : (getMode() === 'cross' ? 'Наведите на основание (A) · Выставите дату снимка в поле выше' : 'Укажите основание (A) · Выставите дату снимка в поле выше');
+          ? (getMode() === 'cross' ? WM.t('Наведите перекрестие на кончик тени (B)') : WM.t('Укажите кончик тени (B)'))
+          : (getMode() === 'cross' ? WM.t('Наведите на основание (A) · Выставите дату снимка в поле выше') : WM.t('Укажите основание (A) · Выставите дату снимка в поле выше'));
       }
       return;
     }
@@ -105,23 +105,23 @@
     const { height, shadowLen, sunAltDeg, sunAzDeg, shadowBearing, isSunBelowHorizon } = data;
 
     if (isSunBelowHorizon) {
-      if (valEl) valEl.textContent = 'Ночь (Солнце за горизонтом)';
+      if (valEl) valEl.textContent = WM.t('Ночь (Солнце за горизонтом)');
       if (floorsEl) floorsEl.textContent = '';
-      if (hintEl) hintEl.textContent = `Высота солнца: ${sunAltDeg.toFixed(1)}° — измените время на дневное`;
+      if (hintEl) hintEl.textContent = WM.t('Высота солнца: {0}° — измените время на дневное', sunAltDeg.toFixed(1));
       return;
     }
 
-    if (valEl) valEl.textContent = `~${height < 10 ? height.toFixed(1) : Math.round(height)} м`;
+    if (valEl) valEl.textContent = WM.t('~{0} м', height < 10 ? height.toFixed(1) : Math.round(height));
 
     if (floorsEl) {
       const floors = Math.max(1, Math.round(height / 3.2));
-      floorsEl.textContent = height >= 3 ? `(~${floors} эт.)` : '';
+      floorsEl.textContent = height >= 3 ? WM.t('(~{0} эт.)', floors) : '';
     }
 
     if (hintEl) {
       const diffAz = Math.abs(((shadowBearing - ((sunAzDeg + 180) % 360) + 540) % 360) - 180);
-      const azQuality = diffAz < 15 ? '🟢 совпадает' : (diffAz < 35 ? '🟡 близко' : '⚠️ не совпадает');
-      hintEl.textContent = `Тень: ${fmtDist(shadowLen)} · ☀️ Солнце: ${sunAltDeg.toFixed(1)}° (азимут: ${Math.round(sunAzDeg)}°, тень: ${Math.round(shadowBearing)}° [${azQuality}])`;
+      const azQuality = diffAz < 15 ? WM.t('🟢 совпадает') : (diffAz < 35 ? WM.t('🟡 близко') : WM.t('⚠️ не совпадает'));
+      hintEl.textContent = WM.t('Тень: {0} · ☀️ Солнце: {1}° (азимут: {2}°, тень: {3}° [{4}])', fmtDist(shadowLen), sunAltDeg.toFixed(1), Math.round(sunAzDeg), Math.round(shadowBearing), azQuality);
     }
   }
 
@@ -169,7 +169,7 @@
     if (p1) {
       if (!marker1) {
         marker1 = L.marker(p1, {
-          icon: createPointIcon('A', '#0284c7', 'Основание'),
+          icon: createPointIcon('A', '#0284c7', WM.t('Основание')),
           draggable: true,
           zIndexOffset: 1200
         }).addTo(layerGroup);
@@ -190,7 +190,7 @@
     if (p2) {
       if (!marker2) {
         marker2 = L.marker(p2, {
-          icon: createPointIcon('B', '#f59e0b', 'Тень'),
+          icon: createPointIcon('B', '#f59e0b', WM.t('Тень')),
           draggable: true,
           zIndexOffset: 1200
         }).addTo(layerGroup);
@@ -229,8 +229,8 @@
       }
 
       const hText = calcData && !calcData.isSunBelowHorizon
-        ? `~${calcData.height < 10 ? calcData.height.toFixed(1) : Math.round(calcData.height)} м`
-        : 'Ночь';
+        ? WM.t('~{0} м', calcData.height < 10 ? calcData.height.toFixed(1) : Math.round(calcData.height))
+        : WM.t('Ночь');
       const sText = fmtDist(p1.distanceTo(currentP2));
 
       if (!badgeMarker) {
@@ -293,8 +293,8 @@
 
     if (WM.ui && WM.ui.showToast) {
       WM.ui.showToast(getMode() === 'cross'
-        ? '🏢 Измерение высоты: наведите перекрестие на основание объекта (A)'
-        : '🏢 Измерение высоты: укажите основание объекта (A)', 2400);
+        ? WM.t('🏢 Измерение высоты: наведите перекрестие на основание объекта (A)')
+        : WM.t('🏢 Измерение высоты: укажите основание объекта (A)'), 2400);
     }
   }
 

@@ -210,7 +210,7 @@
     }
 
     isFetchingPoint = true;
-    if (WM.ui && WM.ui.setStatus) WM.ui.setStatus('🔍 Загрузка объекта…');
+    if (WM.ui && WM.ui.setStatus) WM.ui.setStatus(WM.t('🔍 Загрузка объекта…'));
     try {
       const added = (WM.loader && WM.loader.fetchPoint) ? await WM.loader.fetchPoint(latlng.lat, latlng.lng) : [];
       if (WM.view) WM.view.render();
@@ -729,7 +729,7 @@
       const btn = document.getElementById('btn-mode-toggle');
       if (btn) {
         btn.textContent = m === 'cross' ? '✛' : '👆';
-        btn.title = m === 'cross' ? 'Режим: Перекрестие (нажмите для смены)' : 'Режим: Палец (нажмите для смены)';
+        btn.title = m === 'cross' ? WM.t('Режим: Перекрестие (нажмите для смены)') : WM.t('Режим: Палец (нажмите для смены)');
         btn.classList.toggle('active', m === 'cross');
       }
 

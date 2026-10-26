@@ -56,10 +56,10 @@
         <div style="padding:5px 0; border-bottom:1px solid var(--border); font-size:11px;">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <b>${esc(tr.channel)}</b>
-            <span style="color:${col}; font-weight:700;">${esc(tr.status)} (${tr.ms} мс)</span>
+            <span style="color:${col}; font-weight:700;">${WM.t('{0} ({1} мс)', esc(tr.status), tr.ms)}</span>
           </div>
           <div style="margin-top:2px; word-break:break-all; font-family:monospace; font-size:10px;">
-            <a href="${esc(tr.url)}" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:underline;">🔗 Открыть URL запроса в новой вкладке ↗</a>
+            <a href="${esc(tr.url)}" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:underline;">${WM.t('🔗 Открыть URL запроса в новой вкладке ↗')}</a>
           </div>
           ${tr.error ? `<div style="color:#ef4444; font-size:10px; margin-top:2px;">⚠️ ${esc(tr.error)}</div>` : ''}
         </div>`;
@@ -68,7 +68,7 @@
     return `
       <details style="margin-top:12px; border:1px dashed var(--border); border-radius:9px; padding:6px 10px; background:var(--bg-primary);">
         <summary style="cursor:pointer; font-weight:700; font-size:11.5px; color:var(--text-muted); user-select:none;">
-          🐞 Журнал сетевых запросов (Debug Log: последние ${Math.min(debugTraceLog.length, 20)})
+          ${WM.t('🐞 Журнал сетевых запросов (Debug Log: последние {0})', Math.min(debugTraceLog.length, 20))}
         </summary>
         <div style="margin-top:8px;">${rows}</div>
       </details>
@@ -92,12 +92,12 @@
     return `
       <details style="margin-top:8px; border:1px dashed var(--border); border-radius:9px; padding:6px 10px; background:var(--bg-primary);">
         <summary style="cursor:pointer; font-weight:700; font-size:11.5px; color:var(--text-muted); user-select:none; display:flex; justify-content:space-between; align-items:center;">
-          <span>📦 Исходные сырые данные (Raw JSON: GloFAS, Почва, Метео, OSM)</span>
+          <span>${WM.t('📦 Исходные сырые данные (Raw JSON: GloFAS, Почва, Метео, OSM)')}</span>
         </summary>
         <div style="margin-top:8px; display:flex; flex-direction:column; gap:6px;">
           <div style="display:flex; justify-content:flex-end;">
             <button type="button" class="btn btn-secondary" id="btn-water-copy-raw-json" style="font-size:11px; padding:4px 10px;">
-              📋 Скопировать сырой JSON
+              ${WM.t('📋 Скопировать сырой JSON')}
             </button>
           </div>
           <pre id="water-raw-json-pre" style="max-height:240px; overflow:auto; background:var(--bg-secondary); border:1px solid var(--border); border-radius:6px; padding:8px; font-family:monospace; font-size:10.5px; line-height:1.35; user-select:text; margin:0; white-space:pre-wrap; word-break:break-word;">${esc(jsonStr)}</pre>
@@ -201,7 +201,7 @@
     } catch (err) {
       const elapsed = Math.round(performance.now() - t0);
       const isAbort = err.name === 'AbortError' || err instanceof DOMException;
-      const statusText = timedOut ? `⏱️ Таймаут (> ${timeoutMs / 1000} сек)` : (isAbort ? '⏹️ Отменён' : `❌ ${err.message || 'Ошибка CORS / сети'}`);
+      const statusText = timedOut ? WM.t('⏱️ Таймаут (> {0} сек)', timeoutMs / 1000) : (isAbort ? WM.t('⏹️ Отменён') : `❌ ${err.message || WM.t('Ошибка CORS / сети')}`);
       logTrace({ channel: channelName, url, status: statusText, ok: false, ms: elapsed, error: err.message });
       throw err;
     } finally {
@@ -252,10 +252,10 @@
   // 1. GloFAS
   // =========================================================================
   const LEVELS = {
-    critical: { label: 'Критический разлив', color: '#ef4444', rank: 3 },
-    high: { label: 'Высокая вода (выход на пойму)', color: '#f97316', rank: 2 },
-    elevated: { label: 'Повышенный сток', color: '#eab308', rank: 1 },
-    normal: { label: 'В пределах нормы', color: '#10b981', rank: 0 }
+    critical: { label: WM.t('Критический разлив'), color: '#ef4444', rank: 3 },
+    high: { label: WM.t('Высокая вода (выход на пойму)'), color: '#f97316', rank: 2 },
+    elevated: { label: WM.t('Повышенный сток'), color: '#eab308', rank: 1 },
+    normal: { label: WM.t('В пределах нормы'), color: '#10b981', rank: 0 }
   };
 
   function floodLevelOf(q, f) {
@@ -394,40 +394,40 @@
   }
 
   const WETLAND_TITLES = {
-    bog: ['Верховое сфагновое болото (зыбун)', '🔴', 'danger'],
-    fen: ['Низинное болото (топь)', '🌾', 'danger'],
-    swamp: ['Лесное болото / топь', '🌲', 'danger'],
-    marsh: ['Травянистый марш / плавни', '🌾', 'warning'],
-    peatland: ['Торфяник (опасность провала)', '🟤', 'danger'],
-    wet_meadow: ['Сырой заболоченный луг', '🌱', 'warning'],
-    reedbed: ['Тростниковые заросли', '🌾', 'warning']
+    bog: [WM.t('Верховое сфагновое болото (зыбун)'), '🔴', 'danger'],
+    fen: [WM.t('Низинное болото (топь)'), '🌾', 'danger'],
+    swamp: [WM.t('Лесное болото / топь'), '🌲', 'danger'],
+    marsh: [WM.t('Травянистый марш / плавни'), '🌾', 'warning'],
+    peatland: [WM.t('Торфяник (опасность провала)'), '🟤', 'danger'],
+    wet_meadow: [WM.t('Сырой заболоченный луг'), '🌱', 'warning'],
+    reedbed: [WM.t('Тростниковые заросли'), '🌾', 'warning']
   };
 
   function classifyOsm(t) {
     if (t.waterway) {
       const w = t.waterway, nm = t.name ? ` «${t.name}»` : '';
-      if (w === 'river' || w === 'canal') return { kind: 'river', title: `${w === 'canal' ? 'Канал' : 'Река'}${nm}`, icon: '🌊', severity: 'warning' };
-      if (w === 'stream' || w === 'brook') return { kind: 'stream', title: `Ручей${nm}`, icon: '〰️', severity: 'info' };
-      if (w === 'ditch' || w === 'drain') return { kind: 'ditch', title: 'Мелиоративная канава (дренаж)', icon: '⛏️', severity: 'info' };
-      if (w === 'dam' || w === 'weir') return { kind: 'dam', title: `Плотина / запруда${nm}`, icon: '🧱', severity: 'warning' };
+      if (w === 'river' || w === 'canal') return { kind: 'river', title: `${w === 'canal' ? WM.t('Канал') : WM.t('Река')}${nm}`, icon: '🌊', severity: 'warning' };
+      if (w === 'stream' || w === 'brook') return { kind: 'stream', title: WM.t('Ручей{0}', nm), icon: '〰️', severity: 'info' };
+      if (w === 'ditch' || w === 'drain') return { kind: 'ditch', title: WM.t('Мелиоративная канава (дренаж)'), icon: '⛏️', severity: 'info' };
+      if (w === 'dam' || w === 'weir') return { kind: 'dam', title: WM.t('Плотина / запруда{0}', nm), icon: '🧱', severity: 'warning' };
     }
     if (t.natural === 'wetland') {
-      const w = WETLAND_TITLES[t.wetland] || [`Болото / топь${t.wetland ? ` (${t.wetland})` : ''}`, '🌾', 'warning'];
+      const w = WETLAND_TITLES[t.wetland] || [WM.t('Болото / топь{0}', t.wetland ? ` (${t.wetland})` : ''), '🌾', 'warning'];
       return { kind: 'wetland', title: w[0], icon: w[1], severity: w[2], sub: t.wetland };
     }
     if (t.natural === 'water' || t.water) {
       const isRiverWater = t.water === 'river' || (t.name && /волга|река/i.test(t.name));
-      const title = isRiverWater ? `Река / акватория${t.name ? ` «${t.name}»` : ''}` : (t.water === 'oxbow' ? 'Старица (пойменный водоём)' : `Озеро / пруд${t.name ? ` «${t.name}»` : ''}`);
+      const title = isRiverWater ? WM.t('Река / акватория{0}', t.name ? ` «${t.name}»` : '') : (t.water === 'oxbow' ? WM.t('Старица (пойменный водоём)') : WM.t('Озеро / пруд{0}', t.name ? ` «${t.name}»` : ''));
       return { kind: 'water', title, icon: '🛶', severity: 'warning', isRiverWater };
     }
-    if (t.natural === 'spring') return { kind: 'spring', title: 'Родник', icon: '💦', severity: 'info' };
-    if (t.flood_prone === 'yes') return { kind: 'flood_prone', title: 'Зона паводкового затопления', icon: '⚠️', severity: 'danger' };
-    if (t.man_made === 'dyke') return { kind: 'dyke', title: 'Дамба / обвалование', icon: '🧱', severity: 'info' };
-    if (t.highway) return { kind: 'road', title: 'Дорога', icon: '🛣️', severity: 'info' };
+    if (t.natural === 'spring') return { kind: 'spring', title: WM.t('Родник'), icon: '💦', severity: 'info' };
+    if (t.flood_prone === 'yes') return { kind: 'flood_prone', title: WM.t('Зона паводкового затопления'), icon: '⚠️', severity: 'danger' };
+    if (t.man_made === 'dyke') return { kind: 'dyke', title: WM.t('Дамба / обвалование'), icon: '🧱', severity: 'info' };
+    if (t.highway) return { kind: 'road', title: WM.t('Дорога'), icon: '🛣️', severity: 'info' };
     return null;
   }
 
-  const LAND_COVER = { forest: 'лес', wood: 'лес', meadow: 'луг', grass: 'луг', grassland: 'луг', farmland: 'поле', orchard: 'сад', residential: 'застройка', scrub: 'кустарник', heath: 'пустошь' };
+  const LAND_COVER = { forest: WM.t('лес'), wood: WM.t('лес'), meadow: WM.t('луг'), grass: WM.t('луг'), grassland: WM.t('луг'), farmland: WM.t('поле'), orchard: WM.t('сад'), residential: WM.t('застройка'), scrub: WM.t('кустарник'), heath: WM.t('пустошь') };
 
   async function fetchOverpass(q, signal) {
     for (const mirrorUrl of OVERPASS_MIRRORS) {
@@ -476,7 +476,7 @@
         clearTimeout(tm);
         if (signal) signal.removeEventListener('abort', onAbort);
         const elapsed = Math.round(performance.now() - t0);
-        logTrace({ channel: channelName, url: debugUrl, status: ctl.signal.aborted ? '⏱️ Таймаут (> 6.5 с)' : `❌ ${e.message || 'Ошибка сети / CORS'}`, ok: false, ms: elapsed, error: e.message });
+        logTrace({ channel: channelName, url: debugUrl, status: ctl.signal.aborted ? WM.t('⏱️ Таймаут (> 6.5 с)') : `❌ ${e.message || WM.t('Ошибка сети / CORS')}`, ok: false, ms: elapsed, error: e.message });
       }
     }
 
@@ -586,32 +586,32 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
       if (terrain.isDepression) {
         const p = Math.round(clamp(16 + terrain.deltaLocal * 5, 16, 28));
         topoS += p;
-        add(p, `Котловина: вогнутость ${sgn(terrain.deltaLocal)} м — природная чаша сбора воды`);
+        add(p, WM.t('Котловина: вогнутость {0} м — природная чаша сбора воды', sgn(terrain.deltaLocal)));
       } else if (terrain.isValleyBottom) {
         topoS += 18;
-        add(18, `Дно лощины / долины: на ${Math.abs(terrain.rel300)} м ниже окрестности`);
+        add(18, WM.t('Дно лощины / долины: на {0} м ниже окрестности', Math.abs(terrain.rel300)));
       } else if (terrain.isRidge) {
         topoS -= 12;
-        add(-12, 'Гребень / холм: отличный гравитационный сток');
+        add(-12, WM.t('Гребень / холм: отличный гравитационный сток'));
       }
 
       if (terrain.wetness > 0.75) {
         const wp = Math.round(terrain.wetness * 12);
         topoS += wp;
-        add(wp, `Высокий топографический индекс увлажнения (${r1(terrain.wetness * 100)}%)`);
+        add(wp, WM.t('Высокий топографический индекс увлажнения ({0}%)', r1(terrain.wetness * 100)));
       }
 
       if (terrain.isFlat) {
         topoS += 8;
-        add(8, 'Плоский рельеф: поверхностный сток затруднен');
+        add(8, WM.t('Плоский рельеф: поверхностный сток затруднен'));
       } else if (terrain.hLow <= 1.5 && !terrain.isRidge) {
         topoS += 8;
-        add(8, `Низкое положение: всего ${terrain.hLow} м над понижением`);
+        add(8, WM.t('Низкое положение: всего {0} м над понижением', terrain.hLow));
       }
 
       const sl = terrain.slopeDeg;
-      if (sl >= 8) { topoS -= 25; add(-25, `Крутой склон ${sl}°: вода стекает без задержки`); }
-      else if (sl >= 4) { topoS -= 14; add(-14, `Уклон ${sl}°: застой воды невозможен`); }
+      if (sl >= 8) { topoS -= 25; add(-25, WM.t('Крутой склон {0}°: вода стекает без задержки', sl)); }
+      else if (sl >= 4) { topoS -= 14; add(-14, WM.t('Уклон {0}°: застой воды невозможен', sl)); }
     }
     topoS = clamp(topoS, 0, 40);
 
@@ -623,29 +623,29 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
       // Торф / оторфованная почва
       if (soil.socRoot >= 80 || soil.soc >= 130) {
         soilS += 30;
-        add(30, `Торфяной / органогенный грунт (SOC ${soil.socRoot || soil.soc} г/кг): впитывает воду как губка`);
+        add(30, WM.t('Торфяной / органогенный грунт (SOC {0} г/кг): впитывает воду как губка', soil.socRoot || soil.soc));
       } else if (soil.socRoot >= 50) {
         soilS += 16;
-        add(16, `Высокое содержание органики (SOC ${soil.socRoot} г/кг)`);
+        add(16, WM.t('Высокое содержание органики (SOC {0} г/кг)', soil.socRoot));
       }
 
       if (soil.clay >= 40) {
         soilS += 14;
-        add(14, `Тяжёлая глина (${soil.clay}%): водоупорный горизонт`);
+        add(14, WM.t('Тяжёлая глина ({0}%): водоупорный горизонт', soil.clay));
       } else if (soil.clay >= 28) {
         soilS += 8;
-        add(8, `Суглинок (${soil.clay}% глины): умеренное замедление дренажа`);
+        add(8, WM.t('Суглинок ({0}% глины): умеренное замедление дренажа', soil.clay));
       }
 
       const p = soil.profile || [];
       if (p[3] && p[3].clay != null && p[2] && p[2].clay != null && p[3].clay >= 35 && p[3].clay >= soil.clay + 15) {
         soilS += 8; aquitardCm = 30;
-        add(8, `Глинистый водоупор на глубине ~30 см: сезонная верховодка`);
+        add(8, WM.t('Глинистый водоупор на глубине ~30 см: сезонная верховодка'));
       }
 
       if (soil.sand >= 65 && soil.hydro.ks >= 40 && soil.socRoot < 50) {
         soilS -= 14;
-        add(-14, `Песок ${soil.sand}%: фильтрация ${soil.hydro.ks} мм/ч, вода быстро уходит вглубь`);
+        add(-14, WM.t('Песок {0}%: фильтрация {1} мм/ч, вода быстро уходит вглубь', soil.sand, soil.hydro.ks));
       }
     }
     soilS = clamp(soilS, 0, 30);
@@ -659,26 +659,26 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
     if (osm.ok) {
       if (hasInsideWater) {
         mapS += 30;
-        add(30, `Точка внутри акватории / водоёма: «${(ins.water || nr.water).title}»`);
+        add(30, WM.t('Точка внутри акватории / водоёма: «{0}»', (ins.water || nr.water).title));
       } else if (hasInsideWetland) {
         mapS += 30;
-        add(30, `Точка внутри болота OSM: ${(ins.wetland || nr.wetland).title}`);
+        add(30, WM.t('Точка внутри болота OSM: {0}', (ins.wetland || nr.wetland).title));
       } else if (nr.wetland && nr.wetland.dist <= 60) {
         mapS += 26;
-        add(26, `Болото вплотную (${nr.wetland.dist} м): ${nr.wetland.title}`);
+        add(26, WM.t('Болото вплотную ({0} м): {1}', nr.wetland.dist, nr.wetland.title));
       } else if (nr.wetland && nr.wetland.dist <= 200) {
         mapS += 16;
-        add(16, `Болото в ${nr.wetland.dist} м: близкий уровень грунтовых вод`);
+        add(16, WM.t('Болото в {0} м: близкий уровень грунтовых вод', nr.wetland.dist));
       } else if (nr.water && nr.water.dist <= 40) {
         mapS += 16;
-        add(16, `Берег водоёма в ${nr.water.dist} м`);
+        add(16, WM.t('Берег водоёма в {0} м', nr.water.dist));
       }
 
-      if (ins.floodProne) { mapS += 20; add(20, 'Зона паводкового затопления (OSM flood_prone)'); }
-      if (nr.stream && nr.stream.dist <= 40) { mapS += 10; add(10, `Ручей в ${nr.stream.dist} м`); }
-      if (nr.spring && nr.spring.dist <= 100) { mapS += 10; add(10, `Родник в ${nr.spring.dist} м`); }
-      if (nr.ditch && nr.ditch.dist <= 100) { mapS -= 5; add(-5, `Канава в ${nr.ditch.dist} м: водоотвод`); }
-      if (osm.pavedDist != null && osm.pavedDist <= 40) { mapS -= 10; add(-10, `Дорога с покрытием в ${osm.pavedDist} м: насыпь`); }
+      if (ins.floodProne) { mapS += 20; add(20, WM.t('Зона паводкового затопления (OSM flood_prone)')); }
+      if (nr.stream && nr.stream.dist <= 40) { mapS += 10; add(10, WM.t('Ручей в {0} м', nr.stream.dist)); }
+      if (nr.spring && nr.spring.dist <= 100) { mapS += 10; add(10, WM.t('Родник в {0} м', nr.spring.dist)); }
+      if (nr.ditch && nr.ditch.dist <= 100) { mapS -= 5; add(-5, WM.t('Канава в {0} м: водоотвод', nr.ditch.dist)); }
+      if (osm.pavedDist != null && osm.pavedDist <= 40) { mapS -= 10; add(-10, WM.t('Дорога с покрытием в {0} м: насыпь', osm.pavedDist)); }
     }
     mapS = clamp(mapS, 0, 30);
 
@@ -706,18 +706,18 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
       if (wx.thawing) {
         const b = clamp(wx.meltCm * 3, 5, 20);
         dynamic += b;
-        dyn.push(`Снеготаяние: снег ${wx.snowCm} см, воздух ${sgn(wx.airT)}°C (+${Math.round(b)} к сырости)`);
+        dyn.push(WM.t('Снеготаяние: снег {0} см, воздух {1}°C (+{2} к сырости)', wx.snowCm, sgn(wx.airT), Math.round(b)));
       }
       if ((wx.frozenTop || wx.frozenDeep) && (wx.rain72 > 2 || wx.thawing)) {
         dynamic += 10;
-        dyn.push('Мёрзлый грунт: инфильтрация блокирована, сток идет поверху');
+        dyn.push(WM.t('Мёрзлый грунт: инфильтрация блокирована, сток идет поверху'));
       }
       dynamic = clamp(dynamic, 0, 100);
 
-      if (topIdx > 0.8) dyn.push(`Верхние слои переувлажнены (${Math.round(top * 100)}% при норме ${Math.round(fc * 100)}%)`);
-      if (deepSat > 0.7) dyn.push('Глубокие горизонты заполнены: естественный дренаж заблокирован');
-      dyn.push(`Осадки: за 72 ч — ${wx.rain72} мм, за 14 дней — ${wx.rain14} мм, API — ${wx.api} мм`);
-      if (wx.fc72 >= 8) dyn.push(`Прогноз на 72 ч: ${wx.fc72} мм осадков`);
+      if (topIdx > 0.8) dyn.push(WM.t('Верхние слои переувлажнены ({0}% при норме {1}%)', Math.round(top * 100), Math.round(fc * 100)));
+      if (deepSat > 0.7) dyn.push(WM.t('Глубокие горизонты заполнены: естественный дренаж заблокирован'));
+      dyn.push(WM.t('Осадки: за 72 ч — {0} мм, за 14 дней — {1} мм, API — {2} мм', wx.rain72, wx.rain14, wx.api));
+      if (wx.fc72 >= 8) dyn.push(WM.t('Прогноз на 72 ч: {0} мм осадков', wx.fc72));
     }
 
     // Позиционирование относительно реки / поймы
@@ -742,11 +742,11 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
       if (floodPos === 'out') floodScore = Math.min(floodScore, 15);
       floodActive = floodScore >= 30;
 
-      const posTxt = floodPos === 'in' ? 'точка в пойме' : floodPos === 'near' ? 'точка у границы поймы' : 'высокий берег / вне поймы';
-      floodText = `${LEVELS[flood.level].label}: ${flood.cur} м³/с (норма ${flood.median}, порог поймы ${flood.p75}); ${posTxt}${dRiver != null ? `, до русла ${dRiver} м` : ''}${terrain ? `, превышение +${terrain.hLow} м` : ''}.`;
-      if (floodScore >= 30) add(floodScore, `Речной разлив (GloFAS): ${floodText}`);
+      const posTxt = floodPos === 'in' ? WM.t('точка в пойме') : floodPos === 'near' ? WM.t('точка у границы поймы') : WM.t('высокий берег / вне поймы');
+      floodText = WM.t('{0}: {1} м³/с (норма {2}, порог поймы {3}); {4}{5}{6}.', LEVELS[flood.level].label, flood.cur, flood.median, flood.p75, posTxt, dRiver != null ? WM.t(', до русла {0} м', dRiver) : '', terrain ? WM.t(', превышение +{0} м', terrain.hLow) : '');
+      if (floodScore >= 30) add(floodScore, WM.t('Речной разлив (GloFAS): {0}', floodText));
     } else {
-      floodText = 'Речного паводка нет или водоток локальный (расход < 0.5 м³/с).';
+      floodText = WM.t('Речного паводка нет или водоток локальный (расход < 0.5 м³/с).');
     }
 
     // Торфяник / болото
@@ -772,7 +772,7 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
     // Ограничители (сухой песок, крутые склоны)
     const capNotes = [];
     if (terrain && terrain.slopeDeg >= 5 && !isOpenWater && !isWetland && !floodActive) {
-      if (risk > 40) capNotes.push('Уклон склона обеспечивает сток: стоячая вода невозможна');
+      if (risk > 40) capNotes.push(WM.t('Уклон склона обеспечивает сток: стоячая вода невозможна'));
       risk = Math.min(risk, 40);
     }
     if (terrain && terrain.isRidge && terrain.hLow >= 15 && !isOpenWater) {
@@ -789,60 +789,60 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
     if (isOpenWater) {
       const isRiver = (osm.inside.water && osm.inside.water.isRiverWater) || (nr.river && nr.river.dist <= 30);
       v = {
-        title: isRiver ? 'Судоходное русло реки / глубокая вода' : 'Открытый водоём / акватория',
+        title: isRiver ? WM.t('Судоходное русло реки / глубокая вода') : WM.t('Открытый водоём / акватория'),
         color: '#0284c7', icon: '🛶',
-        walk: 'Пешком невозможно: открытая вода (глубина).',
-        car: 'Проезд невозможен. Только лодки, катера и амфибии.',
-        gear: 'Плавсредство, спасательный жилет, навигатор.'
+        walk: WM.t('Пешком невозможно: открытая вода (глубина).'),
+        car: WM.t('Проезд невозможен. Только лодки, катера и амфибии.'),
+        gear: WM.t('Плавсредство, спасательный жилет, навигатор.')
       };
     } else if (floodDriven && risk >= 60) {
       v = {
-        title: floodPos === 'in' ? 'Пойма под водой / разлив' : 'Подтопление прибрежной зоны',
+        title: floodPos === 'in' ? WM.t('Пойма под водой / разлив') : WM.t('Подтопление прибрежной зоны'),
         color: '#ef4444', icon: '🌊',
-        walk: 'Опасно: вода на пойме выше сапог, скрытые ямы и течение.',
-        car: 'Проезд запрещен: размытые съезды и насыпи.',
-        gear: 'Вейдерсы (забродники), шест для промера глубины, спасжилет.'
+        walk: WM.t('Опасно: вода на пойме выше сапог, скрытые ямы и течение.'),
+        car: WM.t('Проезд запрещен: размытые съезды и насыпи.'),
+        gear: WM.t('Вейдерсы (забродники), шест для промера глубины, спасжилет.')
       };
     } else if (isWetland || risk >= 75) {
       v = {
-        title: isWetland ? 'Топь / болото' : 'Непроходимая топь / переувлажнение',
+        title: isWetland ? WM.t('Топь / болото') : WM.t('Непроходимая топь / переувлажнение'),
         color: '#ef4444', icon: '🌾',
-        walk: 'Крайне тяжело: провал выше щиколотки/колена, зыбучий покров.',
-        car: 'Непроходимо для гражданских авто. Только болотоходы и спецтехника.',
-        gear: 'Высокие бродни / вейдерсы, слега (жердь для опоры).'
+        walk: WM.t('Крайне тяжело: провал выше щиколотки/колена, зыбучий покров.'),
+        car: WM.t('Непроходимо для гражданских авто. Только болотоходы и спецтехника.'),
+        gear: WM.t('Высокие бродни / вейдерсы, слега (жердь для опоры).')
       };
     } else if (risk >= 50) {
       v = {
-        title: (soil && soil.clay >= 30) ? 'Вязкая глина / колеи с водой' : 'Сильная распутица / грязь',
+        title: (soil && soil.clay >= 30) ? WM.t('Вязкая глина / колеи с водой') : WM.t('Сильная распутица / грязь'),
         color: '#f97316', icon: '⚠️',
-        walk: 'Тяжелое движение: жижа, глубокие лужи, размокший грунт.',
-        car: 'Только подготовленные внедорожники (MT-грязевая резина, лебедка).',
-        gear: 'Резиновые сапоги. Для авто: буксировочный трос, лопата, траки.'
+        walk: WM.t('Тяжелое движение: жижа, глубокие лужи, размокший грунт.'),
+        car: WM.t('Только подготовленные внедорожники (MT-грязевая резина, лебедка).'),
+        gear: WM.t('Резиновые сапоги. Для авто: буксировочный трос, лопата, траки.')
       };
     } else if (risk >= 30) {
       v = {
-        title: 'Умеренная сырость / локальные лужи',
+        title: WM.t('Умеренная сырость / локальные лужи'),
         color: '#eab308', icon: '🌦️',
-        walk: 'Проходимо в треккинговой обуви; сырость в микропонижениях.',
-        car: 'Легковой транспорт проедет осторожно; колеи на грунте скользкие.',
-        gear: 'Влагозащитная обувь или треккинговые ботинки.'
+        walk: WM.t('Проходимо в треккинговой обуви; сырость в микропонижениях.'),
+        car: WM.t('Легковой транспорт проедет осторожно; колеи на грунте скользкие.'),
+        gear: WM.t('Влагозащитная обувь или треккинговые ботинки.')
       };
     } else {
       v = {
-        title: 'Сухой устойчивый грунт',
+        title: WM.t('Сухой устойчивый грунт'),
         color: '#10b981', icon: '🟢',
-        walk: 'Свободное движение в любой обуви.',
-        car: 'Свободный проезд для любого гражданского транспорта.',
-        gear: 'Специальная экипировка не требуется.'
+        walk: WM.t('Свободное движение в любой обуви.'),
+        car: WM.t('Свободный проезд для любого гражданского транспорта.'),
+        gear: WM.t('Специальная экипировка не требуется.')
       };
     }
 
-    let outlook = { tone: 'same', text: 'Существенных изменений в ближайшие 3 суток не ожидается.' };
+    let outlook = { tone: 'same', text: WM.t('Существенных изменений в ближайшие 3 суток не ожидается.') };
     if (wx) {
-      if (wx.fc72 >= 15) outlook = { tone: 'worse', text: `Ожидается ${wx.fc72} мм осадков за 72 ч: сырость и грязь заметно усилятся.` };
-      else if (wx.fc72 >= 6) outlook = { tone: 'worse', text: `Прогноз осадков: ${wx.fc72} мм за 72 ч, возможно локальное ухудшение.` };
+      if (wx.fc72 >= 15) outlook = { tone: 'worse', text: WM.t('Ожидается {0} мм осадков за 72 ч: сырость и грязь заметно усилятся.', wx.fc72) };
+      else if (wx.fc72 >= 6) outlook = { tone: 'worse', text: WM.t('Прогноз осадков: {0} мм за 72 ч, возможно локальное ухудшение.', wx.fc72) };
       else if (wx.fc72 < 2 && !isOpenWater) {
-        outlook = { tone: 'better', text: isPeat ? 'Сухая погода, но торфяник сохраняет влагу неделями.' : 'Сухо: грунт будет постепенно подсыхать.' };
+        outlook = { tone: 'better', text: isPeat ? WM.t('Сухая погода, но торфяник сохраняет влагу неделями.') : WM.t('Сухо: грунт будет постепенно подсыхать.') };
       }
     }
 
@@ -871,7 +871,7 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
       if (!v) return '';
       const col = i < s.todayI ? '#0284c7' : i === s.todayI ? '#0ea5e9' : '#7dd3fc';
       const pr = s.prob[i] != null ? ` (${s.prob[i]}%)` : '';
-      return `<rect x="${(pL + i * bw + 1).toFixed(1)}" y="${y(v).toFixed(1)}" width="${Math.max(1, bw - 2).toFixed(1)}" height="${(pT + ph - y(v)).toFixed(1)}" fill="${col}" opacity="0.88"><title>${s.dates[i]}: ${v.toFixed(1)} мм${pr}</title></rect>`;
+      return `<rect x="${(pL + i * bw + 1).toFixed(1)}" y="${y(v).toFixed(1)}" width="${Math.max(1, bw - 2).toFixed(1)}" height="${(pT + ph - y(v)).toFixed(1)}" fill="${col}" opacity="0.88"><title>${WM.t('{0}: {1} мм{2}', s.dates[i], v.toFixed(1), pr)}</title></rect>`;
     }).join('');
     const labels = s.dates.map((d, i) => (i % 3 === 0 || i === s.todayI) ? `<text x="${cx(i).toFixed(1)}" y="${h - 7}" font-size="8.5" text-anchor="middle">${d.slice(8, 10)}.${d.slice(5, 7)}</text>` : '').join('');
     return `
@@ -879,10 +879,10 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
         <line x1="${pL}" y1="${pT + ph}" x2="${w - pR}" y2="${pT + ph}" stroke="var(--border)"/>
         ${bars}
         <line x1="${cx(s.todayI).toFixed(1)}" y1="${pT}" x2="${cx(s.todayI).toFixed(1)}" y2="${pT + ph}" stroke="var(--accent)" stroke-dasharray="4,3"/>
-        <text x="${pL - 4}" y="${pT + 8}" font-size="8.5" text-anchor="end">${Math.round(maxP)} мм</text>
+        <text x="${pL - 4}" y="${pT + 8}" font-size="8.5" text-anchor="end">${WM.t('{0} мм', Math.round(maxP))}</text>
         ${labels}
       </svg>
-      <div class="gx-note">Осадки по суткам: факт (14 дн) и прогноз (7 дн). Пунктир — сегодня.</div>`;
+      <div class="gx-note">${WM.t('Осадки по суткам: факт (14 дн) и прогноз (7 дн). Пунктир — сегодня.')}</div>`;
   }
 
   function renderHydrograph(flood) {
@@ -900,7 +900,7 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
         <svg viewBox="0 0 ${w} ${h}" class="gx-svg">
           <line x1="${pL}" y1="${gy(0)}" x2="${w - pR}" y2="${gy(0)}" stroke="var(--border)"/>
           <line x1="${tx}" y1="${pT}" x2="${tx}" y2="${h - pB}" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="4,4"/>
-          <text x="${tx}" y="${h - 7}" font-size="9" font-weight="700" text-anchor="middle" style="fill:var(--accent)">Сегодня</text>
+          <text x="${tx}" y="${h - 7}" font-size="9" font-weight="700" text-anchor="middle" style="fill:var(--accent)">${WM.t('Сегодня')}</text>
           <polyline points="${pts(flood.p75Arr)}" fill="none" stroke="#f59e0b" stroke-width="1.6" stroke-dasharray="3,3"/>
           <polyline points="${pts(flood.med)}" fill="none" stroke="#64748b" stroke-width="1.4" stroke-dasharray="4,4" opacity="0.8"/>
           <polyline points="${pts(flood.q)}" fill="none" stroke="#0284c7" stroke-width="2.4"/>
@@ -909,9 +909,9 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
           <text x="${pL - 5}" y="${gy(0)}" font-size="8.5" text-anchor="end">0</text>
         </svg>
         <div style="display:flex; justify-content:center; gap:12px; font-size:10px; margin-top:4px;">
-          <span><b style="color:#0284c7;">—</b> Расход (м³/с)</span>
-          <span><b style="color:#64748b;">---</b> Медиана</span>
-          <span><b style="color:#f59e0b;">···</b> Порог поймы</span>
+          <span><b style="color:#0284c7;">—</b> ${WM.t('Расход (м³/с)')}</span>
+          <span><b style="color:#64748b;">---</b> ${WM.t('Медиана')}</span>
+          <span><b style="color:#f59e0b;">···</b> ${WM.t('Порог поймы')}</span>
         </div>
       </div>`;
   }
@@ -920,12 +920,12 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
     if (!flood || !flood.hasCatchment) return '';
     const cells = flood.daily7.map((d, i) => {
       const isToday = i === 0;
-      const dateLbl = isToday ? 'Сегодня' : `${d.date.slice(8, 10)}.${d.date.slice(5, 7)}`;
+      const dateLbl = isToday ? WM.t('Сегодня') : `${d.date.slice(8, 10)}.${d.date.slice(5, 7)}`;
       return `
-        <div class="river-forecast-card lvl-${d.level} ${isToday ? 'today' : ''}" title="${esc(d.date)}: ${d.q} м³/с">
+        <div class="river-forecast-card lvl-${d.level} ${isToday ? 'today' : ''}" title="${WM.t('{0}: {1} м³/с', esc(d.date), d.q)}">
           <span class="rfc-date">${dateLbl}</span>
           <span class="rfc-val">${d.q}</span>
-          <span class="rfc-unit">м³/с</span>
+          <span class="rfc-unit">${WM.t('м³/с')}</span>
           <span class="rfc-dot"></span>
         </div>`;
     }).join('');
@@ -933,8 +933,8 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
     return `
       <div style="display:flex; flex-direction:column; gap:5px; margin-top:4px;">
         <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; font-weight:700; color:var(--text-muted);">
-          <span>📅 Прогноз расхода (7 дней)</span>
-          <span style="font-size:10px; font-weight:500;">Порог поймы: ${flood.p75} м³/с</span>
+          <span>${WM.t('📅 Прогноз расхода (7 дней)')}</span>
+          <span style="font-size:10px; font-weight:500;">${WM.t('Порог поймы: {0} м³/с', flood.p75)}</span>
         </div>
         <div class="river-forecast-strip">${cells}</div>
       </div>`;
@@ -944,13 +944,13 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
     const isWaterSoil = soil && soil.bdod === 0 && soil.soc === 0;
     const fc = (soil && !isWaterSoil) ? soil.hydro.fc : 0.32;
     const ths = (soil && !isWaterSoil) ? soil.hydro.thetaS : 0.45;
-    const layers = [['0–1 см', wx.m0_1], ['1–3 см', wx.m1_3], ['3–9 см', wx.m3_9], ['9–27 см', wx.m9_27], ['27–81 см', wx.m27_81]];
-    return layers.map(([lbl, m]) => {
+    const layers = [[WM.t('0–1 см'), wx.m0_1], [WM.t('1–3 см'), wx.m1_3], [WM.t('3–9 см'), wx.m3_9], [WM.t('9–27 см'), wx.m9_27], [WM.t('27–81 см'), wx.m27_81]];
+    return `${layers.map(([lbl, m]) => {
       const pct = clamp(m / ths * 100, 2, 100), fcPct = clamp(fc / ths * 100, 0, 100);
       const idx = (m - fc) / Math.max(0.05, ths - fc);
       const col = idx > 0.8 ? '#ef4444' : idx > 0.2 ? '#f97316' : idx > 0 ? '#eab308' : '#0284c7';
       return `<div class="gx-row"><span class="gx-note" style="min-width:56px;">${lbl}</span><div class="gx-bar" style="flex:1;position:relative;"><i style="width:${pct}%;background:${col}"></i><span style="position:absolute;left:${fcPct}%;top:0;bottom:0;width:2px;background:var(--text-main);opacity:.55;"></span></div><b style="min-width:38px;text-align:right;">${Math.round(m * 100)}%</b></div>`;
-    }).join('') + `<div class="gx-note">Метка внутри шкалы — полевая влагоёмкость (${Math.round(fc * 100)}%). Всё что правее — свободная гравитационная вода.</div>`;
+    }).join('')}<div class="gx-note">${WM.t('Метка внутри шкалы — полевая влагоёмкость ({0}%). Всё что правее — свободная гравитационная вода.', Math.round(fc * 100))}</div>`;
   }
 
   function renderWaterModalResult(ctx) {
@@ -969,19 +969,19 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
     const outIcon = A.outlook.tone === 'worse' ? '📈' : A.outlook.tone === 'better' ? '📉' : '➡️';
 
     const insights = [];
-    insights.push(`🏞️ <b>Место:</b> природная склонность ${A.susceptibility}% (рельеф ${A.parts.topoS}/40, грунт ${A.parts.soilS}/30, гидросеть ${A.parts.mapS}/30).`);
-    insights.push(`☔ <b>Погода:</b> активация ${A.dynamic}%${wx ? ` (за 72 ч: ${wx.rain72} мм, индекс API: ${wx.api} мм)` : ''}.`);
-    if (A.isOpenWater) insights.push('🛶 <b>Открытая вода:</b> точка на акватории водоёма или реки.');
-    else if (A.isWetland) insights.push('🌾 <b>Болото:</b> постоянное гидроморфное понижение, сохраняет топкость в любую погоду.');
-    insights.push(`🌊 <b>Речной сток:</b> ${esc(A.floodText)}`);
+    insights.push(`🏞️ <b>${WM.t('Место:')}</b> ${WM.t('природная склонность {0}% (рельеф {1}/40, грунт {2}/30, гидросеть {3}/30).', A.susceptibility, A.parts.topoS, A.parts.soilS, A.parts.mapS)}`);
+    insights.push(`☔ <b>${WM.t('Погода:')}</b> ${WM.t('активация {0}%{1}.', A.dynamic, wx ? WM.t(' (за 72 ч: {0} мм, индекс API: {1} мм)', wx.rain72, wx.api) : '')}`);
+    if (A.isOpenWater) insights.push(`🛶 <b>${WM.t('Открытая вода:')}</b> ${WM.t('точка на акватории водоёма или реки.')}`);
+    else if (A.isWetland) insights.push(`🌾 <b>${WM.t('Болото:')}</b> ${WM.t('постоянное гидроморфное понижение, сохраняет топкость в любую погоду.')}`);
+    insights.push(`🌊 <b>${WM.t('Речной сток:')}</b> ${esc(A.floodText)}`);
     if (A.capNotes.length) insights.push('ℹ️ ' + esc(A.capNotes.join('; ')));
 
     const floodLvl = flood && flood.hasCatchment && flood.cur >= 0.5 ? LEVELS[flood.level] : null;
-    const posLbl = A.floodPos === 'in' ? 'в пойме' : A.floodPos === 'near' ? 'у границы поймы' : 'вне поймы';
+    const posLbl = A.floodPos === 'in' ? WM.t('в пойме') : A.floodPos === 'near' ? WM.t('у границы поймы') : WM.t('вне поймы');
     const posCol = A.floodPos === 'in' ? '#ef4444' : A.floodPos === 'near' ? '#f97316' : '#10b981';
 
     const osmChips = osm.items.length ? osm.items.slice(0, 14).map(o => `
-      <span class="water-osm-chip ${o.severity}"><span>${o.icon}</span><span>${esc(o.title)}${o.dist > 0 ? ` · ${o.dist} м` : ' (здесь)'}</span></span>`).join('') : '';
+      <span class="water-osm-chip ${o.severity}"><span>${o.icon}</span><span>${esc(o.title)}${o.dist > 0 ? WM.t(' · {0} м', o.dist) : WM.t(' (здесь)')}</span></span>`).join('') : '';
 
     const floodPct = flood && flood.p75 ? Math.min(100, Math.round((flood.cur / flood.p75) * 100)) : 0;
     const floodBarCol = floodPct >= 95 ? '#ef4444' : floodPct >= 80 ? '#f97316' : floodPct >= 60 ? '#eab308' : '#10b981';
@@ -1027,19 +1027,19 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
             <div class="river-status-left">
               <span class="river-status-title">${floodLvl.label}</span>
               <span class="river-status-sub">
-                ${flood.trend === 'rising' ? 'Сток растёт ↗' : flood.trend === 'falling' ? 'Сток падает ↘' : 'Уровень стабилен →'} · Риск затопления: ${floodPct >= 90 ? 'высокий' : floodPct >= 70 ? 'умеренный' : 'минимальный'}
+                ${WM.t('{0} · Риск затопления: {1}', flood.trend === 'rising' ? WM.t('Сток растёт ↗') : flood.trend === 'falling' ? WM.t('Сток падает ↘') : WM.t('Уровень стабилен →'), floodPct >= 90 ? WM.t('высокий') : floodPct >= 70 ? WM.t('умеренный') : WM.t('минимальный'))}
               </span>
             </div>
             <div class="river-status-badge">
-              <b>${flood.cur}</b> <small style="color:var(--text-muted);">м³/с</small>
+              <b>${flood.cur}</b> <small style="color:var(--text-muted);">${WM.t('м³/с')}</small>
             </div>
           </div>
 
           <!-- Наглядная шкала: сколько запаса до поймы -->
           <div class="river-gauge-wrap">
             <div class="river-gauge-head">
-              <span style="color:var(--text-muted);">Заполнение русла до выхода на пойму</span>
-              <span style="color:${floodBarCol};">${floodPct}% (${flood.cur} из ${flood.p75} м³/с)</span>
+              <span style="color:var(--text-muted);">${WM.t('Заполнение русла до выхода на пойму')}</span>
+              <span style="color:${floodBarCol};">${WM.t('{0}% ({1} из {2} м³/с)', floodPct, flood.cur, flood.p75)}</span>
             </div>
             <div class="river-gauge-bar">
               <div class="river-gauge-fill" style="width:${floodPct}%; background:${floodBarCol};"></div>
@@ -1049,24 +1049,24 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
           <!-- Сетка параметров: 2x2 -->
           <div class="river-metrics-grid">
             <div class="river-metric-box">
-              <span class="river-metric-lbl">Положение точки</span>
+              <span class="river-metric-lbl">${WM.t('Положение точки')}</span>
               <span class="river-metric-val" style="color:${posCol};">${posLbl}</span>
-              <span class="river-metric-hint">${A.dRiver != null ? `До русла: ${A.dRiver} м` : 'Вне прямой зоны'}</span>
+              <span class="river-metric-hint">${A.dRiver != null ? WM.t('До русла: {0} м', A.dRiver) : WM.t('Вне прямой зоны')}</span>
             </div>
             <div class="river-metric-box">
-              <span class="river-metric-lbl">Превышение рельефа</span>
-              <span class="river-metric-val">${terrain ? `+${terrain.hLow} м` : '—'}</span>
-              <span class="river-metric-hint">Над низиной (750 м)</span>
+              <span class="river-metric-lbl">${WM.t('Превышение рельефа')}</span>
+              <span class="river-metric-val">${terrain ? WM.t('+{0} м', terrain.hLow) : '—'}</span>
+              <span class="river-metric-hint">${WM.t('Над низиной (750 м)')}</span>
             </div>
             <div class="river-metric-box">
-              <span class="river-metric-lbl">Сезонная норма</span>
-              <span class="river-metric-val">${flood.median} <small style="font-size:10px; font-weight:600; color:var(--text-muted);">м³/с</small></span>
-              <span class="river-metric-hint">Медиана для этой даты</span>
+              <span class="river-metric-lbl">${WM.t('Сезонная норма')}</span>
+              <span class="river-metric-val">${flood.median} <small style="font-size:10px; font-weight:600; color:var(--text-muted);">${WM.t('м³/с')}</small></span>
+              <span class="river-metric-hint">${WM.t('Медиана для этой даты')}</span>
             </div>
             <div class="river-metric-box">
-              <span class="river-metric-lbl">Порог поймы (P75)</span>
-              <span class="river-metric-val" style="color:#f59e0b;">${flood.p75} <small style="font-size:10px; font-weight:600; color:var(--text-muted);">м³/с</small></span>
-              <span class="river-metric-hint">Выход воды на берега</span>
+              <span class="river-metric-lbl">${WM.t('Порог поймы (P75)')}</span>
+              <span class="river-metric-val" style="color:#f59e0b;">${flood.p75} <small style="font-size:10px; font-weight:600; color:var(--text-muted);">${WM.t('м³/с')}</small></span>
+              <span class="river-metric-hint">${WM.t('Выход воды на берега')}</span>
             </div>
           </div>
 
@@ -1075,7 +1075,7 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
             <div class="river-peak-alert">
               <span style="font-size:16px;">📈</span>
               <div>
-                Ожидается пик расхода <b>${flood.peakQ} м³/с</b> через <b>${flood.peakInDays} дн.</b> (${flood.peakDate.slice(8,10)}.${flood.peakDate.slice(5,7)}).
+                ${WM.t('Ожидается пик расхода')} <b>${WM.t('{0} м³/с', flood.peakQ)}</b> ${WM.t('через')} <b>${WM.t('{0} дн.', flood.peakInDays)}</b> (${flood.peakDate.slice(8,10)}.${flood.peakDate.slice(5,7)}).
               </div>
             </div>
           ` : ''}
@@ -1087,7 +1087,7 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
           ${renderHydrograph(flood)}
         ` : `
           <div class="muted" style="font-size:11.5px; padding:12px 0;">
-            Водотока с паводковым бассейном нет (расход &lt; 0.5 м³/с).
+            ${WM.t('Водотока с паводковым бассейном нет (расход &lt; 0.5 м³/с).')}
           </div>
         `}
       </div>
@@ -1097,30 +1097,30 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
         ${wx ? `
           ${renderMoistureLayers(wx, soil)}
           <div class="gx-grid">
-            ${statBox('Дождь 24 ч / 72 ч', `${wx.rain24} / ${wx.rain72} мм`)}
-            ${statBox('Осадки 7 / 14 дн', `${wx.rain7} / ${wx.rain14} мм`)}
-            ${statBox('Прогноз 24 ч / 72 ч', `${wx.fc24} / ${wx.fc72} мм`)}
-            ${statBox('Баланс 7 дн (P−ET₀)', `${sgn(r1(wx.rain7 - wx.et7))} мм`)}
+            ${statBox(WM.t('Дождь 24 ч / 72 ч'), WM.t('{0} / {1} мм', wx.rain24, wx.rain72))}
+            ${statBox(WM.t('Осадки 7 / 14 дн'), WM.t('{0} / {1} мм', wx.rain7, wx.rain14))}
+            ${statBox(WM.t('Прогноз 24 ч / 72 ч'), WM.t('{0} / {1} мм', wx.fc24, wx.fc72))}
+            ${statBox(WM.t('Баланс 7 дн (P−ET₀)'), WM.t('{0} мм', sgn(r1(wx.rain7 - wx.et7))))}
           </div>
-          <div class="gx-note">Температура: воздух ${sgn(wx.airT)}°C, почва 0 см ${sgn(wx.t0)}°C, глубина 18 см ${sgn(wx.t18)}°C.</div>
+          <div class="gx-note">${WM.t('Температура: воздух {0}°C, почва 0 см {1}°C, глубина 18 см {2}°C.', sgn(wx.airT), sgn(wx.t0), sgn(wx.t18))}</div>
           ${renderPrecipChart(wx)}
-        ` : '<div class="muted" style="font-size:11px;">Метеоданные недоступны.</div>'}
+        ` : `<div class="muted" style="font-size:11px;">${WM.t('Метеоданные недоступны.')}</div>`}
       </div>
 
       <div class="water-section-card">
         <div class="water-section-header"><span>⚖️ Факторы оценки</span></div>
-        ${factorsUp.length ? `<div class="gx-note" style="font-weight:700;">Повышают сырость и застой воды:</div>${factorsUp.map(fRow).join('')}` : ''}
-        ${factorsDown.length ? `<div class="gx-note" style="font-weight:700;margin-top:6px;">Отводят воду / способствуют дренажу:</div>${factorsDown.map(fRow).join('')}` : ''}
+        ${factorsUp.length ? `<div class="gx-note" style="font-weight:700;">${WM.t('Повышают сырость и застой воды:')}</div>${factorsUp.map(fRow).join('')}` : ''}
+        ${factorsDown.length ? `<div class="gx-note" style="font-weight:700;margin-top:6px;">${WM.t('Отводят воду / способствуют дренажу:')}</div>${factorsDown.map(fRow).join('')}` : ''}
       </div>
 
       <div class="water-section-card">
         <div class="water-section-header"><span>🗺️ Рельеф и объекты OSM</span></div>
         <div style="display:flex;flex-direction:column;gap:6px;font-size:11.5px;line-height:1.45;">
-          ${terrain ? `<div>• <b>Рельеф:</b> уклон <b>${terrain.slopeDeg}°</b>, вогнутость <b>${sgn(terrain.deltaLocal)} м</b>, превышение <b>${terrain.hLow} м</b> — ${terrain.isDepression ? 'котловина' : terrain.isValleyBottom ? 'дно лощины' : terrain.isRidge ? 'гребень' : 'склон'}${terrain.wetness != null ? `, индекс увлажнения ${Math.round(terrain.wetness * 100)}%` : ''}.</div>` : ''}
-          ${soil && !A.isOpenWater ? `<div>• <b>Грунт:</b> глина <b>${soil.clay}%</b>, песок <b>${soil.sand}%</b>, органика SOC <b>${soil.socRoot || soil.soc} г/кг</b>${A.isPeat ? ' (торфяник)' : ''}; Ksat <b>${soil.hydro.ks} мм/ч</b>.</div>` : ''}
+          ${terrain ? `<div>• <b>${WM.t('Рельеф:')}</b> ${WM.t('уклон')} <b>${terrain.slopeDeg}°</b>${WM.t(', вогнутость')} <b>${WM.t('{0} м', sgn(terrain.deltaLocal))}</b>${WM.t(', превышение')} <b>${WM.t('{0} м', terrain.hLow)}</b> — ${terrain.isDepression ? WM.t('котловина') : terrain.isValleyBottom ? WM.t('дно лощины') : terrain.isRidge ? WM.t('гребень') : WM.t('склон')}${terrain.wetness != null ? WM.t(', индекс увлажнения {0}%', Math.round(terrain.wetness * 100)) : ''}.</div>` : ''}
+          ${soil && !A.isOpenWater ? `<div>• <b>${WM.t('Грунт:')}</b> ${WM.t('глина')} <b>${soil.clay}%</b>${WM.t(', песок')} <b>${soil.sand}%</b>${WM.t(', органика SOC')} <b>${WM.t('{0} г/кг', soil.socRoot || soil.soc)}</b>${A.isPeat ? WM.t(' (торфяник)') : ''}; Ksat <b>${WM.t('{0} мм/ч', soil.hydro.ks)}</b>.</div>` : ''}
           <div>
             <div style="font-weight:700;color:var(--text-main);margin-bottom:3px;">Гидрообъекты OSM (до 900 м):</div>
-            ${osmChips ? `<div class="water-osm-chips">${osmChips}</div>` : '<div class="muted" style="font-size:11px;">Водоемов и болот в радиусе 900 м нет.</div>'}
+            ${osmChips ? `<div class="water-osm-chips">${osmChips}</div>` : `<div class="muted" style="font-size:11px;">${WM.t('Водоемов и болот в радиусе 900 м нет.')}</div>`}
           </div>
         </div>
       </div>
@@ -1137,16 +1137,16 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
     document.getElementById('btn-water-copy-report')?.addEventListener('click', () => {
       const plain = s => String(s).replace(/<[^>]+>/g, '');
       const text = [
-        `🌊 Гидрологический отчёт [${lat.toFixed(5)}, ${lon.toFixed(5)}]:`,
-        `• Вердикт: ${v.title} (риск ${A.risk}%; место ${A.susceptibility}%, погода ${A.dynamic}%)`,
-        `• Пешеход: ${v.walk}`, `• Транспорт: ${v.car}`, `• Экипировка: ${v.gear}`,
-        `• 72 ч: ${A.outlook.text}`,
-        `• Речной сток: ${A.floodText}`,
-        terrain ? `• Рельеф: уклон ${terrain.slopeDeg}°, вогнутость ${sgn(terrain.deltaLocal)} м, превышение ${terrain.hLow} м` : '',
-        osm.items.length ? `• OSM: ${osm.items.slice(0, 6).map(o => `${o.title} (${o.dist} м)`).join('; ')}` : ''
+        WM.t('🌊 Гидрологический отчёт [{0}, {1}]:', lat.toFixed(5), lon.toFixed(5)),
+        WM.t('• Вердикт: {0} (риск {1}%; место {2}%, погода {3}%)', v.title, A.risk, A.susceptibility, A.dynamic),
+        WM.t('• Пешеход: {0}', v.walk), WM.t('• Транспорт: {0}', v.car), WM.t('• Экипировка: {0}', v.gear),
+        WM.t('• 72 ч: {0}', A.outlook.text),
+        WM.t('• Речной сток: {0}', A.floodText),
+        terrain ? WM.t('• Рельеф: уклон {0}°, вогнутость {1} м, превышение {2} м', terrain.slopeDeg, sgn(terrain.deltaLocal), terrain.hLow) : '',
+        osm.items.length ? `• OSM: ${osm.items.slice(0, 6).map(o => WM.t('{0} ({1} м)', o.title, o.dist)).join('; ')}` : ''
       ].filter(Boolean).join('\n');
       navigator.clipboard.writeText(text).then(() => {
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast('📋 Гидроотчёт скопирован');
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('📋 Гидроотчёт скопирован'));
       });
     });
 
@@ -1154,7 +1154,7 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
       const pre = document.getElementById('water-raw-json-pre');
       if (pre && pre.textContent) {
         navigator.clipboard.writeText(pre.textContent).then(() => {
-          if (WM.ui && WM.ui.showToast) WM.ui.showToast('📋 Сырые гидроданные (JSON) скопированы');
+          if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('📋 Сырые гидроданные (JSON) скопированы'));
         });
       }
     });
@@ -1182,8 +1182,8 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
     content.innerHTML = `
       <div class="soil-loading-wrap">
         <div class="lb-spinner" style="width:36px;height:36px;border-width:3px;border-top-color:#0284c7;"></div>
-        <div class="soil-loading-text">Гидрологический синтез: GloFAS, рельеф, почва, OSM, погода…</div>
-        <small class="hint-text" style="text-align:center;">Анализ рельефа, влажности слоев, пойменных границ и гидрообъектов</small>
+        <div class="soil-loading-text">${WM.t('Гидрологический синтез: GloFAS, рельеф, почва, OSM, погода…')}</div>
+        <small class="hint-text" style="text-align:center;">${WM.t('Анализ рельефа, влажности слоев, пойменных границ и гидрообъектов')}</small>
       </div>`;
 
     modal.classList.add('open');
@@ -1203,7 +1203,7 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
 
       const osmSafe = osm || { ok: false, items: [], inside: {}, nearest: {}, pavedDist: null, landCover: null };
       if (!flood && !wx && !terrain && !soil && !osmSafe.ok) {
-        throw new Error('Не удалось получить данные гидрологии. Проверьте интернет-соединение.');
+        throw new Error(WM.t('Не удалось получить данные гидрологии. Проверьте интернет-соединение.'));
       }
 
       renderWaterModalResult({ flood, osm: osmSafe, wx, terrain, soil, lat, lon });
@@ -1212,9 +1212,9 @@ is_in(${lat.toFixed(5)},${lon.toFixed(5)})->.a;
       content.innerHTML = `
         <div class="sheet-empty-state" style="padding:24px 14px;">
           <div class="sheet-empty-icon">⚠️</div>
-          <div class="sheet-empty-title">Ошибка гидродиагностики</div>
+          <div class="sheet-empty-title">${WM.t('Ошибка гидродиагностики')}</div>
           <div class="sheet-empty-desc">${esc(err.message)}</div>
-          <button type="button" class="btn btn-primary" id="btn-water-retry">↺ Повторить запрос</button>
+          <button type="button" class="btn btn-primary" id="btn-water-retry">${WM.t('↺ Повторить запрос')}</button>
         </div>
         ${renderDebugAccordion()}`;
       document.getElementById('btn-water-retry')?.addEventListener('click', () => runWaterDiagnosisForCoords(lat, lon));

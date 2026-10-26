@@ -15,10 +15,10 @@
   let badgeMarker = null;
 
   function fmtDist(meters) {
-    if (!meters || meters < 0.1) return '0 м';
-    if (meters < 1000) return Math.round(meters) + ' м';
+    if (!meters || meters < 0.1) return WM.t('0 м');
+    if (meters < 1000) return WM.t('{0} м', Math.round(meters));
     const km = meters / 1000;
-    return (km < 10 ? km.toFixed(2) : km.toFixed(1)) + ' км';
+    return WM.t('{0} км', km < 10 ? km.toFixed(2) : km.toFixed(1));
   }
 
   function getMode() {
@@ -50,7 +50,7 @@
   function updateHUD(distMeters, hint) {
     const distEl = $('qm-hud-dist');
     const hintEl = $('qm-hud-hint');
-    if (distEl) distEl.textContent = distMeters !== null ? fmtDist(distMeters) : '0 м';
+    if (distEl) distEl.textContent = distMeters !== null ? fmtDist(distMeters) : WM.t('0 м');
     if (hintEl) hintEl.textContent = hint || '';
   }
 
@@ -134,17 +134,17 @@
       }
 
       const hintText = p2
-        ? 'Точки зафиксированы (можно двигать)'
-        : (getMode() === 'cross' ? 'Наведите перекрестие и нажмите для фиксации' : 'Укажите точку B');
+        ? WM.t('Точки зафиксированы (можно двигать)')
+        : (getMode() === 'cross' ? WM.t('Наведите перекрестие и нажмите для фиксации') : WM.t('Укажите точку B'));
       updateHUD(dist, hintText);
     } else {
       if (polyline) { layerGroup.removeLayer(polyline); polyline = null; }
       if (badgeMarker) { layerGroup.removeLayer(badgeMarker); badgeMarker = null; }
 
       if (p1) {
-        updateHUD(0, getMode() === 'cross' ? 'Двигайте карту: линия тянется к прицелу' : 'Нажмите на карту для точки B');
+        updateHUD(0, getMode() === 'cross' ? WM.t('Двигайте карту: линия тянется к прицелу') : WM.t('Нажмите на карту для точки B'));
       } else {
-        updateHUD(0, getMode() === 'cross' ? 'Нажмите в любом месте для точки A' : 'Нажмите на карту для точки A');
+        updateHUD(0, getMode() === 'cross' ? WM.t('Нажмите в любом месте для точки A') : WM.t('Нажмите на карту для точки A'));
       }
     }
   }
@@ -164,7 +164,7 @@
     marker1 = null;
     marker2 = null;
     badgeMarker = null;
-    updateHUD(0, getMode() === 'cross' ? 'Нажмите в любом месте для точки A' : 'Нажмите на карту для точки A');
+    updateHUD(0, getMode() === 'cross' ? WM.t('Нажмите в любом месте для точки A') : WM.t('Нажмите на карту для точки A'));
   }
 
   function openTool() {
@@ -183,8 +183,8 @@
 
     if (WM.ui && WM.ui.showToast) {
       WM.ui.showToast(getMode() === 'cross'
-        ? '📐 Быстрое измерение: наведите прицел и нажмите для точки A'
-        : '📐 Быстрое измерение: кликните по карте для точки A', 2200);
+        ? WM.t('📐 Быстрое измерение: наведите прицел и нажмите для точки A')
+        : WM.t('📐 Быстрое измерение: кликните по карте для точки A'), 2200);
     }
   }
 

@@ -25,30 +25,30 @@
 
   const PHENOLOGY_TERMS = {
     // Plant Phenology (term_id: 12)
-    '12_13': { text: 'Цветёт', icon: '🌸', color: '#ec4899', bg: 'rgba(236, 72, 153, 0.14)' },
-    '12_14': { text: 'Плодоносит', icon: '🍓', color: '#ef4444', bg: 'rgba(239, 68, 68, 0.14)' },
-    '12_15': { text: 'Бутонизация', icon: '🌿', color: '#10b981', bg: 'rgba(16, 185, 129, 0.14)' },
-    '12_21': { text: 'Вегетация (без цветков)', icon: '🌱', color: '#64748b', bg: 'rgba(100, 116, 139, 0.14)' },
+    '12_13': { text: WM.t('Цветёт'), icon: '🌸', color: '#ec4899', bg: 'rgba(236, 72, 153, 0.14)' },
+    '12_14': { text: WM.t('Плодоносит'), icon: '🍓', color: '#ef4444', bg: 'rgba(239, 68, 68, 0.14)' },
+    '12_15': { text: WM.t('Бутонизация'), icon: '🌿', color: '#10b981', bg: 'rgba(16, 185, 129, 0.14)' },
+    '12_21': { text: WM.t('Вегетация (без цветков)'), icon: '🌱', color: '#64748b', bg: 'rgba(100, 116, 139, 0.14)' },
     // Life Stage (term_id: 1)
-    '1_2': { text: 'Взрослая особь (Имаго)', icon: '🦋', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.14)' },
-    '1_3': { text: 'Линька', icon: '🔄', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.14)' },
-    '1_4': { text: 'Куколка', icon: '🪺', color: '#d97706', bg: 'rgba(217, 119, 6, 0.14)' },
-    '1_5': { text: 'Нимфа', icon: '🦗', color: '#06b6d4', bg: 'rgba(6, 182, 212, 0.14)' },
-    '1_6': { text: 'Личинка / Гусеница', icon: '🐛', color: '#84cc16', bg: 'rgba(132, 204, 22, 0.14)' },
-    '1_7': { text: 'Яйцо / Икра', icon: '🥚', color: '#eab308', bg: 'rgba(234, 179, 8, 0.14)' },
+    '1_2': { text: WM.t('Взрослая особь (Имаго)'), icon: '🦋', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.14)' },
+    '1_3': { text: WM.t('Линька'), icon: '🔄', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.14)' },
+    '1_4': { text: WM.t('Куколка'), icon: '🪺', color: '#d97706', bg: 'rgba(217, 119, 6, 0.14)' },
+    '1_5': { text: WM.t('Нимфа'), icon: '🦗', color: '#06b6d4', bg: 'rgba(6, 182, 212, 0.14)' },
+    '1_6': { text: WM.t('Личинка / Гусеница'), icon: '🐛', color: '#84cc16', bg: 'rgba(132, 204, 22, 0.14)' },
+    '1_7': { text: WM.t('Яйцо / Икра'), icon: '🥚', color: '#eab308', bg: 'rgba(234, 179, 8, 0.14)' },
     // Sex (term_id: 9)
-    '9_10': { text: 'Самка ♀', icon: '♀', color: '#ec4899', bg: 'rgba(236, 72, 153, 0.14)' },
-    '9_11': { text: 'Самец ♂', icon: '♂', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.14)' },
+    '9_10': { text: WM.t('Самка ♀'), icon: '♀', color: '#ec4899', bg: 'rgba(236, 72, 153, 0.14)' },
+    '9_11': { text: WM.t('Самец ♂'), icon: '♂', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.14)' },
     // Alive or Dead (term_id: 17)
-    '17_19': { text: 'Живой', icon: '🟢', color: '#10b981', bg: 'rgba(16, 185, 129, 0.14)' },
-    '17_20': { text: 'Погибший', icon: '☠️', color: '#64748b', bg: 'rgba(100, 116, 139, 0.14)' }
+    '17_19': { text: WM.t('Живой'), icon: '🟢', color: '#10b981', bg: 'rgba(16, 185, 129, 0.14)' },
+    '17_20': { text: WM.t('Погибший'), icon: '☠️', color: '#64748b', bg: 'rgba(100, 116, 139, 0.14)' }
   };
 
    const GEOMODEL_MODES = {
-    geomodel: { title: '🤖 Модель ИИ (Geomodel)', desc: 'Биоклиматическая пригодность среды', icon: '🧠' },
-    taxon_ranges: { title: '📐 Научный ареал (Range)', desc: 'Официальные границы биологов и Красных книг', icon: '📐' },
-    geomodel_taxon_range: { title: '🧬 ИИ + Научный ареал', desc: 'Модель ИИ, ограниченная официальным ареалом', icon: '🧬' },
-    geomodel_comparison: { title: '📊 Сравнение с находками', desc: 'Сопоставление прогноза с реальными точками', icon: '📊' }
+    geomodel: { title: WM.t('🤖 Модель ИИ (Geomodel)'), desc: WM.t('Биоклиматическая пригодность среды'), icon: '🧠' },
+    taxon_ranges: { title: WM.t('📐 Научный ареал (Range)'), desc: WM.t('Официальные границы биологов и Красных книг'), icon: '📐' },
+    geomodel_taxon_range: { title: WM.t('🧬 ИИ + Научный ареал'), desc: WM.t('Модель ИИ, ограниченная официальным ареалом'), icon: '🧬' },
+    geomodel_comparison: { title: WM.t('📊 Сравнение с находками'), desc: WM.t('Сопоставление прогноза с реальными точками'), icon: '📊' }
   };
 
   // Кэши данных для карточек
@@ -65,28 +65,28 @@
 
 
   const LANG_NAMES_RU = {
-    ru: 'Русский', en: 'Английский', de: 'Немецкий', fr: 'Французский',
-    es: 'Испанский', it: 'Итальянский', zh: 'Китайский', ja: 'Японский',
-    nl: 'Нидерландский', sv: 'Шведский', fi: 'Финский', no: 'Норвежский',
-    nb: 'Норвежский (букмол)', nn: 'Норвежский (нюнорск)', be: 'Белорусский',
-    'be-tarask': 'Белорусский (классический)', uk: 'Украинский', pl: 'Польский',
-    pt: 'Португальский', ar: 'Арабский', sl: 'Словенский', ro: 'Румынский',
-    tr: 'Турецкий', cs: 'Чешский', da: 'Датский', et: 'Эстонский',
-    lv: 'Латышский', lt: 'Литовский', bg: 'Болгарский', sr: 'Сербский',
-    hr: 'Хорватский', hu: 'Венгерский', el: 'Греческий', se: 'Северносаамский',
-    ast: 'Астурийский', la: 'Латынь'
+    ru: WM.t('Русский'), en: WM.t('Английский'), de: WM.t('Немецкий'), fr: WM.t('Французский'),
+    es: WM.t('Испанский'), it: WM.t('Итальянский'), zh: WM.t('Китайский'), ja: WM.t('Японский'),
+    nl: WM.t('Нидерландский'), sv: WM.t('Шведский'), fi: WM.t('Финский'), no: WM.t('Норвежский'),
+    nb: WM.t('Норвежский (букмол)'), nn: WM.t('Норвежский (нюнорск)'), be: WM.t('Белорусский'),
+    'be-tarask': WM.t('Белорусский (классический)'), uk: WM.t('Украинский'), pl: WM.t('Польский'),
+    pt: WM.t('Португальский'), ar: WM.t('Арабский'), sl: WM.t('Словенский'), ro: WM.t('Румынский'),
+    tr: WM.t('Турецкий'), cs: WM.t('Чешский'), da: WM.t('Датский'), et: WM.t('Эстонский'),
+    lv: WM.t('Латышский'), lt: WM.t('Литовский'), bg: WM.t('Болгарский'), sr: WM.t('Сербский'),
+    hr: WM.t('Хорватский'), hu: WM.t('Венгерский'), el: WM.t('Греческий'), se: WM.t('Северносаамский'),
+    ast: WM.t('Астурийский'), la: WM.t('Латынь')
   };
 
   // Словарь характерных качеств и поведения животных (P1552)
   const WIKIDATA_QUALITIES_MAP = {
-    'Q120446': { text: 'Территориальное животное (охраняет участок)', icon: '🛡️', pill: '🛡️ Территориальный' },
-    'Q503798': { text: 'Эхолокация', icon: '🦇', pill: '🦇 Эхолокация' },
-    'Q189578': { text: 'Биолюминесценция', icon: '✨', pill: '✨ Биолюминесценция' },
-    'Q188902': { text: 'Ядовитый организм', icon: '☠️', pill: '☠️ Ядовитый' },
-    'Q13410520': { text: 'Стайный / колониальный образ жизни', icon: '🐾', pill: '🐾 Стайный' },
-    'Q118742': { text: 'Одиночный образ жизни', icon: '🦊', pill: '🦊 Одиночка' },
-    'Q136395': { text: 'Яйцекладущий', icon: '🥚', pill: '🥚 Яйцекладущий' },
-    'Q136423': { text: 'Живородящий', icon: '🐣', pill: '🐣 Живородящий' }
+    'Q120446': { text: WM.t('Территориальное животное (охраняет участок)'), icon: '🛡️', pill: WM.t('🛡️ Территориальный') },
+    'Q503798': { text: WM.t('Эхолокация'), icon: '🦇', pill: WM.t('🦇 Эхолокация') },
+    'Q189578': { text: WM.t('Биолюминесценция'), icon: '✨', pill: WM.t('✨ Биолюминесценция') },
+    'Q188902': { text: WM.t('Ядовитый организм'), icon: '☠️', pill: WM.t('☠️ Ядовитый') },
+    'Q13410520': { text: WM.t('Стайный / колониальный образ жизни'), icon: '🐾', pill: WM.t('🐾 Стайный') },
+    'Q118742': { text: WM.t('Одиночный образ жизни'), icon: '🦊', pill: WM.t('🦊 Одиночка') },
+    'Q136395': { text: WM.t('Яйцекладущий'), icon: '🥚', pill: WM.t('🥚 Яйцекладущий') },
+    'Q136423': { text: WM.t('Живородящий'), icon: '🐣', pill: WM.t('🐣 Живородящий') }
   };
 
 
@@ -99,27 +99,27 @@
 
   // Жизненные формы растений (P5283 / P1552 / EOL)
   const WIKIDATA_PLANT_FORMS = {
-    'Q10884': { text: 'Дерево', icon: '🌳' },
-    'Q42295': { text: 'Кустарник', icon: '🪴' },
-    'Q190901': { text: 'Травянистое растение (трава)', icon: '🌱' },
-    'Q121404': { text: 'Лиана / вьющееся', icon: '🌿' },
-    'Q1364': { text: 'Суккулент', icon: '🌵' },
-    'Q145564': { text: 'Полукустарник', icon: '🌾' },
-    'Q214733': { text: 'Водное растение (гидрофит)', icon: '🪷' }
+    'Q10884': { text: WM.t('Дерево'), icon: '🌳' },
+    'Q42295': { text: WM.t('Кустарник'), icon: '🪴' },
+    'Q190901': { text: WM.t('Травянистое растение (трава)'), icon: '🌱' },
+    'Q121404': { text: WM.t('Лиана / вьющееся'), icon: '🌿' },
+    'Q1364': { text: WM.t('Суккулент'), icon: '🌵' },
+    'Q145564': { text: WM.t('Полукустарник'), icon: '🌾' },
+    'Q214733': { text: WM.t('Водное растение (гидрофит)'), icon: '🪷' }
   };
 
   // Типы опыления (P1552 / P1034)
   const WIKIDATA_POLLINATION_MAP = {
-    'Q134063': { text: 'Насекомоопыляемое (энтомофилия)', icon: '🐝' },
-    'Q161541': { text: 'Ветроопыляемое (анемофилия)', icon: '💨' },
-    'Q1067272': { text: 'Самоопыляемое (автогамия)', icon: '🌸' },
-    'Q844123': { text: 'Птицеопыляемое (орнитофилия)', icon: '🐦' }
+    'Q134063': { text: WM.t('Насекомоопыляемое (энтомофилия)'), icon: '🐝' },
+    'Q161541': { text: WM.t('Ветроопыляемое (анемофилия)'), icon: '💨' },
+    'Q1067272': { text: WM.t('Самоопыляемое (автогамия)'), icon: '🌸' },
+    'Q844123': { text: WM.t('Птицеопыляемое (орнитофилия)'), icon: '🐦' }
   };
 
   // Функции выгрузки JSON
   function downloadPlantTraitsDebugJson() {
     if (!lastPlantTraitsDebugData) {
-      if (WM.ui?.showToast) WM.ui.showToast('⚠️ Нет данных о растении для скачивания');
+      if (WM.ui?.showToast) WM.ui.showToast(WM.t('⚠️ Нет данных о растении для скачивания'));
       return;
     }
     const str = JSON.stringify(lastPlantTraitsDebugData, null, 2);
@@ -136,7 +136,7 @@
 
   function downloadFungiTraitsDebugJson() {
     if (!lastFungiTraitsDebugData) {
-      if (WM.ui?.showToast) WM.ui.showToast('⚠️ Нет данных о грибе для скачивания');
+      if (WM.ui?.showToast) WM.ui.showToast(WM.t('⚠️ Нет данных о грибе для скачивания'));
       return;
     }
     const str = JSON.stringify(lastFungiTraitsDebugData, null, 2);
@@ -162,15 +162,15 @@
     if (!info.exists) {
       noticeEl.className = 'inat-qhub-token-notice warn';
       noticeEl.innerHTML = `
-        <span>🔑 Токен iNat не задан (нужен для ИИ-определения фото)</span>
-        <button type="button" class="btn-link" id="btn-qhub-goto-token">Ввести ›</button>
+        <span>${WM.t('🔑 Токен iNat не задан (нужен для ИИ-определения фото)')}</span>
+        <button type="button" class="btn-link" id="btn-qhub-goto-token">${WM.t('Ввести ›')}</button>
       `;
       noticeEl.hidden = false;
     } else if (info.isExpired) {
       noticeEl.className = 'inat-qhub-token-notice danger';
       noticeEl.innerHTML = `
-        <span>⚠️ Срок действия токена истёк (24 ч)</span>
-        <button type="button" class="btn-link" id="btn-qhub-goto-token">Обновить ›</button>
+        <span>${WM.t('⚠️ Срок действия токена истёк (24 ч)')}</span>
+        <button type="button" class="btn-link" id="btn-qhub-goto-token">${WM.t('Обновить ›')}</button>
       `;
       noticeEl.hidden = false;
     } else {
@@ -277,7 +277,7 @@
     document.getElementById('btn-inat-qhub-vision')?.addEventListener('click', () => {
       const tokenInfo = getTokenInfo();
       if (!tokenInfo.exists || tokenInfo.isExpired) {
-        if (WM.ui?.showToast) WM.ui.showToast('⚠️ Требуется действующий API токен iNat (24 ч)');
+        if (WM.ui?.showToast) WM.ui.showToast(WM.t('⚠️ Требуется действующий API токен iNat (24 ч)'));
         closeQuickHubModal();
         openAndFocusTokenInput();
         return;
@@ -303,7 +303,7 @@
         chip.classList.add('active');
         const val = chip.dataset.taxa;
         setConfig({ taxa: val });
-        if (WM.ui?.showToast) WM.ui.showToast(`🌿 Выбрана группа: ${chip.textContent.trim()}`);
+        if (WM.ui?.showToast) WM.ui.showToast(WM.t('🌿 Выбрана группа: {0}', chip.textContent.trim()));
       });
     });
 
@@ -406,57 +406,57 @@
 
   // Типы плодов (P4000)
   const WIKIDATA_FRUIT_MAP = {
-    'Q14714': { text: 'Вислоплодник (двусемянка / схизокарпий)', icon: '🌾' },
-    'Q147768': { text: 'Коробочка', icon: '🌰' },
-    'Q131877': { text: 'Ягода', icon: '🫐' },
-    'Q193135': { text: 'Орех / орешек', icon: '🌰' },
-    'Q28183': { text: 'Семянка / зерновка', icon: '🌾' },
-    'Q158408': { text: 'Костянка', icon: '🍒' },
-    'Q147754': { text: 'Стручок / боб', icon: '🫛' },
-    'Q147774': { text: 'Яблоко (плод)', icon: '🍎' },
-    'Q147770': { text: 'Шишка (стробил)', icon: '🌲' },
-    'Q147760': { text: 'Крылатка', icon: '🍁' },
-    'Q147752': { text: 'Листовка', icon: '🍂' }
+    'Q14714': { text: WM.t('Вислоплодник (двусемянка / схизокарпий)'), icon: '🌾' },
+    'Q147768': { text: WM.t('Коробочка'), icon: '🌰' },
+    'Q131877': { text: WM.t('Ягода'), icon: '🫐' },
+    'Q193135': { text: WM.t('Орех / орешек'), icon: '🌰' },
+    'Q28183': { text: WM.t('Семянка / зерновка'), icon: '🌾' },
+    'Q158408': { text: WM.t('Костянка'), icon: '🍒' },
+    'Q147754': { text: WM.t('Стручок / боб'), icon: '🫛' },
+    'Q147774': { text: WM.t('Яблоко (плод)'), icon: '🍎' },
+    'Q147770': { text: WM.t('Шишка (стробил)'), icon: '🌲' },
+    'Q147760': { text: WM.t('Крылатка'), icon: '🍁' },
+    'Q147752': { text: WM.t('Листовка'), icon: '🍂' }
   };
 
   // Биологические характеристики и свойства растений (P1672 / P1552 / P279)
   const WIKIDATA_PLANT_CHARACTERISTICS_MAP = {
-    'Q19705425': { text: 'Вечнозелёное растение', icon: '🌲', pill: '🌲 Вечнозелёное' },
-    'Q1131303': { text: 'Листопадное растение', icon: '🍂', pill: '🍂 Листопадное' },
-    'Q7820900': { text: 'Однодомное растение', icon: '⚧', pill: '⚧ Однодомное' },
-    'Q149759': { text: 'Двудомное растение', icon: '🚻', pill: '🚻 Двудомное' },
-    'Q107607982': { text: 'Голосеменные / Хвойные', icon: '🌲', pill: '🌲 Хвойное' },
-    'Q25314': { text: 'Покрытосеменные (цветковые)', icon: '🌸', pill: '🌸 Цветковое' },
-    'Q2483861': { text: 'Однолетнее растение', icon: '⏳', pill: '⏳ Однолетник' },
-    'Q152535': { text: 'Двулетнее растение', icon: '⏳', pill: '⏳ Двулетник' },
-    'Q157957': { text: 'Многолетнее растение', icon: '⏳', pill: '⏳ Многолетник' },
-    'Q9323487': { text: 'Дикорастущее полезное / пищевое', icon: '🥗', pill: '🥗 Пищевое' },
-    'Q188902': { text: 'Ядовитое растение', icon: '☠️', pill: '☠️ Ядовитое' },
-    'Q188840': { text: 'Лекарственное сырьё', icon: '💊', pill: '💊 Лекарственное' },
-    'Q190489': { text: 'Древесинное сырьё', icon: '🪵', pill: '🪵 Древесина' }
+    'Q19705425': { text: WM.t('Вечнозелёное растение'), icon: '🌲', pill: WM.t('🌲 Вечнозелёное') },
+    'Q1131303': { text: WM.t('Листопадное растение'), icon: '🍂', pill: WM.t('🍂 Листопадное') },
+    'Q7820900': { text: WM.t('Однодомное растение'), icon: '⚧', pill: WM.t('⚧ Однодомное') },
+    'Q149759': { text: WM.t('Двудомное растение'), icon: '🚻', pill: WM.t('🚻 Двудомное') },
+    'Q107607982': { text: WM.t('Голосеменные / Хвойные'), icon: '🌲', pill: WM.t('🌲 Хвойное') },
+    'Q25314': { text: WM.t('Покрытосеменные (цветковые)'), icon: '🌸', pill: WM.t('🌸 Цветковое') },
+    'Q2483861': { text: WM.t('Однолетнее растение'), icon: '⏳', pill: WM.t('⏳ Однолетник') },
+    'Q152535': { text: WM.t('Двулетнее растение'), icon: '⏳', pill: WM.t('⏳ Двулетник') },
+    'Q157957': { text: WM.t('Многолетнее растение'), icon: '⏳', pill: WM.t('⏳ Многолетник') },
+    'Q9323487': { text: WM.t('Дикорастущее полезное / пищевое'), icon: '🥗', pill: WM.t('🥗 Пищевое') },
+    'Q188902': { text: WM.t('Ядовитое растение'), icon: '☠️', pill: WM.t('☠️ Ядовитое') },
+    'Q188840': { text: WM.t('Лекарственное сырьё'), icon: '💊', pill: WM.t('💊 Лекарственное') },
+    'Q190489': { text: WM.t('Древесинное сырьё'), icon: '🪵', pill: WM.t('🪵 Древесина') }
   };
 
   // Органы / части растений на фото (квалификатор P5961 у P18)
   const WIKIDATA_PLANT_PARTS_MAP = {
-    'Q33971': 'Кора / ствол',
-    'Q22710': 'Хвоя / листья',
-    'Q11422': 'Листья',
-    'Q506': 'Цветок',
-    'Q106574': 'Соцветие',
-    'Q1364': 'Плод',
-    'Q3314483': 'Плод',
-    'Q147770': 'Шишка',
-    'Q147768': 'Коробочка',
-    'Q28183': 'Семена',
-    'Q34442': 'Корень / корневище',
-    'Q149955': 'Побеги / ветви'
+    'Q33971': WM.t('Кора / ствол'),
+    'Q22710': WM.t('Хвоя / листья'),
+    'Q11422': WM.t('Листья'),
+    'Q506': WM.t('Цветок'),
+    'Q106574': WM.t('Соцветие'),
+    'Q1364': WM.t('Плод'),
+    'Q3314483': WM.t('Плод'),
+    'Q147770': WM.t('Шишка'),
+    'Q147768': WM.t('Коробочка'),
+    'Q28183': WM.t('Семена'),
+    'Q34442': WM.t('Корень / корневище'),
+    'Q149955': WM.t('Побеги / ветви')
   };
 
   /**
    * Сбор морфологии и ботанических черт растений
    */
   async function fetchPlantTraits(scientificName, wikiExtract = '') {
-    if (!scientificName || scientificName === 'Не определено') return null;
+    if (!scientificName || scientificName === WM.t('Не определено')) return null;
     const cleanLatin = scientificName.trim();
     if (plantTraitsCache.has(cleanLatin)) return plantTraitsCache.get(cleanLatin);
 
@@ -604,7 +604,7 @@
 
         // Зона зимостойкости USDA (P7912)
         if (wdClaims.P7912?.[0]?.mainsnak?.datavalue?.value) {
-          result.hardinessZone = `Зона USDA: ${wdClaims.P7912[0].mainsnak.datavalue.value}`;
+          result.hardinessZone = WM.t('Зона USDA: {0}', wdClaims.P7912[0].mainsnak.datavalue.value);
         }
 
         // =====================================================================
@@ -617,7 +617,7 @@
             const aName = wdLabelsCache.get(authorQId) || authorQId;
             result.taxonAuthor = pubYear ? `${aName}, ${pubYear}` : aName;
           } else if (pubYear) {
-            result.taxonAuthor = `${pubYear} г.`;
+            result.taxonAuthor = WM.t('{0} г.', pubYear);
           }
 
           // Если тип плода не был найден в локальном словаре
@@ -646,7 +646,7 @@
               }
               // Ядовитость уже выводится в toxicity
               if (qId === 'Q188902') {
-                result.toxicity = { text: 'Ядовитое растение', icon: '🔴', color: '#ef4444' };
+                result.toxicity = { text: WM.t('Ядовитое растение'), icon: '🔴', color: '#ef4444' };
                 continue;
               }
               charResults.push(item);
@@ -673,7 +673,7 @@
                 if (m) aYear = m[1];
               }
               if (aLabel) {
-                awardsList.push(aYear ? `${aLabel} (${aYear} г.)` : aLabel);
+                awardsList.push(aYear ? WM.t('{0} ({1} г.)', aLabel, aYear) : aLabel);
               }
             }
             result.awards = awardsList;
@@ -718,22 +718,22 @@
       if (wikiExtract) {
         const low = wikiExtract.toLowerCase();
         if (!result.growthForm) {
-          if (low.includes('дерево')) result.growthForm = { text: 'Дерево', icon: '🌳' };
-          else if (low.includes('кустарник')) result.growthForm = { text: 'Кустарник', icon: '🪴' };
+          if (low.includes('дерево')) result.growthForm = { text: WM.t('Дерево'), icon: '🌳' };
+          else if (low.includes('кустарник')) result.growthForm = { text: WM.t('Кустарник'), icon: '🪴' };
           else if (low.includes('травянистое растение') || low.includes('трава')) {
-            result.growthForm = { text: 'Травянистое растение', icon: '🌱' };
+            result.growthForm = { text: WM.t('Травянистое растение'), icon: '🌱' };
           }
         }
 
         if (!result.lifeCycle) {
-          if (low.includes('однолетн')) result.lifeCycle = 'Однолетнее растение';
-          else if (low.includes('двулетн')) result.lifeCycle = 'Двулетнее растение';
-          else if (low.includes('многолетн')) result.lifeCycle = 'Многолетнее растение';
+          if (low.includes('однолетн')) result.lifeCycle = WM.t('Однолетнее растение');
+          else if (low.includes('двулетн')) result.lifeCycle = WM.t('Двулетнее растение');
+          else if (low.includes('многолетн')) result.lifeCycle = WM.t('Многолетнее растение');
         }
 
         if (!result.toxicity) {
-          if (low.includes('смертельно ядовит')) result.toxicity = { text: 'Смертельно ядовито!', icon: '☠️', color: '#dc2626' };
-          else if (low.includes('ядовит')) result.toxicity = { text: 'Ядовитое растение', icon: '🔴', color: '#ef4444' };
+          if (low.includes('смертельно ядовит')) result.toxicity = { text: WM.t('Смертельно ядовито!'), icon: '☠️', color: '#dc2626' };
+          else if (low.includes('ядовит')) result.toxicity = { text: WM.t('Ядовитое растение'), icon: '🔴', color: '#ef4444' };
         }
 
         if (low.includes('вечнозелён') && !result.characteristics.some(c => c.text.includes('Вечнозелёное'))) {
@@ -768,29 +768,29 @@
    */
   function renderPlantTraitsSection(traits) {
     if (!traits) {
-      return `<div class="muted inat-card-empty-note" style="padding: 10px 4px;">ℹ️ В базах Wikidata пока нет детальных морфологических характеристик этого растения.</div>`;
+      return `<div class="muted inat-card-empty-note" style="padding: 10px 4px;">${WM.t('ℹ️ В базах Wikidata пока нет детальных морфологических характеристик этого растения.')}</div>`;
     }
 
     const items = [];
-    if (traits.taxonAuthor) items.push({ icon: '📜', label: 'Автор таксона:', val: traits.taxonAuthor, wide: false });
-    if (traits.growthForm) items.push({ icon: traits.growthForm.icon, label: 'Жизненная форма:', val: traits.growthForm.text, wide: false });
-    if (traits.lifeCycle) items.push({ icon: '⏳', label: 'Жизненный цикл:', val: traits.lifeCycle, wide: false });
-    if (traits.height) items.push({ icon: '📐', label: 'Высота:', val: traits.height, wide: false });
-    if (traits.longevity) items.push({ icon: '⏳', label: 'Срок жизни:', val: `до ${traits.longevity}`, wide: false });
-    if (traits.pollination) items.push({ icon: traits.pollination.icon, label: 'Опыление:', val: traits.pollination.text, wide: false });
-    if (traits.fruitType) items.push({ icon: traits.fruitType.icon || '🌰', label: 'Тип плода:', val: traits.fruitType.text, wide: false });
-    if (traits.hardinessZone) items.push({ icon: '❄️', label: 'Зимостойкость:', val: traits.hardinessZone, wide: false });
-    if (traits.shortName) items.push({ icon: '🏷️', label: 'Сокращение:', val: traits.shortName, wide: false });
+    if (traits.taxonAuthor) items.push({ icon: '📜', label: WM.t('Автор таксона:'), val: traits.taxonAuthor, wide: false });
+    if (traits.growthForm) items.push({ icon: traits.growthForm.icon, label: WM.t('Жизненная форма:'), val: traits.growthForm.text, wide: false });
+    if (traits.lifeCycle) items.push({ icon: '⏳', label: WM.t('Жизненный цикл:'), val: traits.lifeCycle, wide: false });
+    if (traits.height) items.push({ icon: '📐', label: WM.t('Высота:'), val: traits.height, wide: false });
+    if (traits.longevity) items.push({ icon: '⏳', label: WM.t('Срок жизни:'), val: WM.t('до {0}', traits.longevity), wide: false });
+    if (traits.pollination) items.push({ icon: traits.pollination.icon, label: WM.t('Опыление:'), val: traits.pollination.text, wide: false });
+    if (traits.fruitType) items.push({ icon: traits.fruitType.icon || '🌰', label: WM.t('Тип плода:'), val: traits.fruitType.text, wide: false });
+    if (traits.hardinessZone) items.push({ icon: '❄️', label: WM.t('Зимостойкость:'), val: traits.hardinessZone, wide: false });
+    if (traits.shortName) items.push({ icon: '🏷️', label: WM.t('Сокращение:'), val: traits.shortName, wide: false });
 
-    if (traits.toxicity) items.push({ icon: traits.toxicity.icon, label: 'Токсичность:', val: traits.toxicity.text, wide: true });
-    if (traits.edibleParts?.length) items.push({ icon: '🍓', label: 'Съедобные части:', val: traits.edibleParts.join(', '), wide: true });
-    if (traits.isMedicinal) items.push({ icon: '💊', label: 'Применение:', val: 'Лекарственное растение', wide: true });
-    if (traits.awards?.length) items.push({ icon: '🏆', label: 'Статус / премия:', val: traits.awards.join('; '), wide: true });
+    if (traits.toxicity) items.push({ icon: traits.toxicity.icon, label: WM.t('Токсичность:'), val: traits.toxicity.text, wide: true });
+    if (traits.edibleParts?.length) items.push({ icon: '🍓', label: WM.t('Съедобные части:'), val: traits.edibleParts.join(', '), wide: true });
+    if (traits.isMedicinal) items.push({ icon: '💊', label: WM.t('Применение:'), val: WM.t('Лекарственное растение'), wide: true });
+    if (traits.awards?.length) items.push({ icon: '🏆', label: WM.t('Статус / премия:'), val: traits.awards.join('; '), wide: true });
 
     // Характеристики и особенности растения
     if (traits.characteristics?.length) {
       traits.characteristics.forEach(ch => {
-        items.push({ icon: ch.icon || '🌿', label: 'Особенность:', val: ch.text, wide: false });
+        items.push({ icon: ch.icon || '🌿', label: WM.t('Особенность:'), val: ch.text, wide: false });
       });
     }
 
@@ -800,7 +800,7 @@
       photosHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>📷 Фотографии образцов (${traits.wikiPhotos.length})</span>
+            <span>${WM.t('📷 Фотографии образцов ({0})', traits.wikiPhotos.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body">
@@ -815,7 +815,7 @@
                       </span>` : ''}
                   </div>
                   ${item.caption ? `<small style="font-size:10.5px; color:var(--text-main); display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-top:3px;">${escapeHtml(item.caption)}</small>` : ''}
-                  <small style="font-size:10px; color:var(--text-muted); display:block;">Увеличить ↗</small>
+                  <small style="font-size:10px; color:var(--text-muted); display:block;">${WM.t('Увеличить ↗')}</small>
                 </a>
               `).join('')}
             </div>
@@ -829,13 +829,13 @@
       rangeMapHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>🗺️ Научная карта ареала вида (Wikimedia Commons)</span>
+            <span>${WM.t('🗺️ Научная карта ареала вида (Wikimedia Commons)')}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body" style="text-align:center; padding:6px 0;">
             <a href="${getCommonsMediaUrl(traits.rangeMapFile, 1600)}" target="_blank" rel="noopener noreferrer">
-              <img src="${getCommonsMediaUrl(traits.rangeMapFile, 600)}" alt="Карта ареала" style="max-height:160px; max-width:100%; border-radius:6px; border:1px solid var(--border-color); object-fit:contain;">
-              <small style="font-size:10px; color:var(--text-muted); display:block; margin-top:3px;">Открыть полную схему ареала ↗</small>
+              <img src="${getCommonsMediaUrl(traits.rangeMapFile, 600)}" alt="${WM.t('Карта ареала')}" style="max-height:160px; max-width:100%; border-radius:6px; border:1px solid var(--border-color); object-fit:contain;">
+              <small style="font-size:10px; color:var(--text-muted); display:block; margin-top:3px;">${WM.t('Открыть полную схему ареала ↗')}</small>
             </a>
           </div>
         </details>
@@ -848,7 +848,7 @@
       commonNamesHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>🌍 Народные названия (${traits.commonNames.length})</span>
+            <span>${WM.t('🌍 Народные названия ({0})', traits.commonNames.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body">
@@ -881,8 +881,8 @@
       ${commonNamesHtml}
 
       <div class="inat-traits-source-note" style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-        <span style="font-size:11px; color:var(--text-muted);">📚 Источники: <b>Wikidata</b>, <b>Wikipedia</b></span>
-        <button type="button" class="btn-link" onclick="window.WM.inat.downloadPlantTraitsDebug()" style="font-size:11px; font-weight:600;">💾 Скачать JSON</button>
+        <span style="font-size:11px; color:var(--text-muted);">${WM.t('📚 Источники:')} <b>Wikidata</b>, <b>Wikipedia</b></span>
+        <button type="button" class="btn-link" onclick="window.WM.inat.downloadPlantTraitsDebug()" style="font-size:11px; font-weight:600;">${WM.t('💾 Скачать JSON')}</button>
       </div>
     `;
   }
@@ -896,85 +896,85 @@
 
   // Статусы съедобности грибов (P789 и P199)
   const WIKIDATA_EDIBILITY_MAP = {
-    'Q214190': { text: 'Съедобный гриб', class: 'inat-pill-edible', icon: '🟢', rank: 1 },
-    'Q1143890': { text: 'Деликатесный съедобный гриб', class: 'inat-pill-edible', icon: '🟢', rank: 1 },
-    'Q1474558': { text: 'Условно-съедобный гриб', class: 'inat-pill-cond-edible', icon: '🟡', rank: 2 },
-    'Q1474560': { text: 'Несъедобный гриб', class: 'inat-pill-inedible', icon: '⚪', rank: 3 },
-    'Q1474564': { text: 'Ядовитый гриб', class: 'inat-pill-poisonous', icon: '🔴', rank: 4 },
-    'Q359511': { text: 'Ядовитый / токсичный гриб', class: 'inat-pill-poisonous', icon: '🔴', rank: 4 },
-    'Q6555909': { text: 'Смертельно ядовитый гриб', class: 'inat-pill-deadly', icon: '☠️', rank: 5 },
-    'Q19888591': { text: 'Смертельно ядовитый гриб', class: 'inat-pill-deadly', icon: '☠️', rank: 5 },
+    'Q214190': { text: WM.t('Съедобный гриб'), class: 'inat-pill-edible', icon: '🟢', rank: 1 },
+    'Q1143890': { text: WM.t('Деликатесный съедобный гриб'), class: 'inat-pill-edible', icon: '🟢', rank: 1 },
+    'Q1474558': { text: WM.t('Условно-съедобный гриб'), class: 'inat-pill-cond-edible', icon: '🟡', rank: 2 },
+    'Q1474560': { text: WM.t('Несъедобный гриб'), class: 'inat-pill-inedible', icon: '⚪', rank: 3 },
+    'Q1474564': { text: WM.t('Ядовитый гриб'), class: 'inat-pill-poisonous', icon: '🔴', rank: 4 },
+    'Q359511': { text: WM.t('Ядовитый / токсичный гриб'), class: 'inat-pill-poisonous', icon: '🔴', rank: 4 },
+    'Q6555909': { text: WM.t('Смертельно ядовитый гриб'), class: 'inat-pill-deadly', icon: '☠️', rank: 5 },
+    'Q19888591': { text: WM.t('Смертельно ядовитый гриб'), class: 'inat-pill-deadly', icon: '☠️', rank: 5 },
     // Особые свойства (P789)
-    'Q1686195': { text: 'Целебный / лекарственный гриб', isMedicinal: true, icon: '💊' },
-    'Q1169875': { text: 'Психоактивный / галлюциногенный гриб', isPsychoactive: true, icon: '🍄✨' },
-    'Q548398': { text: 'Психоактивный гриб', isPsychoactive: true, icon: '🍄✨' }
+    'Q1686195': { text: WM.t('Целебный / лекарственный гриб'), isMedicinal: true, icon: '💊' },
+    'Q1169875': { text: WM.t('Психоактивный / галлюциногенный гриб'), isPsychoactive: true, icon: '🍄✨' },
+    'Q548398': { text: WM.t('Психоактивный гриб'), isPsychoactive: true, icon: '🍄✨' }
   };
 
   // Типы гименофора (P783 / P1552 / P10056)
   const WIKIDATA_HYMENIUM_MAP = {
-    'Q1474540': { text: 'Пластинчатый', icon: '🍄' },
-    'Q1474544': { text: 'Трубчатый (пористый)', icon: '🧽' },
-    'Q1474548': { text: 'Складчатый', icon: '🥟' },
-    'Q1474550': { text: 'Игольчатый / шиповатый', icon: '🦔' },
-    'Q1474552': { text: 'Гладкий', icon: '⚪' },
-    'Q1474554': { text: 'Глеба (дождевиковый)', icon: '💨' }
+    'Q1474540': { text: WM.t('Пластинчатый'), icon: '🍄' },
+    'Q1474544': { text: WM.t('Трубчатый (пористый)'), icon: '🧽' },
+    'Q1474548': { text: WM.t('Складчатый'), icon: '🥟' },
+    'Q1474550': { text: WM.t('Игольчатый / шиповатый'), icon: '🦔' },
+    'Q1474552': { text: WM.t('Гладкий'), icon: '⚪' },
+    'Q1474554': { text: WM.t('Глеба (дождевиковый)'), icon: '💨' }
   };
 
   // Форма шляпки гриба (P784)
   const WIKIDATA_CAP_SHAPE_MAP = {
-    'Q1474516': { text: 'Выпуклая (полушаровидная)', icon: '🧢' },
-    'Q1474518': { text: 'Плоская (распростёртая)', icon: '🥞' },
-    'Q1474520': { text: 'Вдавленная в центре', icon: '🥣' },
-    'Q1474522': { text: 'Коническая (конусовидная)', icon: '⛺' },
-    'Q1474524': { text: 'Колокольчатая', icon: '🔔' },
-    'Q1474526': { text: 'С выраженным бугорком', icon: '⛰️' },
-    'Q1474528': { text: 'Воронковидная', icon: '🌪️' },
-    'Q1474530': { text: 'Эксцентрическая (асимметричная)', icon: '🥐' }
+    'Q1474516': { text: WM.t('Выпуклая (полушаровидная)'), icon: '🧢' },
+    'Q1474518': { text: WM.t('Плоская (распростёртая)'), icon: '🥞' },
+    'Q1474520': { text: WM.t('Вдавленная в центре'), icon: '🥣' },
+    'Q1474522': { text: WM.t('Коническая (конусовидная)'), icon: '⛺' },
+    'Q1474524': { text: WM.t('Колокольчатая'), icon: '🔔' },
+    'Q1474526': { text: WM.t('С выраженным бугорком'), icon: '⛰️' },
+    'Q1474528': { text: WM.t('Воронковидная'), icon: '🌪️' },
+    'Q1474530': { text: WM.t('Эксцентрическая (асимметричная)'), icon: '🥐' }
   };
 
   // Прикрепление гименофора к ножке (P785)
   const WIKIDATA_ATTACHMENT_MAP = {
-    'Q1474532': { text: 'Приросшие пластинки (adnate)', icon: '🔗' },
-    'Q1474534': { text: 'Нисходящие по ножке (decurrent)', icon: '↘️' },
-    'Q1474536': { text: 'Выемчатые пластинки (sinuate)', icon: '〰️' },
-    'Q1474538': { text: 'Свободные пластинки (free)', icon: '🕊️' },
-    'Q188904': { text: 'Узкоприросшие (adnexed)', icon: '🖇️' },
-    'Q188905': { text: 'Отделяющиеся (seceding)', icon: '✂️' }
+    'Q1474532': { text: WM.t('Приросшие пластинки (adnate)'), icon: '🔗' },
+    'Q1474534': { text: WM.t('Нисходящие по ножке (decurrent)'), icon: '↘️' },
+    'Q1474536': { text: WM.t('Выемчатые пластинки (sinuate)'), icon: '〰️' },
+    'Q1474538': { text: WM.t('Свободные пластинки (free)'), icon: '🕊️' },
+    'Q188904': { text: WM.t('Узкоприросшие (adnexed)'), icon: '🖇️' },
+    'Q188905': { text: WM.t('Отделяющиеся (seceding)'), icon: '✂️' }
   };
 
   // Особенности ножки: кольцо, вольва (P786)
   const WIKIDATA_STIPE_MAP = {
-    'Q1474508': { text: 'Голая ножка (без кольца и вольвы)', icon: '🦯' },
-    'Q1474510': { text: 'С кольцом (юбочка на ножке)', icon: '💍' },
-    'Q1474512': { text: 'С вольвой (мешковидное основание)', icon: '🥾' },
-    'Q1474514': { text: 'С кольцом и вольвой (признак мухоморовых)', icon: '👑' },
-    'Q188906': { text: 'С кортиной (паутинистое покрывало)', icon: '🕸️' }
+    'Q1474508': { text: WM.t('Голая ножка (без кольца и вольвы)'), icon: '🦯' },
+    'Q1474510': { text: WM.t('С кольцом (юбочка на ножке)'), icon: '💍' },
+    'Q1474512': { text: WM.t('С вольвой (мешковидное основание)'), icon: '🥾' },
+    'Q1474514': { text: WM.t('С кольцом и вольвой (признак мухоморовых)'), icon: '👑' },
+    'Q188906': { text: WM.t('С кортиной (паутинистое покрывало)'), icon: '🕸️' }
   };
 
   // Цвет спорового порошка (P787)
   const WIKIDATA_SPORE_MAP = {
-    'Q1474500': { text: 'Белый споровый отпечаток', icon: '⚪' },
-    'Q1474502': { text: 'Чёрный споровый отпечаток', icon: '⚫' },
-    'Q1474504': { text: 'Коричневый / ржаво-бурый', icon: '🟤' },
-    'Q1474506': { text: 'Розовый споровый отпечаток', icon: '🌸' },
-    'Q188908': { text: 'Кремовый / охристо-жёлтый', icon: '🟡' },
-    'Q188909': { text: 'Оливковый отпечаток', icon: '🫒' },
-    'Q188910': { text: 'Фиолетово-коричневый', icon: '🟣' }
+    'Q1474500': { text: WM.t('Белый споровый отпечаток'), icon: '⚪' },
+    'Q1474502': { text: WM.t('Чёрный споровый отпечаток'), icon: '⚫' },
+    'Q1474504': { text: WM.t('Коричневый / ржаво-бурый'), icon: '🟤' },
+    'Q1474506': { text: WM.t('Розовый споровый отпечаток'), icon: '🌸' },
+    'Q188908': { text: WM.t('Кремовый / охристо-жёлтый'), icon: '🟡' },
+    'Q188909': { text: WM.t('Оливковый отпечаток'), icon: '🫒' },
+    'Q188910': { text: WM.t('Фиолетово-коричневый'), icon: '🟣' }
   };
 
   // Эколого-трофические группы (P788 / P1034 / P1552)
   const WIKIDATA_FUNGAL_TROPHIC_MAP = {
-    'Q11181655': { text: 'Микоризообразователь (симбиот деревьев)', icon: '🌲' },
-    'Q174782': { text: 'Микоризообразователь (симбиот деревьев)', icon: '🌲' },
-    'Q178309': { text: 'Сапротроф (разрушитель подстилки/древесины)', icon: '🍂' },
-    'Q128011': { text: 'Гриб-паразит (на живых деревьях/растениях)', icon: '🪵' }
+    'Q11181655': { text: WM.t('Микоризообразователь (симбиот деревьев)'), icon: '🌲' },
+    'Q174782': { text: WM.t('Микоризообразователь (симбиот деревьев)'), icon: '🌲' },
+    'Q178309': { text: WM.t('Сапротроф (разрушитель подстилки/древесины)'), icon: '🍂' },
+    'Q128011': { text: WM.t('Гриб-паразит (на живых деревьях/растениях)'), icon: '🪵' }
   };
 
   /**
    * Сбор полной микологической информации о грибе из Wikidata и Википедии
    */
   async function fetchFungiTraits(scientificName, wikiExtract = '') {
-    if (!scientificName || scientificName === 'Не определено') return null;
+    if (!scientificName || scientificName === WM.t('Не определено')) return null;
     const cleanLatin = scientificName.trim();
     if (fungiTraitsCache.has(cleanLatin)) return fungiTraitsCache.get(cleanLatin);
 
@@ -1139,7 +1139,7 @@
             const aName = wdLabelsCache.get(authorQId) || authorQId;
             result.taxonAuthor = pubYear ? `${aName}, ${pubYear}` : aName;
           } else if (pubYear) {
-            result.taxonAuthor = `${pubYear} г.`;
+            result.taxonAuthor = WM.t('{0} г.', pubYear);
           }
 
           if (typeSpeciesQId) {
@@ -1242,32 +1242,32 @@
         // Гименофор
         if (!result.hymeniumType) {
           if (low.includes('пластинчат')) {
-            result.hymeniumType = { text: 'Пластинчатый', icon: '🍄' };
+            result.hymeniumType = { text: WM.t('Пластинчатый'), icon: '🍄' };
           } else if (low.includes('трубчат') || low.includes('порист')) {
-            result.hymeniumType = { text: 'Трубчатый (пористый)', icon: '🧽' };
+            result.hymeniumType = { text: WM.t('Трубчатый (пористый)'), icon: '🧽' };
           } else if (low.includes('складчат')) {
-            result.hymeniumType = { text: 'Складчатый', icon: '🥟' };
+            result.hymeniumType = { text: WM.t('Складчатый'), icon: '🥟' };
           } else if (low.includes('шиповат') || low.includes('игольчат')) {
-            result.hymeniumType = { text: 'Игольчатый / шиповатый', icon: '🦔' };
+            result.hymeniumType = { text: WM.t('Игольчатый / шиповатый'), icon: '🦔' };
           } else if (low.includes('дождевик') || low.includes('глеб')) {
-            result.hymeniumType = { text: 'Глеба (дождевиковый)', icon: '💨' };
+            result.hymeniumType = { text: WM.t('Глеба (дождевиковый)'), icon: '💨' };
           } else if (cleanLatin.includes('Russula') || cleanLatin.includes('Amanita') || cleanLatin.includes('Lactarius')) {
-            result.hymeniumType = { text: 'Пластинчатый (по роду)', icon: '🍄' };
+            result.hymeniumType = { text: WM.t('Пластинчатый (по роду)'), icon: '🍄' };
           } else if (cleanLatin.includes('Boletus') || cleanLatin.includes('Suillus') || cleanLatin.includes('Leccinum')) {
-            result.hymeniumType = { text: 'Трубчатый (по роду)', icon: '🧽' };
+            result.hymeniumType = { text: WM.t('Трубчатый (по роду)'), icon: '🧽' };
           }
         }
 
         // Трофика
         if (!result.trophicGroup) {
           if (low.includes('микориз') || low.includes('симбиоз')) {
-            result.trophicGroup = { text: 'Микоризообразователь (симбиот)', icon: '🌲' };
+            result.trophicGroup = { text: WM.t('Микоризообразователь (симбиот)'), icon: '🌲' };
           } else if (low.includes('сапротроф') || low.includes('разрушител') || low.includes('подстилк')) {
-            result.trophicGroup = { text: 'Сапротроф (разрушитель подстилки/древесины)', icon: '🍂' };
+            result.trophicGroup = { text: WM.t('Сапротроф (разрушитель подстилки/древесины)'), icon: '🍂' };
           } else if (low.includes('паразит') || low.includes('трутовик')) {
-            result.trophicGroup = { text: 'Гриб-паразит', icon: '🪵' };
+            result.trophicGroup = { text: WM.t('Гриб-паразит'), icon: '🪵' };
           } else if (cleanLatin.includes('Russula') || cleanLatin.includes('Amanita') || cleanLatin.includes('Boletus')) {
-            result.trophicGroup = { text: 'Микоризообразователь (симбиот деревьев)', icon: '🌲' };
+            result.trophicGroup = { text: WM.t('Микоризообразователь (симбиот деревьев)'), icon: '🌲' };
           }
         }
 
@@ -1283,16 +1283,16 @@
 
         // Биотоп и деревья-симбионты из описания статьи
         const habitats = [];
-        if (low.includes('хвойн')) habitats.push('🌲 Хвойные леса');
-        if (low.includes('лиственн')) habitats.push('🌳 Лиственные леса');
-        if (low.includes('смешанн')) habitats.push('🌲🌳 Смешанные леса');
-        if (low.includes('берёз')) habitats.push('🌿 Берёза');
-        if (low.includes('сосн')) habitats.push('🌲 Сосна');
-        if (low.includes('ел[ьи]')) habitats.push('🌲 Ель');
-        if (low.includes('дуб')) habitats.push('🌳 Дуб');
-        if (low.includes('бук')) habitats.push('🌳 Бук');
-        if (low.includes('осин')) habitats.push('🌿 Осина');
-        if (low.includes('мх') || low.includes('сфагн')) habitats.push('🟢 Моховой покров');
+        if (low.includes('хвойн')) habitats.push(WM.t('🌲 Хвойные леса'));
+        if (low.includes('лиственн')) habitats.push(WM.t('🌳 Лиственные леса'));
+        if (low.includes('смешанн')) habitats.push(WM.t('🌲🌳 Смешанные леса'));
+        if (low.includes('берёз')) habitats.push(WM.t('🌿 Берёза'));
+        if (low.includes('сосн')) habitats.push(WM.t('🌲 Сосна'));
+        if (low.includes('ел[ьи]')) habitats.push(WM.t('🌲 Ель'));
+        if (low.includes('дуб')) habitats.push(WM.t('🌳 Дуб'));
+        if (low.includes('бук')) habitats.push(WM.t('🌳 Бук'));
+        if (low.includes('осин')) habitats.push(WM.t('🌿 Осина'));
+        if (low.includes('мх') || low.includes('сфагн')) habitats.push(WM.t('🟢 Моховой покров'));
         result.habitatTags = Array.from(new Set(habitats));
       }
 
@@ -1320,62 +1320,62 @@
    */
   function renderFungiTraitsSection(traits) {
     if (!traits) {
-      return `<div class="muted inat-card-empty-note" style="padding: 10px 4px;">ℹ️ В базах Wikidata пока нет детальных микологических характеристик этого гриба.</div>`;
+      return `<div class="muted inat-card-empty-note" style="padding: 10px 4px;">${WM.t('ℹ️ В базах Wikidata пока нет детальных микологических характеристик этого гриба.')}</div>`;
     }
 
     const items = [];
 
     // 1. Статус съедобности (главная строка)
     if (traits.edibility) {
-      items.push({ icon: traits.edibility.icon, label: 'Съедобность:', val: traits.edibility.text, wide: true });
+      items.push({ icon: traits.edibility.icon, label: WM.t('Съедобность:'), val: traits.edibility.text, wide: true });
     }
 
     // 2. Особые свойства
     if (traits.isMedicinal) {
-      items.push({ icon: '💊', label: 'Целебные свойства:', val: 'Лекарственный гриб (фунготерапия)', wide: false });
+      items.push({ icon: '💊', label: WM.t('Целебные свойства:'), val: WM.t('Лекарственный гриб (фунготерапия)'), wide: false });
     }
     if (traits.isPsychoactive) {
-      items.push({ icon: '🍄✨', label: 'Специфика:', val: 'Психоактивный / галлюциногенный вид', wide: false });
+      items.push({ icon: '🍄✨', label: WM.t('Специфика:'), val: WM.t('Психоактивный / галлюциногенный вид'), wide: false });
     }
 
     // 3. Строение и микоморфология
     if (traits.hymeniumType) {
-      items.push({ icon: traits.hymeniumType.icon, label: 'Тип гименофора:', val: traits.hymeniumType.text, wide: false });
+      items.push({ icon: traits.hymeniumType.icon, label: WM.t('Тип гименофора:'), val: traits.hymeniumType.text, wide: false });
     }
     if (traits.capShape) {
-      items.push({ icon: traits.capShape.icon, label: 'Форма шляпки:', val: traits.capShape.text, wide: false });
+      items.push({ icon: traits.capShape.icon, label: WM.t('Форма шляпки:'), val: traits.capShape.text, wide: false });
     }
     if (traits.hymeniumAttachment) {
-      items.push({ icon: traits.hymeniumAttachment.icon, label: 'Пластинки/ножка:', val: traits.hymeniumAttachment.text, wide: false });
+      items.push({ icon: traits.hymeniumAttachment.icon, label: WM.t('Пластинки/ножка:'), val: traits.hymeniumAttachment.text, wide: false });
     }
     if (traits.stipeCharacter) {
-      items.push({ icon: traits.stipeCharacter.icon, label: 'Особенности ножки:', val: traits.stipeCharacter.text, wide: false });
+      items.push({ icon: traits.stipeCharacter.icon, label: WM.t('Особенности ножки:'), val: traits.stipeCharacter.text, wide: false });
     }
     if (traits.sporePrintColor) {
-      items.push({ icon: traits.sporePrintColor.icon, label: 'Споровый отпечаток:', val: traits.sporePrintColor.text, wide: false });
+      items.push({ icon: traits.sporePrintColor.icon, label: WM.t('Споровый отпечаток:'), val: traits.sporePrintColor.text, wide: false });
     }
     if (traits.trophicGroup) {
-      items.push({ icon: traits.trophicGroup.icon, label: 'Экологическая роль:', val: traits.trophicGroup.text, wide: false });
+      items.push({ icon: traits.trophicGroup.icon, label: WM.t('Экологическая роль:'), val: traits.trophicGroup.text, wide: false });
     }
     if (traits.capDiameter) {
-      items.push({ icon: '📐', label: 'Диаметр шляпки:', val: traits.capDiameter, wide: false });
+      items.push({ icon: '📐', label: WM.t('Диаметр шляпки:'), val: traits.capDiameter, wide: false });
     }
     if (traits.stemHeight) {
-      items.push({ icon: '📏', label: 'Высота ножки:', val: traits.stemHeight, wide: false });
+      items.push({ icon: '📏', label: WM.t('Высота ножки:'), val: traits.stemHeight, wide: false });
     }
 
     // 4. Таксономия и типовые виды
     if (traits.parentTaxon) {
-      items.push({ icon: '🏛️', label: 'Род / семейство:', val: traits.parentTaxon, wide: false });
+      items.push({ icon: '🏛️', label: WM.t('Род / семейство:'), val: traits.parentTaxon, wide: false });
     }
     if (traits.taxonAuthor) {
-      items.push({ icon: '📜', label: 'Автор таксона:', val: traits.taxonAuthor, wide: false });
+      items.push({ icon: '📜', label: WM.t('Автор таксона:'), val: traits.taxonAuthor, wide: false });
     }
     if (traits.typeSpecies) {
-      items.push({ icon: '🧬', label: 'Типовой вид рода:', val: traits.typeSpecies, wide: true });
+      items.push({ icon: '🧬', label: WM.t('Типовой вид рода:'), val: traits.typeSpecies, wide: true });
     }
     if (traits.shortName) {
-      items.push({ icon: '🏷️', label: 'Сокращение:', val: traits.shortName, wide: false });
+      items.push({ icon: '🏷️', label: WM.t('Сокращение:'), val: traits.shortName, wide: false });
     }
 
     // Интерактивные спойлеры
@@ -1385,7 +1385,7 @@
       lookalikesHtml = `
         <div class="inat-lookalike-warning-banner" style="margin-top: 8px;">
           <span class="warn-icon">🛡️</span>
-          <span><b>Не путать с:</b> ${escapeHtml(traits.differentFrom.join(', '))}. Обращайте внимание на цвет млечного сока и ломкость мякоти!</span>
+          <span><b>${WM.t('Не путать с:')}</b> ${WM.t('{0}. Обращайте внимание на цвет млечного сока и ломкость мякоти!', escapeHtml(traits.differentFrom.join(', ')))}</span>
         </div>
       `;
     }
@@ -1397,7 +1397,7 @@
       habitatsHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;" open>
           <summary class="inat-sub-spoiler-summary">
-            <span>🌲 Биотоп и деревья-партнёры (${allHabitats.length})</span>
+            <span>${WM.t('🌲 Биотоп и деревья-партнёры ({0})', allHabitats.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body">
@@ -1418,7 +1418,7 @@
     if (traits.vernacularNamesRu && traits.vernacularNamesRu.length > 0) {
       vernacularHtml = `
         <div style="margin-top: 8px; font-size:11.5px; color:var(--text-muted);">
-          📖 <b>Народные названия (из БСЭ/БРЭ):</b> <span style="color:var(--text-main); font-weight:600;">${escapeHtml(traits.vernacularNamesRu.join(', '))}</span>
+          📖 <b>${WM.t('Народные названия (из БСЭ/БРЭ):')}</b> <span style="color:var(--text-main); font-weight:600;">${escapeHtml(traits.vernacularNamesRu.join(', '))}</span>
         </div>
       `;
     }
@@ -1429,7 +1429,7 @@
       synHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>📑 Научные синонимы таксона (${traits.synonyms.length})</span>
+            <span>${WM.t('📑 Научные синонимы таксона ({0})', traits.synonyms.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body">
@@ -1447,7 +1447,7 @@
       photosHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>📷 Каталожные фото гриба (${traits.wikiPhotos.length})</span>
+            <span>${WM.t('📷 Каталожные фото гриба ({0})', traits.wikiPhotos.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body">
@@ -1456,7 +1456,7 @@
                 <a href="${getCommonsMediaUrl(item.file, 1400)}" target="_blank" rel="noopener noreferrer" style="flex:0 0 auto; text-align:center; max-width:160px; text-decoration:none;">
                   <img src="${getCommonsMediaUrl(item.file, 320)}" alt="" style="height:115px; width:100%; border-radius:6px; object-fit:cover; border:1px solid var(--border-color); display:block;">
                   ${item.caption ? `<small style="font-size:10.5px; color:var(--text-main); display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(item.caption)}</small>` : ''}
-                  <small style="font-size:10px; color:var(--text-muted); display:block;">Увеличить ↗</small>
+                  <small style="font-size:10px; color:var(--text-muted); display:block;">${WM.t('Увеличить ↗')}</small>
                 </a>
               `).join('')}
             </div>
@@ -1471,7 +1471,7 @@
       commonNamesHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>🌍 Названия на других языках (${traits.commonNames.length})</span>
+            <span>${WM.t('🌍 Названия на других языках ({0})', traits.commonNames.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body">
@@ -1508,8 +1508,8 @@
       ${commonNamesHtml}
 
       <div class="inat-traits-source-note" style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-        <span style="font-size:11px; color:var(--text-muted);">📚 Источники: <b>Wikidata (Mycomorphbox)</b>, <b>Wikipedia</b>, <b>БСЭ</b></span>
-        <button type="button" class="btn-link" onclick="window.WM.inat.downloadFungiTraitsDebug()" style="font-size:11px; font-weight:600;">💾 Скачать JSON</button>
+        <span style="font-size:11px; color:var(--text-muted);">${WM.t('📚 Источники:')} <b>Wikidata (Mycomorphbox)</b>, <b>Wikipedia</b>, <b>${WM.t('БСЭ')}</b></span>
+        <button type="button" class="btn-link" onclick="window.WM.inat.downloadFungiTraitsDebug()" style="font-size:11px; font-weight:600;">${WM.t('💾 Скачать JSON')}</button>
       </div>
     `;
   }
@@ -1533,25 +1533,26 @@
     if (low != null && high != null && !isNaN(low) && !isNaN(high) && low !== high) {
       const fmtLow = Number.isInteger(low) ? low : low.toFixed(1);
       const fmtHigh = Number.isInteger(high) ? high : high.toFixed(1);
-      return `${fmtLow}–${fmtHigh} детёнышей (в среднем ${fmtAmount})`;
+      return WM.t('{0}–{1} детёнышей (в среднем {2})', fmtLow, fmtHigh, fmtAmount);
     }
 
-    return `${fmtAmount} детёнышей`;
+    return WM.t('{0} детёнышей', fmtAmount);
   }
 
   /**
    * Запрос лаконичного описания статьи (REST API Summary)
    */
-  async function fetchWikiSummary(titleOrLatin) {
+  async function fetchWikiSummary(titleOrLatin, wikiLang = WM.i18n.api.wiki) {
     if (!titleOrLatin) return null;
     const cleanKey = titleOrLatin.trim();
-    if (wikiSummaryCache.has(cleanKey)) return wikiSummaryCache.get(cleanKey);
+    const cacheKey = wikiLang + ':' + cleanKey;
+    if (wikiSummaryCache.has(cacheKey)) return wikiSummaryCache.get(cacheKey);
 
     const tryFetch = async (query) => {
       try {
         const ctl = new AbortController();
         const tmr = setTimeout(() => ctl.abort(), 4000);
-        const res = await fetch(`https://ru.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`, {
+        const res = await fetch(`https://${wikiLang}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`, {
           signal: ctl.signal,
           headers: { 'Accept': 'application/json' }
         });
@@ -1575,7 +1576,7 @@
       result = await tryFetch(cleanKey.replace(/\s+/g, '_'));
     }
 
-    wikiSummaryCache.set(cleanKey, result);
+    wikiSummaryCache.set(cacheKey, result);
     return result;
   }
 
@@ -1584,17 +1585,17 @@
    */
   // Словарь русских названий съедобных частей растений (P3489)
   const EDIBLE_PARTS_RU = {
-    'Q131877': 'ягоды',
-    'Q3314483': 'плоды',
-    'Q1364': 'плоды',
-    'Q10998': 'губка/мякоть',
-    'Q28183': 'семена',
-    'Q3405': 'листья',
-    'Q34442': 'корень / корневище',
-    'Q506': 'цветки / соцветия',
-    'Q193135': 'орехи',
-    'Q188920': 'клубни',
-    'Q149955': 'побеги'
+    'Q131877': WM.t('ягоды'),
+    'Q3314483': WM.t('плоды'),
+    'Q1364': WM.t('плоды'),
+    'Q10998': WM.t('губка/мякоть'),
+    'Q28183': WM.t('семена'),
+    'Q3405': WM.t('листья'),
+    'Q34442': WM.t('корень / корневище'),
+    'Q506': WM.t('цветки / соцветия'),
+    'Q193135': WM.t('орехи'),
+    'Q188920': WM.t('клубни'),
+    'Q149955': WM.t('побеги')
   };
 
   /**
@@ -1602,7 +1603,7 @@
    * Использует прямой Action API (wbsearchentities + wbgetentities) с 100% CORS и кэшированием
    */
   async function fetchWikidataEdibility(latinName) {
-    if (!latinName || latinName === 'Не определено') return null;
+    if (!latinName || latinName === WM.t('Не определено')) return null;
     const cleanLatin = latinName.trim();
     if (wikidataEdibilityCache.has(cleanLatin)) return wikidataEdibilityCache.get(cleanLatin);
 
@@ -1677,7 +1678,7 @@
 
   function downloadTraitsDebugJson() {
     if (!lastTraitsDebugData) {
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('⚠️ Нет данных для скачивания');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('⚠️ Нет данных для скачивания'));
       return;
     }
     const str = JSON.stringify(lastTraitsDebugData, null, 2);
@@ -1699,7 +1700,7 @@
    * Запрос эталонных голосов и звуков птиц/животных из открытой базы iNaturalist
    */
   async function fetchBirdSounds(scientificName) {
-    if (!scientificName || scientificName === 'Не определено') return [];
+    if (!scientificName || scientificName === WM.t('Не определено')) return [];
     const cleanName = scientificName.trim();
     if (birdSoundsCache.has(cleanName)) return birdSoundsCache.get(cleanName);
 
@@ -1732,10 +1733,10 @@
             results.push({
               id: snd.id,
               file: fileUrl,
-              type: 'Голос / Песня 🎵',
+              type: WM.t('Голос / Песня 🎵'),
               quality: 'A',
-              recordist: snd.attribution || obsItem.user?.name || obsItem.user?.login || 'Наблюдатель',
-              location: obsItem.place_guess || 'Природный ареал',
+              recordist: snd.attribution || obsItem.user?.name || obsItem.user?.login || WM.t('Наблюдатель'),
+              location: obsItem.place_guess || WM.t('Природный ареал'),
               source: 'inat',
               url: `https://www.inaturalist.org/observations/${obsItem.id}`
             });
@@ -1764,7 +1765,7 @@
     try {
       // Запрашиваем пачкой до 50 id за один HTTP-запрос
       const chunk = toFetch.slice(0, 50).join('|');
-      const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${chunk}&props=labels&languages=ru|en&format=json&origin=*`;
+      const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${chunk}&props=labels&languages=${WM.i18n.api.wiki}|en&format=json&origin=*`;
       const res = await fetch(url);
       if (!res.ok) return;
       const data = await res.json();
@@ -1772,7 +1773,7 @@
 
       for (const id of toFetch) {
         const ent = entities[id];
-        const ru = ent?.labels?.ru?.value;
+        const ru = ent?.labels?.[WM.i18n.api.wiki]?.value;
         const en = ent?.labels?.en?.value;
         wdLabelsCache.set(id, ru || en || id);
       }
@@ -1795,30 +1796,30 @@
 
     // Масса
     if (unitUri.includes('Q11570')) { // кг
-      unitStr = 'кг';
+      unitStr = WM.t('кг');
     } else if (unitUri.includes('Q208045')) { // граммы
-      if (amount >= 1000) { amount = Math.round((amount / 1000) * 10) / 10; unitStr = 'кг'; }
-      else { unitStr = 'г'; }
+      if (amount >= 1000) { amount = Math.round((amount / 1000) * 10) / 10; unitStr = WM.t('кг'); }
+      else { unitStr = WM.t('г'); }
     } else if (unitUri.includes('Q482798')) { // фунты
-      amount = Math.round(amount * 0.453592 * 10) / 10; unitStr = 'кг';
+      amount = Math.round(amount * 0.453592 * 10) / 10; unitStr = WM.t('кг');
     }
     // Длина / Размеры
     else if (unitUri.includes('Q11573')) { // метры
-      if (amount < 1) { amount = Math.round(amount * 100); unitStr = 'см'; }
-      else { unitStr = 'м'; }
+      if (amount < 1) { amount = Math.round(amount * 100); unitStr = WM.t('см'); }
+      else { unitStr = WM.t('м'); }
     } else if (unitUri.includes('Q174728')) { // см
-      unitStr = 'см';
+      unitStr = WM.t('см');
     } else if (unitUri.includes('Q174789')) { // мм
-      if (amount >= 10) { amount = Math.round((amount / 10) * 10) / 10; unitStr = 'см'; }
-      else { unitStr = 'мм'; }
+      if (amount >= 10) { amount = Math.round((amount / 10) * 10) / 10; unitStr = WM.t('см'); }
+      else { unitStr = WM.t('мм'); }
     }
     // Временные интервалы (беременность, срок жизни)
     else if (unitUri.includes('Q573')) { // дни
-      unitStr = 'дн.';
+      unitStr = WM.t('дн.');
     } else if (unitUri.includes('Q577')) { // годы
-      unitStr = 'лет';
+      unitStr = WM.t('лет');
     } else if (unitUri.includes('Q89')) { // месяцы
-      unitStr = 'мес.';
+      unitStr = WM.t('мес.');
     }
 
     const fmtAmount = Number.isInteger(amount) ? amount : amount.toFixed(1);
@@ -1828,7 +1829,7 @@
       const low = parseFloat(val.lowerBound);
       const high = parseFloat(val.upperBound);
       if (!isNaN(low) && !isNaN(high) && low !== high) {
-        return `${Math.round(low)}–${Math.round(high)} ${unitStr} (в среднем ${fmtAmount})`.trim();
+        return WM.t('{0}–{1} {2} (в среднем {3})', Math.round(low), Math.round(high), unitStr, fmtAmount).trim();
       }
     }
 
@@ -1845,7 +1846,7 @@
    * Комплексный запрос повадок, рациона и биометрии животных (EOL TraitBank + Wikidata + Wikipedia)
    */
   async function fetchAnimalTraits(scientificName, wikiExtract = '') {
-    if (!scientificName || scientificName === 'Не определено') return null;
+    if (!scientificName || scientificName === WM.t('Не определено')) return null;
     const cleanLatin = scientificName.trim();
     if (animalTraitsCache.has(cleanLatin)) return animalTraitsCache.get(cleanLatin);
 
@@ -1940,7 +1941,7 @@
           const authorName = wdLabelsCache.get(authorQId) || authorQId;
           result.taxonAuthor = pubYear ? `${authorName}, ${pubYear}` : authorName;
         } else if (pubYear) {
-          result.taxonAuthor = `${pubYear} г.`;
+          result.taxonAuthor = WM.t('{0} г.', pubYear);
         }
 
          if (wdClaims.P7862?.[0]) {
@@ -2077,10 +2078,10 @@
           if (!pred || !val) continue;
 
           if (!result.dielCycle && (pred.includes('diel') || pred.includes('activity'))) {
-            if (val.includes('nocturnal')) result.dielCycle = { text: 'Ночной образ жизни', icon: '🌙', pill: '🌙 Ночной' };
-            else if (val.includes('diurnal')) result.dielCycle = { text: 'Дневной образ жизни', icon: '☀️', pill: '☀️ Дневной' };
-            else if (val.includes('crepuscular')) result.dielCycle = { text: 'Сумеречный образ жизни', icon: '🌅', pill: '🌅 Сумеречный' };
-            else if (val.includes('cathemeral')) result.dielCycle = { text: 'Круглосуточная активность', icon: '🌓', pill: '🌓 Днём и ночью' };
+            if (val.includes('nocturnal')) result.dielCycle = { text: WM.t('Ночной образ жизни'), icon: '🌙', pill: WM.t('🌙 Ночной') };
+            else if (val.includes('diurnal')) result.dielCycle = { text: WM.t('Дневной образ жизни'), icon: '☀️', pill: WM.t('☀️ Дневной') };
+            else if (val.includes('crepuscular')) result.dielCycle = { text: WM.t('Сумеречный образ жизни'), icon: '🌅', pill: WM.t('🌅 Сумеречный') };
+            else if (val.includes('cathemeral')) result.dielCycle = { text: WM.t('Круглосуточная активность'), icon: '🌓', pill: WM.t('🌓 Днём и ночью') };
           }
 
           if (!result.diet && (pred.includes('trophic') || pred.includes('diet') || pred.includes('guild'))) {
@@ -2094,11 +2095,11 @@
           }
 
           if (!result.hibernation && (pred.includes('hibernat') || val.includes('torpor'))) {
-            result.hibernation = { text: 'Впадает в зимнюю спячку', icon: '❄️', pill: '❄️ Спячка' };
+            result.hibernation = { text: WM.t('Впадает в зимнюю спячку'), icon: '❄️', pill: WM.t('❄️ Спячка') };
           }
 
           if (!result.migration && pred.includes('migrat')) {
-            result.migration = { text: 'Перелётный / мигрирующий вид', icon: '🛫', pill: '🛫 Перелётный' };
+            result.migration = { text: WM.t('Перелётный / мигрирующий вид'), icon: '🛫', pill: WM.t('🛫 Перелётный') };
           }
         }
       }
@@ -2108,18 +2109,18 @@
         const low = wikiExtract.toLowerCase();
         if (!result.diet) {
           if (low.includes('хищн') || low.includes('плотоядн')) {
-            result.diet = { text: 'Хищник (плотоядный)', icon: '🥩', pill: '🥩 Хищник' };
+            result.diet = { text: WM.t('Хищник (плотоядный)'), icon: '🥩', pill: WM.t('🥩 Хищник') };
           } else if (low.includes('растительноядн') || low.includes('травоядн')) {
-            result.diet = { text: 'Травоядный', icon: '🌿', pill: '🌿 Травоядный' };
+            result.diet = { text: WM.t('Травоядный'), icon: '🌿', pill: WM.t('🌿 Травоядный') };
           } else if (low.includes('всеядн') || low.includes('дикая свинья') || low.includes('кабан')) {
-            result.diet = { text: 'Всеядный организм', icon: '🦝', pill: '🦝 Всеядный' };
+            result.diet = { text: WM.t('Всеядный организм'), icon: '🦝', pill: WM.t('🦝 Всеядный') };
           } else if (low.includes('насекомоядн')) {
-            result.diet = { text: 'Насекомоядный', icon: '🐛', pill: '🐛 Насекомоядный' };
+            result.diet = { text: WM.t('Насекомоядный'), icon: '🐛', pill: WM.t('🐛 Насекомоядный') };
           }
         }
 
         if (!result.hibernation && (low.includes('зимнюю спячку') || low.includes('впадает в спячку'))) {
-          result.hibernation = { text: 'Впадает в зимнюю спячку', icon: '❄️', pill: '❄️ Спячка' };
+          result.hibernation = { text: WM.t('Впадает в зимнюю спячку'), icon: '❄️', pill: WM.t('❄️ Спячка') };
         }
       }
 
@@ -2149,52 +2150,52 @@
     if (!traits) {
       return `
         <div class="muted inat-card-empty-note" style="padding: 10px 4px;">
-          ℹ️ В базах Wikidata и EOL пока нет данных о повадках и биометрии данного вида.
+          ${WM.t('ℹ️ В базах Wikidata и EOL пока нет данных о повадках и биометрии данного вида.')}
         </div>
       `;
     }
     const items = [];
 
     if (traits.taxonAuthor) {
-      items.push({ icon: '📜', label: 'Автор таксона:', val: traits.taxonAuthor, wide: false });
+      items.push({ icon: '📜', label: WM.t('Автор таксона:'), val: traits.taxonAuthor, wide: false });
     }
     if (traits.dielCycle) {
-      items.push({ icon: traits.dielCycle.icon, label: 'Активность:', val: traits.dielCycle.text, wide: false });
+      items.push({ icon: traits.dielCycle.icon, label: WM.t('Активность:'), val: traits.dielCycle.text, wide: false });
     }
     if (traits.diet) {
-      items.push({ icon: traits.diet.icon, label: 'Тип питания:', val: traits.diet.text, wide: false });
+      items.push({ icon: traits.diet.icon, label: WM.t('Тип питания:'), val: traits.diet.text, wide: false });
     }
     if (traits.mass) {
-      items.push({ icon: '⚖️', label: 'Масса тела:', val: traits.mass, wide: false });
+      items.push({ icon: '⚖️', label: WM.t('Масса тела:'), val: traits.mass, wide: false });
     }
     if (traits.length) {
-      items.push({ icon: '📐', label: 'Длина тела:', val: traits.length, wide: false });
+      items.push({ icon: '📐', label: WM.t('Длина тела:'), val: traits.length, wide: false });
     }
     if (traits.wingspan) {
-      items.push({ icon: '📏', label: 'Размах крыльев:', val: traits.wingspan, wide: false });
+      items.push({ icon: '📏', label: WM.t('Размах крыльев:'), val: traits.wingspan, wide: false });
     }
     if (traits.hibernation) {
-      items.push({ icon: traits.hibernation.icon, label: 'Зимовка:', val: traits.hibernation.text, wide: false });
+      items.push({ icon: traits.hibernation.icon, label: WM.t('Зимовка:'), val: traits.hibernation.text, wide: false });
     }
     if (traits.migration) {
-      items.push({ icon: traits.migration.icon, label: 'Миграции:', val: traits.migration.text, wide: false });
+      items.push({ icon: traits.migration.icon, label: WM.t('Миграции:'), val: traits.migration.text, wide: false });
     }
     if (traits.gestation) {
-      items.push({ icon: '🤰', label: 'Беременность:', val: traits.gestation, wide: false });
+      items.push({ icon: '🤰', label: WM.t('Беременность:'), val: traits.gestation, wide: false });
     }
     if (traits.weaning) {
-      items.push({ icon: '🥛', label: 'Вскармливание:', val: traits.weaning, wide: false });
+      items.push({ icon: '🥛', label: WM.t('Вскармливание:'), val: traits.weaning, wide: false });
     }
     if (traits.litterSize) {
-      items.push({ icon: '🍼', label: 'Помёт / выводок:', val: traits.litterSize, wide: false });
+      items.push({ icon: '🍼', label: WM.t('Помёт / выводок:'), val: traits.litterSize, wide: false });
     }
     if (traits.longevity) {
-      items.push({ icon: '⏳', label: 'Срок жизни:', val: traits.longevity, wide: false });
+      items.push({ icon: '⏳', label: WM.t('Срок жизни:'), val: traits.longevity, wide: false });
     }
     if (traits.qualities && traits.qualities.length > 0) {
       traits.qualities.forEach(q => {
         // Поведение и качества обычно длинные — выводим на всю ширину (span-2)
-        items.push({ icon: q.icon || '🏷️', label: 'Поведение:', val: q.text, wide: true });
+        items.push({ icon: q.icon || '🏷️', label: WM.t('Поведение:'), val: q.text, wide: true });
       });
     }
 
@@ -2203,16 +2204,16 @@
       photosHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>📷 Фотографии особи из каталога (${traits.wikiPhotos.length})</span>
+            <span>${WM.t('📷 Фотографии особи из каталога ({0})', traits.wikiPhotos.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body">
             <div class="inat-footprints-gallery" style="display:flex; gap:8px; overflow-x:auto; padding:6px 0;">
               ${traits.wikiPhotos.map(item => `
                 <a href="${getCommonsMediaUrl(item.file, 1400)}" target="_blank" rel="noopener noreferrer" class="inat-footprint-card" style="flex:0 0 auto; text-align:center; text-decoration:none; max-width:180px;">
-                  <img src="${getCommonsMediaUrl(item.file, 320)}" alt="${escapeHtml(item.caption || 'Фото особи')}" style="height:120px; width:100%; border-radius:6px; object-fit:cover; border:1px solid var(--border-color); display:block;">
+                  <img src="${getCommonsMediaUrl(item.file, 320)}" alt="${escapeHtml(item.caption || WM.t('Фото особи'))}" style="height:120px; width:100%; border-radius:6px; object-fit:cover; border:1px solid var(--border-color); display:block;">
                   ${item.caption ? `<small style="font-size:10.5px; color:var(--text-main); margin-top:4px; display:block; line-height:1.2; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escapeHtml(item.caption)}">${escapeHtml(item.caption)}</small>` : ''}
-                  <small style="font-size:10px; color:var(--text-muted); display:block;">Оригинал ↗</small>
+                  <small style="font-size:10px; color:var(--text-muted); display:block;">${WM.t('Оригинал ↗')}</small>
                 </a>
               `).join('')}
             </div>
@@ -2226,7 +2227,7 @@
       commonNamesHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>🌍 Названия на других языках (${traits.commonNames.length})</span>
+            <span>${WM.t('🌍 Названия на других языках ({0})', traits.commonNames.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body">
@@ -2248,15 +2249,15 @@
       footprintsHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>🐾 Отпечатки лап и следы (${traits.footprints.length})</span>
+            <span>${WM.t('🐾 Отпечатки лап и следы ({0})', traits.footprints.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body">
             <div class="inat-footprints-gallery" style="display:flex; gap:8px; overflow-x:auto; padding:6px 0;">
               ${traits.footprints.map(file => `
                 <a href="${getCommonsMediaUrl(file, 1200)}" target="_blank" rel="noopener noreferrer" class="inat-footprint-card" style="flex:0 0 auto; text-align:center; text-decoration:none;">
-                  <img src="${getCommonsMediaUrl(file, 260)}" alt="След животного" style="height:110px; border-radius:6px; object-fit:cover; border:1px solid var(--border-color); display:block;">
-                  <small style="font-size:10px; color:var(--text-muted); margin-top:3px; display:block;">Увеличить ↗</small>
+                  <img src="${getCommonsMediaUrl(file, 260)}" alt="${WM.t('След животного')}" style="height:110px; border-radius:6px; object-fit:cover; border:1px solid var(--border-color); display:block;">
+                  <small style="font-size:10px; color:var(--text-muted); margin-top:3px; display:block;">${WM.t('Увеличить ↗')}</small>
                 </a>
               `).join('')}
             </div>
@@ -2270,7 +2271,7 @@
       audioHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>🔊 Голос вида (Wikimedia Commons)</span>
+            <span>${WM.t('🔊 Голос вида (Wikimedia Commons)')}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body" style="padding: 6px 0;">
@@ -2292,7 +2293,7 @@
       foodSourcesHtml = `
         <details class="inat-sub-spoiler" style="margin-top: 8px;">
           <summary class="inat-sub-spoiler-summary">
-            <span>🍽️ Кормовая база (${traits.foodSources.length} наим.)</span>
+            <span>${WM.t('🍽️ Кормовая база ({0} наим.)', traits.foodSources.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-sub-spoiler-body">
@@ -2328,9 +2329,9 @@
       ${audioHtml}
 
       <div class="inat-traits-source-note" style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
-        <span style="font-size:11px; color:var(--text-muted);">📚 Источники: <b>Wikidata</b>, <b>EOL</b>, <b>Commons</b></span>
+        <span style="font-size:11px; color:var(--text-muted);">${WM.t('📚 Источники:')} <b>Wikidata</b>, <b>EOL</b>, <b>Commons</b></span>
         <button type="button" class="btn-link" onclick="window.WM.inat.downloadTraitsDebug()" style="font-size:11px; font-weight:600;">
-          💾 Скачать JSON
+          ${WM.t('💾 Скачать JSON')}
         </button>
       </div>
     `;
@@ -2347,10 +2348,10 @@
       if (s.file_url) {
         allSounds.push({
           file: s.file_url,
-          type: `Запись наблюдателя #${idx + 1} 📍`,
-          recordist: s.attribution || 'Наблюдатель iNat',
+          type: WM.t('Запись наблюдателя #{0} 📍', idx + 1),
+          recordist: s.attribution || WM.t('Наблюдатель iNat'),
           source: 'inat',
-          location: 'Эта точка наблюдения'
+          location: WM.t('Эта точка наблюдения')
         });
       }
     });
@@ -2363,7 +2364,7 @@
     return `
       <details class="inat-card-spoiler" id="spoiler-inat-sounds" style="margin-bottom: 10px;">
         <summary class="inat-card-spoiler-summary">
-          <span>🎵 Голоса и звуки природы (${allSounds.length})</span>
+          <span>${WM.t('🎵 Голоса и звуки природы ({0})', allSounds.length)}</span>
           <span class="chevron">▼</span>
         </summary>
         <div class="inat-card-spoiler-body">
@@ -2372,8 +2373,8 @@
               <div class="inat-sound-item-card">
                 <div class="inat-sound-head-row">
                   <div class="inat-sound-title-wrap">
-                    <span class="inat-sound-badge-type">${escapeHtml(s.type || 'Запись')}</span>
-                    ${s.quality ? `<span class="inat-sound-badge-quality q-${s.quality.toLowerCase()}">Класс ${escapeHtml(s.quality)}</span>` : ''}
+                    <span class="inat-sound-badge-type">${escapeHtml(s.type || WM.t('Запись'))}</span>
+                    ${s.quality ? `<span class="inat-sound-badge-quality q-${s.quality.toLowerCase()}">${WM.t('Класс {0}', escapeHtml(s.quality))}</span>` : ''}
                     ${s.source === 'inat' ? '<span class="inat-sound-badge-source inat">iNaturalist</span>' : '<span class="inat-sound-badge-source xc">Xeno-canto</span>'}
                   </div>
                   ${s.url ? `<a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer" class="inat-sound-ext-link">↗ Xeno-canto</a>` : ''}
@@ -2522,52 +2523,52 @@
   let geomodelOpacity = 0.65;
 
   const RANKS_RU = {
-    kingdom: 'царство',
-    phylum: 'отдел / тип',
-    subphylum: 'подотдел',
-    class: 'класс',
-    subclass: 'подкласс',
-    order: 'порядок',
-    suborder: 'подпорядок',
-    family: 'семейство',
-    subfamily: 'подсемейство',
-    tribe: 'триба',
-    genus: 'род',
-    subgenus: 'подрод',
-    species: 'вид',
-    subspecies: 'подвид',
-    variety: 'разновидность',
-    form: 'форма',
-    hybrid: 'гибрид',
-    complex: 'комплекс видов'
+    kingdom: WM.t('царство'),
+    phylum: WM.t('отдел / тип'),
+    subphylum: WM.t('подотдел'),
+    class: WM.t('класс'),
+    subclass: WM.t('подкласс'),
+    order: WM.t('порядок'),
+    suborder: WM.t('подпорядок'),
+    family: WM.t('семейство'),
+    subfamily: WM.t('подсемейство'),
+    tribe: WM.t('триба'),
+    genus: WM.t('род'),
+    subgenus: WM.t('подрод'),
+    species: WM.t('вид'),
+    subspecies: WM.t('подвид'),
+    variety: WM.t('разновидность'),
+    form: WM.t('форма'),
+    hybrid: WM.t('гибрид'),
+    complex: WM.t('комплекс видов')
   };
 
   const TAXA_CONFIG = {
-    Plantae: { name: 'Растение', groupName: 'Растения', icon: '🌿', color: '#10b981', bg: 'rgba(16, 185, 129, 0.14)' },
-    Fungi: { name: 'Гриб', groupName: 'Грибы и лишайники', icon: '🍄', color: '#d97706', bg: 'rgba(217, 119, 6, 0.14)' },
-    Insecta: { name: 'Насекомое', groupName: 'Насекомые', icon: '🐞', color: '#ef4444', bg: 'rgba(239, 68, 68, 0.14)' },
-    Arachnida: { name: 'Паукообразное', groupName: 'Паукообразные', icon: '🕷️', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.14)' },
-    Mollusca: { name: 'Моллюск', groupName: 'Моллюски', icon: '🐌', color: '#06b6d4', bg: 'rgba(6, 182, 212, 0.14)' },
-    Aves: { name: 'Птица', groupName: 'Птицы', icon: '🦅', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.14)' },
-    Mammalia: { name: 'Млекопитающее', groupName: 'Млекопитающие', icon: '🦊', color: '#ea580c', bg: 'rgba(234, 88, 12, 0.14)' },
-    Amphibia: { name: 'Земноводное', groupName: 'Земноводные', icon: '🐸', color: '#14b8a6', bg: 'rgba(20, 184, 166, 0.14)' },
-    Reptilia: { name: 'Пресмыкающееся', groupName: 'Пресмыкающиеся', icon: '🦎', color: '#84cc16', bg: 'rgba(132, 204, 22, 0.14)' },
-    Actinopterygii: { name: 'Рыба', groupName: 'Рыбы', icon: '🐟', color: '#0ea5e9', bg: 'rgba(14, 165, 233, 0.14)' },
-    Animalia: { name: 'Животное', groupName: 'Животные', icon: '🐾', color: '#f97316', bg: 'rgba(249, 115, 22, 0.14)' },
-    Chromista: { name: 'Водоросль', groupName: 'Хромисты / Водоросли', icon: '🪸', color: '#0d9488', bg: 'rgba(13, 148, 136, 0.14)' },
-    Protozoa: { name: 'Простейшее', groupName: 'Простейшие', icon: '🔬', color: '#6366f1', bg: 'rgba(99, 102, 241, 0.14)' },
-    default: { name: 'Организм', groupName: 'Живой организм', icon: '🌱', color: '#10b981', bg: 'rgba(16, 185, 129, 0.14)' }
+    Plantae: { name: WM.t('Растение'), groupName: WM.t('Растения'), icon: '🌿', color: '#10b981', bg: 'rgba(16, 185, 129, 0.14)' },
+    Fungi: { name: WM.t('Гриб'), groupName: WM.t('Грибы и лишайники'), icon: '🍄', color: '#d97706', bg: 'rgba(217, 119, 6, 0.14)' },
+    Insecta: { name: WM.t('Насекомое'), groupName: WM.t('Насекомые'), icon: '🐞', color: '#ef4444', bg: 'rgba(239, 68, 68, 0.14)' },
+    Arachnida: { name: WM.t('Паукообразное'), groupName: WM.t('Паукообразные'), icon: '🕷️', color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.14)' },
+    Mollusca: { name: WM.t('Моллюск'), groupName: WM.t('Моллюски'), icon: '🐌', color: '#06b6d4', bg: 'rgba(6, 182, 212, 0.14)' },
+    Aves: { name: WM.t('Птица'), groupName: WM.t('Птицы'), icon: '🦅', color: '#0284c7', bg: 'rgba(2, 132, 199, 0.14)' },
+    Mammalia: { name: WM.t('Млекопитающее'), groupName: WM.t('Млекопитающие'), icon: '🦊', color: '#ea580c', bg: 'rgba(234, 88, 12, 0.14)' },
+    Amphibia: { name: WM.t('Земноводное'), groupName: WM.t('Земноводные'), icon: '🐸', color: '#14b8a6', bg: 'rgba(20, 184, 166, 0.14)' },
+    Reptilia: { name: WM.t('Пресмыкающееся'), groupName: WM.t('Пресмыкающиеся'), icon: '🦎', color: '#84cc16', bg: 'rgba(132, 204, 22, 0.14)' },
+    Actinopterygii: { name: WM.t('Рыба'), groupName: WM.t('Рыбы'), icon: '🐟', color: '#0ea5e9', bg: 'rgba(14, 165, 233, 0.14)' },
+    Animalia: { name: WM.t('Животное'), groupName: WM.t('Животные'), icon: '🐾', color: '#f97316', bg: 'rgba(249, 115, 22, 0.14)' },
+    Chromista: { name: WM.t('Водоросль'), groupName: WM.t('Хромисты / Водоросли'), icon: '🪸', color: '#0d9488', bg: 'rgba(13, 148, 136, 0.14)' },
+    Protozoa: { name: WM.t('Простейшее'), groupName: WM.t('Простейшие'), icon: '🔬', color: '#6366f1', bg: 'rgba(99, 102, 241, 0.14)' },
+    default: { name: WM.t('Организм'), groupName: WM.t('Живой организм'), icon: '🌱', color: '#10b981', bg: 'rgba(16, 185, 129, 0.14)' }
   };
 
   const IUCN_MAP = {
-    EX: 'Исчезнувший (EX)',
-    EW: 'Исчезнувший в дикой природе (EW)',
-    CR: 'На грани исчезновения (CR)',
-    EN: 'Вымирающий (EN)',
-    VU: 'Уязвимый (VU)',
-    NT: 'Близкий к угрожаемому (NT)',
-    LC: 'Наименьший риск (LC)',
-    DD: 'Недостаток данных (DD)'
+    EX: WM.t('Исчезнувший (EX)'),
+    EW: WM.t('Исчезнувший в дикой природе (EW)'),
+    CR: WM.t('На грани исчезновения (CR)'),
+    EN: WM.t('Вымирающий (EN)'),
+    VU: WM.t('Уязвимый (VU)'),
+    NT: WM.t('Близкий к угрожаемому (NT)'),
+    LC: WM.t('Наименьший риск (LC)'),
+    DD: WM.t('Недостаток данных (DD)')
   };
 
   // =========================================================================
@@ -2578,50 +2579,50 @@
 
   // Соответствие суточной активности животных (Wikidata P9566)
   const WIKIDATA_DIEL_MAP = {
-    'Q101029366': { text: 'Ночной образ жизни', icon: '🌙', pill: '🌙 Ночной' },
-    'Q4284186': { text: 'Дневной образ жизни', icon: '☀️', pill: '☀️ Дневной' },
-    'Q1147576': { text: 'Сумеречный образ жизни', icon: '🌅', pill: '🌅 Сумеречный' },
-    'Q5051419': { text: 'Круглосуточная активность', icon: '🌓', pill: '🌓 Днём и ночью' },
-    'Q1900130': { text: 'Утренняя активность', icon: '🌄', pill: '🌄 Утренний' },
-    'Q17013876': { text: 'Вечерняя активность', icon: '🌇', pill: '🌇 Вечерний' }
+    'Q101029366': { text: WM.t('Ночной образ жизни'), icon: '🌙', pill: WM.t('🌙 Ночной') },
+    'Q4284186': { text: WM.t('Дневной образ жизни'), icon: '☀️', pill: WM.t('☀️ Дневной') },
+    'Q1147576': { text: WM.t('Сумеречный образ жизни'), icon: '🌅', pill: WM.t('🌅 Сумеречный') },
+    'Q5051419': { text: WM.t('Круглосуточная активность'), icon: '🌓', pill: WM.t('🌓 Днём и ночью') },
+    'Q1900130': { text: WM.t('Утренняя активность'), icon: '🌄', pill: WM.t('🌄 Утренний') },
+    'Q17013876': { text: WM.t('Вечерняя активность'), icon: '🌇', pill: WM.t('🌇 Вечерний') }
   };
 
   // Словарь типов питания и трофических групп (EOL & Wikidata P1034)
   const DIET_TERMS_MAP = {
-    'carnivore': { text: 'Хищник (плотоядный)', icon: '🥩', pill: '🥩 Хищник' },
-    'carnivorous': { text: 'Хищник (плотоядный)', icon: '🥩', pill: '🥩 Хищник' },
-    'predator': { text: 'Хищник', icon: '🥩', pill: '🥩 Хищник' },
-    'q1053008': { text: 'Хищник (плотоядный)', icon: '🥩', pill: '🥩 Хищник' },
-    'q59199': { text: 'Хищник', icon: '🥩', pill: '🥩 Хищник' },
+    'carnivore': { text: WM.t('Хищник (плотоядный)'), icon: '🥩', pill: WM.t('🥩 Хищник') },
+    'carnivorous': { text: WM.t('Хищник (плотоядный)'), icon: '🥩', pill: WM.t('🥩 Хищник') },
+    'predator': { text: WM.t('Хищник'), icon: '🥩', pill: WM.t('🥩 Хищник') },
+    'q1053008': { text: WM.t('Хищник (плотоядный)'), icon: '🥩', pill: WM.t('🥩 Хищник') },
+    'q59199': { text: WM.t('Хищник'), icon: '🥩', pill: WM.t('🥩 Хищник') },
 
-    'herbivore': { text: 'Травоядный (растительноядный)', icon: '🌿', pill: '🌿 Травоядный' },
-    'herbivorous': { text: 'Травоядный', icon: '🌿', pill: '🌿 Травоядный' },
-    'q164509': { text: 'Травоядный', icon: '🌿', pill: '🌿 Травоядный' },
-    'q59203': { text: 'Травоядный', icon: '🌿', pill: '🌿 Травоядный' },
+    'herbivore': { text: WM.t('Травоядный (растительноядный)'), icon: '🌿', pill: WM.t('🌿 Травоядный') },
+    'herbivorous': { text: WM.t('Травоядный'), icon: '🌿', pill: WM.t('🌿 Травоядный') },
+    'q164509': { text: WM.t('Травоядный'), icon: '🌿', pill: WM.t('🌿 Травоядный') },
+    'q59203': { text: WM.t('Травоядный'), icon: '🌿', pill: WM.t('🌿 Травоядный') },
 
-    'omnivore': { text: 'Всеядный', icon: '🦝', pill: '🦝 Всеядный' },
-    'omnivorous': { text: 'Всеядный', icon: '🦝', pill: '🦝 Всеядный' },
-    'q59207': { text: 'Всеядный', icon: '🦝', pill: '🦝 Всеядный' },
-    'q12806437': { text: 'Всеядный', icon: '🦝', pill: '🦝 Всеядный' },
+    'omnivore': { text: WM.t('Всеядный'), icon: '🦝', pill: WM.t('🦝 Всеядный') },
+    'omnivorous': { text: WM.t('Всеядный'), icon: '🦝', pill: WM.t('🦝 Всеядный') },
+    'q59207': { text: WM.t('Всеядный'), icon: '🦝', pill: WM.t('🦝 Всеядный') },
+    'q12806437': { text: WM.t('Всеядный'), icon: '🦝', pill: WM.t('🦝 Всеядный') },
 
-    'insectivore': { text: 'Насекомоядный', icon: '🐛', pill: '🐛 Насекомоядный' },
-    'insectivorous': { text: 'Насекомоядный', icon: '🐛', pill: '🐛 Насекомоядный' },
-    'q139045': { text: 'Насекомоядный', icon: '🐛', pill: '🐛 Насекомоядный' },
-    'q677088': { text: 'Насекомоядный', icon: '🐛', pill: '🐛 Насекомоядный' },
+    'insectivore': { text: WM.t('Насекомоядный'), icon: '🐛', pill: WM.t('🐛 Насекомоядный') },
+    'insectivorous': { text: WM.t('Насекомоядный'), icon: '🐛', pill: WM.t('🐛 Насекомоядный') },
+    'q139045': { text: WM.t('Насекомоядный'), icon: '🐛', pill: WM.t('🐛 Насекомоядный') },
+    'q677088': { text: WM.t('Насекомоядный'), icon: '🐛', pill: WM.t('🐛 Насекомоядный') },
 
-    'piscivore': { text: 'Рыбоядный', icon: '🐟', pill: '🐟 Рыбоядный' },
-    'piscivorous': { text: 'Рыбоядный', icon: '🐟', pill: '🐟 Рыбоядный' },
-    'q139047': { text: 'Рыбоядный', icon: '🐟', pill: '🐟 Рыбоядный' },
+    'piscivore': { text: WM.t('Рыбоядный'), icon: '🐟', pill: WM.t('🐟 Рыбоядный') },
+    'piscivorous': { text: WM.t('Рыбоядный'), icon: '🐟', pill: WM.t('🐟 Рыбоядный') },
+    'q139047': { text: WM.t('Рыбоядный'), icon: '🐟', pill: WM.t('🐟 Рыбоядный') },
 
-    'frugivore': { text: 'Плодоядный', icon: '🍓', pill: '🍓 Плодоядный' },
-    'frugivorous': { text: 'Плодоядный', icon: '🍓', pill: '🍓 Плодоядный' },
-    'q147137': { text: 'Плодоядный', icon: '🍓', pill: '🍓 Плодоядный' },
+    'frugivore': { text: WM.t('Плодоядный'), icon: '🍓', pill: WM.t('🍓 Плодоядный') },
+    'frugivorous': { text: WM.t('Плодоядный'), icon: '🍓', pill: WM.t('🍓 Плодоядный') },
+    'q147137': { text: WM.t('Плодоядный'), icon: '🍓', pill: WM.t('🍓 Плодоядный') },
 
-    'granivore': { text: 'Зерноядный', icon: '🌾', pill: '🌾 Зерноядный' },
-    'granivorous': { text: 'Зерноядный', icon: '🌾', pill: '🌾 Зерноядный' },
+    'granivore': { text: WM.t('Зерноядный'), icon: '🌾', pill: WM.t('🌾 Зерноядный') },
+    'granivorous': { text: WM.t('Зерноядный'), icon: '🌾', pill: WM.t('🌾 Зерноядный') },
 
-    'nectarivore': { text: 'Нектароядный', icon: '🌸', pill: '🌸 Нектароядный' },
-    'nectarivorous': { text: 'Нектароядный', icon: '🌸', pill: '🌸 Нектароядный' }
+    'nectarivore': { text: WM.t('Нектароядный'), icon: '🌸', pill: WM.t('🌸 Нектароядный') },
+    'nectarivorous': { text: WM.t('Нектароядный'), icon: '🌸', pill: WM.t('🌸 Нектароядный') }
   };
 
   // Кэш для русских названий видов
@@ -2637,7 +2638,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
   try {
     // Бесплатный запрос к API Википедии с автоматическим следованием по редиректам (redirects=1)
-    const url = `https://ru.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(latinName)}&redirects=1&format=json&origin=*`;
+    const url = `https://${WM.i18n.api.wiki}.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(latinName)}&redirects=1&format=json&origin=*`;
     const res = await fetch(url);
     const data = await res.json();
     const pages = data?.query?.pages;
@@ -2724,9 +2725,9 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     const m = Math.floor((totalSec % 3600) / 60);
     const s = totalSec % 60;
     const pad = (n) => String(n).padStart(2, '0');
-    if (h > 0) return `${h} ч ${pad(m)} мин ${pad(s)} с`;
-    if (m > 0) return `${m} мин ${pad(s)} с`;
-    return `${s} с`;
+    if (h > 0) return WM.t('{0} ч {1} мин {2} с', h, pad(m), pad(s));
+    if (m > 0) return WM.t('{0} мин {1} с', m, pad(s));
+    return WM.t('{0} с', s);
   }
 
   function getToken() { return localStorage.getItem('wm_inat_key') || ''; }
@@ -2797,28 +2798,28 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     if (!statusEl) return;
     if (!curToken) {
-      statusEl.innerHTML = '<span style="color: var(--text-muted);">⚪ Токен не введён. Для просмотра карты и умных подсказок он не требуется.</span>';
+      statusEl.innerHTML = `<span style="color: var(--text-muted);">${WM.t('⚪ Токен не введён. Для просмотра карты и умных подсказок он не требуется.')}</span>`;
       return;
     }
 
     const updateCountdown = () => {
       const info = getTokenInfo();
       if (!info.exists) {
-        statusEl.innerHTML = '<span style="color: var(--text-muted);">⚪ Используется открытый гостевой доступ</span>';
+        statusEl.innerHTML = `<span style="color: var(--text-muted);">${WM.t('⚪ Используется открытый гостевой доступ')}</span>`;
         return;
       }
       if (info.isExpired) {
-        statusEl.innerHTML = '<span style="color: #ef4444; font-weight: 700;">🔴 Срок действия токена истёк (прошло 24 ч)! Обновите токен на inaturalist.org</span>';
+        statusEl.innerHTML = `<span style="color: #ef4444; font-weight: 700;">${WM.t('🔴 Срок действия токена истёк (прошло 24 ч)! Обновите токен на inaturalist.org')}</span>`;
         updateVisionTokenNotice();
       } else if (info.expDate) {
         const timeStr = formatTimeLeft(info.timeLeftMs);
-        const expClock = info.expDate.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+        const expClock = info.expDate.toLocaleTimeString(WM.i18n.locale, { hour: '2-digit', minute: '2-digit' });
         statusEl.innerHTML = `
-          <div style="color: #10b981; font-weight: 700;">🟢 Токен активен</div>
-          <div style="font-size: 11.5px; margin-top: 2px;">⏳ До окончания: <b>${timeStr}</b> (до ${expClock})</div>
+          <div style="color: #10b981; font-weight: 700;">${WM.t('🟢 Токен активен')}</div>
+          <div style="font-size: 11.5px; margin-top: 2px;">${WM.t('⏳ До окончания:')} <b>${timeStr}</b> ${WM.t('(до {0})', expClock)}</div>
         `;
       } else {
-        statusEl.innerHTML = '<span style="color: #10b981;">🟢 Личный токен сохранён</span>';
+        statusEl.innerHTML = `<span style="color: #10b981;">${WM.t('🟢 Личный токен сохранён')}</span>`;
       }
     };
 
@@ -2836,16 +2837,16 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     const info = getTokenInfo();
     if (!info.exists) {
       alertBox.hidden = false;
-      if (titleEl) titleEl.textContent = '🔑 Требуется API токен iNaturalist';
-      if (descEl) descEl.innerHTML = 'Нейросеть распознавания фото требует 24-часовой токен. Введите его в настройках выше.';
+      if (titleEl) titleEl.textContent = WM.t('🔑 Требуется API токен iNaturalist');
+      if (descEl) descEl.innerHTML = WM.t('Нейросеть распознавания фото требует 24-часовой токен. Введите его в настройках выше.');
       if (btnPick && !isVisionLoading) {
         btnPick.classList.add('btn-secondary');
         btnPick.classList.remove('btn-primary');
       }
     } else if (info.isExpired) {
       alertBox.hidden = false;
-      if (titleEl) titleEl.textContent = '⚠️ Срок действия токена истёк (24 ч)';
-      if (descEl) descEl.innerHTML = 'Срок жизни токена подошёл к концу. Обновите его на inaturalist.org/users/api_token.';
+      if (titleEl) titleEl.textContent = WM.t('⚠️ Срок действия токена истёк (24 ч)');
+      if (descEl) descEl.innerHTML = WM.t('Срок жизни токена подошёл к концу. Обновите его на inaturalist.org/users/api_token.');
       if (btnPick && !isVisionLoading) {
         btnPick.classList.add('btn-secondary');
         btnPick.classList.remove('btn-primary');
@@ -2924,7 +2925,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     const doFetch = (withAuth) => {
       const headers = { 
         'Accept': 'application/json',
-        'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7' // <-- ГАРАНТИРУЕТ РУССКИЙ ЯЗЫК В WEBVIEW И APK
+        'Accept-Language': WM.i18n.api.acceptLanguage
       };
       if (withAuth) {
         const h = getAuthHeader();
@@ -3132,7 +3133,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
                           (displayMode === 'auto-hide') ||
                           (displayMode === 'center-bubble');
 
-      const arrowBtnHtml = `<button type="button" class="wm-inat-toggle-arrow-btn" title="${isManualExpanded ? 'Свернуть' : 'Развернуть'}">${isManualExpanded ? '‹' : '›'}</button>`;
+      const arrowBtnHtml = `<button type="button" class="wm-inat-toggle-arrow-btn" title="${isManualExpanded ? WM.t('Свернуть') : WM.t('Развернуть')}">${isManualExpanded ? '‹' : '›'}</button>`;
 
       if (isSingle) {
         const ruName = taxon.preferred_common_name || obs.species_guess || taxon.name || meta.name;
@@ -3166,7 +3167,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
       let subText = '';
       if (sameSpeciesAll) {
-        subText = `${latinName ? latinName + ' · ' : ''}${cluster.count} находок`;
+        subText = WM.t('{0}{1} находок', latinName ? latinName + ' · ' : '', cluster.count);
       } else {
         const otherNames = cluster.otherTaxa
           .map(t => t.taxon?.preferred_common_name || t.taxon?.name)
@@ -3221,7 +3222,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
                 </div>
                 <span class="wm-inat-badge-cluster-sub">${escapeHtml(subText)}</span>
               </div>
-              <div class="wm-inat-cluster-count-pill" title="${cluster.count} находок в этой зоне">${cluster.count}</div>
+              <div class="wm-inat-cluster-count-pill" title="${WM.t('{0} находок в этой зоне', cluster.count)}">${cluster.count}</div>
               ${displayMode !== 'full' ? arrowBtnHtml : ''}
             </div>
             <svg class="wm-inat-badge-tail" width="12" height="7" viewBox="0 0 12 7"><path d="M 0 0 L 6 7 L 12 0 Z" /></svg>
@@ -3243,7 +3244,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     const primaryName = cluster.dominantTaxon?.preferred_common_name || cluster.dominantTaxon?.name || meta.name;
     const html = `
-      <div class="wm-inat-pin-compact is-cluster" data-id="${cluster.id}" title="${escapeHtml(primaryName)} (${cluster.count} находок)" style="--inat-color: ${color};">
+      <div class="wm-inat-pin-compact is-cluster" data-id="${cluster.id}" title="${WM.t('{0} ({1} находок)', escapeHtml(primaryName), cluster.count)}" style="--inat-color: ${color};">
         <span class="wm-inat-compact-dot">${icon}</span>
         <span class="wm-inat-compact-cluster-badge">${cluster.count}</span>
       </div>`;
@@ -3268,7 +3269,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       card.classList.toggle('is-expanded', shouldExpand);
       if (arrowBtn) {
         arrowBtn.textContent = shouldExpand ? '‹' : '›';
-        arrowBtn.title = shouldExpand ? 'Свернуть' : 'Развернуть';
+        arrowBtn.title = shouldExpand ? WM.t('Свернуть') : WM.t('Развернуть');
       }
       if (config.badgeDisplayMode === 'manual') {
         if (shouldExpand) manualExpandedClusters.add(cluster.id);
@@ -3669,7 +3670,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         const ruName = taxon.preferred_common_name || bestCluster.primaryObs.species_guess || taxon.name || meta.name;
         const subtitle = bestCluster.isSingle
           ? `${meta.icon} ${meta.name} (iNaturalist)`
-          : `🌿 ${bestCluster.count} находок в этой точке`;
+          : WM.t('🌿 {0} находок в этой точке', bestCluster.count);
         
         WM.ui.setPill({
           title: `${meta.icon} ${ruName}`,
@@ -3711,34 +3712,34 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     if (activeMapFilter) {
       if (isLoadingNow) {
-        badgeText.textContent = `🌿 Поиск «${activeMapFilter.query}»…`;
+        badgeText.textContent = WM.t('🌿 Поиск «{0}»…', activeMapFilter.query);
       } else {
         badgeText.textContent = `🌿 «${activeMapFilter.query}» (${activeMapFilter.results.length})  ›`;
       }
-      badge.title = `Нажмите для списка «${activeMapFilter.query}»`;
+      badge.title = WM.t('Нажмите для списка «{0}»', activeMapFilter.query);
       if (badgeRefresh) badgeRefresh.hidden = false;
       if (badgeClear) badgeClear.hidden = false;
       badge.classList.add('filtered');
     } else {
       let icon = '🌿';
-      let label = 'Растения';
-      if (config.taxa === 'Fungi') { icon = '🍄'; label = 'Грибы'; }
-      else if (config.taxa === 'Aves') { icon = '🦅'; label = 'Птицы'; }
-      else if (config.taxa === 'Insecta') { icon = '🐞'; label = 'Насекомые'; }
-      else if (config.taxa && config.taxa.includes('Fungi')) { icon = '🌿/🍄'; label = 'Флора/Грибы'; }
-      else if (config.taxa === 'all') { icon = '🐾'; label = 'Организмы'; }
+      let label = WM.t('Растения');
+      if (config.taxa === 'Fungi') { icon = '🍄'; label = WM.t('Грибы'); }
+      else if (config.taxa === 'Aves') { icon = '🦅'; label = WM.t('Птицы'); }
+      else if (config.taxa === 'Insecta') { icon = '🐞'; label = WM.t('Насекомые'); }
+      else if (config.taxa && config.taxa.includes('Fungi')) { icon = '🌿/🍄'; label = WM.t('Флора/Грибы'); }
+      else if (config.taxa === 'all') { icon = '🐾'; label = WM.t('Организмы'); }
 
       if (map && map.getZoom() < MIN_VIEW_ZOOM) {
         if (config.zoomOutMode && config.zoomOutMode !== 'markers') {
           const modeTitles = {
-            heatmap: 'Тепловая карта',
-            points: 'Точки плотности',
-            grid: 'Сетка плотности'
+            heatmap: WM.t('Тепловая карта'),
+            points: WM.t('Точки плотности'),
+            grid: WM.t('Сетка плотности')
           };
-          const title = modeTitles[config.zoomOutMode] || 'Обзор';
-          badgeText.textContent = `${icon} ${label}: ${title} (зум < ${MIN_VIEW_ZOOM})  ›`;
+          const title = modeTitles[config.zoomOutMode] || WM.t('Обзор');
+          badgeText.textContent = WM.t('{0} {1}: {2} (зум < {3})  ›', icon, label, title, MIN_VIEW_ZOOM);
         } else {
-          badgeText.textContent = `${icon} Приблизьте карту (зум ${MIN_VIEW_ZOOM}+)  ›`;
+          badgeText.textContent = WM.t('{0} Приблизьте карту (зум {1}+)  ›', icon, MIN_VIEW_ZOOM);
         }
         if (badgeRefresh) badgeRefresh.hidden = true;
         if (badgeClear) badgeClear.hidden = !activeMapFilter;
@@ -3747,11 +3748,11 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       }
 
       if (isLoadingNow) {
-        badgeText.textContent = `${icon} ${label}: загрузка (v2)…`;
+        badgeText.textContent = WM.t('{0} {1}: загрузка (v2)…', icon, label);
       } else {
         badgeText.textContent = `${icon} ${label}: ${activeObservations.size}  ›`;
       }
-      badge.title = 'Нажмите для открытия списка наблюдений на экране';
+      badge.title = WM.t('Нажмите для открытия списка наблюдений на экране');
       if (badgeRefresh) badgeRefresh.hidden = true;
       if (badgeClear) badgeClear.hidden = true;
       badge.classList.remove('filtered');
@@ -3766,7 +3767,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     let cancelBtn = document.getElementById('inat-cluster-cancel-btn');
 
     if (!modal || !listEl) return;
-    if (titleEl) titleEl.textContent = `🌿 Наблюдения в этой точке (${clusterList.length})`;
+    if (titleEl) titleEl.textContent = WM.t('🌿 Наблюдения в этой точке ({0})', clusterList.length);
 
     listEl.innerHTML = '';
     clusterList.forEach((obs) => {
@@ -3858,14 +3859,14 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     const limitStatus = checkVisionRateLimit();
     if (!limitStatus.allowed) {
-      badge.textContent = `⏳ ${limitStatus.waitSec} с`;
+      badge.textContent = WM.t('⏳ {0} с', limitStatus.waitSec);
       badge.classList.add('limit-reached');
       if (btnPick && !isVisionLoading) btnPick.disabled = true;
       if (!visionCooldownTimer) {
         visionCooldownTimer = setInterval(() => {
           const check = checkVisionRateLimit();
           if (!check.allowed) {
-            badge.textContent = `⏳ ${check.waitSec} с`;
+            badge.textContent = WM.t('⏳ {0} с', check.waitSec);
           } else {
             clearInterval(visionCooldownTimer);
             visionCooldownTimer = null;
@@ -3931,8 +3932,8 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       headers,
       body: formData
     });
-    if (res.status === 429) throw new Error('Превышен лимит запросов iNaturalist.');
-    if (!res.ok) throw new Error(`Ошибка сервера (${res.status})`);
+    if (res.status === 429) throw new Error(WM.t('Превышен лимит запросов iNaturalist.'));
+    if (!res.ok) throw new Error(WM.t('Ошибка сервера ({0})', res.status));
     return await res.json();
   }
 
@@ -3947,9 +3948,9 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     if (data.common_ancestor && data.common_ancestor.taxon) {
       const anc = data.common_ancestor.taxon;
-      const ancRank = RANKS_RU[anc.rank] || anc.rank || 'род';
+      const ancRank = RANKS_RU[anc.rank] || anc.rank || WM.t('род');
       const ancName = anc.preferred_common_name ? `${anc.preferred_common_name} (${anc.name})` : anc.name;
-      ancestorBanner.innerHTML = `🧬 Высокая вероятность: <b>${escapeHtml(ancName)}</b> [${escapeHtml(ancRank)}]`;
+      ancestorBanner.innerHTML = `${WM.t('🧬 Высокая вероятность:')} <b>${escapeHtml(ancName)}</b> [${escapeHtml(ancRank)}]`;
       ancestorBanner.hidden = false;
     } else {
       ancestorBanner.hidden = true;
@@ -3957,7 +3958,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     const results = data.results || [];
     if (!results.length) {
-      listEl.innerHTML = '<div class="muted" style="padding: 10px 0;">Вид не распознан. Сделайте более чёткий снимок листа или цветка крупным планом.</div>';
+      listEl.innerHTML = `<div class="muted" style="padding: 10px 0;">${WM.t('Вид не распознан. Сделайте более чёткий снимок листа или цветка крупным планом.')}</div>`;
       return;
     }
 
@@ -3983,9 +3984,9 @@ async function resolveRussianTaxonName(latinName, onResolved) {
           </div>
           <span class="inat-vision-la">${escapeHtml(latinName)} · ${meta.name}</span>
           <div class="inat-vision-item-actions">
-            <button type="button" class="inat-vision-act-btn btn-show-map">👁️ На карте</button>
-            <button type="button" class="inat-vision-act-btn btn-show-geomodel" title="Включить тепловую карту ареала Geomodel AI">🧠 Ареал</button>
-            <button type="button" class="inat-vision-act-btn btn-copy-name" title="Скопировать">📋</button>
+            <button type="button" class="inat-vision-act-btn btn-show-map">${WM.t('👁️ На карте')}</button>
+            <button type="button" class="inat-vision-act-btn btn-show-geomodel" title="${WM.t('Включить тепловую карту ареала Geomodel AI')}">${WM.t('🧠 Ареал')}</button>
+            <button type="button" class="inat-vision-act-btn btn-copy-name" title="${WM.t('Скопировать')}">📋</button>
             <a href="https://www.inaturalist.org/taxa/${taxon.id}" target="_blank" rel="noopener noreferrer" class="inat-vision-act-btn">↗ iNat</a>
           </div>
         </div>
@@ -4006,7 +4007,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         e.stopPropagation();
         const copyText = (latinName && latinName !== ruName) ? `${ruName} (${latinName})` : ruName;
         navigator.clipboard.writeText(copyText).then(() => {
-          if (WM.ui && WM.ui.showToast) WM.ui.showToast(`📋 Скопировано: ${copyText}`);
+          if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('📋 Скопировано: {0}', copyText));
         });
       });
 
@@ -4016,20 +4017,20 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
   function handleVisionFile(file) {
     if (!file || !file.type.startsWith('image/')) {
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('Пожалуйста, выберите файл изображения');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('Пожалуйста, выберите файл изображения'));
       return;
     }
 
     const tokenInfo = getTokenInfo();
     if (!tokenInfo.exists || tokenInfo.isExpired) {
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('⚠️ Токен iNaturalist отсутствует или истёк!', 3000);
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('⚠️ Токен iNaturalist отсутствует или истёк!'), 3000);
       updateVisionTokenNotice();
       return;
     }
 
     const rateStatus = checkVisionRateLimit();
     if (!rateStatus.allowed) {
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast(`⏳ Лимит: не более 3 фото в минуту. Подождите ещё ${rateStatus.waitSec} сек.`);
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('⏳ Лимит: не более 3 фото в минуту. Подождите ещё {0} сек.', rateStatus.waitSec));
       return;
     }
 
@@ -4042,8 +4043,8 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     if (resultsWrap) resultsWrap.hidden = true;
     if (previewWrap) previewWrap.hidden = false;
-    if (previewName) previewName.textContent = file.name || 'Снимок';
-    if (statusLine) statusLine.textContent = '⏳ Оптимизация снимка…';
+    if (previewName) previewName.textContent = file.name || WM.t('Снимок');
+    if (statusLine) statusLine.textContent = WM.t('⏳ Оптимизация снимка…');
 
     const reader = new FileReader();
     reader.onload = (e) => { if (previewImg) previewImg.src = e.target.result; };
@@ -4053,12 +4054,12 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     if (btnPick) btnPick.disabled = true;
 
     resizeImageForVision(file).then(async (optimizedBlob) => {
-      if (statusLine) statusLine.textContent = '🧠 Анализ нейросетью iNaturalist…';
+      if (statusLine) statusLine.textContent = WM.t('🧠 Анализ нейросетью iNaturalist…');
       try {
         visionTimestamps.push(Date.now());
         updateVisionLimitUI();
         const data = await scoreObservationImage(optimizedBlob);
-        if (statusLine) statusLine.textContent = '✅ Анализ завершён';
+        if (statusLine) statusLine.textContent = WM.t('✅ Анализ завершён');
         renderVisionResults(data);
       } catch (err) {
         console.warn('[iNaturalist Vision]', err);
@@ -4091,7 +4092,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     btnPick?.addEventListener('click', () => {
       const tokenInfo = getTokenInfo();
       if (!tokenInfo.exists || tokenInfo.isExpired) {
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast('⚠️ Для распознавания по фото необходим действующий токен (24 ч)', 3200);
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('⚠️ Для распознавания по фото необходим действующий токен (24 ч)'), 3200);
         const spoilerAuth = document.getElementById('spoiler-inat-auth');
         const inputToken = document.getElementById('inat-token-input');
         if (spoilerAuth) {
@@ -4104,7 +4105,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
       const rate = checkVisionRateLimit();
       if (!rate.allowed) {
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast(`⏳ Лимит: не более 3 фото в минуту. Подождите ещё ${rate.waitSec} сек.`);
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('⏳ Лимит: не более 3 фото в минуту. Подождите ещё {0} сек.', rate.waitSec));
         return;
       }
       fileInput?.click();
@@ -4209,8 +4210,8 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       per_page: String(perPage),
       order: 'desc',
       order_by: actualOrderBy,
-      locale: 'ru',
-      preferred_place_id: '6986', // <-- ID 6986 задаёт приоритет русскоязычных названий в iNat
+      locale: WM.i18n.api.inat,
+      ...(WM.i18n.lang === 'ru' ? { preferred_place_id: '6986' } : {}),
       fields: OBSERVATION_FIELDS_LIGHT
     });
 
@@ -4262,7 +4263,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     try {
       const params = new URLSearchParams({
         taxon_id: String(taxonId),
-        locale: 'ru',
+        locale: WM.i18n.api.inat,
         fields: '(count:!t,taxon:(id:!t,name:!t,preferred_common_name:!t,rank:!t,iconic_taxon_name:!t,default_photo:(square_url:!t)))'
       });
       const data = await inatGet('identifications/similar_species', params, null, 'v2');
@@ -4353,18 +4354,18 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       return `
         <div class="inat-seasonality-card">
           <div class="inat-seasonality-header">
-            <span class="inat-seasonality-title">📅 Сезонность и активность по месяцам:</span>
+            <span class="inat-seasonality-title">${WM.t('📅 Сезонность и активность по месяцам:')}</span>
           </div>
           <div class="muted inat-card-empty-note" style="display:flex; justify-content:space-between; align-items:center;">
-            <span>⚠️ Данные сезонности временно недоступны.</span>
-            ${taxonId ? `<button type="button" class="btn-link" onclick="window.WM.inat.retrySeasonality(${taxonId})">↺ Повторить</button>` : ''}
+            <span>${WM.t('⚠️ Данные сезонности временно недоступны.')}</span>
+            ${taxonId ? `<button type="button" class="btn-link" onclick="window.WM.inat.retrySeasonality(${taxonId})">${WM.t('↺ Повторить')}</button>` : ''}
           </div>
         </div>
       `;
     }
 
     const monthKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-    const monthLabels = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+    const monthLabels = [WM.t('Янв'), WM.t('Фев'), WM.t('Мар'), WM.t('Апр'), WM.t('Май'), WM.t('Июн'), WM.t('Июл'), WM.t('Авг'), WM.t('Сен'), WM.t('Окт'), WM.t('Ноя'), WM.t('Дек')];
     const currentMonthNum = new Date().getMonth() + 1;
 
     const values = monthKeys.map(k => Number(moy[k]) || 0);
@@ -4389,7 +4390,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       const countFmt = v >= 1000 ? (v / 1000).toFixed(1) + 'k' : v;
 
       barsHtml += `
-        <div class="inat-hist-col ${isCur ? 'is-current' : ''} ${isPeak ? 'is-peak' : ''}" title="${monthLabels[i]}: ${v.toLocaleString('ru-RU')} находок">
+        <div class="inat-hist-col ${isCur ? 'is-current' : ''} ${isPeak ? 'is-peak' : ''}" title="${WM.t('{0}: {1} находок', monthLabels[i], v.toLocaleString(WM.i18n.locale))}">
           <span class="inat-hist-val">${v > 0 ? countFmt : ''}</span>
           <div class="inat-hist-bar-track">
             <div class="inat-hist-bar" style="height: ${hPct}%;"></div>
@@ -4399,17 +4400,17 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       `;
     }
 
-    let summaryText = 'Находок этого вида в базе пока мало для построения календаря.';
+    let summaryText = WM.t('Находок этого вида в базе пока мало для построения календаря.');
     if (totalYear > 0) {
-      const peakStr = peakMonths.length ? peakMonths.join('–') : 'Равномерно';
-      summaryText = `Пик активности: <b>${peakStr}</b>. Сейчас: <b>${curMonthPct}%</b> от года (${isPeakNow ? '🔥 в сезоне' : '❄️ спад'}).`;
+      const peakStr = peakMonths.length ? peakMonths.join('–') : WM.t('Равномерно');
+      summaryText = `${WM.t('Пик активности:')} <b>${peakStr}</b>${WM.t('. Сейчас:')} <b>${curMonthPct}%</b> ${WM.t('от года ({0}).', isPeakNow ? WM.t('🔥 в сезоне') : WM.t('❄️ спад'))}`;
     }
 
     return `
       <div class="inat-seasonality-card">
         <div class="inat-seasonality-header">
-          <span class="inat-seasonality-title">📅 Сезонность и активность по месяцам:</span>
-          <span class="inat-seasonality-tag ${isPeakNow ? 'peak-tag' : ''}">${isPeakNow ? '🔥 Сезон в разгаре' : '❄️ Межсезонье'}</span>
+          <span class="inat-seasonality-title">${WM.t('📅 Сезонность и активность по месяцам:')}</span>
+          <span class="inat-seasonality-tag ${isPeakNow ? 'peak-tag' : ''}">${isPeakNow ? WM.t('🔥 Сезон в разгаре') : WM.t('❄️ Межсезонье')}</span>
         </div>
         <div class="inat-hist-bars-wrap">${barsHtml}</div>
         <div class="inat-seasonality-summary">${summaryText}</div>
@@ -4425,9 +4426,9 @@ async function resolveRussianTaxonName(latinName, onResolved) {
   // РЕНДЕР ОПАСНЫХ ДВОЙНИКОВ / ПОХОЖИХ ВИДОВ (SIMILAR SPECIES)
   // =========================================================================
   function renderSimilarSpeciesSection(speciesList, currentTaxon) {
-    if (!speciesList) return '<div class="muted inat-card-loading-sub">⏳ Поиск двойников…</div>';
+    if (!speciesList) return `<div class="muted inat-card-loading-sub">${WM.t('⏳ Поиск двойников…')}</div>`;
     if (!speciesList.length) {
-      return '<div class="muted inat-card-empty-note">🛡️ Эксперты редко путают этот вид с другими таксонами.</div>';
+      return `<div class="muted inat-card-empty-note">${WM.t('🛡️ Эксперты редко путают этот вид с другими таксонами.')}</div>`;
     }
 
     const totalConfusions = speciesList.reduce((acc, s) => acc + (s.count || 0), 0) || 1;
@@ -4451,15 +4452,15 @@ async function resolveRussianTaxonName(latinName, onResolved) {
           <div class="inat-similar-info">
             <div class="inat-similar-name-row">
               <span class="inat-similar-ru">${escapeHtml(ruName)}</span>
-              <span class="inat-similar-pct-badge" title="${count} случаев путаницы">${pct}% путаниц</span>
+              <span class="inat-similar-pct-badge" title="${WM.t('{0} случаев путаницы', count)}">${WM.t('{0}% путаниц', pct)}</span>
             </div>
             <span class="inat-similar-la">${escapeHtml(latinName)} · ${meta.name}</span>
             <div class="inat-similar-bar-track">
               <div class="inat-similar-bar-fill" style="width: ${Math.max(8, pct)}%; background: ${meta.color};"></div>
             </div>
           </div>
-          <button type="button" class="btn btn-secondary inat-similar-btn-find" title="Искать «${escapeHtml(ruName)}» на карте">
-            👁️ Найти
+          <button type="button" class="btn btn-secondary inat-similar-btn-find" title="${WM.t('Искать «{0}» на карте', escapeHtml(ruName))}">
+            ${WM.t('👁️ Найти')}
           </button>
         </div>
       `;
@@ -4470,7 +4471,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         ${isFungiOrPlant ? `
           <div class="inat-lookalike-warning-banner">
             <span class="warn-icon">⚠️</span>
-            <span><b>Внимание!</b> При сборе грибов и ягод обязательно сверяйте отличительные признаки со схожими видами.</span>
+            <span><b>${WM.t('Внимание!')}</b> ${WM.t('При сборе грибов и ягод обязательно сверяйте отличительные признаки со схожими видами.')}</span>
           </div>
         ` : ''}
         <div class="inat-similar-list">${cardsHtml}</div>
@@ -4482,16 +4483,16 @@ async function resolveRussianTaxonName(latinName, onResolved) {
   // РЕНДЕР СЛОЕВ АРЕАЛА ОБИТАНИЯ (RANGE MAPS & GEOMODEL)
   // =========================================================================
   function renderRangeLayersSection(layersInfo, taxon) {
-    if (!layersInfo) return '<div class="muted inat-card-loading-sub">⏳ Проверка ареалов…</div>';
+    if (!layersInfo) return `<div class="muted inat-card-loading-sub">${WM.t('⏳ Проверка ареалов…')}</div>`;
 
     const taxonId = taxon?.id;
     const isCurActive = activeGeomodelTaxon?.id === taxonId;
 
     const modes = [
-      { key: 'taxon_ranges', title: '📐 Научный ареал (Range Map)', desc: 'Официальные границы биологов и Красных книг', avail: layersInfo.ranges },
-      { key: 'geomodel_taxon_range', title: '🧬 ИИ + Научный ареал', desc: 'Модель ИИ, ограниченная научным ареалом', avail: layersInfo.geomodel_taxon_range },
-      { key: 'geomodel', title: '🤖 Модель ИИ (Geomodel)', desc: 'Биоклиматическая пригодность среды', avail: layersInfo.geomodel },
-      { key: 'geomodel_comparison', title: '📊 Сравнение с находками', desc: 'Модель в сравнении с реальными точками', avail: layersInfo.geomodel_comparison }
+      { key: 'taxon_ranges', title: WM.t('📐 Научный ареал (Range Map)'), desc: WM.t('Официальные границы биологов и Красных книг'), avail: layersInfo.ranges },
+      { key: 'geomodel_taxon_range', title: WM.t('🧬 ИИ + Научный ареал'), desc: WM.t('Модель ИИ, ограниченная научным ареалом'), avail: layersInfo.geomodel_taxon_range },
+      { key: 'geomodel', title: WM.t('🤖 Модель ИИ (Geomodel)'), desc: WM.t('Биоклиматическая пригодность среды'), avail: layersInfo.geomodel },
+      { key: 'geomodel_comparison', title: WM.t('📊 Сравнение с находками'), desc: WM.t('Модель в сравнении с реальными точками'), avail: layersInfo.geomodel_comparison }
     ];
 
     let buttonsHtml = '';
@@ -4499,11 +4500,11 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       const isSelected = isCurActive && geomodelType === m.key;
       buttonsHtml += `
         <button type="button" class="inat-range-layer-btn ${isSelected ? 'active' : ''} ${!m.avail ? 'disabled' : ''}" 
-                data-layer-type="${m.key}" ${!m.avail ? 'disabled title="Для данного вида слой не составлен"' : ''}>
+                data-layer-type="${m.key}" ${!m.avail ? WM.t('disabled title="Для данного вида слой не составлен"') : ''}>
           <div class="inat-layer-btn-texts">
             <div class="inat-layer-btn-title-row">
               <span class="inat-layer-btn-title">${escapeHtml(m.title)}</span>
-              <span class="inat-layer-avail-badge ${m.avail ? 'yes' : 'no'}">${m.avail ? (isSelected ? '✓ Включён' : 'Доступен') : 'Нет данных'}</span>
+              <span class="inat-layer-avail-badge ${m.avail ? 'yes' : 'no'}">${m.avail ? (isSelected ? WM.t('✓ Включён') : WM.t('Доступен')) : WM.t('Нет данных')}</span>
             </div>
             <span class="inat-layer-btn-desc">${escapeHtml(m.desc)}</span>
           </div>
@@ -4513,7 +4514,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     return `
       <div class="inat-range-layers-box">
-        <p class="inat-layer-section-hint">Нажмите на любой доступный слой, чтобы включить его отображение на карте:</p>
+        <p class="inat-layer-section-hint">${WM.t('Нажмите на любой доступный слой, чтобы включить его отображение на карте:')}</p>
         <div class="inat-range-layers-list">${buttonsHtml}</div>
       </div>
     `;
@@ -4557,36 +4558,36 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     }
 
     const ruName = taxon.preferred_common_name || obs.species_guess || taxon.name || meta.name;
-    const latinName = taxon.name || 'Не определено';
+    const latinName = taxon.name || WM.t('Не определено');
     const enName = taxon.english_common_name || '';
     const rankKey = taxon.rank || '';
     const rankRu = RANKS_RU[rankKey] || rankKey;
 
-    let dateStr = 'Не указана';
+    let dateStr = WM.t('Не указана');
     let timeStr = '';
     const rawTime = obs.time_observed_at || obs.observed_on;
     if (rawTime) {
       const d = new Date(rawTime);
       if (!isNaN(d.getTime())) {
-        dateStr = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-        if (obs.time_observed_at) timeStr = d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+        dateStr = d.toLocaleDateString(WM.i18n.locale, { day: 'numeric', month: 'long', year: 'numeric' });
+        if (obs.time_observed_at) timeStr = d.toLocaleTimeString(WM.i18n.locale, { hour: '2-digit', minute: '2-digit' });
       } else if (obs.observed_on) {
         dateStr = obs.observed_on;
       }
     }
 
-    let accuracy = obs.positional_accuracy ? `±${Math.round(obs.positional_accuracy)} м` : 'Не указана';
-    if (obs.obscured) accuracy += ' (огрублено ради защиты)';
+    let accuracy = obs.positional_accuracy ? WM.t('±{0} м', Math.round(obs.positional_accuracy)) : WM.t('Не указана');
+    if (obs.obscured) accuracy += WM.t(' (огрублено ради защиты)');
 
-    const observerName = obs.user?.name || obs.user?.login || 'Наблюдатель iNaturalist';
+    const observerName = obs.user?.name || obs.user?.login || WM.t('Наблюдатель iNaturalist');
     const observerLogin = obs.user?.login || '';
     const observerIcon = obs.user?.icon_url || obs.user?.icon || '';
-    const observerObsCount = obs.user?.observations_count != null ? `${obs.user.observations_count.toLocaleString('ru-RU')} находок` : '';
+    const observerObsCount = obs.user?.observations_count != null ? WM.t('{0} находок', obs.user.observations_count.toLocaleString(WM.i18n.locale)) : '';
 
     const isResearch = obs.quality_grade === 'research';
     const isNeedsId = obs.quality_grade === 'needs_id';
     let qualityClass = isResearch ? 'research' : (isNeedsId ? 'need-id' : 'casual');
-    let qualityText = isResearch ? '✓ Research Grade' : (isNeedsId ? '🔍 На определении' : '⚪ Любительский');
+    let qualityText = isResearch ? '✓ Research Grade' : (isNeedsId ? WM.t('🔍 На определении') : WM.t('⚪ Любительский'));
 
     const agreements = obs.num_identification_agreements || 0;
     const favesCount = obs.faves_count || 0;
@@ -4598,21 +4599,21 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     let conservationHtml = '';
     const cs = obs.conservation_status || taxon.conservation_status;
     if (cs || taxon.threatened) {
-      const statusTitle = cs?.status_name || (cs?.iucn ? IUCN_MAP[cs.iucn] : null) || 'Редкий / Охраняемый вид';
-      conservationHtml = `<span class="inat-pill threatened" title="Охраняемый статус вида">⚠️ ${escapeHtml(statusTitle)}</span>`;
+      const statusTitle = cs?.status_name || (cs?.iucn ? IUCN_MAP[cs.iucn] : null) || WM.t('Редкий / Охраняемый вид');
+      conservationHtml = `<span class="inat-pill threatened" title="${WM.t('Охраняемый статус вида')}">⚠️ ${escapeHtml(statusTitle)}</span>`;
     }
 
     let originHtml = '';
-    if (taxon.endemic) originHtml = '<span class="inat-pill endemic">🏝️ Эндемик</span>';
-    else if (taxon.native) originHtml = '<span class="inat-pill native">🌿 Аборигенный</span>';
-    else if (taxon.introduced) originHtml = '<span class="inat-pill introduced">🌍 Интродуцент</span>';
+    if (taxon.endemic) originHtml = `<span class="inat-pill endemic">${WM.t('🏝️ Эндемик')}</span>`;
+    else if (taxon.native) originHtml = `<span class="inat-pill native">${WM.t('🌿 Аборигенный')}</span>`;
+    else if (taxon.introduced) originHtml = `<span class="inat-pill introduced">${WM.t('🌍 Интродуцент')}</span>`;
 
     const captiveHtml = obs.captive
-      ? '<span class="inat-pill captive">🏡 Неволя / Сад</span>'
-      : '<span class="inat-pill wild">🐾 Дикая природа</span>';
+      ? `<span class="inat-pill captive">${WM.t('🏡 Неволя / Сад')}</span>`
+      : `<span class="inat-pill wild">${WM.t('🐾 Дикая природа')}</span>`;
 
     const privacyHtml = obs.obscured
-      ? '<span class="inat-pill obscured" title="Точные координаты огрублены iNaturalist">🔒 Координаты огрублены</span>'
+      ? `<span class="inat-pill obscured" title="${WM.t('Точные координаты огрублены iNaturalist')}">${WM.t('🔒 Координаты огрублены')}</span>`
       : '';
 
     // Фенологические бейджи
@@ -4640,8 +4641,8 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         <div class="inat-photos-box">
           <div class="inat-photos-scroll">
             ${photos.map((p, idx) => `
-              <div class="inat-photo-card" data-photo-idx="${idx}" title="Полноэкранный просмотр фото">
-                <img src="${(p.url || '').replace('square', 'medium')}" loading="lazy" alt="Фото ${idx + 1}">
+              <div class="inat-photo-card" data-photo-idx="${idx}" title="${WM.t('Полноэкранный просмотр фото')}">
+                <img src="${(p.url || '').replace('square', 'medium')}" loading="lazy" alt="${WM.t('Фото {0}', idx + 1)}">
                 <span class="inat-photo-counter">${idx + 1}/${photos.length}</span>
                 ${p.attribution ? `<span class="inat-photo-attr">${escapeHtml(p.attribution)}</span>` : ''}
               </div>
@@ -4657,7 +4658,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       soundsHtml = `
         <details class="inat-card-spoiler" style="margin-bottom: 10px;">
           <summary class="inat-card-spoiler-summary">
-            <span>🔊 Звукозаписи (${sounds.length})</span>
+            <span>${WM.t('🔊 Звукозаписи ({0})', sounds.length)}</span>
             <span class="chevron">▼</span>
           </summary>
           <div class="inat-card-spoiler-body">
@@ -4697,7 +4698,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       communityHtml = `
         <div class="inat-idents-list">
           ${idents.map(id => {
-            const uName = id.user?.name || id.user?.login || 'Эксперт';
+            const uName = id.user?.name || id.user?.login || WM.t('Эксперт');
             const uLogin = id.user?.login ? `@${id.user.login}` : '';
             const uAvatar = id.user?.icon_url || id.user?.icon || '';
             const idTaxon = id.taxon || {};
@@ -4715,7 +4716,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
                   <small style="color:var(--text-muted);">${createdDate}</small>
                 </div>
                 <div class="inat-ident-taxon-row">
-                  <span class="inat-ident-badge ${isAgreed ? 'agreed' : 'proposed'}">${isAgreed ? '✓ Подтвердил' : '💡 Предложил'}</span>
+                  <span class="inat-ident-badge ${isAgreed ? 'agreed' : 'proposed'}">${isAgreed ? WM.t('✓ Подтвердил') : WM.t('💡 Предложил')}</span>
                   <span class="inat-ident-taxon-name"><b>${escapeHtml(idNameRu)}</b> <i>(${escapeHtml(idNameLa)})</i></span>
                 </div>
                 ${id.body ? `<div class="inat-ident-body">${escapeHtml(id.body)}</div>` : ''}
@@ -4724,7 +4725,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
           ${comments.map(c => `
             <div class="inat-comment-item">
               <div class="inat-comment-head">
-                <b>${escapeHtml(c.user?.name || c.user?.login || 'Участник')}</b>
+                <b>${escapeHtml(c.user?.name || c.user?.login || WM.t('Участник'))}</b>
                 <small>${c.created_at ? c.created_at.slice(0, 10) : ''}</small>
               </div>
               <div class="inat-comment-body">${escapeHtml(c.body)}</div>
@@ -4756,7 +4757,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
               </div>
             </div>
           </div>
-          <button class="modal-close-x" id="inat-modal-close-x" title="Закрыть карточку">✕</button>
+          <button class="modal-close-x" id="inat-modal-close-x" title="${WM.t('Закрыть карточку')}">✕</button>
         </div>
 
         <div class="modal-content-scroll" style="max-height: 68vh;">
@@ -4769,74 +4770,74 @@ async function resolveRussianTaxonName(latinName, onResolved) {
             ${originHtml}
             ${captiveHtml}
             ${privacyHtml}
-            ${agreements > 0 ? `<span class="inat-pill" title="Подтверждений определения">👍 ${agreements}</span>` : ''}
-            ${favesCount > 0 ? `<span class="inat-pill faves" title="В избранном">❤️ ${favesCount}</span>` : ''}
+            ${agreements > 0 ? `<span class="inat-pill" title="${WM.t('Подтверждений определения')}">👍 ${agreements}</span>` : ''}
+            ${favesCount > 0 ? `<span class="inat-pill faves" title="${WM.t('В избранном')}">❤️ ${favesCount}</span>` : ''}
           </div>
 
           <!-- СВОДКА WIKIPEDIA (Сразу создана с плейсхолдером) -->
           <div id="inat-wiki-summary-slot" style="margin-bottom: 10px;">
             <div class="inat-skeleton-placeholder">
-              <span>📖 Загрузка статьи Википедии…</span>
+              <span>${WM.t('📖 Загрузка статьи Википедии…')}</span>
             </div>
           </div>
 
           <!-- БЫСТРЫЕ ДЕЙСТВИЯ -->
           <div class="nav-actions-grid inat-actions-grid" style="margin-bottom: 12px;">
-            <button type="button" class="action-card-btn primary" id="btn-inat-set-target">🎯 Вести к организму</button>
-            <button type="button" class="action-card-btn filter-taxon-btn" id="btn-inat-filter-this-taxon" title="Найти все такие же на карте">
-              🔍 Все такие же
+            <button type="button" class="action-card-btn primary" id="btn-inat-set-target">${WM.t('🎯 Вести к организму')}</button>
+            <button type="button" class="action-card-btn filter-taxon-btn" id="btn-inat-filter-this-taxon" title="${WM.t('Найти все такие же на карте')}">
+              ${WM.t('🔍 Все такие же')}
             </button>
-            <a href="geo:${lat},${lng}?q=${lat},${lng}(${encodeURIComponent(ruName)})" class="action-card-btn" id="btn-inat-geo-nav">🧭 Навигатор</a>
-            <button type="button" class="action-card-btn" id="btn-inat-copy-coords">📋 Координаты</button>
+            <a href="geo:${lat},${lng}?q=${lat},${lng}(${encodeURIComponent(ruName)})" class="action-card-btn" id="btn-inat-geo-nav">${WM.t('🧭 Навигатор')}</a>
+            <button type="button" class="action-card-btn" id="btn-inat-copy-coords">${WM.t('📋 Координаты')}</button>
           </div>
 
           <!-- ГРАФИК СЕЗОННОСТИ (Зарезервированная высота 140px) -->
           <div id="inat-seasonality-container" style="margin-bottom: 12px;">
             <div class="inat-seasonality-card" style="min-height: 130px; display:flex; align-items:center; justify-content:center;">
-              <span class="muted inat-card-loading-sub">📅 Загрузка фенологического календаря…</span>
+              <span class="muted inat-card-loading-sub">${WM.t('📅 Загрузка фенологического календаря…')}</span>
             </div>
           </div>
 
           <!-- СПОЙЛЕР: ПОХОЖИЕ ВИДЫ / ДВОЙНИКИ -->
           <details class="inat-card-spoiler" id="spoiler-inat-similar" style="margin-bottom: 10px;">
             <summary class="inat-card-spoiler-summary">
-              <span>⚠️ С чем часто путают / Двойники</span>
+              <span>${WM.t('⚠️ С чем часто путают / Двойники')}</span>
               <span class="chevron">▼</span>
             </summary>
             <div class="inat-card-spoiler-body" id="inat-similar-container">
-              <div class="muted inat-card-loading-sub">⏳ Поиск видов-двойников…</div>
+              <div class="muted inat-card-loading-sub">${WM.t('⏳ Поиск видов-двойников…')}</div>
             </div>
           </details>
 
           <!-- СПОЙЛЕР: АРЕАЛЫ ОБИТАНИЯ -->
           <details class="inat-card-spoiler" id="spoiler-inat-ranges" style="margin-bottom: 10px;">
             <summary class="inat-card-spoiler-summary">
-              <span>🗺️ Научные и прогнозные ареалы обитания</span>
+              <span>${WM.t('🗺️ Научные и прогнозные ареалы обитания')}</span>
               <span class="chevron">▼</span>
             </summary>
             <div class="inat-card-spoiler-body" id="inat-ranges-container">
-              <div class="muted inat-card-loading-sub">⏳ Проверка слоёв карт…</div>
+              <div class="muted inat-card-loading-sub">${WM.t('⏳ Проверка слоёв карт…')}</div>
             </div>
           </details>
 
           <!-- СПОЙЛЕР: ДАННЫЕ О НАБЛЮДАТЕЛЕ И КООРДИНАТАХ -->
           <details class="inat-card-spoiler" style="margin-bottom: 10px;">
             <summary class="inat-card-spoiler-summary">
-              <span>📍 Наблюдатель, дата и координаты</span>
+              <span>${WM.t('📍 Наблюдатель, дата и координаты')}</span>
               <span class="chevron">▼</span>
             </summary>
             <div class="inat-card-spoiler-body">
               <div class="inat-card-grid" style="margin-bottom: 0;">
                 <div class="inat-cell">
-                  <span class="inat-lbl">📅 Дата находки:</span>
+                  <span class="inat-lbl">${WM.t('📅 Дата находки:')}</span>
                   <b>${dateStr}${timeStr ? ` · ${timeStr}` : ''}</b>
                 </div>
                 <div class="inat-cell">
-                  <span class="inat-lbl">🎯 Точность GPS:</span>
+                  <span class="inat-lbl">${WM.t('🎯 Точность GPS:')}</span>
                   <b>${accuracy}</b>
                 </div>
                 <div class="inat-cell" style="grid-column: span 2;">
-                  <span class="inat-lbl">👤 Наблюдатель iNaturalist:</span>
+                  <span class="inat-lbl">${WM.t('👤 Наблюдатель iNaturalist:')}</span>
                   <div class="inat-observer-row">
                     ${observerIcon ? `<img src="${observerIcon}" class="inat-observer-avatar" alt="">` : `<span class="inat-observer-avatar placeholder">👤</span>`}
                     <div style="min-width:0;">
@@ -4848,14 +4849,14 @@ async function resolveRussianTaxonName(latinName, onResolved) {
                 </div>
                 ${placeGuess ? `
                   <div class="inat-cell" style="grid-column: span 2;">
-                    <span class="inat-lbl">🏡 Местность:</span>
+                    <span class="inat-lbl">${WM.t('🏡 Местность:')}</span>
                     <b>${escapeHtml(placeGuess)}</b>
                   </div>` : ''}
                 <div class="inat-cell" style="grid-column: span 2;">
-                  <span class="inat-lbl">📍 Координаты центра:</span>
+                  <span class="inat-lbl">${WM.t('📍 Координаты центра:')}</span>
                   <div class="inat-coords-row">
                     <b class="inat-coords-val">${lat != null ? lat.toFixed(6) : '--'}, ${lng != null ? lng.toFixed(6) : '--'}</b>
-                    <button type="button" class="btn-link inat-coords-copy-mini" id="btn-inat-copy-coords-mini">Копировать</button>
+                    <button type="button" class="btn-link inat-coords-copy-mini" id="btn-inat-copy-coords-mini">${WM.t('Копировать')}</button>
                   </div>
                 </div>
               </div>
@@ -4866,12 +4867,12 @@ async function resolveRussianTaxonName(latinName, onResolved) {
          ${isAnimalGroup ? `
             <details class="inat-card-spoiler" id="spoiler-inat-traits" style="margin-bottom: 10px;">
               <summary class="inat-card-spoiler-summary">
-                <span>🐾 Повадки, рацион и биометрия</span>
+                <span>${WM.t('🐾 Повадки, рацион и биометрия')}</span>
                 <span class="chevron">▼</span>
               </summary>
               <div class="inat-card-spoiler-body" id="inat-traits-body">
                 <div class="muted inat-card-loading-sub" style="min-height: 48px; display:flex; align-items:center;">
-                  ⏳ Загрузка биометрии и повадок (Wikidata & EOL)…
+                  ${WM.t('⏳ Загрузка биометрии и повадок (Wikidata & EOL)…')}
                 </div>
               </div>
             </details>
@@ -4881,12 +4882,12 @@ async function resolveRussianTaxonName(latinName, onResolved) {
           ${isPlantGroup ? `
             <details class="inat-card-spoiler" id="spoiler-inat-plant-traits" style="margin-bottom: 10px;">
               <summary class="inat-card-spoiler-summary">
-                <span>🌿 Ботанические свойства и морфология</span>
+                <span>${WM.t('🌿 Ботанические свойства и морфология')}</span>
                 <span class="chevron">▼</span>
               </summary>
               <div class="inat-card-spoiler-body" id="inat-plant-traits-body">
                 <div class="muted inat-card-loading-sub" style="min-height: 48px; display:flex; align-items:center;">
-                  ⏳ Загрузка характеристик растения (Wikidata)…
+                  ${WM.t('⏳ Загрузка характеристик растения (Wikidata)…')}
                 </div>
               </div>
             </details>
@@ -4896,12 +4897,12 @@ async function resolveRussianTaxonName(latinName, onResolved) {
           ${isFungiGroup ? `
             <details class="inat-card-spoiler" id="spoiler-inat-fungi-traits" style="margin-bottom: 10px;">
               <summary class="inat-card-spoiler-summary">
-                <span>🍄 Микологические характеристики и гименофор</span>
+                <span>${WM.t('🍄 Микологические характеристики и гименофор')}</span>
                 <span class="chevron">▼</span>
               </summary>
               <div class="inat-card-spoiler-body" id="inat-fungi-traits-body">
                 <div class="muted inat-card-loading-sub" style="min-height: 48px; display:flex; align-items:center;">
-                  ⏳ Загрузка характеристик гриба (Wikidata)…
+                  ${WM.t('⏳ Загрузка характеристик гриба (Wikidata)…')}
                 </div>
               </div>
             </details>
@@ -4916,7 +4917,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
           ${obs.description ? `
             <details class="inat-card-spoiler" style="margin-bottom: 10px;">
               <summary class="inat-card-spoiler-summary">
-                <span>📝 Заметка наблюдателя</span>
+                <span>${WM.t('📝 Заметка наблюдателя')}</span>
                 <span class="chevron">▼</span>
               </summary>
               <div class="inat-card-spoiler-body">
@@ -4928,7 +4929,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
           ${ancestorsHtml ? `
             <details class="inat-card-spoiler" style="margin-bottom: 10px;">
               <summary class="inat-card-spoiler-summary">
-                <span>🧬 Таксономия (иерархия вида)</span>
+                <span>${WM.t('🧬 Таксономия (иерархия вида)')}</span>
                 <span class="chevron">▼</span>
               </summary>
               <div class="inat-card-spoiler-body">
@@ -4939,20 +4940,20 @@ async function resolveRussianTaxonName(latinName, onResolved) {
           <!-- ОБСУЖДЕНИЕ СООБЩЕСТВА -->
           <details class="inat-card-spoiler" id="spoiler-inat-community" style="margin-bottom: 12px;">
             <summary class="inat-card-spoiler-summary">
-              <span>👥 Консенсус и комментарии (${totalCommunity.length})</span>
+              <span>${WM.t('👥 Консенсус и комментарии ({0})', totalCommunity.length)}</span>
               <span class="chevron">▼</span>
             </summary>
             <div class="inat-card-spoiler-body" id="inat-community-container">
-              ${communityHtml || '<div class="muted inat-card-empty-note">Комментариев пока нет.</div>'}
-              ${!hasFullDetails ? `<div class="muted inat-card-loading-sub">⏳ Загрузка обсуждения v2…</div>` : ''}
+              ${communityHtml || `<div class="muted inat-card-empty-note">${WM.t('Комментариев пока нет.')}</div>`}
+              ${!hasFullDetails ? `<div class="muted inat-card-loading-sub">${WM.t('⏳ Загрузка обсуждения v2…')}</div>` : ''}
             </div>
           </details>
 
           <!-- ССЫЛКИ -->
           <div class="nav-actions-grid inat-actions-grid" style="margin-top: 4px;">
-            ${wikiUrl ? `<a href="${escapeHtml(wikiUrl)}" target="_blank" rel="noopener noreferrer" class="action-card-btn wiki-btn">📖 Статья в Википедии ↗</a>` : ''}
+            ${wikiUrl ? `<a href="${escapeHtml(wikiUrl)}" target="_blank" rel="noopener noreferrer" class="action-card-btn wiki-btn">${WM.t('📖 Статья в Википедии ↗')}</a>` : ''}
             <a href="${escapeHtml(inatUrl)}" target="_blank" rel="noopener noreferrer" class="action-card-btn inat-link-btn" style="grid-column: span 2;">
-              🌐 Страница на iNaturalist.org ↗
+              ${WM.t('🌐 Страница на iNaturalist.org ↗')}
             </a>
           </div>
         </div>
@@ -5043,13 +5044,25 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         if (wikiData && wikiData.extract) break;
       }
 
+      // Эвристики признаков (съедобность, повадки и т.д.) разбирают русский текст Википедии.
+      // Если интерфейс не русский — отдельно берём русскую сводку по латинскому названию (только для разбора).
+      let wikiRuExtract = wikiData?.extract || '';
+      if (WM.i18n.api.wiki !== 'ru') {
+        wikiRuExtract = '';
+        for (const q of [latinName, taxon.name]) {
+          if (!q || q === WM.t('Не определено')) continue;
+          const ruData = await fetchWikiSummary(q, 'ru');
+          if (ruData && ruData.extract) { wikiRuExtract = ruData.extract; break; }
+        }
+      }
+
       const wikiSlot = document.getElementById('inat-wiki-summary-slot');
       if (wikiSlot) {
         if (wikiData && wikiData.extract) {
           wikiSlot.innerHTML = `
             <div class="inat-wiki-summary-box">
               <div class="inat-wiki-summary-head">
-                <span class="inat-wiki-summary-title">📖 Википедия</span>
+                <span class="inat-wiki-summary-title">${WM.t('📖 Википедия')}</span>
                 ${wikiData.description ? `<span class="inat-wiki-desc-badge">${escapeHtml(wikiData.description)}</span>` : ''}
               </div>
               <div class="inat-wiki-summary-body">
@@ -5061,7 +5074,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         } else {
           wikiSlot.innerHTML = `
             <div class="muted inat-card-empty-note" style="padding: 6px 0; font-size: 11px;">
-              📖 Краткая справка в Википедии отсутствует.
+              ${WM.t('📖 Краткая справка в Википедии отсутствует.')}
             </div>
           `;
         }
@@ -5069,7 +5082,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
       // 2. Для птиц и животных подгружаем библиотеку звуков
       const hasSounds = ['Aves', 'Amphibia', 'Mammalia', 'Insecta'].includes(taxon.iconic_taxon_name);
-      if (hasSounds && latinName && latinName !== 'Не определено') {
+      if (hasSounds && latinName && latinName !== WM.t('Не определено')) {
         fetchBirdSounds(latinName).then(xcSounds => {
           const soundsSlot = document.getElementById('inat-sounds-slot');
           if (soundsSlot && (xcSounds.length > 0 || (obs.sounds && obs.sounds.length > 0))) {
@@ -5079,7 +5092,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       }
 
       // 3. Запрашиваем съедобность для растений/грибов
-      const wdData = (latinName && latinName !== 'Не определено')
+      const wdData = (latinName && latinName !== WM.t('Не определено'))
         ? await fetchWikidataEdibility(latinName)
         : null;
 
@@ -5088,22 +5101,22 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       let fungiTraits = null;
 
       // 4.1. Повадки и биометрия животных
-      if (isAnimalGroup && latinName && latinName !== 'Не определено') {
-        animalTraits = await fetchAnimalTraits(latinName, wikiData?.extract || '');
+      if (isAnimalGroup && latinName && latinName !== WM.t('Не определено')) {
+        animalTraits = await fetchAnimalTraits(latinName, wikiRuExtract);
         const traitsBody = document.getElementById('inat-traits-body');
         if (traitsBody) traitsBody.innerHTML = renderTraitsSection(animalTraits);
       }
 
       // 4.2. Ботанические признаки растений (ИСПРАВЛЕНО!)
-      if (isPlantGroup && latinName && latinName !== 'Не определено') {
-        plantTraits = await fetchPlantTraits(latinName, wikiData?.extract || '');
+      if (isPlantGroup && latinName && latinName !== WM.t('Не определено')) {
+        plantTraits = await fetchPlantTraits(latinName, wikiRuExtract);
         const plantBody = document.getElementById('inat-plant-traits-body');
         if (plantBody) plantBody.innerHTML = renderPlantTraitsSection(plantTraits);
       }
 
       // 4.3. Микологические признаки грибов
-      if (isFungiGroup && latinName && latinName !== 'Не определено') {
-        fungiTraits = await fetchFungiTraits(latinName, wikiData?.extract || '');
+      if (isFungiGroup && latinName && latinName !== WM.t('Не определено')) {
+        fungiTraits = await fetchFungiTraits(latinName, wikiRuExtract);
         const fungiBody = document.getElementById('inat-fungi-traits-body');
         if (fungiBody) fungiBody.innerHTML = renderFungiTraitsSection(fungiTraits);
       }
@@ -5136,20 +5149,20 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         if (fungiTraits) {
           if (fungiTraits.edibility) {
             pushPill(`
-              <span class="inat-pill ${fungiTraits.edibility.class}" title="Статус съедобности гриба">
+              <span class="inat-pill ${fungiTraits.edibility.class}" title="${WM.t('Статус съедобности гриба')}">
                 ${fungiTraits.edibility.icon} ${escapeHtml(fungiTraits.edibility.text)}
               </span>`, fungiTraits.edibility.text);
           }
-          if (fungiTraits.isMedicinal) pushPill('<span class="inat-pill inat-pill-medicinal" title="Используется в медицине">💊 Целебный</span>', 'целебный');
-          if (fungiTraits.isPsychoactive) pushPill('<span class="inat-pill inat-pill-trait" title="Психоактивный вид">🍄✨ Психоактивный</span>', 'психоактивный');
+          if (fungiTraits.isMedicinal) pushPill(`<span class="inat-pill inat-pill-medicinal" title="${WM.t('Используется в медицине')}">${WM.t('💊 Целебный')}</span>`, WM.t('целебный'));
+          if (fungiTraits.isPsychoactive) pushPill(`<span class="inat-pill inat-pill-trait" title="${WM.t('Психоактивный вид')}">${WM.t('🍄✨ Психоактивный')}</span>`, WM.t('психоактивный'));
           if (fungiTraits.hymeniumType) pushPill(`<span class="inat-pill inat-pill-trait">${fungiTraits.hymeniumType.icon} ${escapeHtml(fungiTraits.hymeniumType.text)}</span>`, fungiTraits.hymeniumType.text);
         }
 
         if (plantTraits) {
-          if (plantTraits.growthForm) pushPill(`<span class="inat-pill inat-pill-trait" title="Жизненная форма">${plantTraits.growthForm.icon} ${escapeHtml(plantTraits.growthForm.text)}</span>`, plantTraits.growthForm.text);
-          if (plantTraits.lifeCycle) pushPill(`<span class="inat-pill inat-pill-trait" title="Жизненный цикл">⏳ ${escapeHtml(plantTraits.lifeCycle)}</span>`, plantTraits.lifeCycle);
-          if (plantTraits.longevity) pushPill(`<span class="inat-pill inat-pill-trait" title="Срок жизни">⏳ До ${escapeHtml(plantTraits.longevity)}</span>`, plantTraits.longevity);
-          if (plantTraits.fruitType) pushPill(`<span class="inat-pill inat-pill-trait" title="Тип плода">${plantTraits.fruitType.icon || '🌰'} ${escapeHtml(plantTraits.fruitType.text)}</span>`, plantTraits.fruitType.text);
+          if (plantTraits.growthForm) pushPill(`<span class="inat-pill inat-pill-trait" title="${WM.t('Жизненная форма')}">${plantTraits.growthForm.icon} ${escapeHtml(plantTraits.growthForm.text)}</span>`, plantTraits.growthForm.text);
+          if (plantTraits.lifeCycle) pushPill(`<span class="inat-pill inat-pill-trait" title="${WM.t('Жизненный цикл')}">⏳ ${escapeHtml(plantTraits.lifeCycle)}</span>`, plantTraits.lifeCycle);
+          if (plantTraits.longevity) pushPill(`<span class="inat-pill inat-pill-trait" title="${WM.t('Срок жизни')}">${WM.t('⏳ До {0}', escapeHtml(plantTraits.longevity))}</span>`, plantTraits.longevity);
+          if (plantTraits.fruitType) pushPill(`<span class="inat-pill inat-pill-trait" title="${WM.t('Тип плода')}">${plantTraits.fruitType.icon || '🌰'} ${escapeHtml(plantTraits.fruitType.text)}</span>`, plantTraits.fruitType.text);
           if (plantTraits.characteristics?.length) {
             plantTraits.characteristics.forEach(ch => {
               if (ch.pill) pushPill(`<span class="inat-pill inat-pill-trait">${escapeHtml(ch.pill)}</span>`, ch.text);
@@ -5162,13 +5175,13 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
         if (wdData && wdData.edibleParts && wdData.edibleParts.length > 0) {
           pushPill(`
-            <span class="inat-pill inat-pill-edible" title="Съедобные части">
-              🍓 Съедобно: ${escapeHtml(wdData.edibleParts.join(', '))}
-            </span>`, 'съедобно');
+            <span class="inat-pill inat-pill-edible" title="${WM.t('Съедобные части')}">
+              ${WM.t('🍓 Съедобно: {0}', escapeHtml(wdData.edibleParts.join(', ')))}
+            </span>`, WM.t('съедобно'));
         }
 
         if ((wdData && wdData.isMedicinal) || plantTraits?.isMedicinal) {
-          pushPill('<span class="inat-pill inat-pill-medicinal" title="Лекарственное растение">💊 Лекарственное</span>', 'лекарственное');
+          pushPill(`<span class="inat-pill inat-pill-medicinal" title="${WM.t('Лекарственное растение')}">${WM.t('💊 Лекарственное')}</span>`, WM.t('лекарственное'));
         }
 
         if (extraPills.length > 0) {
@@ -5210,7 +5223,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       if (lat != null && lng != null) {
         const cStr = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
         navigator.clipboard.writeText(cStr).then(() => {
-          if (WM.ui && WM.ui.showToast) WM.ui.showToast(`📋 Скопировано: ${cStr}`);
+          if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('📋 Скопировано: {0}', cStr));
         });
       }
     };
@@ -5236,7 +5249,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       }
       if (term) {
         pills.push(`
-          <span class="inat-pill inat-pill-pheno" style="--pheno-color: ${term.color}; --pheno-bg: ${term.bg};" title="Подтвержденная аннотация iNaturalist">
+          <span class="inat-pill inat-pill-pheno" style="--pheno-color: ${term.color}; --pheno-bg: ${term.bg};" title="${WM.t('Подтвержденная аннотация iNaturalist')}">
             ${term.icon} ${escapeHtml(term.text)}
           </span>
         `);
@@ -5325,8 +5338,8 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       const n = activeMapFilter.results.length;
       if (WM.ui && WM.ui.showToast) {
         WM.ui.showToast(n > 0
-          ? `🌿 Найдено на экране: «${activeMapFilter.query}» (${n} шт.)`
-          : `В видимой области «${activeMapFilter.query}» не обнаружено`);
+          ? WM.t('🌿 Найдено на экране: «{0}» ({1} шт.)', activeMapFilter.query, n)
+          : WM.t('В видимой области «{0}» не обнаружено', activeMapFilter.query));
       }
     }
   }
@@ -5415,7 +5428,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         const first = Date.now() >= cooldownUntil;
         cooldownUntil = Date.now() + ms;
         if (first && WM.ui && WM.ui.showToast) {
-          WM.ui.showToast(`⏳ iNaturalist ограничил частоту запросов. Пауза ${Math.ceil(ms / 1000)} с`, 3000);
+          WM.ui.showToast(WM.t('⏳ iNaturalist ограничил частоту запросов. Пауза {0} с', Math.ceil(ms / 1000)), 3000);
         }
         scheduleFetch(false, ms + 100);
       } else {
@@ -5493,7 +5506,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
   async function fetchObservationFullDetails(obsId) {
     if (fullDetailsCache.has(obsId)) return fullDetailsCache.get(obsId);
     try {
-      const params = new URLSearchParams({ fields: 'all', locale: 'ru' });
+      const params = new URLSearchParams({ fields: 'all', locale: WM.i18n.api.inat });
       const data = await inatGet(`observations/${obsId}`, params, null, 'v2');
       if (data?.results?.[0]) {
         fullDetailsCache.set(obsId, data.results[0]);
@@ -5501,7 +5514,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       }
     } catch (e) {
       try {
-        const v1Res = await fetch(`https://api.inaturalist.org/v1/observations/${obsId}?locale=ru`);
+        const v1Res = await fetch(`https://api.inaturalist.org/v1/observations/${obsId}?locale=${WM.i18n.api.inat}`);
         const v1Data = await v1Res.json();
         if (v1Data?.results?.[0]) {
           fullDetailsCache.set(obsId, v1Data.results[0]);
@@ -5537,8 +5550,8 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     const params = new URLSearchParams({
       q,
-      locale: 'ru',
-      preferred_place_id: '6986',
+      locale: WM.i18n.api.inat,
+      ...(WM.i18n.lang === 'ru' ? { preferred_place_id: '6986' } : {}),
       per_page: '8',
       fields: '(id:!t,name:!t,preferred_common_name:!t,rank:!t,iconic_taxon_name:!t,default_photo:(square_url:!t))'
     });
@@ -5551,7 +5564,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     } catch (e) {
       // Резервный вызов v1 в случае сбоя прокси
       try {
-        const res = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(q)}&locale=ru&per_page=8`);
+        const res = await fetch(`https://api.inaturalist.org/v1/taxa/autocomplete?q=${encodeURIComponent(q)}&locale=${WM.i18n.api.inat}&per_page=8`);
         const d = await res.json();
         return d.results || [];
       } catch (err2) { return []; }
@@ -5583,8 +5596,8 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         per_page: '100',
         order: 'desc',
         order_by: 'votes',
-        locale: 'ru',
-        preferred_place_id: '6986',
+        locale: WM.i18n.api.inat,
+        ...(WM.i18n.lang === 'ru' ? { preferred_place_id: '6986' } : {}),
         fields: OBSERVATION_FIELDS_LIGHT
       });
 
@@ -5683,7 +5696,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     if (WM.ui && WM.ui.showToast) {
       const name = taxon.preferred_common_name || taxon.name;
-      WM.ui.showToast(`${modeInfo.icon} Слой «${modeInfo.title}» загружен для ${name}`, 2400);
+      WM.ui.showToast(WM.t('{0} Слой «{1}» загружен для {2}', modeInfo.icon, modeInfo.title, name), 2400);
     }
   }
 
@@ -5720,7 +5733,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     activeGeomodelTaxon = null;
     updateGeomodelHUD();
     updateOverviewTileLayer(); // <-- Восстанавливаем фоновую сетку/точки
-    if (WM.ui && WM.ui.showToast) WM.ui.showToast('Слой ареала Geomodel отключён');
+    if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('Слой ареала Geomodel отключён'));
   }
 
   function toggleGeomodelMode() {
@@ -5799,7 +5812,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     noticeEl.className = 'inat-suggest-ai-notice' + (isError ? ' is-error' : '');
     noticeEl.innerHTML = `
       <div class="inat-suggest-notice-text">${text}</div>
-      ${showAuthLink ? '<button type="button" class="btn-link inat-suggest-notice-btn" id="btn-suggest-goto-token">🔑 Ввести токен в настройках ›</button>' : ''}
+      ${showAuthLink ? `<button type="button" class="btn-link inat-suggest-notice-btn" id="btn-suggest-goto-token">${WM.t('🔑 Ввести токен в настройках ›')}</button>` : ''}
     `;
 
     document.getElementById('btn-suggest-goto-token')?.addEventListener('click', openAndFocusTokenInput);
@@ -5818,8 +5831,8 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     if (!btn) return;
     btn.classList.toggle('active', isAiForecastEnabled);
     btn.innerHTML = isAiForecastEnabled
-      ? '<span>🤖 Прогноз нейросети: <b>ВКЛЮЧЁН</b></span>'
-      : '<span>🤖 Включить прогноз от нейросети</span>';
+      ? `<span>${WM.t('🤖 Прогноз нейросети:')} <b>${WM.t('ВКЛЮЧЁН')}</b></span>`
+      : `<span>${WM.t('🤖 Включить прогноз от нейросети')}</span>`;
   }
 
   async function fetchAiSuggestionsOnly(c, curMonth, iconic) {
@@ -5830,7 +5843,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       source: 'observations',
       order_by: 'default',
       limit: '50',
-      locale: 'ru',
+      locale: WM.i18n.api.inat,
       fields: '(score:!t,taxon:(id:!t,name:!t,preferred_common_name:!t,rank:!t,iconic_taxon_name:!t,default_photo:(square_url:!t)))'
     });
 
@@ -5849,7 +5862,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     const tokenInfo = getTokenInfo();
     if (!tokenInfo.exists || tokenInfo.isExpired) {
       showSuggestNotice(
-        '⚠️ Для работы прогноза нейросети iNaturalist требуется действующий API-токен (24 ч).',
+        WM.t('⚠️ Для работы прогноза нейросети iNaturalist требуется действующий API-токен (24 ч).'),
         true,
         true
       );
@@ -5865,15 +5878,15 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       suggestAiPool = results.filter(r => (r.score || r.combined_score || 0) >= SUGGEST_MIN_AI_SCORE);
 
       if (!suggestAiPool.length) {
-        showSuggestNotice('ℹ️ Нейросеть не сформировала прогнозов для этого биома и месяца.');
+        showSuggestNotice(WM.t('ℹ️ Нейросеть не сформировала прогнозов для этого биома и месяца.'));
         return;
       }
 
       prependAiSuggestions(suggestAiPool);
-      showSuggestNotice(`✅ Нейросеть добавила ${suggestAiPool.length} вероятных видов наверх выдачи`);
+      showSuggestNotice(WM.t('✅ Нейросеть добавила {0} вероятных видов наверх выдачи', suggestAiPool.length));
     } catch (err) {
       showSuggestNotice(
-        '❌ Ошибка запроса к нейросети. Возможно, срок действия токена истёк или превышен лимит.',
+        WM.t('❌ Ошибка запроса к нейросети. Возможно, срок действия токена истёк или превышен лимит.'),
         true,
         true
       );
@@ -5964,7 +5977,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         const list = document.getElementById('inat-suggest-items-list');
         if (list) {
           list.scrollTop = 0;
-          list.innerHTML = '<div class="muted" style="padding: 24px 0;">⏳ Загрузка находок вокруг…</div>';
+          list.innerHTML = `<div class="muted" style="padding: 24px 0;">${WM.t('⏳ Загрузка находок вокруг…')}</div>`;
         }
 
         hideSuggestNotice();
@@ -5997,7 +6010,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     const monthEl = document.getElementById('inat-suggest-month-label');
 
     const c = (WM.gpsState && WM.gpsState.lat) ? WM.gpsState : (map ? map.getCenter() : { lat: 55.75, lng: 37.62 });
-    const monthsRu = ['', 'январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре'];
+    const monthsRu = ['', WM.t('январе'), WM.t('феврале'), WM.t('марте'), WM.t('апреле'), WM.t('мае'), WM.t('июне'), WM.t('июле'), WM.t('августе'), WM.t('сентябре'), WM.t('октябре'), WM.t('ноябре'), WM.t('декабре')];
     const curMonth = new Date().getMonth() + 1;
 
     suggestCoords = c;
@@ -6006,14 +6019,14 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     suggestHasMore = true;
 
     if (subTitleEl) subTitleEl.textContent = `📍 ${c.lat.toFixed(4)}, ${c.lng.toFixed(4)}`;
-    if (monthEl) monthEl.textContent = `Сезон: в ${monthsRu[curMonth]}`;
+    if (monthEl) monthEl.textContent = WM.t('Сезон: в {0}', monthsRu[curMonth]);
 
     updateAiToggleButtonUI();
     hideSuggestNotice();
 
     if (listEl) {
       listEl.scrollTop = 0;
-      listEl.innerHTML = '<div class="muted" style="padding: 24px 0;">📊 Загрузка реальных находок вокруг…</div>';
+      listEl.innerHTML = `<div class="muted" style="padding: 24px 0;">${WM.t('📊 Загрузка реальных находок вокруг…')}</div>`;
     }
 
     modal.classList.add('open');
@@ -6031,7 +6044,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         await activateAiForecast();
       }
     } catch (e) {
-      if (listEl) listEl.innerHTML = `<div class="muted" style="color:var(--danger); padding:20px 0;">Ошибка загрузки находок: ${escapeHtml(e.message)}</div>`;
+      if (listEl) listEl.innerHTML = `<div class="muted" style="color:var(--danger); padding:20px 0;">${WM.t('Ошибка загрузки находок: {0}', escapeHtml(e.message))}</div>`;
     } finally {
       isSuggestionsLoading = false;
     }
@@ -6059,7 +6072,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       source: 'observations',
       order_by: 'default',
       limit: '50',
-      locale: 'ru',
+      locale: WM.i18n.api.inat,
       fields: '(score:!t,taxon:(id:!t,name:!t,preferred_common_name:!t,rank:!t,iconic_taxon_name:!t,default_photo:(square_url:!t)))'
     });
 
@@ -6086,14 +6099,14 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     // 1. Проверяем, есть ли уже полноценное русское имя (содержит кириллицу)
     const rawCommon = t.preferred_common_name;
-    const isAlreadyRussian = rawCommon && /[а-яё]/i.test(rawCommon);
+    const isAlreadyRussian = rawCommon && (WM.i18n.lang !== 'ru' || /[а-яё]/i.test(rawCommon));
 
     let ruName = isAlreadyRussian 
       ? rawCommon 
-      : (t.preferred_common_name || t.name || 'Неизвестный организм');
+      : (t.preferred_common_name || t.name || WM.t('Неизвестный организм'));
 
     const latinName = (t.name && t.name !== ruName) ? t.name : (t.name || '');
-    const rank = RANKS_RU[t.rank] || t.rank || 'вид';
+    const rank = RANKS_RU[t.rank] || t.rank || WM.t('вид');
     const photoUrl = t.default_photo?.square_url || '';
 
     const isAi = it._source === 'ai';
@@ -6106,7 +6119,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         : Math.min(100, Math.round(rawScore));
       if (scorePct > 0) {
         scoreBadgeHtml = `
-          <span class="inat-suggest-score-badge ai" title="🤖 Прогноз нейросети Geo-Prior по климату и сезону (вероятность ${scorePct}%)">
+          <span class="inat-suggest-score-badge ai" title="${WM.t('🤖 Прогноз нейросети Geo-Prior по климату и сезону (вероятность {0}%)', scorePct)}">
             🤖 ${scorePct}%
           </span>`;
       }
@@ -6114,8 +6127,8 @@ async function resolveRussianTaxonName(latinName, onResolved) {
       const count = it.count || it.score || 0;
       if (count > 0) {
         scoreBadgeHtml = `
-          <span class="inat-suggest-score-badge fallback" title="📊 Реальные находки вокруг (база данных iNat: ${count} шт.)">
-            📊 ${count} шт.
+          <span class="inat-suggest-score-badge fallback" title="${WM.t('📊 Реальные находки вокруг (база данных iNat: {0} шт.)', count)}">
+            ${WM.t('📊 {0} шт.', count)}
           </span>`;
       }
     }
@@ -6135,8 +6148,8 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         </div>
         <span class="inat-suggest-la">${subLine}</span>
         <div class="inat-suggest-actions">
-          <button type="button" class="inat-suggest-btn btn-show-map">👁️ Искать на карте</button>
-          <button type="button" class="inat-suggest-btn btn-show-geomodel" style="color:#0284c7; border-color:#0284c7;">🧠 Ареал (AI)</button>
+          <button type="button" class="inat-suggest-btn btn-show-map">${WM.t('👁️ Искать на карте')}</button>
+          <button type="button" class="inat-suggest-btn btn-show-geomodel" style="color:#0284c7; border-color:#0284c7;">${WM.t('🧠 Ареал (AI)')}</button>
           <a href="https://www.inaturalist.org/taxa/${t.id}" target="_blank" rel="noopener noreferrer" class="inat-suggest-btn">↗ iNat</a>
         </div>
       </div>
@@ -6172,10 +6185,10 @@ async function resolveRussianTaxonName(latinName, onResolved) {
                    document.querySelector('.inat-suggest-count-row .hint-text');
     if (!hintEl) return;
     if (suggestSourceType === 'ai') {
-      hintEl.innerHTML = '🤖 Оценка нейросети Geo-Prior и сезонности iNat v2';
+      hintEl.innerHTML = WM.t('🤖 Оценка нейросети Geo-Prior и сезонности iNat v2');
       hintEl.style.color = '#10b981';
     } else {
-      hintEl.innerHTML = '📊 Частота реальных находок вокруг (фоллбэк базы iNat)';
+      hintEl.innerHTML = WM.t('📊 Частота реальных находок вокруг (фоллбэк базы iNat)');
       hintEl.style.color = '#0284c7';
     }
   }
@@ -6190,7 +6203,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         month: String(curMonth),
         page: String(page),
         per_page: String(SUGGEST_PAGE_SIZE),
-        locale: 'ru',
+        locale: WM.i18n.api.inat,
         fields: '(taxon:(id:!t,name:!t,preferred_common_name:!t,iconic_taxon_name:!t,rank:!t,default_photo:(square_url:!t)),count:!t)'
       });
       if (iconic && iconic !== 'all') fbParams.set('iconic_taxa', iconic);
@@ -6253,7 +6266,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     updateSuggestHeaderNotice();
 
     if (!suggestAllPool.length) {
-      listEl.innerHTML = '<div class="muted" style="padding: 24px 0;">Для выбранной категории в текущей локации подсказок не найдено.</div>';
+      listEl.innerHTML = `<div class="muted" style="padding: 24px 0;">${WM.t('Для выбранной категории в текущей локации подсказок не найдено.')}</div>`;
       if (countEl) countEl.textContent = '0';
       return;
     }
@@ -6273,7 +6286,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     const loaderEl = document.createElement('div');
     loaderEl.id = 'inat-suggest-loading-more-pill';
     loaderEl.className = 'inat-suggest-loading-more';
-    loaderEl.textContent = '⏳ Загрузка других видов…';
+    loaderEl.textContent = WM.t('⏳ Загрузка других видов…');
     listEl.appendChild(loaderEl);
 
     try {
@@ -6324,7 +6337,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     if (!suggestHasMore && suggestItems.length > 0) {
       const endNotice = document.createElement('div');
       endNotice.className = 'inat-suggest-end-notice';
-      endNotice.textContent = `✓ Показаны все наиболее вероятные виды (${suggestItems.length} шт.)`;
+      endNotice.textContent = WM.t('✓ Показаны все наиболее вероятные виды ({0} шт.)', suggestItems.length);
       listEl.appendChild(endNotice);
     }
   }
@@ -6350,7 +6363,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     const q = customQuery !== null ? customQuery : (input ? input.value.trim() : '');
 
     if (!q && !selectedTaxon) {
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('Введите название растения или выберите вид');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('Введите название растения или выберите вид'));
       return;
     }
 
@@ -6359,7 +6372,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     const center = map.getCenter();
     map.setView(center, Math.max(map.getZoom(), 9), { animate: false });
 
-    const filterTitle = selectedTaxon ? (selectedTaxon.preferred_common_name || selectedTaxon.name) : (q || 'Фильтр');
+    const filterTitle = selectedTaxon ? (selectedTaxon.preferred_common_name || selectedTaxon.name) : (q || WM.t('Фильтр'));
     activeMapFilter = {
       query: filterTitle,
       taxonId: selectedTaxon ? selectedTaxon.id : null,
@@ -6373,7 +6386,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     document.getElementById('modal-search')?.classList.remove('open');
 
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast(`🌿 Поиск «${filterTitle}» (v2 API)…`, 1800);
+      WM.ui.showToast(WM.t('🌿 Поиск «{0}» (v2 API)…', filterTitle), 1800);
     }
     scheduleFetch(true, 0);
   }
@@ -6385,7 +6398,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     resetCache(getQueryKey());
     updateTopBadge();
     scheduleFetch(true, 0);
-    if (WM.ui && WM.ui.showToast) WM.ui.showToast('🌿 Фильтр снят: показаны все наблюдения');
+    if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🌿 Фильтр снят: показаны все наблюдения'));
   }
 
   // =========================================================================
@@ -6606,21 +6619,21 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     }
 
     if (wrapResults) wrapResults.hidden = false;
-    if (listResults) listResults.innerHTML = '<div class="muted" style="padding: 12px 0;">⏳ Поиск наблюдений…</div>';
-    if (countLabel) countLabel.textContent = 'Поиск…';
+    if (listResults) listResults.innerHTML = `<div class="muted" style="padding: 12px 0;">${WM.t('⏳ Поиск наблюдений…')}</div>`;
+    if (countLabel) countLabel.textContent = WM.t('Поиск…');
 
     try {
       const data = await searchObservations(q, searchType, selectedTaxon);
       const items = data.results || [];
 
       if (!items.length) {
-        if (listResults) listResults.innerHTML = '<div class="muted" style="padding: 12px 0;">Наблюдений не найдено. Попробуйте сменить режим на «Общий».</div>';
-        if (countLabel) countLabel.textContent = 'Найдено: 0';
+        if (listResults) listResults.innerHTML = `<div class="muted" style="padding: 12px 0;">${WM.t('Наблюдений не найдено. Попробуйте сменить режим на «Общий».')}</div>`;
+        if (countLabel) countLabel.textContent = WM.t('Найдено: 0');
         if (btnApply) btnApply.hidden = true;
         return;
       }
 
-      if (countLabel) countLabel.textContent = `Найдено: ${items.length} (всего ${data.total || items.length})`;
+      if (countLabel) countLabel.textContent = WM.t('Найдено: {0} (всего {1})', items.length, data.total || items.length);
       if (btnApply) btnApply.hidden = false;
       if (listResults) listResults.innerHTML = '';
 
@@ -6642,7 +6655,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
             <span class="inat-search-la">${escapeHtml(latinName)} · ${meta.name}</span>
             ${dateStr ? `<span class="inat-search-extra">📅 ${dateStr}</span>` : ''}
           </div>
-          <span class="inat-search-goto-btn" title="Перейти к точке на карте">🎯</span>
+          <span class="inat-search-goto-btn" title="${WM.t('Перейти к точке на карте')}">🎯</span>
         `;
 
         itemEl.onclick = () => {
@@ -6657,7 +6670,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
         listResults.appendChild(itemEl);
       });
     } catch (err) {
-      if (listResults) listResults.innerHTML = `<div class="muted" style="color:var(--danger);">Ошибка: ${escapeHtml(err.message)}</div>`;
+      if (listResults) listResults.innerHTML = `<div class="muted" style="color:var(--danger);">${WM.t('Ошибка: {0}', escapeHtml(err.message))}</div>`;
     }
   }
 
@@ -6804,7 +6817,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
 
     if (countEl) countEl.textContent = q ? `${list.length}/${allObs.length}` : `${allObs.length}`;
     if (!allObs.length) {
-      listEl.innerHTML = '<div class="muted" style="width: 100%; padding: 24px 8px;">Наблюдений в видимой области не найдено.</div>';
+      listEl.innerHTML = `<div class="muted" style="width: 100%; padding: 24px 8px;">${WM.t('Наблюдений в видимой области не найдено.')}</div>`;
       return;
     }
 
@@ -6903,7 +6916,7 @@ async function resolveRussianTaxonName(latinName, onResolved) {
     fetchSeasonalityHistogram,
     retrySeasonality: (taxonId) => {
       const el = document.getElementById('inat-seasonality-container');
-      if (el) el.innerHTML = '<div class="muted inat-card-loading-sub">⏳ Загрузка фенологического календаря…</div>';
+      if (el) el.innerHTML = `<div class="muted inat-card-loading-sub">${WM.t('⏳ Загрузка фенологического календаря…')}</div>`;
       fetchSeasonalityHistogram(taxonId, true).then(moy => {
         if (el) el.innerHTML = renderSeasonalityChart(moy, taxonId);
       });

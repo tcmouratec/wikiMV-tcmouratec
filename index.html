@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <script src="js/i18n.js"></script>
+  <script src="js/lang/en.js"></script>
+  <script src="js/lang/pt-BR.js"></script>
   <title>Wikimapia Viewer</title>
   <link rel="stylesheet" href="css/leaflet.css">
   <link rel="stylesheet" href="css/style.css">
@@ -1885,6 +1888,52 @@
           </summary>
           <div class="spoiler-body">
 
+            <!-- Язык интерфейса -->
+            <details class="spoiler sub-spoiler">
+              <summary class="spoiler-title sub-spoiler-title">
+                <span data-no-i18n>🌐 Language / Idioma / Язык</span>
+                <span class="chevron">▼</span>
+              </summary>
+              <div class="spoiler-body">
+                <div class="work-modes-group">
+                  <label class="mode-card">
+                    <input type="radio" name="app-lang-mode" value="auto">
+                    <div class="mode-card-content">
+                      <div class="mode-card-header">
+                        <span class="mode-name" data-no-i18n>🌐 Auto / Automático / Авто</span>
+                      </div>
+                      <p class="mode-desc">Язык системы</p>
+                    </div>
+                  </label>
+                  <label class="mode-card">
+                    <input type="radio" name="app-lang-mode" value="en">
+                    <div class="mode-card-content">
+                      <div class="mode-card-header">
+                        <span class="mode-name" data-no-i18n>🇬🇧 English</span>
+                      </div>
+                    </div>
+                  </label>
+                  <label class="mode-card">
+                    <input type="radio" name="app-lang-mode" value="pt-BR">
+                    <div class="mode-card-content">
+                      <div class="mode-card-header">
+                        <span class="mode-name" data-no-i18n>🇧🇷 Português (Brasil)</span>
+                      </div>
+                    </div>
+                  </label>
+                  <label class="mode-card">
+                    <input type="radio" name="app-lang-mode" value="ru">
+                    <div class="mode-card-content">
+                      <div class="mode-card-header">
+                        <span class="mode-name" data-no-i18n>🇷🇺 Русский</span>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+                <small class="hint-text">Приложение перезагрузится после смены языка.</small>
+              </div>
+            </details>
+
             <!-- Тема оформления -->
             <details class="spoiler sub-spoiler">
               <summary class="spoiler-title sub-spoiler-title">
@@ -2913,7 +2962,7 @@
                          window.navigator.standalone === true;
 
       function markAsInstalled() {
-        btnInstall.textContent = '✅ Приложение уже установлено';
+        btnInstall.textContent = WM.t('✅ Приложение уже установлено');
         btnInstall.disabled = true;
         btnInstall.classList.remove('btn-primary');
         btnInstall.classList.add('btn-secondary');
@@ -2950,14 +2999,14 @@
         btnInstall.classList.remove('btn-secondary');
         btnInstall.classList.add('btn-primary');
         btnInstall.style.display = 'flex';
-        btnInstall.textContent = '📲 Установить на телефон (PWA)';
+        btnInstall.textContent = WM.t('📲 Установить на телефон (PWA)');
       });
 
       // 5. Обработка клика
       btnInstall.onclick = async function () {
         if (isStandalone || localStorage.getItem('wm_pwa_installed') === 'true') {
           if (window.WM && WM.ui) {
-            WM.ui.showToast('✅ Приложение уже установлено на вашем устройстве!');
+            WM.ui.showToast(WM.t('✅ Приложение уже установлено на вашем устройстве!'));
           }
           return;
         }
@@ -2966,16 +3015,16 @@
           deferredPrompt.prompt();
           var choice = await deferredPrompt.userChoice;
           if (choice.outcome === 'accepted') {
-            if (window.WM && WM.ui) WM.ui.showToast('🎉 Приложение успешно установлено!');
+            if (window.WM && WM.ui) WM.ui.showToast(WM.t('🎉 Приложение успешно установлено!'));
             localStorage.setItem('wm_pwa_installed', 'true');
             deferredPrompt = null;
             markAsInstalled();
           }
         } else if (isIOS) {
-          alert('Чтобы установить на iPhone/iPad:\n1. Нажмите кнопку «Поделиться» (квадрат со стрелкой вверх внизу экрана Safari).\n2. Выберите «На экран „Домой“».');
+          alert(WM.t('Чтобы установить на iPhone/iPad:\n1. Нажмите кнопку «Поделиться» (квадрат со стрелкой вверх внизу экрана Safari).\n2. Выберите «На экран „Домой“».'));
         } else {
           // Если prompt не готов и системно не определился
-          alert('Приложение уже скачано на домашний экран либо браузер ожидает повторного подтверждения через меню (три точки в углу -> «Установить приложение»).');
+          alert(WM.t('Приложение уже скачано на домашний экран либо браузер ожидает повторного подтверждения через меню (три точки в углу -> «Установить приложение»).'));
         }
       };
 
@@ -5083,6 +5132,7 @@
 </div>
 
 
+  <script>WM.i18n.translateDom(document); WM.i18n.bindUI();</script>
   <script src="js/leaflet.js"></script>
   <script src="js/tile-retry.js"></script>
   <script src="js/config.js"></script>

@@ -48,7 +48,7 @@
   function fmtDate(ts) {
     if (!ts) return '';
     try {
-      return new Date(ts).toLocaleDateString('ru', { day: 'numeric', month: 'short', year: 'numeric' });
+      return new Date(ts).toLocaleDateString(WM.i18n.locale, { day: 'numeric', month: 'short', year: 'numeric' });
     } catch (e) {
       return '';
     }
@@ -56,7 +56,7 @@
 
   function updateStatusUI(text) {
     const el = $('shared-markers-status');
-    if (el) el.textContent = 'Статус: ' + text;
+    if (el) el.textContent = WM.t('Статус: {0}', text);
   }
 
   // =========================================================================
@@ -113,7 +113,7 @@
       const decBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, cryptoKey, data);
       return new TextDecoder().decode(decBuf);
     } catch (e) {
-      return '🔒 [Заметка защищена паролем]';
+      return WM.t('🔒 [Заметка защищена паролем]');
     }
   }
 
@@ -149,16 +149,16 @@
     if (!cfg.download) {
       foreignMarkers.clear();
       renderVisible();
-      updateStatusUI('Загрузка выключена');
+      updateStatusUI(WM.t('Загрузка выключена'));
       return;
     }
 
     if (!DATABASE_URL || DATABASE_URL.includes('ВАШ_ПРОЕКТ')) {
-      updateStatusUI('Укажите DATABASE_URL в sharedMarkers.js');
+      updateStatusUI(WM.t('Укажите DATABASE_URL в sharedMarkers.js'));
       return;
     }
 
-    updateStatusUI('⏳ Синхронизация с базой…');
+    updateStatusUI(WM.t('⏳ Синхронизация с базой…'));
 
     try {
       const res = await fetchWithTimeout(`${DATABASE_URL}/markers.json`);
@@ -213,12 +213,12 @@
       renderVisible();
 
       if (activePassword) {
-        updateStatusUI(`🔒 Группа «${activePassword}» · Меток: ${count}`);
+        updateStatusUI(WM.t('🔒 Группа «{0}» · Меток: {1}', activePassword, count));
       } else {
-        updateStatusUI(`🟢 Общий доступ · Меток: ${count}`);
+        updateStatusUI(WM.t('🟢 Общий доступ · Меток: {0}', count));
       }
     } catch (err) {
-      updateStatusUI('🔴 Оффлайн (нет связи с базой)');
+      updateStatusUI(WM.t('🔴 Оффлайн (нет связи с базой)'));
     }
   }
 
@@ -293,7 +293,7 @@
     renderVisible();
 
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast('🗑️ Метка скрыта на вашем устройстве');
+      WM.ui.showToast(WM.t('🗑️ Метка скрыта на вашем устройстве'));
     }
   }
 
@@ -313,33 +313,33 @@
         <div class="wm-foreign-pop-meta">
           <div class="wm-foreign-pop-badge-row">
             <span class="wm-foreign-pop-badge ${item.isProtected ? 'protected-pop-badge' : ''}">
-              ${item.isProtected ? '🔒 Закрытая заметка' : '🌐 Публичная заметка'}
+              ${item.isProtected ? WM.t('🔒 Закрытая заметка') : WM.t('🌐 Публичная заметка')}
             </span>
             ${dateStr ? `<span class="wm-foreign-pop-date">· ${dateStr}</span>` : ''}
           </div>
-          <div class="wm-foreign-pop-coords" title="Нажмите для копирования">${coordsStr}</div>
+          <div class="wm-foreign-pop-coords" title="${WM.t('Нажмите для копирования')}">${coordsStr}</div>
         </div>
       </div>
 
       <div class="wm-foreign-pop-text-wrap">
-        <div class="wm-foreign-pop-text">${item.text ? escapeHtml(item.text) : '<i class="muted-note">Без описания</i>'}</div>
+        <div class="wm-foreign-pop-text">${item.text ? escapeHtml(item.text) : `<i class="muted-note">${WM.t('Без описания')}</i>`}</div>
       </div>
 
       <div class="wm-foreign-pop-actions">
         <div class="wm-foreign-actions-row">
           <button type="button" class="btn btn-target-foreign ${isTarget ? 'btn-target-active' : 'btn-target'}">
-            ${isTarget ? '🛑 Снять цель' : '🎯 Как цель'}
+            ${isTarget ? WM.t('🛑 Снять цель') : WM.t('🎯 Как цель')}
           </button>
           <button type="button" class="btn btn-primary btn-save-foreign">
-            💾 В мои заметки
+            ${WM.t('💾 В мои заметки')}
           </button>
         </div>
         <div class="wm-foreign-actions-row secondary">
-          <button type="button" class="btn btn-secondary btn-copy-foreign" title="Скопировать текст и координаты">
-            📋 Копировать
+          <button type="button" class="btn btn-secondary btn-copy-foreign" title="${WM.t('Скопировать текст и координаты')}">
+            ${WM.t('📋 Копировать')}
           </button>
-          <button type="button" class="btn btn-danger-outline btn-delete-foreign" title="Скрыть только на моем устройстве">
-            🗑️ Скрыть
+          <button type="button" class="btn btn-danger-outline btn-delete-foreign" title="${WM.t('Скрыть только на моем устройстве')}">
+            ${WM.t('🗑️ Скрыть')}
           </button>
         </div>
       </div>
@@ -358,7 +358,7 @@
             id: 'foreign_' + item.id,
             lat: item.lat,
             lng: item.lng,
-            title: item.text ? item.text.slice(0, 22) : (item.emoji || 'Метка')
+            title: item.text ? item.text.slice(0, 22) : (item.emoji || WM.t('Метка'))
           });
         }
       };
@@ -370,7 +370,7 @@
         e.stopPropagation();
         try {
           await navigator.clipboard.writeText(coordsStr);
-          if (WM.ui && WM.ui.showToast) WM.ui.showToast(`📍 Координаты скопированы: ${coordsStr}`);
+          if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('📍 Координаты скопированы: {0}', coordsStr));
         } catch (err) {}
       };
     }
@@ -401,7 +401,7 @@
           renderVisible();
 
           if (WM.ui && WM.ui.showToast) {
-            WM.ui.showToast('✅ Метка добавлена в ваши личные!');
+            WM.ui.showToast(WM.t('✅ Метка добавлена в ваши личные!'));
           }
         }
       };
@@ -415,7 +415,7 @@
         const copyContent = item.text ? `${item.emoji} ${item.text}\n(${coordsStr})` : coordsStr;
         try {
           await navigator.clipboard.writeText(copyContent);
-          if (WM.ui && WM.ui.showToast) WM.ui.showToast('📋 Текст заметки скопирован!');
+          if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('📋 Текст заметки скопирован!'));
         } catch (err) {}
       };
     }
@@ -559,11 +559,11 @@
 
     if (!val) {
       infoEl.innerHTML = `
-        <span style="color: #16a34a; font-weight: 700;">🔓 Общий режим:</span> скачиваются и отображаются все открытые метки без пароля.
+        <span style="color: #16a34a; font-weight: 700;">${WM.t('🔓 Общий режим:')}</span> ${WM.t('скачиваются и отображаются все открытые метки без пароля.')}
       `;
     } else {
       infoEl.innerHTML = `
-        <span style="color: #8b5cf6; font-weight: 700;">🔒 Режим закрытой группы:</span> скачиваются и отображаются <b>только</b> метки с этим паролем. Открытые метки скрыты.
+        <span style="color: #8b5cf6; font-weight: 700;">${WM.t('🔒 Режим закрытой группы:')}</span> ${WM.t('скачиваются и отображаются')} <b>${WM.t('только')}</b> ${WM.t('метки с этим паролем. Открытые метки скрыты.')}
       `;
     }
   }

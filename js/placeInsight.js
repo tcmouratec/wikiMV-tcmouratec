@@ -40,7 +40,7 @@
         radius: '22',
         month: String(month),
         per_page: '45',
-        locale: 'ru',
+        locale: WM.i18n.api.inat,
         fields: '(taxon:(id:!t,name:!t,preferred_common_name:!t,iconic_taxon_name:!t,threatened:!t,rank:!t,default_photo:(square_url:!t)),count:!t)'
       });
 
@@ -51,7 +51,7 @@
         radius: '30',
         threatened: 'true',
         per_page: '8',
-        locale: 'ru',
+        locale: WM.i18n.api.inat,
         fields: '(taxon:(id:!t,name:!t,preferred_common_name:!t,iconic_taxon_name:!t,threatened:!t,rank:!t,default_photo:(square_url:!t)),count:!t)'
       });
 
@@ -202,12 +202,12 @@
     if (isOsmWater) {
       effectiveRisk = 96;
       effectiveVerdict = {
-        title: 'Открытая вода / акватория',
+        title: WM.t('Открытая вода / акватория'),
         color: '#0284c7',
         icon: '🛶',
-        walk: 'Пешком невозможно: открытый водоём.',
-        car: 'Проезд невозможен. Только плавсредства.',
-        gear: 'Лодка, спасжилет.'
+        walk: WM.t('Пешком невозможно: открытый водоём.'),
+        car: WM.t('Проезд невозможен. Только плавсредства.'),
+        gear: WM.t('Лодка, спасжилет.')
       };
     } else if (isForest && !isOsmWetland && (!flood || flood.cur < (flood.p75 || 999))) {
       // Если это лес и явного болота нет — риск топкости физически не может быть выше 45!
@@ -215,31 +215,31 @@
 
       if (effectiveRisk >= 35) {
         effectiveVerdict = {
-          title: 'Влажный лесной грунт / лужи',
+          title: WM.t('Влажный лесной грунт / лужи'),
           color: '#eab308',
           icon: '🌦️',
-          walk: 'Проходимо в треккинговой обуви или легких сапогах.',
-          car: 'Проезд на легковом авто затруднен в колеях; внедорожник — свободно.',
-          gear: 'Треккинговые ботинки или сапоги.'
+          walk: WM.t('Проходимо в треккинговой обуви или легких сапогах.'),
+          car: WM.t('Проезд на легковом авто затруднен в колеях; внедорожник — свободно.'),
+          gear: WM.t('Треккинговые ботинки или сапоги.')
         };
       } else {
         effectiveVerdict = {
-          title: 'Сухой устойчивый лесной грунт',
+          title: WM.t('Сухой устойчивый лесной грунт'),
           color: '#10b981',
           icon: '🌲',
-          walk: 'Свободный уверенный шаг в любой обуви.',
-          car: 'Свободный проезд по грунтовым лесным дорогам.',
-          gear: 'Любая удобная обувь.'
+          walk: WM.t('Свободный уверенный шаг в любой обуви.'),
+          car: WM.t('Свободный проезд по грунтовым лесным дорогам.'),
+          gear: WM.t('Любая удобная обувь.')
         };
       }
     } else if (!effectiveVerdict) {
       effectiveVerdict = {
-        title: 'Умеренная влажность грунта',
+        title: WM.t('Умеренная влажность грунта'),
         color: '#10b981',
         icon: '🟢',
-        walk: 'Свободный проход.',
-        car: 'Обычный проезд транспорта.',
-        gear: 'Стандартная экипировка.'
+        walk: WM.t('Свободный проход.'),
+        car: WM.t('Обычный проезд транспорта.'),
+        gear: WM.t('Стандартная экипировка.')
       };
     }
 
@@ -275,12 +275,12 @@
     const trafficLightCol = v.color || (risk >= 65 ? '#ef4444' : (risk >= 35 ? '#eab308' : '#10b981'));
     const trafficLightIcon = v.icon || (risk >= 65 ? '🔴' : (risk >= 35 ? '🟡' : '🟢'));
 
-    const seasonNames = ['', 'январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре'];
+    const seasonNames = ['', WM.t('январе'), WM.t('феврале'), WM.t('марте'), WM.t('апреле'), WM.t('мае'), WM.t('июне'), WM.t('июле'), WM.t('августе'), WM.t('сентябре'), WM.t('октябре'), WM.t('ноябре'), WM.t('декабре')];
 
     // Генератор кликабельных чипов видов для карты
     const renderTaxaChips = (list, defaultIcon) => {
       if (!list || !list.length) {
-        return '<span class="muted" style="font-size:11px; padding:3px 0;">Наблюдений поблизости пока нет.</span>';
+        return `<span class="muted" style="font-size:11px; padding:3px 0;">${WM.t('Наблюдений поблизости пока нет.')}</span>`;
       }
       return list.map(item => `
         <button type="button" class="pi-species-chip" data-taxon-id="${item.id}" data-name="${esc(item.name)}" title="${esc(item.latin)}">
@@ -311,25 +311,25 @@
             <span class="pi-badge" style="border-color:${trafficLightCol}; color:${trafficLightCol};">
               ${trafficLightIcon} ${esc(v.title)}
             </span>
-            ${biotope ? `<span class="pi-badge" style="border-color:var(--accent); color:var(--accent);">Биотоп: ${biotopeConfidence}%</span>` : ''}
-            ${fungal ? `<span class="pi-badge" style="border-color:${fungal.color}; color:${fungal.color};">Грибница: ${fungal.score}%</span>` : ''}
+            ${biotope ? `<span class="pi-badge" style="border-color:var(--accent); color:var(--accent);">${WM.t('Биотоп: {0}%', biotopeConfidence)}</span>` : ''}
+            ${fungal ? `<span class="pi-badge" style="border-color:${fungal.color}; color:${fungal.color};">${WM.t('Грибница: {0}%', fungal.score)}</span>` : ''}
           </div>
-          <h3 class="pi-hero-title">${biotope ? esc(biotope.title.split(' / ')[0]) : 'Природный ландшафт'}</h3>
-          <div class="pi-hero-subtitle">${biotope ? `${esc(biotope.soilTypeRu)} · ${esc(soil ? soil.hydro.drainage.label : '')}` : 'Характер грунта и растительности'}</div>
+          <h3 class="pi-hero-title">${biotope ? esc(biotope.title.split(' / ')[0]) : WM.t('Природный ландшафт')}</h3>
+          <div class="pi-hero-subtitle">${biotope ? `${esc(biotope.soilTypeRu)} · ${esc(soil ? soil.hydro.drainage.label : '')}` : WM.t('Характер грунта и растительности')}</div>
         </div>
 
         <!-- Ключевые статусы доступности -->
         <div class="pi-metrics-row">
           <div class="pi-metric-card" style="border-left-color:${trafficLightCol};">
-            <span class="pi-metric-lbl">🚶 Доступность пешком</span>
+            <span class="pi-metric-lbl">${WM.t('🚶 Доступность пешком')}</span>
             <b class="pi-metric-val" style="color:${trafficLightCol};">${esc(v.walk)}</b>
-            <span class="pi-metric-desc">Снаряжение: ${esc(v.gear)}</span>
+            <span class="pi-metric-desc">${WM.t('Снаряжение: {0}', esc(v.gear))}</span>
           </div>
 
           <div class="pi-metric-card" style="border-left-color:${fungal ? fungal.color : 'var(--accent)'};">
-            <span class="pi-metric-lbl">🍄 Грибной потенциал</span>
-            <b class="pi-metric-val" style="color:${fungal ? fungal.color : 'var(--accent)'};">${fungal ? esc(fungal.phase) : 'Ожидание метеоданных'}</b>
-            <span class="pi-metric-desc">${fungal?.window ? esc(fungal.window) : 'Ориентируйтесь на влажность подстилки.'}</span>
+            <span class="pi-metric-lbl">${WM.t('🍄 Грибной потенциал')}</span>
+            <b class="pi-metric-val" style="color:${fungal ? fungal.color : 'var(--accent)'};">${fungal ? esc(fungal.phase) : WM.t('Ожидание метеоданных')}</b>
+            <span class="pi-metric-desc">${fungal?.window ? esc(fungal.window) : WM.t('Ориентируйтесь на влажность подстилки.')}</span>
           </div>
         </div>
       </div>
@@ -337,7 +337,7 @@
       <!-- 2. СОВЕТ ПОХОДНИКУ И ГРИБНИКУ -->
       ${whereToGoText ? `
         <div class="pi-highlight-box">
-          <div class="pi-box-title">🧭 Куда лучше сместиться и где искать:</div>
+          <div class="pi-box-title">${WM.t('🧭 Куда лучше сместиться и где искать:')}</div>
           <div class="pi-box-text">${esc(whereToGoText)}</div>
         </div>
       ` : ''}
@@ -345,7 +345,7 @@
       <!-- 3. КРАСНАЯ КНИГА / ОХРАНЯЕМЫЕ ВИДЫ (ЕСЛИ ЕСТЬ НАХОДКИ) -->
       ${bio.threatened && bio.threatened.length > 0 ? `
         <div class="pi-threatened-box">
-          <div class="pi-box-title" style="color: #ef4444;">⚠️ Редкие и охраняемые виды в этом районе (iNaturalist):</div>
+          <div class="pi-box-title" style="color: #ef4444;">${WM.t('⚠️ Редкие и охраняемые виды в этом районе (iNaturalist):')}</div>
           <div class="pi-species-chips-wrap" style="margin-top: 5px;">
             ${bio.threatened.map(t => `
               <button type="button" class="pi-species-chip threatened" data-taxon-id="${t.id}" data-name="${esc(t.name)}">
@@ -359,35 +359,33 @@
 
       <!-- 4. ФЛОРА, ФАУНА И ГРИБЫ ВОКРУГ -->
       <div class="pi-section-card">
-        <div class="pi-section-title">🌲 Живая природа вокруг (сезон: ${seasonNames[month]}):</div>
+        <div class="pi-section-title">${WM.t('🌲 Живая природа вокруг (сезон: {0}):', seasonNames[month])}</div>
 
         <!-- Грибы -->
         <div class="pi-species-group">
           <div class="pi-species-group-head">
-            <span>🍄 Характерные и частые грибы:</span>
+            <span>${WM.t('🍄 Характерные и частые грибы:')}</span>
           </div>
           <div class="pi-species-chips-wrap">
             ${bio.fungi.length > 0
               ? renderTaxaChips(bio.fungi.slice(0, 6), '🍄')
               : (biotopeFungiList.length > 0
                   ? biotopeFungiList.slice(0, 6).map(f => `<span class="pi-species-chip static"><span class="pi-chip-icon">🍄</span><span class="pi-chip-title">${esc(f)}</span></span>`).join('')
-                  : '<span class="muted" style="font-size:11px;">Слой грибов в этом месяце не активен.</span>')
-            }
+                  : `<span class="muted" style="font-size:11px;">${WM.t('Слой грибов в этом месяце не активен.')}</span>`)}
           </div>
         </div>
 
         <!-- Ягоды и растения -->
         <div class="pi-species-group" style="margin-top: 9px;">
           <div class="pi-species-group-head">
-            <span>🌿 Растения, деревья и ягоды:</span>
+            <span>${WM.t('🌿 Растения, деревья и ягоды:')}</span>
           </div>
           <div class="pi-species-chips-wrap">
             ${bio.plants.length > 0
               ? renderTaxaChips(bio.plants.slice(0, 6), '🌱')
               : (biotopePlantsList.length > 0
                   ? biotopePlantsList.slice(0, 6).map(p => `<span class="pi-species-chip static"><span class="pi-chip-icon">🌱</span><span class="pi-chip-title">${esc(p)}</span></span>`).join('')
-                  : '<span class="muted" style="font-size:11px;">Данные о растениях формируются.</span>')
-            }
+                  : `<span class="muted" style="font-size:11px;">${WM.t('Данные о растениях формируются.')}</span>`)}
           </div>
         </div>
 
@@ -395,7 +393,7 @@
         ${(bio.birds.length > 0 || bio.mammals.length > 0) ? `
           <div class="pi-species-group" style="margin-top: 9px;">
             <div class="pi-species-group-head">
-              <span>🐾 Птицы и животные окрестностей (iNat):</span>
+              <span>${WM.t('🐾 Птицы и животные окрестностей (iNat):')}</span>
             </div>
             <div class="pi-species-chips-wrap">
               ${renderTaxaChips([...bio.birds.slice(0, 4), ...bio.mammals.slice(0, 4)], '🐾')}
@@ -406,28 +404,28 @@
 
       <!-- 5. ГЕОЛОГИЯ, РЕЛЬЕФ И ВОДА -->
       <div class="pi-section-card">
-        <div class="pi-section-title">⛰️ Земля, вода и условия под ногами:</div>
+        <div class="pi-section-title">${WM.t('⛰️ Земля, вода и условия под ногами:')}</div>
         <div class="pi-features-grid">
           <div class="pi-feature-item">
             <span class="pi-feature-icon">${terrain ? terrain.icon : '🟢'}</span>
             <div class="pi-feature-text">
-              <b>${terrain ? esc(terrain.aspectName) : 'Равнина'}</b>
-              <small>${terrain ? `Уклон ${terrain.slopeDeg}°, над низиной ${sgn(terrain.hLow)} м` : 'Без выраженного стока'}</small>
+              <b>${terrain ? esc(terrain.aspectName) : WM.t('Равнина')}</b>
+              <small>${terrain ? WM.t('Уклон {0}°, над низиной {1} м', terrain.slopeDeg, sgn(terrain.hLow)) : WM.t('Без выраженного стока')}</small>
             </div>
           </div>
 
           <div class="pi-feature-item">
             <span class="pi-feature-icon">🧪</span>
             <div class="pi-feature-text">
-              <b>${soil ? `pH ${soil.ph.toFixed(1)} · ${esc(soil.hydro.drainage.label)}` : 'Стандартный дренаж'}</b>
-              <small>${soil ? `Песок ${soil.sand}%, глина ${soil.clay}%, Ksat ${soil.hydro.ks} мм/ч` : 'Почва умеренной плотности'}</small>
+              <b>${soil ? `pH ${soil.ph.toFixed(1)} · ${esc(soil.hydro.drainage.label)}` : WM.t('Стандартный дренаж')}</b>
+              <small>${soil ? WM.t('Песок {0}%, глина {1}%, Ksat {2} мм/ч', soil.sand, soil.clay, soil.hydro.ks) : WM.t('Почва умеренной плотности')}</small>
             </div>
           </div>
 
           <div class="pi-feature-item">
             <span class="pi-feature-icon">🚙</span>
             <div class="pi-feature-text">
-              <b>Проезд авто:</b>
+              <b>${WM.t('Проезд авто:')}</b>
               <small>${esc(v.car)}</small>
             </div>
           </div>
@@ -435,8 +433,8 @@
           <div class="pi-feature-item">
             <span class="pi-feature-icon">💧</span>
             <div class="pi-feature-text">
-              <b>Режим стока и осадки:</b>
-              <small>${flood && flood.cur >= 0.5 ? `Река: ${flood.cur} м³/с (порог поймы ${flood.p75})` : (agro ? `Осадки 7 дн: ${agro.rain7} мм` : 'Без паводкового риска')}</small>
+              <b>${WM.t('Режим стока и осадки:')}</b>
+              <small>${flood && flood.cur >= 0.5 ? WM.t('Река: {0} м³/с (порог поймы {1})', flood.cur, flood.p75) : (agro ? WM.t('Осадки 7 дн: {0} мм', agro.rain7) : WM.t('Без паводкового риска'))}</small>
             </div>
           </div>
         </div>
@@ -444,9 +442,9 @@
 
       <!-- 6. КНОПКИ БЫСТРОГО ПЕРЕХОДА -->
       <div class="nav-actions-grid inat-actions-grid" style="margin-top: 12px;">
-        <button type="button" class="action-card-btn" id="btn-pi-to-soil">🧪 Подробно о почве</button>
-        <button type="button" class="action-card-btn" id="btn-pi-to-water">🌊 Паводок и разлив</button>
-        <button type="button" class="action-card-btn primary" id="btn-pi-copy-brief" style="grid-column: span 2;">📋 Скопировать сводку</button>
+        <button type="button" class="action-card-btn" id="btn-pi-to-soil">${WM.t('🧪 Подробно о почве')}</button>
+        <button type="button" class="action-card-btn" id="btn-pi-to-water">${WM.t('🌊 Паводок и разлив')}</button>
+        <button type="button" class="action-card-btn primary" id="btn-pi-copy-brief" style="grid-column: span 2;">${WM.t('📋 Скопировать сводку')}</button>
       </div>
     `;
 
@@ -476,19 +474,19 @@
     // Копирование емкого полевого отчета
     document.getElementById('btn-pi-copy-brief')?.addEventListener('click', () => {
       const text = [
-        `🏕️ Экспресс-сводка местности [${data.lat.toFixed(5)}, ${data.lon.toFixed(5)}]:`,
-        biotope ? `• Биотоп: ${biotope.title.split(' / ')[0]} (уверенность ${biotopeConfidence}%)` : '',
-        `• Проходимость: ${v.title} — ${v.walk}`,
-        `• Транспорт: ${v.car}`,
-        fungal ? `• Грибной потенциал: ${fungal.phase} (${fungal.score}%) — ${fungal.window}` : '',
-        whereToGoText ? `• Тактика поиска: ${whereToGoText}` : '',
-        terrain ? `• Рельеф: ${terrain.aspectName}, уклон ${terrain.slopeDeg}°, над низиной ${sgn(terrain.hLow)} м` : '',
-        soil ? `• Почва: pH ${soil.ph.toFixed(1)}, песок ${soil.sand}%, глина ${soil.clay}%, дренаж: ${soil.hydro.drainage.label}` : '',
-        bio.threatened.length ? `• Красная книга рядом: ${bio.threatened.map(t => t.name).join(', ')}` : ''
+        WM.t('🏕️ Экспресс-сводка местности [{0}, {1}]:', data.lat.toFixed(5), data.lon.toFixed(5)),
+        biotope ? WM.t('• Биотоп: {0} (уверенность {1}%)', biotope.title.split(' / ')[0], biotopeConfidence) : '',
+        WM.t('• Проходимость: {0} — {1}', v.title, v.walk),
+        WM.t('• Транспорт: {0}', v.car),
+        fungal ? WM.t('• Грибной потенциал: {0} ({1}%) — {2}', fungal.phase, fungal.score, fungal.window) : '',
+        whereToGoText ? WM.t('• Тактика поиска: {0}', whereToGoText) : '',
+        terrain ? WM.t('• Рельеф: {0}, уклон {1}°, над низиной {2} м', terrain.aspectName, terrain.slopeDeg, sgn(terrain.hLow)) : '',
+        soil ? WM.t('• Почва: pH {0}, песок {1}%, глина {2}%, дренаж: {3}', soil.ph.toFixed(1), soil.sand, soil.clay, soil.hydro.drainage.label) : '',
+        bio.threatened.length ? WM.t('• Красная книга рядом: {0}', bio.threatened.map(t => t.name).join(', ')) : ''
       ].filter(Boolean).join('\n');
 
       navigator.clipboard.writeText(text).then(() => {
-        if (WM.ui?.showToast) WM.ui.showToast('📋 Полевая сводка скопирована в буфер');
+        if (WM.ui?.showToast) WM.ui.showToast(WM.t('📋 Полевая сводка скопирована в буфер'));
       });
     });
   }
@@ -512,9 +510,9 @@
     content.innerHTML = `
       <div class="soil-loading-wrap" style="padding: 34px 14px;">
         <div class="lb-spinner" style="width:38px;height:38px;border-width:3px;border-top-color:var(--accent);"></div>
-        <div class="soil-loading-text" style="margin-top:14px; font-weight:700;">Экспресс-разведка местности…</div>
+        <div class="soil-loading-text" style="margin-top:14px; font-weight:700;">${WM.t('Экспресс-разведка местности…')}</div>
         <small class="hint-text" style="text-align:center; max-width:320px; line-height:1.4;">
-          Синтез рельефа, типа почвы, водного режима, биоразнообразия и грибного календаря
+          ${WM.t('Синтез рельефа, типа почвы, водного режима, биоразнообразия и грибного календаря')}
         </small>
       </div>`;
 
@@ -530,9 +528,9 @@
       content.innerHTML = `
         <div class="sheet-empty-state" style="padding:24px 14px;">
           <div class="sheet-empty-icon">⚠️</div>
-          <div class="sheet-empty-title">Не удалось получить данные</div>
-          <div class="sheet-empty-desc">${esc(err.message || 'Проверьте соединение с сетью')}</div>
-          <button type="button" class="btn btn-primary" id="btn-pi-retry" style="margin-top:10px;">↺ Повторить запрос</button>
+          <div class="sheet-empty-title">${WM.t('Не удалось получить данные')}</div>
+          <div class="sheet-empty-desc">${esc(err.message || WM.t('Проверьте соединение с сетью'))}</div>
+          <button type="button" class="btn btn-primary" id="btn-pi-retry" style="margin-top:10px;">${WM.t('↺ Повторить запрос')}</button>
         </div>
       `;
       document.getElementById('btn-pi-retry')?.addEventListener('click', () => runForCoords(lat, lon));

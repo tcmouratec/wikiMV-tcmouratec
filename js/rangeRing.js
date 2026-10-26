@@ -28,10 +28,10 @@
 
   function formatDist(meters) {
     if (meters < 1000) {
-      return Math.round(meters) + ' м';
+      return WM.t('{0} м', Math.round(meters));
     }
     const km = meters / 1000;
-    return (km < 10 ? km.toFixed(1) : Math.round(km)) + ' км';
+    return WM.t('{0} км', km < 10 ? km.toFixed(1) : Math.round(km));
   }
 
   // Расчёт круглых "удобных" шагов шкалы (10, 20, 50, 100, 200, 500, 1000...)

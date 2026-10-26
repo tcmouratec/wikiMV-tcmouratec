@@ -5,6 +5,9 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -149,16 +152,24 @@ jobs:
           public class TrackingForegroundService extends Service {
               private static final String CHANNEL_ID = "wikimv_tracking_channel";
 
+              // Notification texts follow the system language (pt / ru / English by default)
+              private static String tr(String ru, String pt, String en) {
+                  String l = java.util.Locale.getDefault().getLanguage();
+                  if ("ru".equals(l)) return ru;
+                  if ("pt".equals(l)) return pt;
+                  return en;
+              }
+
               @Override
               public void onCreate() {
                   super.onCreate();
                   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                       NotificationChannel channel = new NotificationChannel(
                           CHANNEL_ID,
-                          "Запись GPS трека",
+                          tr("Запись GPS трека", "Gravação de trilha GPS", "GPS track recording"),
                           NotificationManager.IMPORTANCE_LOW
                       );
-                      channel.setDescription("Фоновая запись GPS координат WikiMV");
+                      channel.setDescription(tr("Фоновая запись GPS координат WikiMV", "Gravação em segundo plano das coordenadas GPS do WikiMV", "WikiMV background GPS coordinate recording"));
                       NotificationManager nm = getSystemService(NotificationManager.class);
                       if (nm != null) {
                           nm.createNotificationChannel(channel);
@@ -173,8 +184,8 @@ jobs:
                           : new Notification.Builder(this);
 
                   Notification notification = builder
-                          .setContentTitle("WikiMV: Идёт запись трека")
-                          .setContentText("GPS активен в фоне при выключенном экране")
+                          .setContentTitle(tr("WikiMV: Идёт запись трека", "WikiMV: gravando trilha", "WikiMV: recording a track"))
+                          .setContentText(tr("GPS активен в фоне при выключенном экране", "GPS ativo em segundo plano com a tela desligada", "GPS stays active in the background with the screen off"))
                           .setSmallIcon(android.R.drawable.ic_menu_mylocation)
                           .setOngoing(true)
                           .build();
@@ -226,16 +237,7 @@ jobs:
 
               @Override
               public void onCreate(Bundle savedInstanceState) {
-                  Locale ruLocale = new Locale("ru", "RU");
-                  Locale.setDefault(ruLocale);
-                  Configuration config = getResources().getConfiguration();
-                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                      config.setLocales(new LocaleList(ruLocale, new Locale("ru")));
-                  } else {
-                      config.locale = ruLocale;
-                  }
-                  getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-
+                  // The web UI chooses its own language (ru / en / pt-BR): saved choice or the system language.
                   super.onCreate(savedInstanceState);
 
                   if (bridge != null && bridge.getWebView() != null) {
@@ -419,10 +421,33 @@ jobs:
 
           npx cap sync android
 
-      # 3. Извлекаем постоянный ключ из GitHub Secrets
-      - name: Decode Keystore
+      # 3. Signing key: your permanent key from GitHub Secrets, or (if no secrets are set,
+      #    e.g. in a fresh fork) a key generated for this build. Updates over an installed APK
+      #    only work when the SAME key is used every time, so for real use add the 4 secrets:
+      #    KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD, KEY_ALIAS.
+      - name: Prepare signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > release.jks
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > release.jks
+            echo "KS_PASS=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
+            echo "K_PASS=$KEY_PASSWORD" >> "$GITHUB_ENV"
+            echo "K_ALIAS=$KEY_ALIAS" >> "$GITHUB_ENV"
+            echo "Using the permanent key from GitHub Secrets"
+          else
+            keytool -genkeypair -v -keystore release.jks -storetype PKCS12 \
+              -alias wikimv -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass wikimv-temp-key -keypass wikimv-temp-key \
+              -dname "CN=WikiMV, O=WikiMV, C=BR"
+            echo "KS_PASS=wikimv-temp-key" >> "$GITHUB_ENV"
+            echo "K_PASS=wikimv-temp-key" >> "$GITHUB_ENV"
+            echo "K_ALIAS=wikimv" >> "$GITHUB_ENV"
+            echo "::warning::No signing secrets found - APK signed with a temporary key. Add KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD and KEY_ALIAS to be able to update the installed app."
+          fi
 
       # 4. Сборка Release APK и подпись постоянным ключом
       - name: Build and Sign Release APK
@@ -440,9 +465,9 @@ jobs:
 
           # Подпись постоянным ключом с помощью apksigner
           $BUILD_TOOLS/apksigner sign --ks ../release.jks \
-            --ks-pass pass:${{ secrets.KEYSTORE_PASSWORD }} \
-            --key-pass pass:${{ secrets.KEY_PASSWORD }} \
-            --ks-key-alias ${{ secrets.KEY_ALIAS }} \
+            --ks-pass env:KS_PASS \
+            --key-pass env:K_PASS \
+            --ks-key-alias "$K_ALIAS" \
             --out app/build/outputs/apk/release/wikiMV_1.0.9.apk \
             app/build/outputs/apk/release/aligned.apk
 
@@ -459,3 +484,13 @@ jobs:
         with:
           name: WikiMV_1.0.9
           path: android/app/build/outputs/apk/release/wikiMV_1.0.9.apk
+
+      # 7. Direct download link: a GitHub Release called "apk-latest" (Releases page of the repo)
+      - name: Publish APK to Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          APK=android/app/build/outputs/apk/release/wikiMV_1.0.9.apk
+          gh release view apk-latest >/dev/null 2>&1 || \
+            gh release create apk-latest --title "WikiMV APK (latest build)" --notes "Latest APK built from the main branch. Languages: Português (Brasil), English, Русский (automatic by system language or chosen in Settings)."
+          gh release upload apk-latest "$APK" --clobber

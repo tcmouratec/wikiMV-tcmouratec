@@ -77,7 +77,7 @@
     if (!obj || obj.hasDetail || obj.detailLoading || obj.detailFailed) return;
     obj.detailLoading = true;
     try {
-      const detail = await WM.api.place(obj.id, 'ru');
+      const detail = await WM.api.place(obj.id, WM.i18n.api.wikimapia);
       if (detail) {
         WM.cache.applyDetail(obj.id, detail);
         if (WM.view && WM.view.updateObjectStyle) {
@@ -122,7 +122,7 @@
         }
 
         try {
-          const detail = await WM.api.place(obj.id, 'ru');
+          const detail = await WM.api.place(obj.id, WM.i18n.api.wikimapia);
           if (currentToken !== detailsAbortToken) break;
 
           if (detail) {
@@ -431,7 +431,7 @@
     const b = map.getBounds().pad(0.1);
     const bbox = { w: b.getWest(), s: b.getSouth(), e: b.getEast(), n: b.getNorth() };
     try {
-      if (!silent) WM.ui.setStatus(`🏷️ Поиск объектов «${tag.title}»…`);
+      if (!silent) WM.ui.setStatus(WM.t('🏷️ Поиск объектов «{0}»…', tag.title));
       const catQuery = tag.id || tag.title;
       const data = await WM.api.categoryBox(bbox, catQuery, 1);
       const items = Array.isArray(data.folder) ? data.folder : [];
@@ -449,10 +449,10 @@
           }
         }
         WM.view.render();
-        if (!silent) WM.ui.showToast(`🏷️ Найдено «${tag.title}»: ${items.length}`);
+        if (!silent) WM.ui.showToast(WM.t('🏷️ Найдено «{0}»: {1}', tag.title, items.length));
         return items.length;
       } else if (!silent) {
-        WM.ui.showToast(`В этой области объекты «${tag.title}» не найдены`);
+        WM.ui.showToast(WM.t('В этой области объекты «{0}» не найдены', tag.title));
       }
     } catch (err) {
       console.warn('[WM Loader] Поиск по категории не удался:', err.message);
@@ -497,7 +497,7 @@
               const waitMs = err.retryAfterMs || (attempts * 2000);
               onProgress && onProgress({ 
                 stage: 'retry', 
-                message: `Пауза API. Повтор #${attempts} через ${Math.ceil(waitMs / 1000)}с...`,
+                message: WM.t('Пауза API. Повтор #{0} через {1}с...', attempts, Math.ceil(waitMs / 1000)),
                 waitMs 
               });
               await new Promise(r => setTimeout(r, waitMs));
@@ -531,7 +531,7 @@
           while (!success && attempts < 4 && !precacheAbort) {
             attempts++;
             try {
-              await WM.api.place(obj.id, 'ru');
+              await WM.api.place(obj.id, WM.i18n.api.wikimapia);
               success = true;
               objDone++;
               savedDetailsCount++;
@@ -541,7 +541,7 @@
               const waitMs = err.retryAfterMs || (attempts * 1500);
               onProgress && onProgress({ 
                 stage: 'retry', 
-                message: `Пауза API. Повтор #${attempts} через ${Math.ceil(waitMs / 1000)}с...`,
+                message: WM.t('Пауза API. Повтор #{0} через {1}с...', attempts, Math.ceil(waitMs / 1000)),
                 waitMs 
               });
               await new Promise(r => setTimeout(r, waitMs));

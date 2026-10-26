@@ -61,18 +61,18 @@
       <div class="wm-gc-actions">
         <div class="wm-gc-actions-row">
           <button type="button" class="wm-gc-btn btn-target-gc ${isTarget ? 'active' : ''}">
-            ${isTarget ? '🛑 Снять цель' : '🎯 Как цель'}
+            ${isTarget ? WM.t('🛑 Снять цель') : WM.t('🎯 Как цель')}
           </button>
           <a href="${url}" target="_blank" rel="noopener noreferrer" class="wm-gc-btn primary">
-            🌐 Открыть тайник ↗
+            ${WM.t('🌐 Открыть тайник ↗')}
           </a>
         </div>
         <div class="wm-gc-actions-row">
           <button type="button" class="wm-gc-btn btn-copy-url">
-            📋 Ссылка
+            ${WM.t('📋 Ссылка')}
           </button>
           <button type="button" class="wm-gc-btn btn-copy-coords">
-            📍 Координаты
+            ${WM.t('📍 Координаты')}
           </button>
         </div>
       </div>
@@ -91,7 +91,7 @@
             id: 'gc_' + id,
             lat: lat,
             lng: lon,
-            title: title ? title.slice(0, 22) : ('Тайник #' + id)
+            title: title ? title.slice(0, 22) : (WM.t('Тайник #{0}', id))
           });
         }
       };
@@ -102,7 +102,7 @@
       btnUrl.onclick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        copyToClipboard(url, '📋 Ссылка на тайник скопирована!');
+        copyToClipboard(url, WM.t('📋 Ссылка на тайник скопирована!'));
       };
     }
 
@@ -111,7 +111,7 @@
       btnCoords.onclick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        copyToClipboard(coordsStr, `📍 Координаты скопированы: ${coordsStr}`);
+        copyToClipboard(coordsStr, WM.t('📍 Координаты скопированы: {0}', coordsStr));
       };
     }
 
@@ -280,7 +280,7 @@
   async function loadData() {
     if (cachesData.length > 0 || isLoading) return;
     isLoading = true;
-    if (WM.ui && WM.ui.showToast) WM.ui.showToast('📥 Загрузка базы Geocaching.su…', 2000);
+    if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('📥 Загрузка базы Geocaching.su…'), 2000);
 
     try {
       const res = await fetch(GEOCACHING_JSON_URL);
@@ -290,13 +290,13 @@
         cachesData = data;
         buildSpatialIndex(data);
         if (WM.ui && WM.ui.showToast) {
-          WM.ui.showToast(`🧭 Тайников загружено: ${cachesData.length}`, 2200);
+          WM.ui.showToast(WM.t('🧭 Тайников загружено: {0}', cachesData.length), 2200);
         }
         renderVisible();
       }
     } catch (e) {
       console.warn('Ошибка загрузки Geocaching.su:', e);
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('⚠️ Ошибка загрузки базы Geocaching.su');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('⚠️ Ошибка загрузки базы Geocaching.su'));
     } finally {
       isLoading = false;
     }

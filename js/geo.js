@@ -77,7 +77,7 @@
         let m = str.match(/geo:(?:0(?:(?:\.0+)?)?,0(?:(?:\.0+)?)?\?q=)?([+-]?\d+(?:\.\d+)?)[,\s]+([+-]?\d+(?:\.\d+)?)/i);
         if (m) {
           const lat = parseFloat(m[1]), lon = parseFloat(m[2]);
-          if (isValid(lat, lon)) return { lat, lon, format: 'geo: URI', source: 'geo URI', desc: 'Координаты из geo-ссылки' };
+          if (isValid(lat, lon)) return { lat, lon, format: 'geo: URI', source: 'geo URI', desc: WM.t('Координаты из geo-ссылки') };
         }
 
         // Яндекс Карты (ll, pt, whatshere[point] имеют порядок ДОЛГОТА, ШИРОТА!)
@@ -85,12 +85,12 @@
           m = str.match(/(?:ll|pt|whatshere\[point\])=([+-]?\d+(?:\.\d+)?)[,%2C\s]+([+-]?\d+(?:\.\d+)?)/i);
           if (m) {
             const lon = parseFloat(m[1]), lat = parseFloat(m[2]);
-            if (isValid(lat, lon)) return { lat, lon, format: 'Яндекс Карты', source: 'Яндекс', desc: 'Точка из Яндекс Карт' };
+            if (isValid(lat, lon)) return { lat, lon, format: WM.t('Яндекс Карты'), source: WM.t('Яндекс'), desc: WM.t('Точка из Яндекс Карт') };
           }
           m = str.match(/text=([+-]?\d+(?:\.\d+)?)[,%2C\s+]+([+-]?\d+(?:\.\d+)?)/i);
           if (m) {
             const lat = parseFloat(m[1]), lon = parseFloat(m[2]);
-            if (isValid(lat, lon)) return { lat, lon, format: 'Яндекс Карты', source: 'Яндекс', desc: 'Поиск Яндекс Карт' };
+            if (isValid(lat, lon)) return { lat, lon, format: WM.t('Яндекс Карты'), source: WM.t('Яндекс'), desc: WM.t('Поиск Яндекс Карт') };
           }
         }
 
@@ -99,17 +99,17 @@
           m = str.match(/@([+-]?\d+(?:\.\d+)?),([+-]?\d+(?:\.\d+)?)/);
           if (m) {
             const lat = parseFloat(m[1]), lon = parseFloat(m[2]);
-            if (isValid(lat, lon)) return { lat, lon, format: 'Google Maps', source: 'Google', desc: 'Центр экрана Google Maps' };
+            if (isValid(lat, lon)) return { lat, lon, format: 'Google Maps', source: 'Google', desc: WM.t('Центр экрана Google Maps') };
           }
           m = str.match(/(?:q|query|destination)=([+-]?\d+(?:\.\d+)?)[,%2C+]+([+-]?\d+(?:\.\d+)?)/i);
           if (m) {
             const lat = parseFloat(m[1]), lon = parseFloat(m[2]);
-            if (isValid(lat, lon)) return { lat, lon, format: 'Google Maps', source: 'Google', desc: 'Точка назначения Google Maps' };
+            if (isValid(lat, lon)) return { lat, lon, format: 'Google Maps', source: 'Google', desc: WM.t('Точка назначения Google Maps') };
           }
           m = str.match(/place\/([+-]?\d+(?:\.\d+)?)[,%2C+]+([+-]?\d+(?:\.\d+)?)/i);
           if (m) {
             const lat = parseFloat(m[1]), lon = parseFloat(m[2]);
-            if (isValid(lat, lon)) return { lat, lon, format: 'Google Maps', source: 'Google', desc: 'Место из Google Maps' };
+            if (isValid(lat, lon)) return { lat, lon, format: 'Google Maps', source: 'Google', desc: WM.t('Место из Google Maps') };
           }
           // DMS внутри пути Google: /place/55°45'06.5"N+37°37'04.3"E/
           m = str.match(/place\/([^/]+)/i);
@@ -117,7 +117,7 @@
             const sub = WM.geo.parseCoordinates(m[1].replace(/\+/g, ' '));
             if (sub) {
               sub.format = 'Google Maps (DMS)';
-              sub.desc = 'Место из ссылки Google Maps';
+              sub.desc = WM.t('Место из ссылки Google Maps');
               return sub;
             }
           }
@@ -127,19 +127,19 @@
         m = str.match(/#map=\d+\/([+-]?\d+(?:\.\d+)?)\/([+-]?\d+(?:\.\d+)?)/i);
         if (m) {
           const lat = parseFloat(m[1]), lon = parseFloat(m[2]);
-          if (isValid(lat, lon)) return { lat, lon, format: 'OpenStreetMap', source: 'OSM', desc: 'Координаты из OpenStreetMap' };
+          if (isValid(lat, lon)) return { lat, lon, format: 'OpenStreetMap', source: 'OSM', desc: WM.t('Координаты из OpenStreetMap') };
         }
         m = str.match(/mlat=([+-]?\d+(?:\.\d+)?)&mlon=([+-]?\d+(?:\.\d+)?)/i);
         if (m) {
           const lat = parseFloat(m[1]), lon = parseFloat(m[2]);
-          if (isValid(lat, lon)) return { lat, lon, format: 'OpenStreetMap', source: 'OSM', desc: 'Метка из OpenStreetMap' };
+          if (isValid(lat, lon)) return { lat, lon, format: 'OpenStreetMap', source: 'OSM', desc: WM.t('Метка из OpenStreetMap') };
         }
 
         // Wikimapia
         m = str.match(/lat=([+-]?\d+(?:\.\d+)?)&lon=([+-]?\d+(?:\.\d+)?)/i);
         if (m) {
           const lat = parseFloat(m[1]), lon = parseFloat(m[2]);
-          if (isValid(lat, lon)) return { lat, lon, format: 'Wikimapia', source: 'Wikimapia', desc: 'Координаты из Wikimapia' };
+          if (isValid(lat, lon)) return { lat, lon, format: 'Wikimapia', source: 'Wikimapia', desc: WM.t('Координаты из Wikimapia') };
         }
 
         // ЭтоМесто
@@ -149,14 +149,14 @@
           const isYFirst = str.indexOf('y=') < str.indexOf('x=');
           const lat = parseFloat(isYFirst ? m[1] : m[2]);
           const lon = parseFloat(isYFirst ? m[2] : m[1]);
-          if (isValid(lat, lon)) return { lat, lon, format: 'ЭтоМесто', source: 'ЭтоМесто', desc: 'Координаты с сайта ЭтоМесто' };
+          if (isValid(lat, lon)) return { lat, lon, format: WM.t('ЭтоМесто'), source: WM.t('ЭтоМесто'), desc: WM.t('Координаты с сайта ЭтоМесто') };
         }
 
         // RetroMap
         m = str.match(/_([+-]?\d+(?:\.\d+)?),([+-]?\d+(?:\.\d+)?)/i);
         if (m) {
           const lat = parseFloat(m[1]), lon = parseFloat(m[2]);
-          if (isValid(lat, lon)) return { lat, lon, format: 'RetroMap', source: 'RetroMap', desc: 'Координаты из RetroMap' };
+          if (isValid(lat, lon)) return { lat, lon, format: 'RetroMap', source: 'RetroMap', desc: WM.t('Координаты из RetroMap') };
         }
 
         // 2GIS (обычно долгота, широта)
@@ -167,7 +167,7 @@
             if (!isValid(lat, lon) && isValid(lon, lat)) {
               const tmp = lat; lat = lon; lon = tmp;
             }
-            if (isValid(lat, lon)) return { lat, lon, format: '2GIS', source: '2GIS', desc: 'Координаты из 2GIS' };
+            if (isValid(lat, lon)) return { lat, lon, format: '2GIS', source: '2GIS', desc: WM.t('Координаты из 2GIS') };
           }
         }
 
@@ -175,7 +175,7 @@
         m = str.match(/([+-]?\d{1,2}\.\d{4,})[,/_\s]+([+-]?\d{1,3}\.\d{4,})/);
         if (m) {
           const lat = parseFloat(m[1]), lon = parseFloat(m[2]);
-          if (isValid(lat, lon)) return { lat, lon, format: 'Ссылка', source: 'URL', desc: 'Координаты из ссылки' };
+          if (isValid(lat, lon)) return { lat, lon, format: WM.t('Ссылка'), source: 'URL', desc: WM.t('Координаты из ссылки') };
         }
       }
 
@@ -223,7 +223,7 @@
         }
 
         if (isValid(lat, lon)) {
-          return { lat, lon, format: 'DMS', source: 'DMS', desc: 'Градусы, минуты, секунды' };
+          return { lat, lon, format: 'DMS', source: 'DMS', desc: WM.t('Градусы, минуты, секунды') };
         }
       }
 
@@ -251,7 +251,7 @@
         }
 
         if (isValid(lat, lon)) {
-          return { lat, lon, format: 'DDM', source: 'DDM', desc: 'Градусы и десятичные минуты' };
+          return { lat, lon, format: 'DDM', source: 'DDM', desc: WM.t('Градусы и десятичные минуты') };
         }
       }
 
@@ -291,7 +291,7 @@
             lon, 
             format: 'DD', 
             source: 'DD', 
-            desc: isSwapped ? 'Десятичные градусы (порядок: Lon, Lat)' : 'Десятичные градусы' 
+            desc: isSwapped ? WM.t('Десятичные градусы (порядок: Lon, Lat)') : WM.t('Десятичные градусы') 
           };
         }
       }

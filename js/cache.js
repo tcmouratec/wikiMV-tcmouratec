@@ -223,33 +223,33 @@
 
     getTileProvidersDef() {
       return [
-        { id: 'wm-contours', name: 'Растровые контуры Wikimapia', match: u => u.includes('wikimapia.org'), avgKb: 6 },
-        { id: 'sat-esri', name: 'Спутник (Esri)', match: u => u.includes('World_Imagery'), avgKb: 28 },
-        { id: 'sat-clarity', name: 'Спутник (Esri Clarity)', match: u => u.includes('clarity.maptiles'), avgKb: 28 },
-        { id: 'sat-google', name: 'Спутник Google', match: u => u.includes('google.com') && u.includes('lyrs=y'), avgKb: 30 },
-        { id: 'sat-bing', name: 'Спутник Bing', match: u => u.includes('virtualearth.net'), avgKb: 25 },
-        { id: 'sat-yandex', name: 'Спутник Яндекс', match: u => u.includes('core-sat.maps.yandex.net'), avgKb: 26 },
-        { id: 'cyclosm', name: 'Тропы и грунтовки (CyclOSM)', match: u => u.includes('cyclosm'), avgKb: 18 },
+        { id: 'wm-contours', name: WM.t('Растровые контуры Wikimapia'), match: u => u.includes('wikimapia.org'), avgKb: 6 },
+        { id: 'sat-esri', name: WM.t('Спутник (Esri)'), match: u => u.includes('World_Imagery'), avgKb: 28 },
+        { id: 'sat-clarity', name: WM.t('Спутник (Esri Clarity)'), match: u => u.includes('clarity.maptiles'), avgKb: 28 },
+        { id: 'sat-google', name: WM.t('Спутник Google'), match: u => u.includes('google.com') && u.includes('lyrs=y'), avgKb: 30 },
+        { id: 'sat-bing', name: WM.t('Спутник Bing'), match: u => u.includes('virtualearth.net'), avgKb: 25 },
+        { id: 'sat-yandex', name: WM.t('Спутник Яндекс'), match: u => u.includes('core-sat.maps.yandex.net'), avgKb: 26 },
+        { id: 'cyclosm', name: WM.t('Тропы и грунтовки (CyclOSM)'), match: u => u.includes('cyclosm'), avgKb: 18 },
         { id: 'opentopo', name: 'OpenTopoMap', match: u => u.includes('opentopomap.org'), avgKb: 18 },
-        { id: 'osm-france', name: 'Схема OSM (Франция)', match: u => u.includes('osmfr'), avgKb: 14 },
-        { id: 'osm-hot', name: 'Гуманитарная OSM (HOT)', match: u => u.includes('/hot/'), avgKb: 14 },
-        { id: 'yandex-map', name: 'Схема Яндекс', match: u => u.includes('core-renderer-tiles') || u.includes('nmaps'), avgKb: 16 },
-        { id: 'google-map', name: 'Схема Google', match: u => u.includes('google.com') && u.includes('lyrs=m'), avgKb: 16 },
-        { id: 'nakarte-ggc', name: 'Топокарты ГГЦ и Арбалет', match: u => u.includes('tiles.nakarte.me'), avgKb: 22 },
-        { id: 'russia3d-hist', name: 'Исторические карты (russia3d)', match: u => u.includes('russia3d.ru'), avgKb: 24 },
-        { id: 'mff-relief', name: 'Художественный рельеф (Maps-For-Free)', match: u => u.includes('maps-for-free.com'), avgKb: 20 },
-        { id: 'esri-relief', name: 'Рельеф Esri (Hillshade / Shaded)', match: u => u.includes('Hillshade') || u.includes('World_Shaded'), avgKb: 20 },
+        { id: 'osm-france', name: WM.t('Схема OSM (Франция)'), match: u => u.includes('osmfr'), avgKb: 14 },
+        { id: 'osm-hot', name: WM.t('Гуманитарная OSM (HOT)'), match: u => u.includes('/hot/'), avgKb: 14 },
+        { id: 'yandex-map', name: WM.t('Схема Яндекс'), match: u => u.includes('core-renderer-tiles') || u.includes('nmaps'), avgKb: 16 },
+        { id: 'google-map', name: WM.t('Схема Google'), match: u => u.includes('google.com') && u.includes('lyrs=m'), avgKb: 16 },
+        { id: 'nakarte-ggc', name: WM.t('Топокарты ГГЦ и Арбалет'), match: u => u.includes('tiles.nakarte.me'), avgKb: 22 },
+        { id: 'russia3d-hist', name: WM.t('Исторические карты (russia3d)'), match: u => u.includes('russia3d.ru'), avgKb: 24 },
+        { id: 'mff-relief', name: WM.t('Художественный рельеф (Maps-For-Free)'), match: u => u.includes('maps-for-free.com'), avgKb: 20 },
+        { id: 'esri-relief', name: WM.t('Рельеф Esri (Hillshade / Shaded)'), match: u => u.includes('Hillshade') || u.includes('World_Shaded'), avgKb: 20 },
 
         // === ВСТАВИТЬ СЮДА ===
         { 
           id: 'etomesto-kml', 
-          name: 'Тайлы карт ЭтоМесто / KML', 
+          name: WM.t('Тайлы карт ЭтоМесто / KML'), 
           match: u => u.includes('etomesto.com') || u.includes('etomesto.ru'), 
           avgKb: 28 
         },
         // ======================
 
-        { id: 'other', name: 'Прочие подложки', match: () => true, avgKb: 20 }
+        { id: 'other', name: WM.t('Прочие подложки'), match: () => true, avgKb: 20 }
       ];
     },
 
@@ -532,13 +532,13 @@
       dbPut('objects', o);
     },
 
-    saveDetail(id, data, lang = 'ru') { 
+    saveDetail(id, data, lang = WM.i18n.api.wikimapia) { 
       const key = `${id}:${lang}`;
       dbPut('details', { id: key, data });
       this.applyDetail(id, data);
     },
 
-    getDetail(id, lang = 'ru') {
+    getDetail(id, lang = WM.i18n.api.wikimapia) {
       const key = `${id}:${lang}`;
       return new Promise((resolve) => {
         if (!db) return resolve(null);
@@ -699,7 +699,7 @@
     async importDump(jsonStr) {
       const data = JSON.parse(jsonStr);
       if (!data || (!Array.isArray(data.objects) && !Array.isArray(data.tiles))) {
-        throw new Error('Некорректный формат файла бэкапа');
+        throw new Error(WM.t('Некорректный формат файла бэкапа'));
       }
       if (Array.isArray(data.overlays) && WM.imageOverlay && WM.imageOverlay.importData) {
         WM.imageOverlay.importData(data.overlays); // <-- ДОБАВИТЬ

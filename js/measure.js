@@ -94,10 +94,10 @@
   }
 
   function fmtDistance(meters) {
-    if (!meters || meters < 0.1) return '0 м';
-    if (meters < 1000) return Math.round(meters) + ' м';
+    if (!meters || meters < 0.1) return WM.t('0 м');
+    if (meters < 1000) return WM.t('{0} м', Math.round(meters));
     const km = meters / 1000;
-    return (km < 10 ? km.toFixed(2) : km.toFixed(1)) + ' км';
+    return WM.t('{0} км', km < 10 ? km.toFixed(2) : km.toFixed(1));
   }
 
   function fmtEta(seconds) {
@@ -106,9 +106,9 @@
     const h = Math.floor(sec / 3600);
     const m = Math.floor((sec % 3600) / 60);
     const s = sec % 60;
-    if (h > 0) return `${h}ч ${m}м`;
-    if (m > 0) return `${m} мин`;
-    return `${s} сек`;
+    if (h > 0) return WM.t('{0}ч {1}м', h, m);
+    if (m > 0) return WM.t('{0} мин', m);
+    return WM.t('{0} сек', s);
   }
 
   function computeBearing(fromLL, toLL) {
@@ -144,7 +144,7 @@
     const idx = tracks.length + 1;
     return {
       id: 'track_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
-      name: customName || `Линия ${idx}`,
+      name: customName || WM.t('Линия {0}', idx),
       color: TRACK_COLORS[(tracks.length) % TRACK_COLORS.length],
       points: []
     };
@@ -158,7 +158,7 @@
         if (Array.isArray(parsed) && parsed.length) {
           tracks = parsed.map((t, idx) => ({
             id: t.id || ('track_' + Date.now() + '_' + idx),
-            name: t.name || `Линия ${idx + 1}`,
+            name: t.name || WM.t('Линия {0}', idx + 1),
             color: t.color || TRACK_COLORS[idx % TRACK_COLORS.length],
             points: Array.isArray(t.points) ? t.points.filter(p => p && isFinite(p.lat) && isFinite(p.lng)) : []
           }));
@@ -178,7 +178,7 @@
             if (validPts.length) {
               tracks = [{
                 id: 'track_' + Date.now(),
-                name: 'Линия 1',
+                name: WM.t('Линия 1'),
                 color: TRACK_COLORS[0],
                 points: validPts
               }];
@@ -367,11 +367,11 @@
         if (navigator.vibrate) navigator.vibrate([120, 80, 120]);
         if (WM.ui && WM.ui.showToast) {
           if (navTargetIndex >= totalNodes) {
-            WM.ui.showToast('🏁 Финишный узел достигнут! Маршрут завершён.', 3500);
+            WM.ui.showToast(WM.t('🏁 Финишный узел достигнут! Маршрут завершён.'), 3500);
           } else if (skippedCount > 1) {
-            WM.ui.showToast(`⏩ Пройдено узлов в пути: ${skippedCount}. Цель: узел #${navTargetIndex + 1}`, 2600);
+            WM.ui.showToast(WM.t('⏩ Пройдено узлов в пути: {0}. Цель: узел #{1}', skippedCount, navTargetIndex + 1), 2600);
           } else {
-            WM.ui.showToast(`✓ Узел #${prevTarget + 1} пройден!`, 1800);
+            WM.ui.showToast(WM.t('✓ Узел #{0} пройден!', prevTarget + 1), 1800);
           }
         }
       }
@@ -534,7 +534,7 @@
       const midMarker = L.marker([midLat, midLng], {
         icon: L.divIcon({
           className: 'wm-ruler-midpoint-icon',
-          html: `<div class="wm-ruler-midpoint-inner" style="--track-color: ${active.color};" title="Добавить узел">＋</div>`,
+          html: `<div class="wm-ruler-midpoint-inner" style="--track-color: ${active.color};" title="${WM.t('Добавить узел')}">＋</div>`,
           iconSize: [26, 26],
           iconAnchor: [13, 13]
         }),
@@ -629,7 +629,7 @@
           <div class="wm-ruler-vertex-dot"></div>
           ${idx > 0 
             ? `<div class="wm-ruler-vertex-badge">${distText}</div>` 
-            : '<div class="wm-ruler-vertex-badge start-badge">Старт</div>'}
+            : `<div class="wm-ruler-vertex-badge start-badge">${WM.t('Старт')}</div>`}
         </div>
       `;
 
@@ -649,8 +649,8 @@
         const popupWrap = document.createElement('div');
         popupWrap.className = 'wm-ruler-popup';
         popupWrap.innerHTML = `
-          <div class="wm-ruler-popup-title">${isStart ? 'Начальная точка' : `Узел #${idx + 1}`} (${distText})</div>
-          <button type="button" class="wm-ruler-popup-del-btn">🗑️ Удалить этот узел</button>
+          <div class="wm-ruler-popup-title">${isStart ? WM.t('Начальная точка') : WM.t('Узел #{0}', idx + 1)} (${distText})</div>
+          <button type="button" class="wm-ruler-popup-del-btn">${WM.t('🗑️ Удалить этот узел')}</button>
         `;
         L.DomEvent.disableClickPropagation(popupWrap);
 
@@ -661,7 +661,7 @@
           active.points.splice(idx, 1);
           saveStoredTracks();
           updateDisplay();
-          if (WM.ui && WM.ui.showToast) WM.ui.showToast('🗑️ Узел удален');
+          if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🗑️ Узел удален'));
         }
 
         popupWrap.querySelector('.wm-ruler-popup-del-btn').onclick = (e) => {
@@ -776,12 +776,12 @@
 
     if (dotEl && active) dotEl.style.backgroundColor = active.color || '#0284c7';
     if (totalEl) totalEl.textContent = fmtDistance(total);
-    if (countEl) countEl.textContent = `${pts.length} узлов`;
+    if (countEl) countEl.textContent = WM.t('{0} узлов', pts.length);
     if (undoBtn) undoBtn.disabled = pts.length === 0;
 
     if (finishBtn) {
-      finishBtn.textContent = isEditing ? '✓ Готово' : '✏️ Править';
-      finishBtn.title = isEditing ? 'Зафиксировать это измерение' : 'Продолжить добавление узлов';
+      finishBtn.textContent = isEditing ? WM.t('✓ Готово') : WM.t('✏️ Править');
+      finishBtn.title = isEditing ? WM.t('Зафиксировать это измерение') : WM.t('Продолжить добавление узлов');
       finishBtn.classList.toggle('primary', isEditing);
     }
 
@@ -818,13 +818,13 @@
   function startNavigation() {
     const active = getActiveTrack();
     if (!active || !active.points || active.points.length < 2) {
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('⚠️ Для навигации постройте линию хотя бы из 2 точек');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('⚠️ Для навигации постройте линию хотя бы из 2 точек'));
       return;
     }
 
     const uLL = getUserLocationLL();
     if (!uLL) {
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('🛰️ Определение геопозиции для навигации…', 2000);
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🛰️ Определение геопозиции для навигации…'), 2000);
       const btnLoc = $('btn-location');
       if (btnLoc) btnLoc.click();
     }
@@ -853,7 +853,7 @@
 
     const targetNum = navTargetIndex + 1;
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast(`🚀 Навигация запущена к узлу #${targetNum}`, 2500);
+      WM.ui.showToast(WM.t('🚀 Навигация запущена к узлу #{0}', targetNum), 2500);
     }
   }
 
@@ -872,7 +872,7 @@
     if (navHUD) navHUD.hidden = true;
 
     updateDisplay();
-    if (WM.ui && WM.ui.showToast) WM.ui.showToast('🛑 Навигация по маршруту завершена');
+    if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🛑 Навигация по маршруту завершена'));
   }
 
   function triggerNavigationVibration(signedDiff, absDiff, speed) {
@@ -943,12 +943,12 @@
       WM.navVibro.setMode(lastActive);
       if (navigator.vibrate) navigator.vibrate(100);
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast(lastActive === 'correct' ? '📳 Виброотклик «По курсу» включён' : '📳 Виброотклик «Уход с курса» включён');
+        WM.ui.showToast(lastActive === 'correct' ? WM.t('📳 Виброотклик «По курсу» включён') : WM.t('📳 Виброотклик «Уход с курса» включён'));
       }
     } else {
       localStorage.setItem('wm_nav_vibro_last_active', curMode);
       WM.navVibro.setMode('off');
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('🔕 Виброотклик отключён');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🔕 Виброотклик отключён'));
     }
     updateVibroBtnUI();
   }
@@ -961,8 +961,8 @@
     btn.classList.toggle('active', isEn);
     const mode = WM.navVibro ? WM.navVibro.getMode() : 'off';
     btn.title = isEn 
-      ? (mode === 'correct' ? 'Виброотклик «По курсу» (нажмите для выкл)' : 'Виброотклик «Уход с курса» (нажмите для выкл)') 
-      : 'Виброотклик выключен (нажмите для вкл)';
+      ? (mode === 'correct' ? WM.t('Виброотклик «По курсу» (нажмите для выкл)') : WM.t('Виброотклик «Уход с курса» (нажмите для выкл)')) 
+      : WM.t('Виброотклик выключен (нажмите для вкл)');
   }
 
   function updateNavigationHUD() {
@@ -985,13 +985,13 @@
     if (navTargetIndex >= totalNodes) {
       if (navGuideLayer) navGuideLayer.clearLayers();
       const titleEl = $('measure-nav-target-title');
-      if (titleEl) titleEl.textContent = '🏁 Маршрут пройден!';
+      if (titleEl) titleEl.textContent = WM.t('🏁 Маршрут пройден!');
       const distNodeEl = $('measure-nav-dist-node');
-      if (distNodeEl) distNodeEl.textContent = '0 м';
+      if (distNodeEl) distNodeEl.textContent = WM.t('0 м');
       const distTotalEl = $('measure-nav-dist-total');
-      if (distTotalEl) distTotalEl.textContent = '0 м';
+      if (distTotalEl) distTotalEl.textContent = WM.t('0 м');
       const driftEl = $('measure-nav-drift-text');
-      if (driftEl) driftEl.textContent = 'Финиш';
+      if (driftEl) driftEl.textContent = WM.t('Финиш');
       return;
     }
 
@@ -1000,7 +1000,7 @@
 
     const titleEl = $('measure-nav-target-title');
     if (titleEl) {
-      titleEl.textContent = `🎯 Узел ${navTargetIndex + 1} из ${totalNodes}`;
+      titleEl.textContent = WM.t('🎯 Узел {0} из {1}', navTargetIndex + 1, totalNodes);
     }
 
     let distToNode = 0;
@@ -1027,7 +1027,7 @@
     const speed = (WM.gpsState && WM.gpsState.speed != null && WM.gpsState.speed >= 0) ? WM.gpsState.speed : 0;
     const speedKmh = speed * 3.6;
     const speedEl = $('measure-nav-speed');
-    if (speedEl) speedEl.textContent = `${speedKmh.toFixed(1)} км/ч`;
+    if (speedEl) speedEl.textContent = WM.t('{0} км/ч', speedKmh.toFixed(1));
 
     let etaNode = '--:--';
     let etaTotal = '--:--';
@@ -1040,10 +1040,10 @@
     if (etaNodeEl) etaNodeEl.textContent = `ETA: ${etaNode}`;
 
     const etaTotalEl = $('measure-nav-eta-total');
-    if (etaTotalEl) etaTotalEl.textContent = `Финиш: ${etaTotal}`;
+    if (etaTotalEl) etaTotalEl.textContent = WM.t('Финиш: {0}', etaTotal);
 
-    let driftText = 'Стоянка';
-    let driftSub = 'Ожидание шага';
+    let driftText = WM.t('Стоянка');
+    let driftSub = WM.t('Ожидание шага');
     let signedDiff = 0;
     let absDiff = 0;
     let guideColor = '#0284c7';
@@ -1061,13 +1061,13 @@
       absDiff = Math.abs(signedDiff);
 
       if (absDiff <= cone) {
-        driftText = '🟢 По курсу';
-        driftSub = `Азимут: ${Math.round(bearingToNode)}°`;
+        driftText = WM.t('🟢 По курсу');
+        driftSub = WM.t('Азимут: {0}°', Math.round(bearingToNode));
         guideColor = '#10b981';
         offCourseStartTime = 0;
       } else {
-        const sideText = signedDiff > 0 ? 'вправо' : 'влево';
-        driftText = `Крен ${sideText} ${Math.round(absDiff)}°`;
+        const sideText = signedDiff > 0 ? WM.t('вправо') : WM.t('влево');
+        driftText = WM.t('Крен {0} {1}°', sideText, Math.round(absDiff));
         guideColor = absDiff > (cone * 1.8) ? '#ef4444' : '#f59e0b';
 
         const now = Date.now();
@@ -1077,9 +1077,9 @@
 
         const elapsedOffCourse = Math.floor((now - offCourseStartTime) / 1000);
         if (elapsedOffCourse < 15) {
-          driftSub = `Проверка уклона: ${15 - elapsedOffCourse}с`;
+          driftSub = WM.t('Проверка уклона: {0}с', 15 - elapsedOffCourse);
         } else {
-          driftSub = `⚠️ Уход с курса (${elapsedOffCourse}с)`;
+          driftSub = WM.t('⚠️ Уход с курса ({0}с)', elapsedOffCourse);
         }
       }
 
@@ -1088,7 +1088,7 @@
       }
     } else {
       offCourseStartTime = 0;
-      if (uLL) driftSub = `Азимут: ${Math.round(bearingToNode)}°`;
+      if (uLL) driftSub = WM.t('Азимут: {0}°', Math.round(bearingToNode));
     }
 
     const driftEl = $('measure-nav-drift-text');
@@ -1102,7 +1102,7 @@
 
     const statusSubEl = $('measure-nav-status-sub');
     if (statusSubEl) {
-      statusSubEl.textContent = uLL ? (speed >= 0.45 ? 'Движение' : 'Остановка') : 'Поиск GPS…';
+      statusSubEl.textContent = uLL ? (speed >= 0.45 ? WM.t('Движение') : WM.t('Остановка')) : WM.t('Поиск GPS…');
     }
 
     if (navGuideLayer) {
@@ -1162,23 +1162,23 @@
     }
 
     if (mode === 'share') {
-      if (titleEl) titleEl.textContent = '📤 Поделиться измерениями';
-      if (descEl) descEl.textContent = 'Сохранить все текущие линии линейки в защищённую комнату облака по паролю.';
-      if (labelEl) labelEl.textContent = 'Придумайте пароль комнаты (от 5 символов):';
-      if (hintEl) hintEl.textContent = 'Все ваши линии на карте будут сохранены в облаке. Передайте пароль тому, с кем хотите поделиться.';
+      if (titleEl) titleEl.textContent = WM.t('📤 Поделиться измерениями');
+      if (descEl) descEl.textContent = WM.t('Сохранить все текущие линии линейки в защищённую комнату облака по паролю.');
+      if (labelEl) labelEl.textContent = WM.t('Придумайте пароль комнаты (от 5 символов):');
+      if (hintEl) hintEl.textContent = WM.t('Все ваши линии на карте будут сохранены в облаке. Передайте пароль тому, с кем хотите поделиться.');
       if (submitBtn) {
-        submitBtn.textContent = '📤 Отправить';
+        submitBtn.textContent = WM.t('📤 Отправить');
         submitBtn.disabled = false;
       }
       if (tabShare) tabShare.classList.add('active');
       if (tabDownload) tabDownload.classList.remove('active');
     } else {
-      if (titleEl) titleEl.textContent = '📥 Скачать измерения';
-      if (descEl) descEl.textContent = 'Загрузить сохранённые линии из комнаты по паролю и добавить их на карту.';
-      if (labelEl) labelEl.textContent = 'Введите пароль комнаты (от 5 символов):';
-      if (hintEl) hintEl.textContent = 'Линии из облака будут добавлены к вашим текущим измерениям на карте.';
+      if (titleEl) titleEl.textContent = WM.t('📥 Скачать измерения');
+      if (descEl) descEl.textContent = WM.t('Загрузить сохранённые линии из комнаты по паролю и добавить их на карту.');
+      if (labelEl) labelEl.textContent = WM.t('Введите пароль комнаты (от 5 символов):');
+      if (hintEl) hintEl.textContent = WM.t('Линии из облака будут добавлены к вашим текущим измерениям на карте.');
       if (submitBtn) {
-        submitBtn.textContent = '📥 Загрузить';
+        submitBtn.textContent = WM.t('📥 Загрузить');
         submitBtn.disabled = false;
       }
       if (tabShare) tabShare.classList.remove('active');
@@ -1202,9 +1202,9 @@
 
     if (password.length < 5) {
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast('⚠️ Пароль должен содержать минимум 5 символов', 2500);
+        WM.ui.showToast(WM.t('⚠️ Пароль должен содержать минимум 5 символов'), 2500);
       } else {
-        alert('Пароль должен содержать минимум 5 символов');
+        alert(WM.t('Пароль должен содержать минимум 5 символов'));
       }
       passInput?.focus();
       return;
@@ -1213,7 +1213,7 @@
     const submitBtn = $('measure-cloud-submit');
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = measureCloudMode === 'share' ? '⏳ Отправка…' : '⏳ Загрузка…';
+      submitBtn.textContent = measureCloudMode === 'share' ? WM.t('⏳ Отправка…') : WM.t('⏳ Загрузка…');
     }
 
     try {
@@ -1222,7 +1222,7 @@
       if (measureCloudMode === 'share') {
         const validTracks = tracks.filter(t => t.points && t.points.length >= 1);
         if (!validTracks.length) {
-          throw new Error('На карте нет измерений для отправки');
+          throw new Error(WM.t('На карте нет измерений для отправки'));
         }
 
         const payload = {
@@ -1242,22 +1242,22 @@
           body: JSON.stringify(payload)
         });
 
-        if (!res.ok) throw new Error(`Ошибка облака HTTP ${res.status}`);
+        if (!res.ok) throw new Error(WM.t('Ошибка облака HTTP {0}', res.status));
 
         closeMeasureCloudModal();
         if (WM.ui && WM.ui.showToast) {
-          WM.ui.showToast(`✅ Измерения сохранены в комнате! Пароль: «${password}»`, 3500);
+          WM.ui.showToast(WM.t('✅ Измерения сохранены в комнате! Пароль: «{0}»', password), 3500);
         }
       } else {
         // Режим DOWNLOAD
         const res = await fetch(`${DATABASE_URL}/measure_rooms/${hash}.json`);
-        if (!res.ok) throw new Error(`Ошибка загрузки: HTTP ${res.status}`);
+        if (!res.ok) throw new Error(WM.t('Ошибка загрузки: HTTP {0}', res.status));
 
         const data = await res.json();
-        if (!data) throw new Error('Комната с таким паролем не найдена или пуста');
+        if (!data) throw new Error(WM.t('Комната с таким паролем не найдена или пуста'));
 
         const remoteTracks = Array.isArray(data.tracks) ? data.tracks : (Array.isArray(data) ? data : []);
-        if (!remoteTracks.length) throw new Error('В комнате не найдено сохранённых измерений');
+        if (!remoteTracks.length) throw new Error(WM.t('В комнате не найдено сохранённых измерений'));
 
         let addedCount = 0;
         remoteTracks.forEach((rt, idx) => {
@@ -1273,7 +1273,7 @@
             } else {
               tracks.push({
                 id: 'track_' + Date.now() + '_' + idx + '_' + Math.floor(Math.random() * 1000),
-                name: rt.name || `Линия ${tracks.length + 1}`,
+                name: rt.name || WM.t('Линия {0}', tracks.length + 1),
                 color: rt.color || TRACK_COLORS[tracks.length % TRACK_COLORS.length],
                 points: validPts
               });
@@ -1282,7 +1282,7 @@
           }
         });
 
-        if (addedCount === 0) throw new Error('Данные не содержат корректных точек измерений');
+        if (addedCount === 0) throw new Error(WM.t('Данные не содержат корректных точек измерений'));
 
         activeTrackId = tracks[tracks.length - 1].id;
         saveStoredTracks();
@@ -1291,7 +1291,7 @@
 
         closeMeasureCloudModal();
         if (WM.ui && WM.ui.showToast) {
-          WM.ui.showToast(`✅ Загружено линий: ${addedCount}`, 3000);
+          WM.ui.showToast(WM.t('✅ Загружено линий: {0}', addedCount), 3000);
         }
       }
     } catch (err) {
@@ -1303,7 +1303,7 @@
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = measureCloudMode === 'share' ? '📤 Отправить' : '📥 Загрузить';
+        submitBtn.textContent = measureCloudMode === 'share' ? WM.t('📤 Отправить') : WM.t('📥 Загрузить');
       }
     }
   }
@@ -1325,18 +1325,18 @@
     isEditing = true;
     saveStoredTracks();
     updateDisplay();
-    if (WM.ui && WM.ui.showToast) WM.ui.showToast(`📏 Создано: ${newTrack.name}`);
+    if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('📏 Создано: {0}', newTrack.name));
   }
 
   function renameCurrentTrack() {
     const active = getActiveTrack();
     if (!active) return;
-    const newName = prompt('Название измерения:', active.name);
+    const newName = prompt(WM.t('Название измерения:'), active.name);
     if (newName && newName.trim()) {
       active.name = newName.trim();
       saveStoredTracks();
       updateDisplay();
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast(`Переименовано в «${active.name}»`);
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('Переименовано в «{0}»', active.name));
     }
   }
 
@@ -1361,7 +1361,7 @@
     if (isNavigating) stopNavigation();
     const active = getActiveTrack();
     if (!active) return;
-    if (active.points.length > 0 && !confirm(`Удалить измерение «${active.name}»?`)) return;
+    if (active.points.length > 0 && !confirm(WM.t('Удалить измерение «{0}»?', active.name))) return;
 
     tracks = tracks.filter(t => t.id !== active.id);
     if (tracks.length === 0) {
@@ -1373,7 +1373,7 @@
     }
     saveStoredTracks();
     updateDisplay();
-    if (WM.ui && WM.ui.showToast) WM.ui.showToast('🗑️ Измерение удалено');
+    if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🗑️ Измерение удалено'));
   }
 
   function toggleEditing() {
@@ -1381,7 +1381,7 @@
     isEditing = !isEditing;
     updateDisplay();
     if (WM.ui && WM.ui.showToast) {
-      WM.ui.showToast(isEditing ? '✏️ Редактирование: ставьте или двигайте узлы' : '📌 Измерение зафиксировано');
+      WM.ui.showToast(isEditing ? WM.t('✏️ Редактирование: ставьте или двигайте узлы') : WM.t('📌 Измерение зафиксировано'));
     }
   }
 
@@ -1402,7 +1402,7 @@
     const btn = $('btn-measure');
     if (btn) {
       btn.classList.add('active');
-      btn.title = 'Линейка активна (нажмите для скрытия панели)';
+      btn.title = WM.t('Линейка активна (нажмите для скрытия панели)');
     }
 
     const hud = $('measure-hud');
@@ -1412,8 +1412,8 @@
     if (WM.ui && WM.ui.showToast) {
       const isCross = WM.picker && WM.picker.getMode && WM.picker.getMode() === 'cross';
       WM.ui.showToast(isCross 
-        ? '📏 Наведите прицел и нажмите для добавления узла' 
-        : '📏 Кликайте по карте для построения линии', 2200);
+        ? WM.t('📏 Наведите прицел и нажмите для добавления узла') 
+        : WM.t('📏 Кликайте по карте для построения линии'), 2200);
     }
   }
 
@@ -1425,7 +1425,7 @@
     const btn = $('btn-measure');
     if (btn) {
       btn.classList.remove('active');
-      btn.title = 'Линейка (измерение расстояний)';
+      btn.title = WM.t('Линейка (измерение расстояний)');
     }
     const hud = $('measure-hud');
     if (hud) hud.hidden = true;
@@ -1507,7 +1507,7 @@
         const uLL = getUserLocationLL();
         if (uLL && WM.map) {
           WM.map.panTo(uLL);
-          if (WM.ui && WM.ui.showToast) WM.ui.showToast('🛰️ Центрирование на GPS');
+          if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('🛰️ Центрирование на GPS'));
         } else {
           $('btn-location')?.click();
         }
@@ -1567,14 +1567,14 @@
         const validPts = importedData.filter(p => p && isFinite(p.lat) && isFinite(p.lng));
         tracks = [{
           id: 'track_' + Date.now(),
-          name: 'Линия 1',
+          name: WM.t('Линия 1'),
           color: TRACK_COLORS[0],
           points: validPts
         }];
       } else {
         tracks = importedData.map((t, idx) => ({
           id: t.id || ('track_' + Date.now() + '_' + idx),
-          name: t.name || `Линия ${idx + 1}`,
+          name: t.name || WM.t('Линия {0}', idx + 1),
           color: t.color || TRACK_COLORS[idx % TRACK_COLORS.length],
           points: Array.isArray(t.points) ? t.points.filter(p => p && isFinite(p.lat) && isFinite(p.lng)) : []
         }));

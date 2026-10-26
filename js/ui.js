@@ -14,10 +14,10 @@
 
   // --- ДОБАВЛЕНО: Форматирование дистанции треков ---
   function fmtDistance(meters) {
-    if (!meters || meters < 0.1) return '0 м';
-    if (meters < 1000) return Math.round(meters) + ' м';
+    if (!meters || meters < 0.1) return WM.t('0 м');
+    if (meters < 1000) return WM.t('{0} м', Math.round(meters));
     const km = meters / 1000;
-    return (km < 10 ? km.toFixed(2) : km.toFixed(1)) + ' км';
+    return WM.t('{0} км', km < 10 ? km.toFixed(2) : km.toFixed(1));
   }
 
   let snapshotVector = null, snapshotRaster = null;
@@ -312,7 +312,7 @@
     // 10. Поиск / подсветка по выбранному тегу
     if (WM.view && WM.view.getActiveTag && WM.view.getActiveTag()) {
       WM.view.clearTagFilter();
-      showToast('🏷️ Подсветка тега сброшена');
+      showToast(WM.t('🏷️ Подсветка тега сброшена'));
       return true;
     }
 
@@ -383,10 +383,13 @@
 
   document.addEventListener('DOMContentLoaded', initCapacitorBackButton);
 
+  // Язык контента Wikimapia по умолчанию = язык интерфейса (ru / en / pt)
+  const DEFLANG = WM.i18n.api.wikimapia;
+
   const LANG_FLAGS = {
     ru: '🇷🇺', en: '🇬🇧', uk: '🇺🇦', be: '🇧🇾', de: '🇩🇪', fr: '🇫🇷',
     es: '🇪🇸', it: '🇮🇹', pl: '🇵🇱', tr: '🇹🇷', zh: '🇨🇳', cn: '🇨🇳',
-    ja: '🇯🇵', ar: '🇸🇦', he: '🇮🇱', pt: '🇵🇹', el: '🇬🇷', cs: '🇨🇿',
+    ja: '🇯🇵', ar: '🇸🇦', he: '🇮🇱', pt: '🇧🇷', el: '🇬🇷', cs: '🇨🇿',
     ro: '🇷🇴', hu: '🇭🇺', bg: '🇧🇬', ka: '🇬🇪', hy: '🇦🇲', az: '🇦🇿',
     kk: '🇰🇿', uz: '🇺🇿', fi: '🇫🇮', sv: '🇸🇪', no: '🇳🇴', da: '🇩🇰',
     nl: '🇳🇱', hr: '🇭🇷', sr: '🇷🇸', sk: '🇸🇰', sl: '🇸🇮', lt: '🇱🇹',
@@ -470,7 +473,7 @@
     if (crosshair) {
       const isClickable = quickMenuConfig.enabled && quickMenuConfig.triggers.crosshair;
       crosshair.classList.toggle('clickable', isClickable);
-      if (isClickable) crosshair.setAttribute('title', '⚡ Быстрое меню');
+      if (isClickable) crosshair.setAttribute('title', WM.t('⚡ Быстрое меню'));
       else crosshair.removeAttribute('title');
     }
     if (window.updateQuickSwapUI) window.updateQuickSwapUI();
@@ -495,17 +498,17 @@
       {
         id: 'objects',
         icon: '📋',
-        title: 'Объекты',
-        sub: 'Список видимых объектов',
-        detail: 'Просмотр всех загруженных объектов на видимом участке карты с поиском, фильтрами и сохранением в память.',
+        title: WM.t('Объекты'),
+        sub: WM.t('Список видимых объектов'),
+        detail: WM.t('Просмотр всех загруженных объектов на видимом участке карты с поиском, фильтрами и сохранением в память.'),
         action: () => { closeQuickMenu(false); openObjectsListModal(false); }
       },
       {
         id: 'customOverlay',
         icon: '🗺️',
-        title: 'Своя карта',
-        sub: (WM.imageOverlay && WM.imageOverlay.isEditing()) ? 'Настроить слой' : 'Наложения и KML',
-        detail: 'Загрузка и привязка собственных старинных карт, планов и схем (JPG, PNG, WebP) с поддержкой KML.',
+        title: WM.t('Своя карта'),
+        sub: (WM.imageOverlay && WM.imageOverlay.isEditing()) ? WM.t('Настроить слой') : WM.t('Наложения и KML'),
+        detail: WM.t('Загрузка и привязка собственных старинных карт, планов и схем (JPG, PNG, WebP) с поддержкой KML.'),
         action: () => {
           closeQuickMenu(false);
           if (WM.imageOverlay) {
@@ -517,9 +520,9 @@
       {
         id: 'demRelief',
         icon: '🏔️',
-        title: '3D Рельеф',
-        sub: 'Отмывка теней и горизонтали',
-        detail: 'Быстрая настройка 3D-теней, освещения солнца/луны, сглаживания высот и линий горизонталей прямо на карте.',
+        title: WM.t('3D Рельеф'),
+        sub: WM.t('Отмывка теней и горизонтали'),
+        detail: WM.t('Быстрая настройка 3D-теней, освещения солнца/луны, сглаживания высот и линий горизонталей прямо на карте.'),
         action: () => {
           closeQuickMenu(false);
           if (WM.demRelief?.openHud) WM.demRelief.openHud();
@@ -529,9 +532,9 @@
       {
         id: 'quickMeasure',
         icon: '📐',
-        title: 'Быстрое изм.',
-        sub: 'Дистанция по 2 точкам',
-        detail: 'Быстрое измерение прямого расстояния между двумя точками с возможностью их перетаскивания по карте.',
+        title: WM.t('Быстрое изм.'),
+        sub: WM.t('Дистанция по 2 точкам'),
+        detail: WM.t('Быстрое измерение прямого расстояния между двумя точками с возможностью их перетаскивания по карте.'),
         action: () => { 
           closeQuickMenu(false); 
           if (WM.quickMeasure?.openTool) WM.quickMeasure.openTool(); 
@@ -541,9 +544,9 @@
       {
         id: 'measure',
         icon: '📏',
-        title: 'Линейка',
-        sub: 'Маршрут и узлы пути',
-        detail: 'Построение детальных ломаных маршрутов, измерение длины пути, добавление промежуточных узлов и навигация.',
+        title: WM.t('Линейка'),
+        sub: WM.t('Маршрут и узлы пути'),
+        detail: WM.t('Построение детальных ломаных маршрутов, измерение длины пути, добавление промежуточных узлов и навигация.'),
         action: () => { 
           closeQuickMenu(false); 
           if (WM.measure?.openTool) WM.measure.openTool(); 
@@ -553,17 +556,17 @@
       {
         id: 'shadowHeight',
         icon: '🏢',
-        title: 'Высота тени',
-        sub: 'Расчёт высоты по Солнцу',
-        detail: 'Вычисление высоты здания или вышки по длине его тени на спутниковом снимке и расчётному углу Солнца.',
+        title: WM.t('Высота тени'),
+        sub: WM.t('Расчёт высоты по Солнцу'),
+        detail: WM.t('Вычисление высоты здания или вышки по длине его тени на спутниковом снимке и расчётному углу Солнца.'),
         action: () => { closeQuickMenu(false); if (WM.shadowHeight?.openTool) WM.shadowHeight.openTool(); }
       },
       {
         id: 'marker',
         icon: '📍',
-        title: 'Метка',
-        sub: 'Создать заметку в центре',
-        detail: 'Установка персональной или публичной метки с эмодзи-иконкой и текстом заметки в центре экрана.',
+        title: WM.t('Метка'),
+        sub: WM.t('Создать заметку в центре'),
+        detail: WM.t('Установка персональной или публичной метки с эмодзи-иконкой и текстом заметки в центре экрана.'),
         action: () => {
           closeQuickMenu(false);
           if (WM.markers?.openModal) WM.markers.openModal(null);
@@ -573,9 +576,9 @@
       {
         id: 'compassAdjust',
         icon: '🧭',
-        title: 'Юстировка',
-        sub: 'Калибровка компаса',
-        detail: 'Калибровка компаса телефона по направлению на Север, положению диска Солнца, Луне или ориентирам карты.',
+        title: WM.t('Юстировка'),
+        sub: WM.t('Калибровка компаса'),
+        detail: WM.t('Калибровка компаса телефона по направлению на Север, положению диска Солнца, Луне или ориентирам карты.'),
         action: () => {
           closeQuickMenu(false);
           if (window.openCompassAdjustModal) window.openCompassAdjustModal();
@@ -584,9 +587,9 @@
       {
         id: 'trackRecord',
         icon: '⏺️',
-        title: 'Запись трека',
-        sub: (WM.tracker && WM.tracker.isRecording()) ? 'Идёт запись (нажмите для управления)' : 'Запустить запись GPS трека',
-        detail: 'Непрерывная запись пути с защитой от спуфинга, барометром, аварийным сохранением при разряде и экспортом в GPX.',
+        title: WM.t('Запись трека'),
+        sub: (WM.tracker && WM.tracker.isRecording()) ? WM.t('Идёт запись (нажмите для управления)') : WM.t('Запустить запись GPS трека'),
+        detail: WM.t('Непрерывная запись пути с защитой от спуфинга, барометром, аварийным сохранением при разряде и экспортом в GPX.'),
         action: () => {
           closeQuickMenu();
           $('btn-track-record')?.click();
@@ -595,9 +598,9 @@
       {
         id: 'pdrQuick',
         icon: '👣',
-        title: 'Шагомер PDR',
-        sub: 'Параметры и калибровка',
-        detail: 'Параметры автономной навигации без GPS: длина шага, чувствительность, положение смартфона (рука/карман).',
+        title: WM.t('Шагомер PDR'),
+        sub: WM.t('Параметры и калибровка'),
+        detail: WM.t('Параметры автономной навигации без GPS: длина шага, чувствительность, положение смартфона (рука/карман).'),
         action: () => {
           closeQuickMenu(false);
           if (window.openPdrQuickModal) window.openPdrQuickModal();
@@ -606,9 +609,9 @@
       {
         id: 'inatHub',
         icon: '🌿',
-        title: 'Флора и фауна',
-        sub: 'iNat: фото, поиск и фильтры',
-        detail: 'База наблюдений iNaturalist: точки находок растений, птиц и грибов с фотографиями и экспертными определениями.',
+        title: WM.t('Флора и фауна'),
+        sub: WM.t('iNat: фото, поиск и фильтры'),
+        detail: WM.t('База наблюдений iNaturalist: точки находок растений, птиц и грибов с фотографиями и экспертными определениями.'),
         action: () => {
           closeQuickMenu(false);
           if (WM.inat && WM.inat.openQuickHubModal) WM.inat.openQuickHubModal();
@@ -617,9 +620,9 @@
       {
         id: 'placeInsight',
         icon: '🏕️',
-        title: 'О месте',
-        sub: 'Природа, биотоп, проходимость и находки',
-        detail: 'Комплексная экспресс-разведка: проходимость, заболоченность, биотоп, активность грибов и вероятная флора/фауна.',
+        title: WM.t('О месте'),
+        sub: WM.t('Природа, биотоп, проходимость и находки'),
+        detail: WM.t('Комплексная экспресс-разведка: проходимость, заболоченность, биотоп, активность грибов и вероятная флора/фауна.'),
         action: () => {
           closeQuickMenu(false);
           if (WM.placeInsight && WM.placeInsight.open) WM.placeInsight.open();
@@ -628,17 +631,17 @@
       {
         id: 'inatSuggest',
         icon: '🔮',
-        title: 'Радар видов',
-        sub: 'Вероятные виды вокруг (iNat)',
-        detail: 'Умный радар биоразнообразия: прогноз вероятных видов растений, птиц и грибов в окрестностях прямо сейчас.',
+        title: WM.t('Радар видов'),
+        sub: WM.t('Вероятные виды вокруг (iNat)'),
+        detail: WM.t('Умный радар биоразнообразия: прогноз вероятных видов растений, птиц и грибов в окрестностях прямо сейчас.'),
         action: () => { closeQuickMenu(false); if (WM.inat?.openSmartSuggestionsModal) WM.inat.openSmartSuggestionsModal(); }
       },     
       {
         id: 'soil',
         icon: '🧪',
-        title: 'Почва и биотоп',
-        sub: 'Кислотность pH, состав и грибы/растения',
-        detail: 'Анализ почвы SoilGrids: уровень кислотности pH, соотношение песка, ила и глины, влажность и биотоп.',
+        title: WM.t('Почва и биотоп'),
+        sub: WM.t('Кислотность pH, состав и грибы/растения'),
+        detail: WM.t('Анализ почвы SoilGrids: уровень кислотности pH, соотношение песка, ила и глины, влажность и биотоп.'),
         action: () => {
           closeQuickMenu(false);
           if (WM.soil && WM.soil.openDiagnosis) WM.soil.openDiagnosis();
@@ -647,9 +650,9 @@
       {
         id: 'water',
         icon: '🌊',
-        title: 'Паводки и вода',
-        sub: 'Разлив рек, верховодка и болота',
-        detail: 'Гидрологическая диагностика GloFAS: мониторинг паводков, уровня воды в реках, верховодки и заболоченности.',
+        title: WM.t('Паводки и вода'),
+        sub: WM.t('Разлив рек, верховодка и болота'),
+        detail: WM.t('Гидрологическая диагностика GloFAS: мониторинг паводков, уровня воды в реках, верховодки и заболоченности.'),
         action: () => {
           closeQuickMenu(false);
           if (WM.water && WM.water.openDiagnosis) WM.water.openDiagnosis();
@@ -658,9 +661,9 @@
       {
         id: 'nightVision',
         icon: '🔴',
-        title: 'Ночной режим',
-        sub: document.documentElement.getAttribute('data-theme') === 'night-vision' ? 'Включён (нажмите для выкл)' : 'Красный монохром',
-        detail: 'Глубокий красный монохромный режим для сохранения ночной адаптации глаз при работе в темноте.',
+        title: WM.t('Ночной режим'),
+        sub: document.documentElement.getAttribute('data-theme') === 'night-vision' ? WM.t('Включён (нажмите для выкл)') : WM.t('Красный монохром'),
+        detail: WM.t('Глубокий красный монохромный режим для сохранения ночной адаптации глаз при работе в темноте.'),
         action: () => {
           closeQuickMenu();
           toggleNightVision();
@@ -669,40 +672,40 @@
       {
         id: 'sunMoonRays',
         icon: '✨',
-        title: 'Азимуты',
-        sub: infoHudConfig.rays ? 'Лучи включены (скрыть)' : 'Линии Солнца и Луны',
-        detail: 'Отображение на карте направляющих лучей на текущее положение Солнца (жёлтый) и Луны (голубой).',
+        title: WM.t('Азимуты'),
+        sub: infoHudConfig.rays ? WM.t('Лучи включены (скрыть)') : WM.t('Линии Солнца и Луны'),
+        detail: WM.t('Отображение на карте направляющих лучей на текущее положение Солнца (жёлтый) и Луны (голубой).'),
         action: () => {
           closeQuickMenu();
           infoHudConfig.rays = !infoHudConfig.rays;
           WM.api.store.set('wm_info_hud_items', JSON.stringify(infoHudConfig));
           updateInfoHudUI();
           updateRaysBtnState();
-          showToast(infoHudConfig.rays ? '✨ Азимуты включены' : '✨ Азимуты скрыты');
+          showToast(infoHudConfig.rays ? WM.t('✨ Азимуты включены') : WM.t('✨ Азимуты скрыты'));
         }
       },
       {
         id: 'manualPdr',
         icon: '🧲',
-        title: 'GPS сюда',
-        sub: (WM.manualPdr && WM.manualPdr.isActive()) ? 'Шагомер активен (выкл)' : 'Привязать точку к центру',
-        detail: 'Принудительная привязка геопозиции к центру перекрестия и запуск автономного шагомера по датчикам.',
+        title: WM.t('GPS сюда'),
+        sub: (WM.manualPdr && WM.manualPdr.isActive()) ? WM.t('Шагомер активен (выкл)') : WM.t('Привязать точку к центру'),
+        detail: WM.t('Принудительная привязка геопозиции к центру перекрестия и запуск автономного шагомера по датчикам.'),
         action: () => { closeQuickMenu(); if (WM.manualPdr?.toggle) WM.manualPdr.toggle(); }
       },
       {
         id: 'gpsDist',
         icon: '🧭',
-        title: 'До GPS',
-        sub: (WM.gpsDist && WM.gpsDist.isActive()) ? 'Линия включена' : 'Линия от центра к GPS',
-        detail: 'Линия от центра экрана до вашего GPS с дистанцией, скоростью, временем хода и курсовым углом.',
+        title: WM.t('До GPS'),
+        sub: (WM.gpsDist && WM.gpsDist.isActive()) ? WM.t('Линия включена') : WM.t('Линия от центра к GPS'),
+        detail: WM.t('Линия от центра экрана до вашего GPS с дистанцией, скоростью, временем хода и курсовым углом.'),
         action: () => { closeQuickMenu(); if (WM.gpsDist?.toggle) WM.gpsDist.toggle(); }
       },
       {
         id: 'rangering',
         icon: '🎯',
-        title: 'Круг дальности',
-        sub: (WM.rangeRing && WM.rangeRing.isEnabled()) ? 'Визир включён' : 'Визир со шкалами',
-        detail: 'Круговой тактический визир в центре экрана со шкалами дальности и координатными осями.',
+        title: WM.t('Круг дальности'),
+        sub: (WM.rangeRing && WM.rangeRing.isEnabled()) ? WM.t('Визир включён') : WM.t('Визир со шкалами'),
+        detail: WM.t('Круговой тактический визир в центре экрана со шкалами дальности и координатными осями.'),
         action: () => {
           closeQuickMenu();
           const next = !(WM.rangeRing && WM.rangeRing.isEnabled());
@@ -712,15 +715,15 @@
           const subRR = $('sub-rangering-settings');
           if (subRR) subRR.hidden = !next;
           applyUIVisibility();
-          showToast(next ? '🎯 Круг дальности включён' : '🎯 Круг дальности скрыт');
+          showToast(next ? WM.t('🎯 Круг дальности включён') : WM.t('🎯 Круг дальности скрыт'));
         }
       },
       {
         id: 'coords',
         icon: '🌐',
-        title: 'Координаты',
-        sub: `${coordStr} · Внешние карты`,
-        detail: 'Копирование координат центра экрана и открытие точки во внешних картах (Яндекс, Google, OSM, ЭтоМесто).',
+        title: WM.t('Координаты'),
+        sub: WM.t('{0} · Внешние карты', coordStr),
+        detail: WM.t('Копирование координат центра экрана и открытие точки во внешних картах (Яндекс, Google, OSM, ЭтоМесто).'),
         action: () => { closeQuickMenu(false); openCoordsModal(center.lat, center.lng); }
       }
     ];
@@ -742,7 +745,7 @@
 
     if (lockBtn) {
       lockBtn.textContent = isLocked ? '🔒' : '🔓';
-      lockBtn.title = isLocked ? 'Кнопки зафиксированы (нажмите для редактирования)' : 'Режим редактирования (нажмите для фиксации)';
+      lockBtn.title = isLocked ? WM.t('Кнопки зафиксированы (нажмите для редактирования)') : WM.t('Режим редактирования (нажмите для фиксации)');
       lockBtn.classList.toggle('unlocked', !isLocked);
     }
 
@@ -784,13 +787,13 @@
         const delBtn = el('button', {
           type: 'button',
           class: 'qm-tile-del-btn',
-          title: 'Удалить эту кнопку',
+          title: WM.t('Удалить эту кнопку'),
           onclick: (e) => {
             e.stopPropagation();
             quickMenuConfig.items[id] = false;
             saveQuickMenuConfig();
             renderQuickMenuItems();
-            showToast(`Кнопка «${item.title}» скрыта`);
+            showToast(WM.t('Кнопка «{0}» скрыта', item.title));
           }
         }, el('span', { text: '✕' }));
         tile.appendChild(delBtn);
@@ -916,12 +919,12 @@
       const addTile = el('button', {
         type: 'button',
         class: 'qm-tile qm-tile-add',
-        title: 'Добавить кнопку из недостающих',
+        title: WM.t('Добавить кнопку из недостающих'),
         onclick: openQuickMenuAddModal
       },
         el('span', { class: 'qm-tile-add-icon', text: '＋' }),
-        el('span', { class: 'qm-tile-title', text: 'Добавить' }),
-        el('span', { class: 'qm-tile-sub', text: hiddenItems.length ? `Доступно: ${hiddenItems.length}` : 'Все добавлены' })
+        el('span', { class: 'qm-tile-title', text: WM.t('Добавить') }),
+        el('span', { class: 'qm-tile-sub', text: hiddenItems.length ? WM.t('Доступно: {0}', hiddenItems.length) : WM.t('Все добавлены') })
       );
       listEl.appendChild(addTile);
     }
@@ -929,8 +932,8 @@
     if (!activeIds.length && isLocked) {
       listEl.innerHTML = `
         <div class="muted" style="grid-column: 1 / -1; padding: 24px 12px; line-height: 1.45;">
-          Все кнопки скрыты.<br>
-          Нажмите на замок <b>🔓</b> вверху, чтобы добавить нужные кнопки через <b>[＋]</b>.
+          ${WM.t('Все кнопки скрыты.')}<br>
+          ${WM.t('Нажмите на замок')} <b>🔓</b> ${WM.t('вверху, чтобы добавить нужные кнопки через')} <b>[＋]</b>.
         </div>`;
     }
   }
@@ -946,7 +949,7 @@
     const hiddenItems = catalog.filter(c => quickMenuConfig.items[c.id] === false);
 
     if (!hiddenItems.length) {
-      listEl.innerHTML = '<div class="muted">Все доступные кнопки уже добавлены в меню!</div>';
+      listEl.innerHTML = `<div class="muted">${WM.t('Все доступные кнопки уже добавлены в меню!')}</div>`;
     } else {
       hiddenItems.forEach(item => {
         const btn = el('div', {
@@ -956,7 +959,7 @@
             saveQuickMenuConfig();
             modal.classList.remove('open');
             renderQuickMenuItems();
-            showToast(`Кнопка «${item.title}» добавлена!`);
+            showToast(WM.t('Кнопка «{0}» добавлена!', item.title));
           }
         },
           el('span', { class: 'qm-available-item-icon', text: item.icon }),
@@ -1053,7 +1056,7 @@
       const tipSub = $('quick-pie-tip-sub');
       if (!tipSub) return;
       if (type === 'center') {
-        tipSub.textContent = 'Быстрое веерное меню: проведите пальцем к нужному сектору и отпустите. Для отмены отпустите палец в центральном круге.';
+        tipSub.textContent = WM.t('Быстрое веерное меню: проведите пальцем к нужному сектору и отпустите. Для отмены отпустите палец в центральном круге.');
       } else if (item && item.detail) {
         tipSub.textContent = item.detail;
       }
@@ -1224,8 +1227,8 @@
     if (tip) {
       tip.classList.remove('has-selection');
       $('quick-pie-tip-icon').textContent = '⚡';
-      $('quick-pie-tip-title').textContent = 'Быстрое меню';
-      $('quick-pie-tip-sub').textContent = 'Проведите к кнопке и отпустите';
+      $('quick-pie-tip-title').textContent = WM.t('Быстрое меню');
+      $('quick-pie-tip-sub').textContent = WM.t('Проведите к кнопке и отпустите');
     }
 
     overlay.hidden = false;
@@ -1314,8 +1317,8 @@
       }
     } else {
       if (tipIcon) tipIcon.textContent = '⚡';
-      if (tipTitle) tipTitle.textContent = 'Отмена';
-      if (tipSub) tipSub.textContent = 'Отпустите здесь для отмены';
+      if (tipTitle) tipTitle.textContent = WM.t('Отмена');
+      if (tipSub) tipSub.textContent = WM.t('Отпустите здесь для отмены');
       if (tip) tip.classList.remove('has-selection');
 
       startPieDetailTimer('center', null);
@@ -1372,7 +1375,7 @@
         quickMenuConfig.locked = !quickMenuConfig.locked;
         saveQuickMenuConfig();
         renderQuickMenuItems();
-        showToast(quickMenuConfig.locked ? '🔒 Кнопки зафиксированы' : '🔓 Режим правки: можно удалять (✕) и перетаскивать');
+        showToast(quickMenuConfig.locked ? WM.t('🔒 Кнопки зафиксированы') : WM.t('🔓 Режим правки: можно удалять (✕) и перетаскивать'));
       };
     }
 
@@ -1404,7 +1407,7 @@
         DEFAULT_QUICK_MENU_ORDER.forEach(id => { quickMenuConfig.items[id] = true; });
         saveQuickMenuConfig();
         renderQuickMenuItems();
-        showToast('Порядок и кнопки сброшены по умолчанию');
+        showToast(WM.t('Порядок и кнопки сброшены по умолчанию'));
       };
     }
 
@@ -1648,21 +1651,21 @@
 
       const startTime = performance.now();
       timer = setTimeout(() => {
-        finish('warn', Math.round(performance.now() - startTime), 'Таймаут (>5.5 с)');
+        finish('warn', Math.round(performance.now() - startTime), WM.t('Таймаут (>5.5 с)'));
       }, timeoutMs);
 
       img.onload = () => {
         const latency = Math.round(performance.now() - startTime);
         if (img.naturalWidth > 0 && img.naturalHeight > 0) {
-          finish('ok', latency, `${latency} мс`);
+          finish('ok', latency, WM.t('{0} мс', latency));
         } else {
-          finish('err', latency, 'Пустой ответ');
+          finish('err', latency, WM.t('Пустой ответ'));
         }
       };
 
       img.onerror = () => {
         const latency = Math.round(performance.now() - startTime);
-        finish('err', latency, 'Ошибка сети / 404');
+        finish('err', latency, WM.t('Ошибка сети / 404'));
       };
 
       const cacheBust = (url.includes('?') ? '&' : '?') + '_wmchk=' + Date.now();
@@ -1691,13 +1694,13 @@
     if (!badge) return;
     badge.className = `map-status-badge map-status-${status}`;
     if (status === 'checking') {
-      badge.textContent = '⏳ Проверка…';
+      badge.textContent = WM.t('⏳ Проверка…');
     } else if (status === 'ok') {
-      badge.textContent = `🟢 Доступна (${text})`;
+      badge.textContent = WM.t('🟢 Доступна ({0})', text);
     } else if (status === 'warn') {
       badge.textContent = `🟡 ${text}`;
     } else if (status === 'err') {
-      badge.textContent = `🔴 Недоступна (${text})`;
+      badge.textContent = WM.t('🔴 Недоступна ({0})', text);
     } else {
       badge.className = 'map-status-badge map-status-idle';
       badge.textContent = '';
@@ -1711,10 +1714,10 @@
     if (!btn || !WM.baseMapsCatalog) return;
 
     btn.classList.add('loading');
-    btn.textContent = '⏳ Проверка карт…';
+    btn.textContent = WM.t('⏳ Проверка карт…');
     if (summary) {
       summary.hidden = false;
-      summary.textContent = 'Подключение к серверам карт…';
+      summary.textContent = WM.t('Подключение к серверам карт…');
     }
 
     WM.baseMapsCatalog.forEach(m => {
@@ -1738,7 +1741,7 @@
         updateMapBadgeUI(m.id, res.status, res.message);
 
         if (summary) {
-          summary.innerHTML = `<span>Проверено: <b>${done}/${catalog.length}</b></span><span>🟢 ${okCount} · 🔴 ${failCount}</span>`;
+          summary.innerHTML = `<span>${WM.t('Проверено:')} <b>${done}/${catalog.length}</b></span><span>🟢 ${okCount} · 🔴 ${failCount}</span>`;
         }
       }
     }
@@ -1750,11 +1753,11 @@
     await Promise.all(workers);
 
     btn.classList.remove('loading');
-    btn.textContent = '🔄 Проверить повторно';
+    btn.textContent = WM.t('🔄 Проверить повторно');
     if (summary) {
-      summary.innerHTML = `<span>Готово! Доступно: <b>${okCount} из ${catalog.length}</b></span><span>${failCount > 0 ? '⚠️ Есть недоступные' : '✅ Все работают'}</span>`;
+      summary.innerHTML = `<span>${WM.t('Готово! Доступно:')} <b>${WM.t('{0} из {1}', okCount, catalog.length)}</b></span><span>${failCount > 0 ? WM.t('⚠️ Есть недоступные') : WM.t('✅ Все работают')}</span>`;
     }
-    showToast(`Проверка завершена: доступно ${okCount} из ${catalog.length} карт`);
+    showToast(WM.t('Проверка завершена: доступно {0} из {1} карт', okCount, catalog.length));
   }
 
   function updateQuickSwapTargetBtn() {
@@ -1766,11 +1769,11 @@
     if (targetMap.startsWith('kml:')) {
       const kmlId = targetMap.slice(4);
       const kml = WM.imageOverlay && WM.imageOverlay.getOverlay ? WM.imageOverlay.getOverlay(kmlId) : null;
-      titleEl.textContent = kml ? `📜 ${kml.name}` : '📜 KML карта';
+      titleEl.textContent = kml ? `📜 ${kml.name}` : WM.t('📜 KML карта');
     } else {
       const isSat = targetMap.includes('Спутник');
       const icon = isSat ? '🛰️' : '🗺️';
-      titleEl.textContent = `${icon} ${targetMap}`;
+      titleEl.textContent = `${icon} ${WM.t(targetMap)}`;
     }
   }
   WM.ui = WM.ui || {};
@@ -1819,9 +1822,9 @@
       selectQuickSwap.innerHTML = '';
       WM.baseMapsCatalog.forEach(m => {
         const opt = document.createElement('option');
-        opt.value = m.name;
+        opt.value = m.key;
         opt.textContent = `${m.category === 'historical' ? '📜 ' : '🗺️ '}${m.name}`;
-        if (m.name === currentTargetMap) opt.selected = true;
+        if (m.key === currentTargetMap) opt.selected = true;
         selectQuickSwap.appendChild(opt);
       });
     }
@@ -1846,7 +1849,7 @@
 
     WM.baseMapsCatalog.forEach(m => {
       const isHist = m.category === 'historical';
-      const isChecked = !disabledList.includes(m.name);
+      const isChecked = !disabledList.includes(m.key);
       const targetContainer = isHist ? histListEl : modernListEl;
 
       const itemLabel = el('label', { class: 'toggle-item map-toggle-item' },
@@ -1857,14 +1860,14 @@
         el('input', {
           type: 'checkbox',
           class: 'map-checkbox-input',
-          'data-map-name': m.name,
+          'data-map-name': m.key,
           checked: isChecked,
           onchange: (e) => {
             // Защита от полного отключения всех карт
             const allChecked = document.querySelectorAll('.map-checkbox-input:checked');
             if (allChecked.length === 0) {
               e.target.checked = true;
-              showToast('Должна быть включена хотя бы одна карта!');
+              showToast(WM.t('Должна быть включена хотя бы одна карта!'));
             }
           }
         }),
@@ -1903,7 +1906,7 @@
             chk.checked = false;
           }
         });
-        showToast('Оставлена только активная карта');
+        showToast(WM.t('Оставлена только активная карта'));
       };
     }
   }
@@ -1971,30 +1974,30 @@
 
   // Коды погоды WMO (World Meteorological Organization)
   const WMO_WEATHER_MAP = {
-    0: { text: 'Ясно', icon: '☀️' },
-    1: { text: 'Преимущ. ясно', icon: '🌤️' },
-    2: { text: 'Переменная обл.', icon: '⛅' },
-    3: { text: 'Пасмурно', icon: '☁️' },
-    45: { text: 'Туман', icon: '🌫️' },
-    48: { text: 'Туман/иней', icon: '🌫️' },
-    51: { text: 'Слабая морось', icon: '🌦️' },
-    53: { text: 'Морось', icon: '🌦️' },
-    55: { text: 'Сильная морось', icon: '🌧️' },
-    61: { text: 'Небольшой дождь', icon: '🌦️' },
-    63: { text: 'Умеренный дождь', icon: '🌧️' },
-    65: { text: 'Сильный дождь', icon: '🌧️' },
-    71: { text: 'Небольшой снег', icon: '🌨️' },
-    73: { text: 'Снегопад', icon: '🌨️' },
-    75: { text: 'Сильный снегопад', icon: '❄️' },
-    77: { text: 'Снежные зерна', icon: '❄️' },
-    80: { text: 'Кратковрем. дождь', icon: '🌦️' },
-    81: { text: 'Ливень', icon: '🌧️' },
-    82: { text: 'Сильный ливень', icon: '⛈️' },
-    85: { text: 'Снегопад', icon: '🌨️' },
-    86: { text: 'Сильный снегопад', icon: '❄️' },
-    95: { text: 'Гроза', icon: '⛈️' },
-    96: { text: 'Гроза с градом', icon: '⛈️' },
-    99: { text: 'Сильная гроза с градом', icon: '⛈️' }
+    0: { text: WM.t('Ясно'), icon: '☀️' },
+    1: { text: WM.t('Преимущ. ясно'), icon: '🌤️' },
+    2: { text: WM.t('Переменная обл.'), icon: '⛅' },
+    3: { text: WM.t('Пасмурно'), icon: '☁️' },
+    45: { text: WM.t('Туман'), icon: '🌫️' },
+    48: { text: WM.t('Туман/иней'), icon: '🌫️' },
+    51: { text: WM.t('Слабая морось'), icon: '🌦️' },
+    53: { text: WM.t('Морось'), icon: '🌦️' },
+    55: { text: WM.t('Сильная морось'), icon: '🌧️' },
+    61: { text: WM.t('Небольшой дождь'), icon: '🌦️' },
+    63: { text: WM.t('Умеренный дождь'), icon: '🌧️' },
+    65: { text: WM.t('Сильный дождь'), icon: '🌧️' },
+    71: { text: WM.t('Небольшой снег'), icon: '🌨️' },
+    73: { text: WM.t('Снегопад'), icon: '🌨️' },
+    75: { text: WM.t('Сильный снегопад'), icon: '❄️' },
+    77: { text: WM.t('Снежные зерна'), icon: '❄️' },
+    80: { text: WM.t('Кратковрем. дождь'), icon: '🌦️' },
+    81: { text: WM.t('Ливень'), icon: '🌧️' },
+    82: { text: WM.t('Сильный ливень'), icon: '⛈️' },
+    85: { text: WM.t('Снегопад'), icon: '🌨️' },
+    86: { text: WM.t('Сильный снегопад'), icon: '❄️' },
+    95: { text: WM.t('Гроза'), icon: '⛈️' },
+    96: { text: WM.t('Гроза с градом'), icon: '⛈️' },
+    99: { text: WM.t('Сильная гроза с градом'), icon: '⛈️' }
   };
 
   // =========================================================================
@@ -2042,7 +2045,7 @@
 
   // Адаптер: преобразует формат wttr.in (?format=j1) в структуру Open-Meteo
   function parseWttrAsOpenMeteo(data) {
-    if (!data || !Array.isArray(data.weather)) throw new Error('Некорректный wttr.in');
+    if (!data || !Array.isArray(data.weather)) throw new Error(WM.t('Некорректный wttr.in'));
     const hourlyTimes = [];
     const hourlyTemps = [];
     const hourlyCodes = [];
@@ -2095,7 +2098,7 @@
       try {
         json = JSON.parse(text);
       } catch (e) {
-        throw new Error('Ответ не в формате JSON');
+        throw new Error(WM.t('Ответ не в формате JSON'));
       }
 
       // Если ответ пришел через прокси с полем contents (например, allorigins / hexlet)
@@ -2146,7 +2149,7 @@
         try { localStorage.setItem('wm_weather_last_cache', JSON.stringify({ key, data, time: weatherCacheTimestamp })); } catch (e) {}
         return data;
       }
-      throw new Error('Не удалось получить метеоданные');
+      throw new Error(WM.t('Не удалось получить метеоданные'));
     }
   };
   let weatherCacheKey = '';
@@ -2210,7 +2213,7 @@
         lastWeatherFailTime = 0;
         try { localStorage.setItem('wm_weather_last_cache', JSON.stringify({ key, data, time: weatherCacheTimestamp })); } catch (e) {}
       } else {
-        throw new Error('Пустой ответ погоды');
+        throw new Error(WM.t('Пустой ответ погоды'));
       }
     } catch (err) {
       weatherFailCount++;
@@ -2238,7 +2241,7 @@
       if (idx === -1) return null;
       const t = temps[idx];
       const code = codes[idx];
-      const wInfo = WMO_WEATHER_MAP[code] || { text: 'Ясно', icon: '🌤️' };
+      const wInfo = WMO_WEATHER_MAP[code] || { text: WM.t('Ясно'), icon: '🌤️' };
       return {
         temp: t != null ? (t > 0 ? `+${Math.round(t)}` : `${Math.round(t)}`) + '°' : '--',
         icon: wInfo.icon,
@@ -2260,7 +2263,7 @@
         const t = temps[idx];
         const code = codes[idx];
         const p = precips[idx] != null ? precips[idx] : 0;
-        const wInfo = WMO_WEATHER_MAP[code] || { text: 'Ясно', icon: '🌤️' };
+        const wInfo = WMO_WEATHER_MAP[code] || { text: WM.t('Ясно'), icon: '🌤️' };
         hourlyList.push({
           hour: h,
           timeStr: `${pad(h)}:00`,
@@ -2283,7 +2286,7 @@
       }
     }
 
-    const mainWeather = WMO_WEATHER_MAP[dayCode] || (day ? WMO_WEATHER_MAP[codes[times.indexOf(`${dateStr}T15:00`)]] : null) || { text: 'Без осадков', icon: '🌤️' };
+    const mainWeather = WMO_WEATHER_MAP[dayCode] || (day ? WMO_WEATHER_MAP[codes[times.indexOf(`${dateStr}T15:00`)]] : null) || { text: WM.t('Без осадков'), icon: '🌤️' };
 
     return {
       morning,
@@ -2400,15 +2403,15 @@
   }
 
   const MOON_PHASE_NAMES = [
-    { max: 0.03, name: 'Новолуние', icon: '🌑' },
-    { max: 0.22, name: 'Растущий серп', icon: '🌒' },
-    { max: 0.28, name: 'Первая четверть', icon: '🌓' },
-    { max: 0.47, name: 'Растущая луна', icon: '🌔' },
-    { max: 0.53, name: 'Полнолуние', icon: '🌕' },
-    { max: 0.72, name: 'Убывающая луна', icon: '🌖' },
-    { max: 0.78, name: 'Последняя четверть', icon: '🌗' },
-    { max: 0.97, name: 'Убывающий серп', icon: '🌘' },
-    { max: 1.00, name: 'Новолуние', icon: '🌑' }
+    { max: 0.03, name: WM.t('Новолуние'), icon: '🌑' },
+    { max: 0.22, name: WM.t('Растущий серп'), icon: '🌒' },
+    { max: 0.28, name: WM.t('Первая четверть'), icon: '🌓' },
+    { max: 0.47, name: WM.t('Растущая луна'), icon: '🌔' },
+    { max: 0.53, name: WM.t('Полнолуние'), icon: '🌕' },
+    { max: 0.72, name: WM.t('Убывающая луна'), icon: '🌖' },
+    { max: 0.78, name: WM.t('Последняя четверть'), icon: '🌗' },
+    { max: 0.97, name: WM.t('Убывающий серп'), icon: '🌘' },
+    { max: 1.00, name: WM.t('Новолуние'), icon: '🌑' }
   ];
 
   function getMoonPhaseInfo(phaseFraction) {
@@ -2433,12 +2436,12 @@
       return `${h}:${m}`;
     }
 
-    return d.toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit' });
+    return d.toLocaleTimeString(WM.i18n.locale, { hour: '2-digit', minute: '2-digit' });
   }
 
   function degToCompass(deg) {
     const val = Math.floor((deg / 22.5) + 0.5);
-    const arr = ['С', 'ССВ', 'СВ', 'ВСВ', 'В', 'ВЮВ', 'ЮВ', 'ЮЮВ', 'Ю', 'ЮЮЗ', 'ЮЗ', 'ЗЮЗ', 'З', 'ЗСЗ', 'СЗ', 'ССЗ'];
+    const arr = [WM.t('С'), WM.t('ССВ'), WM.t('СВ'), WM.t('ВСВ'), WM.t('В'), WM.t('ВЮВ'), WM.t('ЮВ'), WM.t('ЮЮВ'), WM.t('Ю'), WM.t('ЮЮЗ'), WM.t('ЮЗ'), WM.t('ЗЮЗ'), WM.t('З'), WM.t('ЗСЗ'), WM.t('СЗ'), WM.t('ССЗ')];
     return arr[(val % 16)];
   }
 
@@ -2475,8 +2478,8 @@
 
     // 1. Время и дата
     if (infoHudConfig.time) {
-      const dateStr = now.toLocaleDateString('ru', { weekday: 'short', day: 'numeric', month: 'short' });
-      const timeStr = now.toLocaleTimeString('ru', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const dateStr = now.toLocaleDateString(WM.i18n.locale, { weekday: 'short', day: 'numeric', month: 'short' });
+      const timeStr = now.toLocaleTimeString(WM.i18n.locale, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
       html += `
         <div class="ih-section">
           <div class="ih-row main-time">
@@ -2492,11 +2495,11 @@
       html += `
         <div class="ih-section">
           <div class="ih-row">
-            <span class="ih-lbl">🎯 Центр:</span>
+            <span class="ih-lbl">${WM.t('🎯 Центр:')}</span>
             <span class="ih-val">${center.lat.toFixed(5)}°, ${center.lng.toFixed(5)}°</span>
           </div>
           <div class="ih-row">
-            <span class="ih-lbl">🔍 Зум:</span>
+            <span class="ih-lbl">${WM.t('🔍 Зум:')}</span>
             <span class="ih-val">${zoom.toFixed(1)}</span>
           </div>
         </div>
@@ -2512,13 +2515,13 @@
               <span class="ih-lbl">🛰️ GPS:</span>
               <span class="ih-val">${gpsData.lat.toFixed(5)}°, ${gpsData.lng.toFixed(5)}°</span>
             </div>
-            ${gpsData.accuracy ? `<div class="ih-row"><span class="ih-lbl">🎯 Точность:</span><span class="ih-val">±${Math.round(gpsData.accuracy)} м</span></div>` : ''}
+            ${gpsData.accuracy ? `<div class="ih-row"><span class="ih-lbl">${WM.t('🎯 Точность:')}</span><span class="ih-val">${WM.t('±{0} м', Math.round(gpsData.accuracy))}</span></div>` : ''}
           </div>
         `;
       } else {
         html += `
           <div class="ih-section">
-            <div class="ih-row"><span class="ih-lbl">🛰️ GPS:</span><span class="ih-val muted-val">Ожидание спутников…</span></div>
+            <div class="ih-row"><span class="ih-lbl">🛰️ GPS:</span><span class="ih-val muted-val">${WM.t('Ожидание спутников…')}</span></div>
           </div>
         `;
       }
@@ -2526,15 +2529,15 @@
 
     // 4. Дополнительные данные GPS (скорость, курс, высота)
     if (infoHudConfig.gps && gpsData) {
-      const spdKmh = (gpsData.speed != null && gpsData.speed >= 0) ? (gpsData.speed * 3.6).toFixed(1) + ' км/ч' : '0 км/ч';
-      const altM = gpsData.altitude != null ? Math.round(gpsData.altitude) + ' м' : null;
+      const spdKmh = (gpsData.speed != null && gpsData.speed >= 0) ? WM.t('{0} км/ч', (gpsData.speed * 3.6).toFixed(1)) : WM.t('0 км/ч');
+      const altM = gpsData.altitude != null ? WM.t('{0} м', Math.round(gpsData.altitude)) : null;
       const headDeg = gpsData.heading != null && !isNaN(gpsData.heading) ? Math.round(gpsData.heading) + '° (' + degToCompass(gpsData.heading) + ')' : null;
 
       html += `
         <div class="ih-section">
-          <div class="ih-row"><span class="ih-lbl">⚡ Скорость:</span><span class="ih-val">${spdKmh}</span></div>
-          ${altM ? `<div class="ih-row"><span class="ih-lbl">⛰️ Высота:</span><span class="ih-val">${altM}</span></div>` : ''}
-          ${headDeg ? `<div class="ih-row"><span class="ih-lbl">🧭 Курс:</span><span class="ih-val">${headDeg}</span></div>` : ''}
+          <div class="ih-row"><span class="ih-lbl">${WM.t('⚡ Скорость:')}</span><span class="ih-val">${spdKmh}</span></div>
+          ${altM ? `<div class="ih-row"><span class="ih-lbl">${WM.t('⛰️ Высота:')}</span><span class="ih-val">${altM}</span></div>` : ''}
+          ${headDeg ? `<div class="ih-row"><span class="ih-lbl">${WM.t('🧭 Курс:')}</span><span class="ih-val">${headDeg}</span></div>` : ''}
         </div>
       `;
     }
@@ -2551,13 +2554,13 @@
       const astroDate = new Date(now);
       astroDate.setDate(astroDate.getDate() + infoAstroDayOffset);
 
-      let dayTitle = 'Сегодня';
-      if (infoAstroDayOffset === 1) dayTitle = 'Завтра';
-      else if (infoAstroDayOffset === -1) dayTitle = 'Вчера';
-      else if (infoAstroDayOffset > 1) dayTitle = `+${infoAstroDayOffset} дн.`;
-      else if (infoAstroDayOffset < -1) dayTitle = `${infoAstroDayOffset} дн.`;
+      let dayTitle = WM.t('Сегодня');
+      if (infoAstroDayOffset === 1) dayTitle = WM.t('Завтра');
+      else if (infoAstroDayOffset === -1) dayTitle = WM.t('Вчера');
+      else if (infoAstroDayOffset > 1) dayTitle = WM.t('+{0} дн.', infoAstroDayOffset);
+      else if (infoAstroDayOffset < -1) dayTitle = WM.t('{0} дн.', infoAstroDayOffset);
 
-      const dateFormatted = astroDate.toLocaleDateString('ru', {
+      const dateFormatted = astroDate.toLocaleDateString(WM.i18n.locale, {
         weekday: 'short',
         day: 'numeric',
         month: 'short'
@@ -2566,13 +2569,13 @@
       html += `
         <div class="ih-section ih-astro-ctrl">
           <div class="ih-astro-bar">
-            <button type="button" class="ih-astro-arrow" data-astro-action="prev" ${infoAstroDayOffset <= -3 ? 'disabled' : ''} title="Предыдущий день (до -3 дн)">◀</button>
+            <button type="button" class="ih-astro-arrow" data-astro-action="prev" ${infoAstroDayOffset <= -3 ? 'disabled' : ''} title="${WM.t('Предыдущий день (до -3 дн)')}">◀</button>
             <div class="ih-astro-date-wrap">
               <span class="ih-astro-day-tag ${infoAstroDayOffset !== 0 ? 'offset' : ''}">${dayTitle}</span>
               <span class="ih-astro-date">${dateFormatted}</span>
-              ${infoAstroDayOffset !== 0 ? `<button type="button" class="ih-astro-reset" data-astro-action="reset" title="Вернуться к сегодня">↺ Сегодня</button>` : ''}
+              ${infoAstroDayOffset !== 0 ? `<button type="button" class="ih-astro-reset" data-astro-action="reset" title="${WM.t('Вернуться к сегодня')}">${WM.t('↺ Сегодня')}</button>` : ''}
             </div>
-            <button type="button" class="ih-astro-arrow" data-astro-action="next" ${infoAstroDayOffset >= 7 ? 'disabled' : ''} title="Следующий день (до +7 дн)">▶</button>
+            <button type="button" class="ih-astro-arrow" data-astro-action="next" ${infoAstroDayOffset >= 7 ? 'disabled' : ''} title="${WM.t('Следующий день (до +7 дн)')}">▶</button>
           </div>
         </div>
       `;
@@ -2589,16 +2592,16 @@
         html += `
           <details class="ih-spoiler ih-astro-section" data-spoiler="sun" ${hudSpoilersState.sun ? 'open' : ''}>
             <summary class="ih-spoiler-summary">
-              <span>☀️ Солнце (${sunAltDeg > 0 ? '+' + sunAltDeg : sunAltDeg}°)</span>
+              <span>${WM.t('☀️ Солнце ({0}°)', sunAltDeg > 0 ? '+' + sunAltDeg : sunAltDeg)}</span>
               <span class="ih-chevron">▼</span>
             </summary>
             <div class="ih-spoiler-body ih-grid-2">
-               <div>🌅 Восход: <b>${fmtLocalMapTime(sTimes.sunrise, refLng)}</b></div>
-                <div>🌇 Закат: <b>${fmtLocalMapTime(sTimes.sunset, refLng)}</b></div>
-                <div>☀️ Полдень: <b>${fmtLocalMapTime(sTimes.solarNoon, refLng)}</b></div>
-                <div>✨ Зол час: <b>${fmtLocalMapTime(sTimes.goldenHour, refLng)}</b></div>
-                <div>🌆 Сумерки: <b>${fmtLocalMapTime(sTimes.dusk, refLng)}</b></div>
-              <div>🧭 Азимут: <b>${Math.round(sunAzDeg)}° (${degToCompass(sunAzDeg)})</b></div>
+               <div>${WM.t('🌅 Восход:')} <b>${fmtLocalMapTime(sTimes.sunrise, refLng)}</b></div>
+                <div>${WM.t('🌇 Закат:')} <b>${fmtLocalMapTime(sTimes.sunset, refLng)}</b></div>
+                <div>${WM.t('☀️ Полдень:')} <b>${fmtLocalMapTime(sTimes.solarNoon, refLng)}</b></div>
+                <div>${WM.t('✨ Зол час:')} <b>${fmtLocalMapTime(sTimes.goldenHour, refLng)}</b></div>
+                <div>${WM.t('🌆 Сумерки:')} <b>${fmtLocalMapTime(sTimes.dusk, refLng)}</b></div>
+              <div>${WM.t('🧭 Азимут:')} <b>${Math.round(sunAzDeg)}° (${degToCompass(sunAzDeg)})</b></div>
             </div>
           </details>
         `;
@@ -2617,16 +2620,16 @@
         html += `
           <details class="ih-spoiler ih-astro-section" data-spoiler="moon" ${hudSpoilersState.moon ? 'open' : ''}>
             <summary class="ih-spoiler-summary">
-              <span>🌙 Луна (${phase.icon} ${pct}%)</span>
+              <span>${WM.t('🌙 Луна ({0} {1}%)', phase.icon, pct)}</span>
               <span class="ih-chevron">▼</span>
             </summary>
             <div class="ih-spoiler-body">
-              <div class="ih-row" style="margin-bottom: 3px;"><span class="ih-lbl">Фаза:</span><span class="ih-val">${phase.name}</span></div>
+              <div class="ih-row" style="margin-bottom: 3px;"><span class="ih-lbl">${WM.t('Фаза:')}</span><span class="ih-val">${phase.name}</span></div>
               <div class="ih-grid-2">
-                <div>Восход: <b>${moonTimes.rise ? fmtLocalMapTime(moonTimes.rise, refLng) : '--:--'}</b></div>
-                <div>Заход: <b>${moonTimes.set ? fmtLocalMapTime(moonTimes.set, refLng) : '--:--'}</b></div>
-                <div>Высота: <b>${moonAltDeg}°</b></div>
-                <div>Азимут: <b>${Math.round(moonAzDeg)}° (${degToCompass(moonAzDeg)})</b></div>
+                <div>${WM.t('Восход:')} <b>${moonTimes.rise ? fmtLocalMapTime(moonTimes.rise, refLng) : '--:--'}</b></div>
+                <div>${WM.t('Заход:')} <b>${moonTimes.set ? fmtLocalMapTime(moonTimes.set, refLng) : '--:--'}</b></div>
+                <div>${WM.t('Высота:')} <b>${moonAltDeg}°</b></div>
+                <div>${WM.t('Азимут:')} <b>${Math.round(moonAzDeg)}° (${degToCompass(moonAzDeg)})</b></div>
               </div>
             </div>
           </details>
@@ -2637,8 +2640,8 @@
       if (infoHudConfig.weather) {
         const wData = getWeatherForDate(astroDate);
         const headerSummary = wData
-          ? `${wData.weatherIcon} Погода (${wData.day ? wData.day.temp : '--'})`
-          : '🌦️ Погода (загрузка…)';
+          ? WM.t('{0} Погода ({1})', wData.weatherIcon, wData.day ? wData.day.temp : '--')
+          : WM.t('🌦️ Погода (загрузка…)');
 
         // Показываем вложенный почасовой спойлер только для Сегодня (0) и Завтра (1)
         const isTodayOrTomorrow = (infoAstroDayOffset === 0 || infoAstroDayOffset === 1);
@@ -2649,7 +2652,7 @@
           const cardsHtml = wData.hourlyList.map(hItem => {
             const isCurrent = (infoAstroDayOffset === 0 && hItem.hour === currentHour);
             const isPast = (infoAstroDayOffset === 0 && hItem.hour < currentHour);
-            const timeLabel = isCurrent ? 'Сейчас' : hItem.timeStr;
+            const timeLabel = isCurrent ? WM.t('Сейчас') : hItem.timeStr;
             const precipLabel = hItem.precip ? `<span class="ih-hourly-precip">💧${hItem.precip}</span>` : '';
             return `
               <div class="ih-hourly-card ${isCurrent ? 'current' : ''} ${isPast ? 'past' : ''}">
@@ -2664,7 +2667,7 @@
           hourlyHtml = `
             <details class="ih-spoiler ih-hourly-spoiler" data-spoiler="weatherHourly" ${hudSpoilersState.weatherHourly ? 'open' : ''}>
               <summary class="ih-spoiler-summary" style="margin-top: 5px; padding: 3px 0; border-top: 1px dashed var(--border);">
-                <span>⏱️ Почасовой (${wData.hourlyList.length} ч)</span>
+                <span>${WM.t('⏱️ Почасовой ({0} ч)', wData.hourlyList.length)}</span>
                 <span class="ih-chevron">▼</span>
               </summary>
               <div class="ih-spoiler-body" style="padding-top: 3px;">
@@ -2686,34 +2689,34 @@
               ${wData ? `
                 <div class="ih-weather-grid">
                   <div class="ih-weather-cell">
-                    <span class="ih-weather-time">Утро</span>
+                    <span class="ih-weather-time">${WM.t('Утро')}</span>
                     <span class="ih-weather-icon">${wData.morning ? wData.morning.icon : '⛅'}</span>
                     <span class="ih-weather-temp">${wData.morning ? wData.morning.temp : '--'}</span>
                   </div>
                   <div class="ih-weather-cell">
-                    <span class="ih-weather-time">День</span>
+                    <span class="ih-weather-time">${WM.t('День')}</span>
                     <span class="ih-weather-icon">${wData.day ? wData.day.icon : '☀️'}</span>
                     <span class="ih-weather-temp">${wData.day ? wData.day.temp : '--'}</span>
                   </div>
                   <div class="ih-weather-cell">
-                    <span class="ih-weather-time">Вечер</span>
+                    <span class="ih-weather-time">${WM.t('Вечер')}</span>
                     <span class="ih-weather-icon">${wData.evening ? wData.evening.icon : '🌤️'}</span>
                     <span class="ih-weather-temp">${wData.evening ? wData.evening.temp : '--'}</span>
                   </div>
                   <div class="ih-weather-cell">
-                    <span class="ih-weather-time">Ночь</span>
+                    <span class="ih-weather-time">${WM.t('Ночь')}</span>
                     <span class="ih-weather-icon">${wData.night ? wData.night.icon : '🌙'}</span>
                     <span class="ih-weather-temp">${wData.night ? wData.night.temp : '--'}</span>
                   </div>
                 </div>
                 <div class="ih-weather-desc">
-                  <div>${wData.precipSum > 0 ? `💧 Осадки: <b>${wData.precipSum.toFixed(1)} мм</b>` : '💧 Без осадков'}</div>
+                  <div>${wData.precipSum > 0 ? `${WM.t('💧 Осадки:')} <b>${WM.t('{0} мм', wData.precipSum.toFixed(1))}</b>` : WM.t('💧 Без осадков')}</div>
                   <div style="color: var(--text-muted); margin-top: 1px;">${wData.weatherDesc}</div>
                 </div>
                 ${hourlyHtml}
               ` : `
                 <div class="muted-val" style="padding: 4px 0; font-size: 10px; color: var(--text-muted);">
-                  ${isWeatherLoading ? '⏳ Загрузка прогноза Open-Meteo…' : 'Ожидание сети…'}
+                  ${isWeatherLoading ? WM.t('⏳ Загрузка прогноза Open-Meteo…') : WM.t('Ожидание сети…')}
                 </div>
               `}
             </div>
@@ -2799,9 +2802,9 @@
   }
 
   function formatMorphLabel(val) {
-    if (val === 0) return 'Исходная (0)';
-    if (val > 0) return `+${val} px (жирнее)`;
-    return `${val} px (тоньше)`;
+    if (val === 0) return WM.t('Исходная (0)');
+    if (val > 0) return WM.t('+{0} px (жирнее)', val);
+    return WM.t('{0} px (тоньше)', val);
   }
 
   function applyRasterCSS(cfg) {
@@ -2869,7 +2872,7 @@
     if (!d) return '';
     const ts = (typeof d === 'number' || /^\d{9,}$/.test(d)) ? +d * 1000 : Date.parse(d);
     if (!isNaN(ts)) {
-      return new Date(ts).toLocaleDateString('ru', { day: 'numeric', month: 'short', year: 'numeric' });
+      return new Date(ts).toLocaleDateString(WM.i18n.locale, { day: 'numeric', month: 'short', year: 'numeric' });
     }
     return String(d);
   }
@@ -2932,14 +2935,14 @@
     const toAdd = keys.filter(k => !existingSet.has(k.toUpperCase()));
 
     if (!toAdd.length) {
-      showToast('Все распознанные ключи уже есть в списке');
+      showToast(WM.t('Все распознанные ключи уже есть в списке'));
       return 0;
     }
 
     editingKeys = editingKeys.filter(k => k !== 'example');
     editingKeys.push(...toAdd);
     renderKeysUI();
-    showToast(`✅ Успешно добавлено ключей: ${toAdd.length}`);
+    showToast(WM.t('✅ Успешно добавлено ключей: {0}', toAdd.length));
     return toAdd.length;
   }
 
@@ -2958,17 +2961,17 @@
       document.documentElement.setAttribute('data-theme', 'night-vision');
       statusBarColor = '#050101';
       $('btn-theme-toggle').textContent = '🔴';
-      $('btn-theme-toggle').title = 'Режим ночного зрения (удерживайте для выхода)';
+      $('btn-theme-toggle').title = WM.t('Режим ночного зрения (удерживайте для выхода)');
     } else if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       statusBarColor = '#111827';
       $('btn-theme-toggle').textContent = '☀️';
-      $('btn-theme-toggle').title = 'Сменить тему (удерживайте для ночного зрения)';
+      $('btn-theme-toggle').title = WM.t('Сменить тему (удерживайте для ночного зрения)');
     } else {
       document.documentElement.removeAttribute('data-theme');
       statusBarColor = '#ffffff';
       $('btn-theme-toggle').textContent = '🌙';
-      $('btn-theme-toggle').title = 'Сменить тему (удерживайте для ночного зрения)';
+      $('btn-theme-toggle').title = WM.t('Сменить тему (удерживайте для ночного зрения)');
     }
 
     const meta = document.getElementById('theme-color-meta') || document.querySelector('meta[name="theme-color"]');
@@ -2988,7 +2991,7 @@
     const cur = document.documentElement.getAttribute('data-theme');
     if (cur === 'night-vision') {
       applyTheme(lastNonNightTheme || 'dark');
-      showToast('☀️ Режим ночного зрения отключён');
+      showToast(WM.t('☀️ Режим ночного зрения отключён'));
     } else if (cur === 'dark') {
       applyTheme('light');
     } else {
@@ -3000,10 +3003,10 @@
     const cur = document.documentElement.getAttribute('data-theme');
     if (cur === 'night-vision') {
       applyTheme(lastNonNightTheme || 'dark');
-      showToast('☀️ Режим ночного зрения отключён');
+      showToast(WM.t('☀️ Режим ночного зрения отключён'));
     } else {
       applyTheme('night-vision');
-      showToast('🔴 Режим ночного зрения включён');
+      showToast(WM.t('🔴 Режим ночного зрения включён'));
     }
   }
 
@@ -3016,10 +3019,10 @@
     if (btn) {
       btn.classList.toggle('active', nextState);
       btn.textContent = nextState ? '🕶️' : '👁️';
-      btn.title = nextState ? 'Показать интерфейс' : 'Скрыть интерфейс';
+      btn.title = nextState ? WM.t('Показать интерфейс') : WM.t('Скрыть интерфейс');
     }
     updateBottomLeftButtonsStack();
-    showToast(nextState ? '🕶️ Интерфейс скрыт (нажмите кнопку для возврата)' : '👁️ Интерфейс отображён');
+    showToast(nextState ? WM.t('🕶️ Интерфейс скрыт (нажмите кнопку для возврата)') : WM.t('👁️ Интерфейс отображён'));
   }
 
   // 2. Функция расчёта порядка кнопок в левом нижнем углу
@@ -3145,8 +3148,8 @@
     const elDist = $('pdr-quick-dist-val');
     if (elSteps) elSteps.textContent = pdrQuickTestSteps;
     if (elDist) elDist.textContent = (pdrQuickTestDist < 1000) 
-      ? pdrQuickTestDist.toFixed(1) + ' м' 
-      : (pdrQuickTestDist / 1000).toFixed(2) + ' км';
+      ? WM.t('{0} м', pdrQuickTestDist.toFixed(1)) 
+      : WM.t('{0} км', (pdrQuickTestDist / 1000).toFixed(2));
   }
 
   function handlePdrQuickStepEvent(e) {
@@ -3188,7 +3191,7 @@
     const sliderStep = $('pdr-quick-step-slider');
     const valStep = $('pdr-quick-step-length-val');
     if (sliderStep) sliderStep.value = curStepCm;
-    if (valStep) valStep.textContent = curStepCm + ' см';
+    if (valStep) valStep.textContent = WM.t('{0} см', curStepCm);
 
     const quickChk = $('pdr-quick-toggle-step-pill');
     if (quickChk) {
@@ -3243,11 +3246,11 @@
     const hint = $('pdr-quick-sens-hint');
     if (!hint) return;
     if (sens === 'high') {
-      hint.textContent = 'Высокая: для мягкой обуви, шагов по снегу, песку и тихого шага.';
+      hint.textContent = WM.t('Высокая: для мягкой обуви, шагов по снегу, песку и тихого шага.');
     } else if (sens === 'low') {
-      hint.textContent = 'Низкая: для плотных берцев, бега, марша и подавления сильной тряски.';
+      hint.textContent = WM.t('Низкая: для плотных берцев, бега, марша и подавления сильной тряски.');
     } else {
-      hint.textContent = 'Обычная: для кроссовок и стандартной городской/лесной ходьбы.';
+      hint.textContent = WM.t('Обычная: для кроссовок и стандартной городской/лесной ходьбы.');
     }
   }
 
@@ -3255,11 +3258,11 @@
     const hint = $('pdr-quick-mov-hint');
     if (!hint) return;
     if (mode === 'straight') {
-      hint.textContent = '🌲 По прямой: держит азимут! Игнорирует виляние при обходе деревьев. Поворот только при 8 четких шагах в новую сторону.';
+      hint.textContent = WM.t('🌲 По прямой: держит азимут! Игнорирует виляние при обходе деревьев. Поворот только при 8 четких шагах в новую сторону.');
     } else if (mode === 'chaotic') {
-      hint.textContent = '🔄 Маневры: мгновенный отклик на повороты (1-2 шага). Для поиска предметов, копа, петляющих троп.';
+      hint.textContent = WM.t('🔄 Маневры: мгновенный отклик на повороты (1-2 шага). Для поиска предметов, копа, петляющих троп.');
     } else {
-      hint.textContent = '🚶 Обычный: баланс между фильтрацией покачиваний и фиксацией реальных поворотов.';
+      hint.textContent = WM.t('🚶 Обычный: баланс между фильтрацией покачиваний и фиксацией реальных поворотов.');
     }
   }
 
@@ -3293,7 +3296,7 @@
       const mainChk = $('toggle-pdr-step-pill');
       if (mainChk) mainChk.checked = val;
       if (window.WM && WM.setPdrStepPillEnabled) WM.setPdrStepPillEnabled(val);
-      showToast(val ? '👣 Плашка шагов PDR включена' : '👣 Плашка шагов PDR выключена');
+      showToast(val ? WM.t('👣 Плашка шагов PDR включена') : WM.t('👣 Плашка шагов PDR выключена'));
     });
 
     // Юстировка компаса
@@ -3314,11 +3317,11 @@
         updatePdrQuickMovHint(mov);
 
         const titles = {
-          straight: '🌲 Включён азимут «По прямой» (выход из леса)',
-          chaotic: '🔄 Включён «Маневренный» режим (быстрые повороты)',
-          normal: '🚶 Включён «Обычный» режим движения'
+          straight: WM.t('🌲 Включён азимут «По прямой» (выход из леса)'),
+          chaotic: WM.t('🔄 Включён «Маневренный» режим (быстрые повороты)'),
+          normal: WM.t('🚶 Включён «Обычный» режим движения')
         };
-        showToast(titles[mov] || 'Режим обновлён');
+        showToast(titles[mov] || WM.t('Режим обновлён'));
       });
     });
 
@@ -3327,7 +3330,7 @@
     const valStep = $('pdr-quick-step-length-val');
     const applyStep = (cm) => {
       if (sliderStep) sliderStep.value = cm;
-      if (valStep) valStep.textContent = cm + ' см';
+      if (valStep) valStep.textContent = WM.t('{0} см', cm);
       document.querySelectorAll('.pdr-quick-chip').forEach(ch => {
         ch.classList.toggle('active', parseInt(ch.dataset.step, 10) === cm);
       });
@@ -3336,7 +3339,7 @@
       const mainStepSlider = $('pdr-step-length-slider');
       const mainStepVal = $('pdr-step-length-val');
       if (mainStepSlider) mainStepSlider.value = cm;
-      if (mainStepVal) mainStepVal.textContent = cm + ' см';
+      if (mainStepVal) mainStepVal.textContent = WM.t('{0} см', cm);
     };
 
     if (sliderStep) {
@@ -3370,7 +3373,7 @@
         if (WM.pdr) WM.pdr.setConfig({ carryingMode: mode });
         const mainCarry = $('pdr-carrying-mode');
         if (mainCarry) mainCarry.value = mode;
-        showToast(mode === 'pocket' ? '👖 Режим: В кармане (фильтрация маятника)' : '✋ Режим: В руке');
+        showToast(mode === 'pocket' ? WM.t('👖 Режим: В кармане (фильтрация маятника)') : WM.t('✋ Режим: В руке'));
       });
     });
 
@@ -3384,7 +3387,7 @@
         const mainSens = $('pdr-sensitivity-select');
         if (mainSens) mainSens.value = sens;
         updatePdrQuickSensHint(sens);
-        showToast(`🎯 Чувствительность: ${btn.textContent.trim()}`);
+        showToast(WM.t('🎯 Чувствительность: {0}', btn.textContent.trim()));
       });
     });
   }
@@ -3411,7 +3414,7 @@
     // Показываем плашку только если реально наступила блокировка/пауза по лимитам
     if (forceShowBlocked || pool.allBlocked) {
       btn.hidden = false;
-      btn.innerHTML = '🔑 Лимит исчерпан · <u>Добавить ключ</u>';
+      btn.innerHTML = `${WM.t('🔑 Лимит исчерпан ·')} <u>${WM.t('Добавить ключ')}</u>`;
     } else {
       btn.hidden = true;
     }
@@ -3454,7 +3457,7 @@
     let hasProblem = false;
 
     if (pool.allBlocked) {
-      newText = `⏳ Пауза API: ${Math.ceil(pool.waitMs / 1000)} сек.`;
+      newText = WM.t('⏳ Пауза API: {0} сек.', Math.ceil(pool.waitMs / 1000));
       isDanger = true;
       hasProblem = true;
       toggleTopGetKeyBtn(true);
@@ -3466,11 +3469,11 @@
     } else {
       const stats = WM.api.getKeyStats(pool.key);
       if (stats.isBlocked) {
-        newText = `⏳ Ключ заблокирован: ${Math.ceil(stats.waitMs / 1000)} с`;
+        newText = WM.t('⏳ Ключ заблокирован: {0} с', Math.ceil(stats.waitMs / 1000));
         isDanger = true;
         hasProblem = true;
       } else if (stats.remaining <= 10) {
-        newText = `⚠️ Лимит: ${stats.remaining}/${stats.limit}`;
+        newText = WM.t('⚠️ Лимит: {0}/{1}', stats.remaining, stats.limit);
         isDanger = true;
         hasProblem = true;
       } else {
@@ -3504,7 +3507,7 @@
         el('div', { 
           class: 'muted', 
           style: 'padding: 12px; font-size: 12px;', 
-          text: 'Свои ключи не добавлены (используется встроенный безлимитный ключ)' 
+          text: WM.t('Свои ключи не добавлены (используется встроенный безлимитный ключ)') 
         })
       );
       return;
@@ -3514,8 +3517,8 @@
       const stats = WM.api.getKeyStats(k);
       const isActive = idx === editingActiveIndex;
 
-      let statText = `${stats.used}/100 за сутки`;
-      if (stats.isBlocked) statText = `Блок (до сброса ${fmtTimer(stats.waitMs)})`;
+      let statText = WM.t('{0}/100 за сутки', stats.used);
+      if (stats.isBlocked) statText = WM.t('Блок (до сброса {0})', fmtTimer(stats.waitMs));
 
       const row = el('div', { class: 'key-item' + (isActive ? ' active' : '') },
         el('div', {
@@ -3531,11 +3534,11 @@
         el('div', { class: 'key-item-actions' },
           el('button', {
             class: 'key-action-btn',
-            title: 'Редактировать ключ',
+            title: WM.t('Редактировать ключ'),
             text: '✏️',
             onclick: (e) => {
               e.stopPropagation();
-              const updated = prompt('Редактирование API ключа:', k);
+              const updated = prompt(WM.t('Редактирование API ключа:'), k);
               if (updated !== null && updated.trim()) {
                 editingKeys[idx] = updated.trim().toUpperCase();
                 renderKeysUI();
@@ -3544,7 +3547,7 @@
           }),
           el('button', {
             class: 'key-action-btn',
-            title: 'Удалить ключ',
+            title: WM.t('Удалить ключ'),
             text: '✕',
             style: 'color:var(--danger);',
             onclick: (e) => {
@@ -3577,7 +3580,7 @@
   }
 
   // Извлечение всех доступных языков из availableLanguages объекта Wikimapia
-  function extractAvailableLanguages(detail, selectedLang = 'ru') {
+  function extractAvailableLanguages(detail, selectedLang = DEFLANG) {
     const res = new Map();
 
     const addLang = (iso, nativeName, langName, slug, url) => {
@@ -3596,6 +3599,8 @@
 
     // Всегда базово гарантируем русский язык
     addLang('ru', 'Русский', 'Russian');
+    if (DEFLANG === 'en') addLang('en', 'English', 'English');
+    if (DEFLANG === 'pt') addLang('pt', 'Português', 'Portuguese');
 
     if (detail) {
       if (detail.language_iso) {
@@ -3638,10 +3643,12 @@
     }
 
     // Умная сортировка: активный язык и RU первыми, затем EN, остальные по алфавиту
-    const curIso = (selectedLang || 'ru').toLowerCase();
+    const curIso = (selectedLang || DEFLANG).toLowerCase();
     const sorted = Array.from(res.values()).sort((a, b) => {
       if (a.iso === curIso) return -1;
       if (b.iso === curIso) return 1;
+      if (a.iso === DEFLANG) return -1;
+      if (b.iso === DEFLANG) return 1;
       if (a.iso === 'ru') return -1;
       if (b.iso === 'ru') return 1;
       if (a.iso === 'en') return -1;
@@ -3658,7 +3665,7 @@
     container.textContent = '';
     if (!cur) return;
 
-    const curIso = (cur.lang || (cur.detail && cur.detail.language_iso) || 'ru').toLowerCase();
+    const curIso = (cur.lang || (cur.detail && cur.detail.language_iso) || DEFLANG).toLowerCase();
     const langs = (cur.availableLanguages && cur.availableLanguages.length)
       ? cur.availableLanguages
       : extractAvailableLanguages(cur.detail, curIso);
@@ -3676,7 +3683,7 @@
       const chip = el('button', {
         class: 'lang-chip' + (isAct ? ' active' : ''),
         text: l.name + (isLoading ? ' ⏳' : ''),
-        title: `Переключить описание на ${l.rawName}`,
+        title: WM.t('Переключить описание на {0}', l.rawName),
         onclick: () => switchLanguage(l.iso)
       });
       container.append(chip);
@@ -3685,7 +3692,7 @@
 
   function switchLanguage(targetLang) {
     if (!cur || !cur.obj) return;
-    const curIso = (cur.lang || (cur.detail && cur.detail.language_iso) || 'ru').toLowerCase();
+    const curIso = (cur.lang || (cur.detail && cur.detail.language_iso) || DEFLANG).toLowerCase();
     if (curIso === targetLang && cur.detail && !cur.loadingLang) return;
 
     cur.lang = targetLang;
@@ -3694,7 +3701,7 @@
     load(cur.obj, targetLang);
   }
 
-  function getWmSpaUrl(obj, action = 'view', lang = 'ru') {
+  function getWmSpaUrl(obj, action = 'view', lang = DEFLANG) {
     if (!obj || !obj.bbox) return 'https://wikimapia.org/';
     const coords = getCentroidCoords(obj);
     const zoom = Math.max(WM.map ? Math.round(WM.map.getZoom()) : 15, 14);
@@ -3722,7 +3729,7 @@
   }
 
   function renderInfo(body, o, d) {
-    body.append(el('p', { class: 'desc', text: (d && d.description) || (d ? 'Описание отсутствует.' : 'Загрузка…') }));
+    body.append(el('p', { class: 'desc', text: (d && d.description) || (d ? WM.t('Описание отсутствует.') : WM.t('Загрузка…')) }));
     
     const rawTags = list(d && d.tags).filter(t => t && (t.title || t.name));
     if (rawTags.length) {
@@ -3733,7 +3740,7 @@
         const isActive = activeTag && (activeTag.title === title || (id && activeTag.id === id));
         return el('button', {
           class: 'tag-btn' + (isActive ? ' active' : ''),
-          title: `Подсветить все «${title}»`,
+          title: WM.t('Подсветить все «{0}»', title),
           onclick: (e) => {
             e.stopPropagation();
             if (WM.view && WM.view.toggleTagFilter) {
@@ -3750,7 +3757,7 @@
     if (loc) ['country', 'state', 'city', 'place', 'street', 'housenumber'].forEach(k => { 
       if (typeof loc[k] === 'string' && loc[k]) parts.push(loc[k]); 
     });
-    if (parts.length) body.append(el('p', { class: 'row' }, el('b', { text: 'Адрес: ' }), parts.join(', ')));
+    if (parts.length) body.append(el('p', { class: 'row' }, el('b', { text: WM.t('Адрес: ') }), parts.join(', ')));
 
     const coords = getCentroidCoords(o);
     const coordStr = `${coords.lat}, ${coords.lon}`;
@@ -3759,7 +3766,7 @@
     const yandexUrl = `https://yandex.ru/maps/?pt=${coords.lon},${coords.lat}&z=17&l=map`;
     const googleUrl = `https://www.google.com/maps/search/?api=1&query=${coords.lat},${coords.lon}`;
     
-    const curLang = (cur && cur.lang) || 'ru';
+    const curLang = (cur && cur.lang) || DEFLANG;
     
     // Прямой URL на Wikimapia с учетом активного языка
     let wmUrl = '';
@@ -3780,8 +3787,8 @@
     const wmHistoryUrl = getWmSpaUrl(o, 'history', curLang);
 
     const navButtons = [
-      el('a', { class: 'action-card-btn primary', href: geoUri, text: '🧭 В Навигатор' }),
-      el('a', { class: 'action-card-btn', href: yandexUrl, target: '_blank', rel: 'noopener noreferrer', text: '🟡 Яндекс Карты' }),
+      el('a', { class: 'action-card-btn primary', href: geoUri, text: WM.t('🧭 В Навигатор') }),
+      el('a', { class: 'action-card-btn', href: yandexUrl, target: '_blank', rel: 'noopener noreferrer', text: WM.t('🟡 Яндекс Карты') }),
       el('a', { class: 'action-card-btn', href: googleUrl, target: '_blank', rel: 'noopener noreferrer', text: '🔵 Google Maps' }),
       el('a', { class: 'action-card-btn', href: wmViewUrl, target: '_blank', rel: 'noopener noreferrer', text: '🌐 Wikimapia ↗' }),
       el('a', { 
@@ -3789,16 +3796,16 @@
         href: wmEditUrl, 
         target: '_blank', 
         rel: 'noopener noreferrer', 
-        title: 'Редактировать контур или описание на Wikimapia',
-        text: '✏️ Редактировать ↗' 
+        title: WM.t('Редактировать контур или описание на Wikimapia'),
+        text: WM.t('✏️ Редактировать ↗') 
       }),
       el('a', { 
         class: 'action-card-btn history-btn', 
         href: wmHistoryUrl, 
         target: '_blank', 
         rel: 'noopener noreferrer', 
-        title: 'Посмотреть историю правок объекта',
-        text: '📜 История правок ↗' 
+        title: WM.t('Посмотреть историю правок объекта'),
+        text: WM.t('📜 История правок ↗') 
       })
     ];
 
@@ -3811,8 +3818,8 @@
           href: wikiUrl,
           target: '_blank',
           rel: 'noopener noreferrer',
-          title: 'Открыть статью в Википедии',
-          text: '📖 Википедия ↗'
+          title: WM.t('Открыть статью в Википедии'),
+          text: WM.t('📖 Википедия ↗')
         })
       );
     }
@@ -3820,21 +3827,21 @@
     const actionBlock = el('div', { class: 'card-action-block' },
       el('div', {
         class: 'coords-card',
-        title: 'Нажмите, чтобы скопировать координаты',
+        title: WM.t('Нажмите, чтобы скопировать координаты'),
         onclick: async () => {
           try {
             await navigator.clipboard.writeText(coordStr);
-            showToast(`📋 Координаты скопированы: ${coordStr}`);
+            showToast(WM.t('📋 Координаты скопированы: {0}', coordStr));
           } catch (e) {
-            showToast(`Координаты: ${coordStr}`);
+            showToast(WM.t('Координаты: {0}', coordStr));
           }
         }
       },
         el('div', { class: 'coords-meta' },
-          el('span', { class: 'coords-label', text: 'Координаты центра' }),
+          el('span', { class: 'coords-label', text: WM.t('Координаты центра') }),
           el('span', { class: 'coords-val', text: coordStr })
         ),
-        el('span', { class: 'coords-copy-badge', text: '📋 Скопировать' })
+        el('span', { class: 'coords-copy-badge', text: WM.t('📋 Скопировать') })
       ),
       el('div', { class: 'nav-actions-grid' }, navButtons)
     );
@@ -3849,19 +3856,19 @@
       const hasCustom = !!o.customColor;
 
       const header = el('div', { class: 'color-mark-header' },
-        el('span', { text: hasCustom ? '🎨 Цветная метка объекта:' : '🎨 Пометить объект цветом:' }),
+        el('span', { text: hasCustom ? WM.t('🎨 Цветная метка объекта:') : WM.t('🎨 Пометить объект цветом:') }),
         hasCustom ? el('button', {
           class: 'color-mark-clear-btn',
-          title: 'Сбросить цвет метки',
+          title: WM.t('Сбросить цвет метки'),
           onclick: (e) => {
             e.stopPropagation();
             delete o.customColor;
             if (WM.cache && WM.cache.setCustomColor) WM.cache.setCustomColor(o.id, null);
             if (WM.view && WM.view.updateObjectStyle) WM.view.updateObjectStyle(o.id);
             renderColorPalette();
-            showToast('Цветовая метка удалена');
+            showToast(WM.t('Цветовая метка удалена'));
           }
-        }, el('span', { text: '✕ Сбросить' })) : null
+        }, el('span', { text: WM.t('✕ Сбросить') })) : null
       );
 
       const palette = el('div', { class: 'color-palette-row' });
@@ -3870,14 +3877,14 @@
         const btn = el('button', {
           class: 'color-palette-chip' + (isAct ? ' active' : ''),
           style: `background-color: ${c};`,
-          title: `Выбрать цвет ${c}`,
+          title: WM.t('Выбрать цвет {0}', c),
           onclick: (e) => {
             e.stopPropagation();
             o.customColor = c;
             if (WM.cache && WM.cache.setCustomColor) WM.cache.setCustomColor(o.id, c);
             if (WM.view && WM.view.updateObjectStyle) WM.view.updateObjectStyle(o.id);
             renderColorPalette();
-            showToast('🎨 Объект помечен цветом!');
+            showToast(WM.t('🎨 Объект помечен цветом!'));
           }
         });
         palette.append(btn);
@@ -3885,7 +3892,7 @@
 
       const pickerWrap = el('label', {
         class: 'color-palette-custom',
-        title: 'Выбрать произвольный цвет'
+        title: WM.t('Выбрать произвольный цвет')
       },
         el('span', { text: '🌈' }),
         el('input', {
@@ -3897,7 +3904,7 @@
             if (WM.cache && WM.cache.setCustomColor) WM.cache.setCustomColor(o.id, chosen);
             if (WM.view && WM.view.updateObjectStyle) WM.view.updateObjectStyle(o.id);
             renderColorPalette();
-            showToast('🎨 Объект помечен цветом!');
+            showToast(WM.t('🎨 Объект помечен цветом!'));
           }
         })
       );
@@ -3978,7 +3985,7 @@
 
 
   function renderPhotos(body, d) {
-    const curLang = (cur && cur.lang) || 'ru';
+    const curLang = (cur && cur.lang) || DEFLANG;
     const obj = cur && cur.obj ? cur.obj : null;
     const wmViewUrl = getWmSpaUrl(obj, 'view', curLang);
 
@@ -3986,14 +3993,14 @@
     if (!photos.length) {
       const emptyState = el('div', { class: 'sheet-empty-state' },
         el('div', { class: 'sheet-empty-icon', text: '📷' }),
-        el('div', { class: 'sheet-empty-title', text: 'Фотографий пока нет' }),
-        el('div', { class: 'sheet-empty-desc', text: 'Для этого объекта участники ещё не добавили фотографий.' }),
+        el('div', { class: 'sheet-empty-title', text: WM.t('Фотографий пока нет') }),
+        el('div', { class: 'sheet-empty-desc', text: WM.t('Для этого объекта участники ещё не добавили фотографий.') }),
         el('a', {
           class: 'btn btn-secondary sheet-empty-action',
           href: wmViewUrl,
           target: '_blank',
           rel: 'noopener noreferrer',
-          text: '🌐 Открыть объект на Wikimapia ↗'
+          text: WM.t('🌐 Открыть объект на Wikimapia ↗')
         })
       );
       return body.append(emptyState);
@@ -4013,7 +4020,7 @@
         el('img', {
           src: safeUrl(p.thumbnailRetina_url || p.thumbnail_url || p['960_url'] || p.big_url),
           loading: 'lazy',
-          alt: author ? `Фото: ${author}` : 'Фото объекта'
+          alt: author ? WM.t('Фото: {0}', author) : WM.t('Фото объекта')
         }),
         (author || dateStr) ? el('div', { class: 'photo-card-overlay' },
           author ? el('span', { class: 'photo-card-author', text: `👤 ${author}` }) : null,
@@ -4027,7 +4034,7 @@
   }
 
   function renderComments(body, d) {
-    const curLang = (cur && cur.lang) || 'ru';
+    const curLang = (cur && cur.lang) || DEFLANG;
     const obj = cur && cur.obj ? cur.obj : null;
     const commentSpaUrl = getWmSpaUrl(obj, 'comment', curLang);
 
@@ -4036,34 +4043,34 @@
     if (!cs.length) {
       const emptyState = el('div', { class: 'sheet-empty-state' },
         el('div', { class: 'sheet-empty-icon', text: '💬' }),
-        el('div', { class: 'sheet-empty-title', text: 'Отзывов пока нет' }),
-        el('div', { class: 'sheet-empty-desc', text: 'Вы можете написать первый отзыв или уточнение на Wikimapia.' }),
+        el('div', { class: 'sheet-empty-title', text: WM.t('Отзывов пока нет') }),
+        el('div', { class: 'sheet-empty-desc', text: WM.t('Вы можете написать первый отзыв или уточнение на Wikimapia.') }),
         el('a', {
           class: 'btn btn-primary sheet-empty-action',
           href: commentSpaUrl,
           target: '_blank',
           rel: 'noopener noreferrer',
-          text: '💬 Написать отзыв на Wikimapia ↗'
+          text: WM.t('💬 Написать отзыв на Wikimapia ↗')
         })
       );
       return body.append(emptyState);
     }
 
     const topBar = el('div', { class: 'sheet-tab-action-bar' },
-      el('span', { class: 'sheet-tab-action-title', text: `Всего отзывов: ${cs.length}` }),
+      el('span', { class: 'sheet-tab-action-title', text: WM.t('Всего отзывов: {0}', cs.length) }),
       el('a', {
         class: 'sheet-tab-action-btn',
         href: commentSpaUrl,
         target: '_blank',
         rel: 'noopener noreferrer',
-        title: 'Написать отзыв на Wikimapia',
-        text: '💬 Написать отзыв ↗'
+        title: WM.t('Написать отзыв на Wikimapia'),
+        text: WM.t('💬 Написать отзыв ↗')
       })
     );
     body.append(topBar);
 
     cs.forEach(c => {
-      const authorName = c.name || c.user_name || 'Анонимный участник';
+      const authorName = c.name || c.user_name || WM.t('Анонимный участник');
       const userId = +c.user_id || 0;
       
       let userPhoto = c.user_photo || '';
@@ -4099,7 +4106,7 @@
           href: `https://wikimapia.org/user/${userId}/`,
           target: '_blank',
           rel: 'noopener noreferrer',
-          title: `Профиль ${authorName} на Wikimapia`,
+          title: WM.t('Профиль {0} на Wikimapia', authorName),
           text: authorName
         }));
       } else {
@@ -4138,10 +4145,10 @@
     if (tab === 'info') renderInfo(body, obj, detail);
     else if (tab === 'photos') renderPhotos(body, detail || {});
     else renderComments(body, detail || {});
-    if (error) body.append(el('div', { class: 'muted', text: 'Ошибка: ' + error }));
+    if (error) body.append(el('div', { class: 'muted', text: WM.t('Ошибка: {0}', error) }));
   }
 
-  function load(obj, lang = 'ru') {
+  function load(obj, lang = DEFLANG) {
     cur.error = null;
     cur.loadingLang = lang;
     renderLangsUI();
@@ -4168,8 +4175,8 @@
         renderBody(); 
 
         const respIso = (d.language_iso || '').toLowerCase();
-        if (lang !== 'ru' && respIso && respIso !== lang && !d.description) {
-          showToast(`Для этого объекта нет описания на выбранном языке`);
+        if (lang !== DEFLANG && respIso && respIso !== lang && !d.description) {
+          showToast(WM.t('Для этого объекта нет описания на выбранном языке'));
         }
       }
     }).catch(e => { 
@@ -4189,7 +4196,7 @@
     const expandBtn = $('sheet-expand');
     if (expandBtn) {
       expandBtn.textContent = '⤢';
-      expandBtn.title = 'Развернуть';
+      expandBtn.title = WM.t('Развернуть');
     }
     document.body.classList.remove('sheet-open');
     cur = null;
@@ -4620,13 +4627,13 @@
           } else if (curDeltaY > 60) {
             sheet.classList.remove('full');
             if (sheetBody) sheetBody.scrollTop = 0;
-            if (expandBtn) { expandBtn.textContent = '⤢'; expandBtn.title = 'Развернуть'; }
+            if (expandBtn) { expandBtn.textContent = '⤢'; expandBtn.title = WM.t('Развернуть'); }
           }
         } else {
           // Свайп вверх сильнее 50px -> развернуть на весь экран
           if (curDeltaY < -50) {
             sheet.classList.add('full');
-            if (expandBtn) { expandBtn.textContent = '⤡'; expandBtn.title = 'Свернуть'; }
+            if (expandBtn) { expandBtn.textContent = '⤡'; expandBtn.title = WM.t('Свернуть'); }
           } 
           // Свайп вниз сильнее 60px -> закрыть карточку
           else if (curDeltaY > 60) {
@@ -4681,17 +4688,17 @@
       listEl.append(el('div', { 
         class: 'muted', 
         style: 'line-height: 1.5; padding: 24px 12px;',
-        text: 'Теги в сохранённых объектах пока не найдены. Откройте карточки объектов или включите фоновую загрузку, чтобы они появились здесь.' 
+        text: WM.t('Теги в сохранённых объектах пока не найдены. Откройте карточки объектов или включите фоновую загрузку, чтобы они появились здесь.') 
       }));
       return;
     }
 
     // Информационная плашка с пояснением логики работы
     const hintEl = el('div', { class: 'search-tags-hint' },
-      el('div', { class: 'search-tags-hint-title', text: '💡 Как работает поиск по тегам' }),
+      el('div', { class: 'search-tags-hint-title', text: WM.t('💡 Как работает поиск по тегам') }),
       el('div', { 
         class: 'search-tags-hint-desc', 
-        html: 'Список и числа в скобках показывают теги из карточек в памяти устройства. <b>При клике на тег начнётся поиск по всей базе Wikimapia</b> — на карте найдутся и подсветятся <i>все</i> объекты этой категории в видимой области.' 
+        html: `${WM.t('Список и числа в скобках показывают теги из карточек в памяти устройства.')} <b>${WM.t('При клике на тег начнётся поиск по всей базе Wikimapia')}</b> ${WM.t('— на карте найдутся и подсветятся')} <i>${WM.t('все')}</i> ${WM.t('объекты этой категории в видимой области.')}` 
       })
     );
     listEl.append(hintEl);
@@ -4703,10 +4710,10 @@
     }
 
     // Сортировка по алфавиту
-    tags.sort((a, b) => a.title.localeCompare(b.title, 'ru'));
+    tags.sort((a, b) => a.title.localeCompare(b.title, WM.i18n.locale));
 
     if (tags.length === 0) {
-      listEl.append(el('div', { class: 'muted', text: 'Подходящих тегов не найдено' }));
+      listEl.append(el('div', { class: 'muted', text: WM.t('Подходящих тегов не найдено') }));
       return;
     }
 
@@ -4717,13 +4724,13 @@
       const isActive = activeTag && (activeTag.title === t.title || (t.id && activeTag.id === t.id));
       const chip = el('button', {
         class: 'search-tag-chip' + (isActive ? ' active' : ''),
-        title: `Подсветить объекты с тегом «${t.title}»`,
+        title: WM.t('Подсветить объекты с тегом «{0}»', t.title),
         onclick: () => {
           $('modal-search').classList.remove('open');
           if (WM.view && WM.view.toggleTagFilter) {
             WM.view.toggleTagFilter({ id: t.id, title: t.title });
           }
-          showToast(isActive ? `🏷️ Подсветка тега «${t.title}» снята` : `🏷️ Поиск и подсветка: «${t.title}»`);
+          showToast(isActive ? WM.t('🏷️ Подсветка тега «{0}» снята', t.title) : WM.t('🏷️ Поиск и подсветка: «{0}»', t.title));
         }
       },
         el('span', { text: '🏷️ ' + t.title }),
@@ -4765,12 +4772,12 @@
     const popupContent = document.createElement('div');
     popupContent.className = 'wm-search-pin-popup';
     popupContent.innerHTML = `
-      <div style="font-weight: 700; font-size: 13px; margin-bottom: 2px;">📍 ${escapeHtml(label || 'Точка по координатам')}</div>
+      <div style="font-weight: 700; font-size: 13px; margin-bottom: 2px;">📍 ${escapeHtml(label || WM.t('Точка по координатам'))}</div>
       <div style="font-family: monospace; font-size: 12px; margin-bottom: 8px; color: var(--accent); font-weight: 600;">${coordStr}</div>
       <div style="display: flex; gap: 6px;">
-        <button type="button" class="btn btn-primary" id="btn-pin-add-marker" style="font-size: 11px; padding: 4px 8px; flex: 1;">📍 Создать метку</button>
-        <button type="button" class="btn btn-secondary" id="btn-pin-copy-coords" style="font-size: 11px; padding: 4px 8px;" title="Скопировать">📋</button>
-        <button type="button" class="btn btn-secondary" id="btn-pin-remove" style="font-size: 11px; padding: 4px 8px;" title="Скрыть пин">✕</button>
+        <button type="button" class="btn btn-primary" id="btn-pin-add-marker" style="font-size: 11px; padding: 4px 8px; flex: 1;">${WM.t('📍 Создать метку')}</button>
+        <button type="button" class="btn btn-secondary" id="btn-pin-copy-coords" style="font-size: 11px; padding: 4px 8px;" title="${WM.t('Скопировать')}">📋</button>
+        <button type="button" class="btn btn-secondary" id="btn-pin-remove" style="font-size: 11px; padding: 4px 8px;" title="${WM.t('Скрыть пин')}">✕</button>
       </div>
     `;
 
@@ -4797,7 +4804,7 @@
       if (btnCopy) {
         btnCopy.onclick = () => {
           navigator.clipboard.writeText(coordStr).then(() => {
-            showToast(`📋 Скопировано: ${coordStr}`);
+            showToast(WM.t('📋 Скопировано: {0}', coordStr));
           });
         };
       }
@@ -4832,7 +4839,7 @@
 
     taxa.forEach(t => {
       const icon = WM.inat ? WM.inat.getTaxonIcon(t) : '🌱';
-      const meta = WM.inat ? WM.inat.getTaxonMeta(t) : { name: 'Организм', color: '#10b981' };
+      const meta = WM.inat ? WM.inat.getTaxonMeta(t) : { name: WM.t('Организм'), color: '#10b981' };
       const ruName = t.preferred_common_name || t.name;
       const latinName = t.name || '';
       const photoUrl = t.default_photo?.square_url || '';
@@ -4903,13 +4910,13 @@
       const applyBtn = $('btn-search-inat-apply-map');
       if (q.length < 2 && !searchInatSelectedTaxon) {
         listEl.textContent = '';
-        listEl.append(el('div', { class: 'muted', text: 'Введите название растения или гриба (рус / лат)…' }));
+        listEl.append(el('div', { class: 'muted', text: WM.t('Введите название растения или гриба (рус / лат)…') }));
         if (applyBtn) applyBtn.hidden = true;
         searchInatLastResults = [];
         return;
       }
 
-      listEl.innerHTML = '<div class="muted" style="padding: 16px 0;">⏳ Поиск в базе iNaturalist…</div>';
+      listEl.innerHTML = `<div class="muted" style="padding: 16px 0;">${WM.t('⏳ Поиск в базе iNaturalist…')}</div>`;
 
       try {
         const resData = await WM.inat.searchObservations(q, searchInatType, searchInatSelectedTaxon);
@@ -4933,26 +4940,26 @@
           listEl.append(el('div', {
             class: 'muted',
             text: searchInatType === 'screen'
-              ? 'На видимом экране совпадений не найдено. Переключите на «Общий» или увеличьте охват.'
-              : 'В базе iNaturalist ничего не найдено по этому запросу.'
+              ? WM.t('На видимом экране совпадений не найдено. Переключите на «Общий» или увеличьте охват.')
+              : WM.t('В базе iNaturalist ничего не найдено по этому запросу.')
           }));
           return;
         }
 
         // Заголовок с количеством
-        const totalText = resData.total ? resData.total.toLocaleString('ru-RU') : items.length;
+        const totalText = resData.total ? resData.total.toLocaleString(WM.i18n.locale) : items.length;
         const countHeader = el('div', {
           class: 'search-inat-results-header',
           style: 'font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between;'
         },
-          el('span', { text: `Найдено: ${items.length} (всего ${totalText})` }),
-          searchInatSelectedTaxon ? el('span', { style: 'color: var(--accent);', text: `Таксон: ${searchInatSelectedTaxon.name}` }) : null
+          el('span', { text: WM.t('Найдено: {0} (всего {1})', items.length, totalText) }),
+          searchInatSelectedTaxon ? el('span', { style: 'color: var(--accent);', text: WM.t('Таксон: {0}', searchInatSelectedTaxon.name) }) : null
         );
         listEl.append(countHeader);
 
         items.forEach(obs => {
           const taxon = obs.taxon || {};
-          const meta = WM.inat ? WM.inat.getTaxonMeta(taxon) : { name: 'Организм', icon: '🌱', color: '#10b981' };
+          const meta = WM.inat ? WM.inat.getTaxonMeta(taxon) : { name: WM.t('Организм'), icon: '🌱', color: '#10b981' };
           const ruName = taxon.preferred_common_name || obs.species_guess || taxon.name || meta.name;
           const latinName = taxon.name || '';
           const photoUrl = obs.photos?.[0]?.url || taxon.default_photo?.square_url || '';
@@ -4961,8 +4968,8 @@
           let distStr = '';
           if (obs._distMeters != null) {
             distStr = obs._distMeters >= 1000
-              ? ` · ~${(obs._distMeters / 1000).toFixed(1)} км`
-              : ` · ~${Math.round(obs._distMeters)} м`;
+              ? WM.t(' · ~{0} км', (obs._distMeters / 1000).toFixed(1))
+              : WM.t(' · ~{0} м', Math.round(obs._distMeters));
           }
 
           const itemEl = el('div', {
@@ -4996,14 +5003,14 @@
               <span class="inat-search-la">${escapeHtml(latinName)}</span>
               <span class="inat-search-extra">📅 ${dateStr}${distStr}</span>
             </div>
-            <span class="inat-search-goto-btn" title="Перейти к точке на карте">🎯</span>
+            <span class="inat-search-goto-btn" title="${WM.t('Перейти к точке на карте')}">🎯</span>
           `;
 
           listEl.appendChild(itemEl);
         });
 
       } catch (err) {
-        listEl.innerHTML = `<div class="muted" style="color:var(--danger);">Ошибка поиска: ${escapeHtml(err.message)}</div>`;
+        listEl.innerHTML = `<div class="muted" style="color:var(--danger);">${WM.t('Ошибка поиска: {0}', escapeHtml(err.message))}</div>`;
       }
       return;
     }
@@ -5011,7 +5018,7 @@
     // 3. Режимы «Все», «Wikimapia», «OSM»
     if (q.length < 2) {
       listEl.textContent = '';
-      listEl.append(el('div', { class: 'muted', text: 'Введите минимум 2 символа для поиска…' }));
+      listEl.append(el('div', { class: 'muted', text: WM.t('Введите минимум 2 символа для поиска…') }));
       return;
     }
 
@@ -5031,16 +5038,16 @@
           if (WM.picker && WM.picker.getMode() === 'cross' && WM.picker.fetchAtCrosshair) {
             setTimeout(() => WM.picker.fetchAtCrosshair(), 400);
           }
-          showToast(`🎯 Координаты: ${coordStr}`, 2400);
+          showToast(WM.t('🎯 Координаты: {0}', coordStr), 2400);
         }
       },
         el('div', { class: 'search-res-top' },
-          el('span', { class: 'search-res-title', text: '📍 Показать место на карте' }),
+          el('span', { class: 'search-res-title', text: WM.t('📍 Показать место на карте') }),
           el('span', { class: 'search-badge search-badge-coord', text: coordMatch.format })
         ),
         el('div', { 
           class: 'search-res-subtitle', 
-          text: `${coordStr} · ${coordMatch.desc} (нажмите для перехода)` 
+          text: WM.t('{0} · {1} (нажмите для перехода)', coordStr, coordMatch.desc) 
         })
       );
       listEl.append(coordItemEl);
@@ -5061,8 +5068,8 @@
           const coords = getCentroidCoords(obj);
           localMatches.push({
             id: obj.id,
-            title: obj.title || ('Объект #' + obj.id),
-            subtitle: `Wikimapia ID: ${obj.id} · в памяти`,
+            title: obj.title || (WM.t('Объект #{0}', obj.id)),
+            subtitle: WM.t('Wikimapia ID: {0} · в памяти', obj.id),
             lat: parseFloat(coords.lat),
             lon: parseFloat(coords.lon),
             source: 'wm',
@@ -5133,7 +5140,7 @@
 
         wmRes.push({
           id: it.id,
-          title: it.title || it.name || ('Объект #' + it.id),
+          title: it.title || it.name || (WM.t('Объект #{0}', it.id)),
           subtitle: `Wikimapia ID: ${it.id}`,
           lat,
           lon,
@@ -5146,7 +5153,7 @@
       // Форматируем находки iNaturalist для вкладки «Все»
       const inatFormatted = (inatRes || []).map(obs => {
         const taxon = obs.taxon || {};
-        const meta = WM.inat ? WM.inat.getTaxonMeta(taxon) : { name: 'Организм', icon: '🌿' };
+        const meta = WM.inat ? WM.inat.getTaxonMeta(taxon) : { name: WM.t('Организм'), icon: '🌿' };
         const ru = taxon.preferred_common_name || obs.species_guess || taxon.name || meta.name;
         return {
           id: 'inat_' + obs.id,
@@ -5168,7 +5175,7 @@
     if (coordItemEl) listEl.append(coordItemEl);
 
     if (!results.length && !coordItemEl) {
-      listEl.append(el('div', { class: 'muted', text: 'Ничего не найдено' }));
+      listEl.append(el('div', { class: 'muted', text: WM.t('Ничего не найдено') }));
       return;
     }
 
@@ -5177,10 +5184,10 @@
       const isInat = res.source === 'inat';
 
       let badgeClass = 'search-badge-osm';
-      let badgeText = 'Адрес / OSM';
+      let badgeText = WM.t('Адрес / OSM');
       if (isWm) {
         badgeClass = 'search-badge-wm';
-        badgeText = res.inCache ? 'Wikimapia (кэш)' : 'Wikimapia';
+        badgeText = res.inCache ? WM.t('Wikimapia (кэш)') : 'Wikimapia';
       } else if (isInat) {
         badgeClass = 'search-badge-inat';
         badgeText = '🌿 iNaturalist';
@@ -5213,7 +5220,7 @@
             }
 
             if (!targetObj) {
-              WM.ui.setStatus('🔍 Загрузка геометрии объекта…');
+              WM.ui.setStatus(WM.t('🔍 Загрузка геометрии объекта…'));
               try {
                 const detail = await WM.api.place(res.id);
                 if (detail) {
@@ -5363,11 +5370,11 @@
 
         if (searchSource === 'inat') {
           if (inatToolbar) inatToolbar.hidden = false;
-          inputSearch.placeholder = 'Растения, грибы, птицы (рус / лат)…';
+          inputSearch.placeholder = WM.t('Растения, грибы, птицы (рус / лат)…');
         } else {
           if (inatToolbar) inatToolbar.hidden = true;
           if (autoWrap) autoWrap.hidden = true;
-          inputSearch.placeholder = 'Название, адрес или ID Wikimapia…';
+          inputSearch.placeholder = WM.t('Название, адрес или ID Wikimapia…');
         }
 
         executeSearch(inputSearch.value);
@@ -5454,51 +5461,51 @@
       'btn-mode-toggle': () => {
         const isCross = WM.picker && WM.picker.getMode() === 'cross';
         return isCross 
-          ? '🎯 Режим «Перекрестие»\nНаведите прицел в центре экрана для выбора объекта (тапните для смены на палец)' 
-          : '👆 Режим «Палец»\nВыбирайте объекты прямым нажатием на карту (тапните для смены на прицел)';
+          ? WM.t('🎯 Режим «Перекрестие»\nНаведите прицел в центре экрана для выбора объекта (тапните для смены на палец)') 
+          : WM.t('👆 Режим «Палец»\nВыбирайте объекты прямым нажатием на карту (тапните для смены на прицел)');
       },
       'btn-track-record': () => (WM.tracker && WM.tracker.isRecording())
-        ? (WM.tracker.isPaused() ? '⏸️ Запись трека на паузе' : '⏺️ Идёт запись трека (нажмите для управления)')
-        : '⏺️ Запись трека: фиксация пройденного пути с защитой от сбоев и экспортом в GPX',
-      'btn-measure': () => '📏 Линейка: измерение расстояний на карте, добавление узлов и нескольких треков',
-      'btn-add-marker': () => '📍 Добавить метку: создать заметку с эмодзи в центре экрана с возможностью перемещения',
-      'btn-download-area': () => '📥 Скачать область: сохранить контуры и описания видимой области для автономной работы',
+        ? (WM.tracker.isPaused() ? WM.t('⏸️ Запись трека на паузе') : WM.t('⏺️ Идёт запись трека (нажмите для управления)'))
+        : WM.t('⏺️ Запись трека: фиксация пройденного пути с защитой от сбоев и экспортом в GPX'),
+      'btn-measure': () => WM.t('📏 Линейка: измерение расстояний на карте, добавление узлов и нескольких треков'),
+      'btn-add-marker': () => WM.t('📍 Добавить метку: создать заметку с эмодзи в центре экрана с возможностью перемещения'),
+      'btn-download-area': () => WM.t('📥 Скачать область: сохранить контуры и описания видимой области для автономной работы'),
       'btn-location': () => (WM.followMode && WM.followMode.isActive())
-        ? '🎯 Режим слежения: активен\nУдерживайте или сдвиньте карту для отключения'
-        : '🛰️ Моя геопозиция\nНажатие — показать координаты, удержание — режим слежения (прилипание камеры)',
+        ? WM.t('🎯 Режим слежения: активен\nУдерживайте или сдвиньте карту для отключения')
+        : WM.t('🛰️ Моя геопозиция\nНажатие — показать координаты, удержание — режим слежения (прилипание камеры)'),
       'btn-manual-pdr': () => (WM.manualPdr && WM.manualPdr.isActive())
-        ? '📍 Ведение по датчикам активно\nНажмите для возврата к штатному GPS'
-        : '📍 Поместить точку GPS сюда\nПривязать координаты к центру экрана и включить шагомер',
+        ? WM.t('📍 Ведение по датчикам активно\nНажмите для возврата к штатному GPS')
+        : WM.t('📍 Поместить точку GPS сюда\nПривязать координаты к центру экрана и включить шагомер'),
       'btn-motion-toggle': () => {
         const tail = WM.motionTail ? WM.motionTail.isEnabled() : false;
         const vector = WM.motionVector ? WM.motionVector.isEnabled() : false;
-        if (tail && !vector) return '🐾 Хвост движения (активен)\nНажмите для включения траектории';
-        if (tail && vector) return '🐾↗️ Хвост и траектория (активны)\nНажмите для выключения';
-        if (!tail && vector) return '↗️ Траектория движения (активна)\nНажмите для выключения';
-        return '🐾 Хвост и траектория (выключены)\nНажмите для включения хвоста';
+        if (tail && !vector) return WM.t('🐾 Хвост движения (активен)\nНажмите для включения траектории');
+        if (tail && vector) return WM.t('🐾↗️ Хвост и траектория (активны)\nНажмите для выключения');
+        if (!tail && vector) return WM.t('↗️ Траектория движения (активна)\nНажмите для выключения');
+        return WM.t('🐾 Хвост и траектория (выключены)\nНажмите для включения хвоста');
       },
-      'btn-gps-dist': () => (WM.gpsDist && WM.gpsDist.isActive()) ? '🧭 Расстояние до GPS: активно\nНажмите, чтобы отключить линию' : '🧭 Расстояние до GPS\nПоказывает прямую линию и расстояние от центра экрана до вашей геопозиции',
-      'btn-theme-toggle': () => '🌙/☀️ Смена темы: переключение между тёмной и светлой темой оформления',
-      'btn-compass': () => '🧭 Компас ориентации: стрелка указывает на географический Север. Нажмите для калибровки и азимута',
-      'btn-settings': () => '⚙️ Настройки: режимы расхода API, управление ключами, оформление контуров и экспорт',
-      'btn-search': () => '🔍 Поиск: поиск по названию, адресу, координатам или ID Wikimapia',
-      'limit-badge': () => '🔑 Лимит API: число обращений к сайту Wikimapia за сутки (сброс в полночь по времени PT)',
-      'limit-row': () => '🔑 Лимит API: состояние квоты текущего ключа и кнопка принудительного обновления',
-      'btn-force-refresh': () => '🔄 Обновить: сбросить ограничения и принудительно догрузить недостающие полигоны на экране',
-      'btn-get-key-top': () => '🔑 Добавить ключ: открыть настройки для добавления API-ключа Wikimapia',
-      'status': () => 'ℹ️ Статус системы: текущий режим загрузки, число объектов в памяти и состояние сети',
-      'tag-filter-badge': () => '🏷️ Фильтр тега: подсвечены только объекты выбранной категории',
-      'tag-filter-refresh': () => '🔄 Искать тег: найти объекты данной категории на текущем видимом экране',
-      'tag-filter-clear': () => '✕ Сбросить тег: вернуть стандартное отображение всех объектов',
-      'hover-pill': () => '📑 Карточка объекта: нажмите, чтобы открыть полное описание, фотографии и отзывы',
-      'crosshair': () => '✛ Прицел: центр экрана для точечного выбора и загрузки объектов',
-      'btn-measure-undo': () => '↩ Отменить узел: удалить последнюю поставленную точку измерения',
-      'btn-measure-finish': () => '✓ Фиксация: зафиксировать измерение или продолжить добавление узлов',
-      'btn-measure-clear': () => '🗑️ Удалить измерение: стереть текущую линию с карты',
-      'btn-measure-close': () => '✕ Закрыть линейку: скрыть панель измерений с экрана',
-      'btn-quick-swap-map': () => '🔀 Быстрая смена: нажатие — переключить, долгое удержание — выбрать вторую карту',
-      'btn-measure-new': () => '＋ Новое измерение: начать рисовать ещё одну независимую линию',
-      'btn-measure-rename': () => '✏️ Переименовать: изменить название текущего измерения'
+      'btn-gps-dist': () => (WM.gpsDist && WM.gpsDist.isActive()) ? WM.t('🧭 Расстояние до GPS: активно\nНажмите, чтобы отключить линию') : WM.t('🧭 Расстояние до GPS\nПоказывает прямую линию и расстояние от центра экрана до вашей геопозиции'),
+      'btn-theme-toggle': () => WM.t('🌙/☀️ Смена темы: переключение между тёмной и светлой темой оформления'),
+      'btn-compass': () => WM.t('🧭 Компас ориентации: стрелка указывает на географический Север. Нажмите для калибровки и азимута'),
+      'btn-settings': () => WM.t('⚙️ Настройки: режимы расхода API, управление ключами, оформление контуров и экспорт'),
+      'btn-search': () => WM.t('🔍 Поиск: поиск по названию, адресу, координатам или ID Wikimapia'),
+      'limit-badge': () => WM.t('🔑 Лимит API: число обращений к сайту Wikimapia за сутки (сброс в полночь по времени PT)'),
+      'limit-row': () => WM.t('🔑 Лимит API: состояние квоты текущего ключа и кнопка принудительного обновления'),
+      'btn-force-refresh': () => WM.t('🔄 Обновить: сбросить ограничения и принудительно догрузить недостающие полигоны на экране'),
+      'btn-get-key-top': () => WM.t('🔑 Добавить ключ: открыть настройки для добавления API-ключа Wikimapia'),
+      'status': () => WM.t('ℹ️ Статус системы: текущий режим загрузки, число объектов в памяти и состояние сети'),
+      'tag-filter-badge': () => WM.t('🏷️ Фильтр тега: подсвечены только объекты выбранной категории'),
+      'tag-filter-refresh': () => WM.t('🔄 Искать тег: найти объекты данной категории на текущем видимом экране'),
+      'tag-filter-clear': () => WM.t('✕ Сбросить тег: вернуть стандартное отображение всех объектов'),
+      'hover-pill': () => WM.t('📑 Карточка объекта: нажмите, чтобы открыть полное описание, фотографии и отзывы'),
+      'crosshair': () => WM.t('✛ Прицел: центр экрана для точечного выбора и загрузки объектов'),
+      'btn-measure-undo': () => WM.t('↩ Отменить узел: удалить последнюю поставленную точку измерения'),
+      'btn-measure-finish': () => WM.t('✓ Фиксация: зафиксировать измерение или продолжить добавление узлов'),
+      'btn-measure-clear': () => WM.t('🗑️ Удалить измерение: стереть текущую линию с карты'),
+      'btn-measure-close': () => WM.t('✕ Закрыть линейку: скрыть панель измерений с экрана'),
+      'btn-quick-swap-map': () => WM.t('🔀 Быстрая смена: нажатие — переключить, долгое удержание — выбрать вторую карту'),
+      'btn-measure-new': () => WM.t('＋ Новое измерение: начать рисовать ещё одну независимую линию'),
+      'btn-measure-rename': () => WM.t('✏️ Переименовать: изменить название текущего измерения')
     };
 
     function getTooltipText(elem) {
@@ -5507,9 +5514,9 @@
         return typeof TOOLTIPS[elem.id] === 'function' ? TOOLTIPS[elem.id]() : TOOLTIPS[elem.id];
       }
 
-      if (elem.classList.contains('leaflet-control-zoom-in')) return '➕ Приблизить: увеличить масштаб карты';
-      if (elem.classList.contains('leaflet-control-zoom-out')) return '➖ Отдалить: уменьшить масштаб карты';
-      if (elem.classList.contains('leaflet-control-layers-toggle')) return '🗺️ Слои карты: выбор спутников, топокарт, схем и Ж/Д сетей';
+      if (elem.classList.contains('leaflet-control-zoom-in')) return WM.t('➕ Приблизить: увеличить масштаб карты');
+      if (elem.classList.contains('leaflet-control-zoom-out')) return WM.t('➖ Отдалить: уменьшить масштаб карты');
+      if (elem.classList.contains('leaflet-control-layers-toggle')) return WM.t('🗺️ Слои карты: выбор спутников, топокарт, схем и Ж/Д сетей');
 
       const parentKey = Object.keys(TOOLTIPS).find(k => elem.closest && elem.closest('#' + k));
       if (parentKey) {
@@ -5638,7 +5645,7 @@
     if (objectsListFilterTag) {
       titleEl.innerHTML = `🏷️ ${escapeHtml(objectsListFilterTag.title)} (<span id="objects-list-count">0</span>)`;
     } else {
-      titleEl.innerHTML = `📋 Объекты на карте (<span id="objects-list-count">0</span>)`;
+      titleEl.innerHTML = `${WM.t('📋 Объекты на карте (')}<span id="objects-list-count">0</span>)`;
     }
   }
 
@@ -5653,7 +5660,7 @@
       btn.classList.add('loading');
       btn.classList.remove('disabled');
       btn.textContent = '⏳';
-      btn.title = 'Идёт скачивание объектов…';
+      btn.title = WM.t('Идёт скачивание объектов…');
       return;
     }
 
@@ -5663,11 +5670,11 @@
     if (isTooMany || count === 0) {
       btn.classList.add('disabled');
       btn.title = isTooMany 
-        ? `Слишком много объектов (${count}). Скачивание доступно, если менее 50` 
-        : 'Нет объектов для скачивания';
+        ? WM.t('Слишком много объектов ({0}). Скачивание доступно, если менее 50', count) 
+        : WM.t('Нет объектов для скачивания');
     } else {
       btn.classList.remove('disabled');
-      btn.title = `Скачать все данные объектов (${count} шт.)`;
+      btn.title = WM.t('Скачать все данные объектов ({0} шт.)', count);
     }
   }
 
@@ -5709,8 +5716,8 @@
 
     if (!allObjs.length) {
       const emptyText = objectsListFilterTag 
-        ? `В видимой области карты не найдено объектов с тегом «${objectsListFilterTag.title}».`
-        : 'На экране пока нет загруженных объектов. Приблизьте карту или дождитесь загрузки.';
+        ? WM.t('В видимой области карты не найдено объектов с тегом «{0}».', objectsListFilterTag.title)
+        : WM.t('На экране пока нет загруженных объектов. Приблизьте карту или дождитесь загрузки.');
       listEl.append(el('div', {
         class: 'muted',
         style: 'width: 100%; padding: 24px 8px;',
@@ -5723,7 +5730,7 @@
       listEl.append(el('div', {
         class: 'muted',
         style: 'width: 100%; padding: 20px 8px;',
-        text: 'Объектов по вашему запросу не найдено'
+        text: WM.t('Объектов по вашему запросу не найдено')
       }));
       return;
     }
@@ -5731,11 +5738,11 @@
     list.sort((a, b) => {
       if (a.title && !b.title) return -1;
       if (!a.title && b.title) return 1;
-      return (a.title || '').localeCompare(b.title || '', 'ru');
+      return (a.title || '').localeCompare(b.title || '', WM.i18n.locale);
     });
 
     list.forEach(o => {
-      const title = o.title || `Объект #${o.id}`;
+      const title = o.title || WM.t('Объект #{0}', o.id);
       const isVisited = !!o.isVisited;
 
       const liveObj = (WM.cache && WM.cache.objects) ? WM.cache.objects.get(o.id) : null;
@@ -5755,7 +5762,7 @@
       const chip = el('button', {
         class: 'object-tag-chip' + (isVisited ? ' visited' : ''),
         style: o.customColor ? `border-color: ${o.customColor};` : '',
-        title: `Открыть «${title}»`,
+        title: WM.t('Открыть «{0}»', title),
         onclick: () => {
           returnToObjectsList = true;
           if (!cachedObjectsSnapshot) {
@@ -5855,17 +5862,17 @@
         const allObjs = cachedObjectsSnapshot || ((WM.view && WM.view.shownObjects) ? WM.view.shownObjects() : []);
 
         if (isDownloadingObjects) {
-          showToast('⏳ Загрузка объектов уже выполняется…');
+          showToast(WM.t('⏳ Загрузка объектов уже выполняется…'));
           return;
         }
 
         if (!allObjs || allObjs.length === 0) {
-          showToast('На карте нет объектов для скачивания');
+          showToast(WM.t('На карте нет объектов для скачивания'));
           return;
         }
 
         if (allObjs.length >= 50) {
-          showToast(`⚠️ Слишком много объектов (${allObjs.length}). Скачивание доступно, если менее 50`);
+          showToast(WM.t('⚠️ Слишком много объектов ({0}). Скачивание доступно, если менее 50', allObjs.length));
           return;
         }
 
@@ -5884,10 +5891,10 @@
             void pBar.offsetWidth; // сброс предыдущей анимации
             pBar.style.transition = '';
           }
-          if (pStatus) pStatus.textContent = `Обработка: 0 из ${allObjs.length} (0%)`;
+          if (pStatus) pStatus.textContent = WM.t('Обработка: 0 из {0} (0%)', allObjs.length);
         }
 
-        showToast(`📥 Проверка и загрузка данных (${allObjs.length} шт.)…`, 1800);
+        showToast(WM.t('📥 Проверка и загрузка данных ({0} шт.)…', allObjs.length), 1800);
 
         let loadedCount = 0;
         let fromCacheCount = 0;
@@ -5896,7 +5903,7 @@
 
         for (let i = 0; i < allObjs.length; i++) {
           const o = allObjs[i];
-          downloadBtn.title = `Обработка: ${i + 1}/${allObjs.length}`;
+          downloadBtn.title = WM.t('Обработка: {0}/{1}', i + 1, allObjs.length);
 
           let isFromNet = false;
 
@@ -5904,13 +5911,13 @@
             // 1. Проверяем наличие карточки в локальной базе данных IndexedDB
             let detail = null;
             if (WM.cache && WM.cache.getDetail) {
-              detail = await WM.cache.getDetail(o.id, 'ru');
+              detail = await WM.cache.getDetail(o.id, DEFLANG);
             }
 
             // 2. Если в базе нет — отправляем сетевой запрос к API Wikimapia
             if (!detail) {
               isFromNet = true;
-              detail = await WM.api.place(o.id, 'ru');
+              detail = await WM.api.place(o.id, DEFLANG);
             }
 
             if (detail) {
@@ -5925,9 +5932,9 @@
           } catch (err) {
             failedCount++;
             if (err && err.rateLimit) {
-              showToast('⏳ Превышен лимит API. Скачивание приостановлено.');
+              showToast(WM.t('⏳ Превышен лимит API. Скачивание приостановлено.'));
               if (pStatus) {
-                pStatus.textContent = `Лимит API! Обработано: ${loadedCount} из ${allObjs.length}`;
+                pStatus.textContent = WM.t('Лимит API! Обработано: {0} из {1}', loadedCount, allObjs.length);
               }
               break;
             }
@@ -5938,7 +5945,7 @@
           const pct = Math.round((currentDone / allObjs.length) * 100);
           if (pBar) pBar.style.width = `${pct}%`;
           if (pStatus) {
-            pStatus.textContent = `Обработка: ${currentDone} из ${allObjs.length} (${pct}%)${failedCount ? ` · ошибок: ${failedCount}` : ''}`;
+            pStatus.textContent = WM.t('Обработка: {0} из {1} ({2}%){3}', currentDone, allObjs.length, pct, failedCount ? WM.t(' · ошибок: {0}', failedCount) : '');
           }
 
           // Обновляем бейджи 📷 и 💬 в карточках
@@ -5956,13 +5963,13 @@
         renderObjectsList(lastObjectsSearchQuery);
 
         // Формируем понятный отчёт
-        let finishReport = `✅ Готово! Всего: ${loadedCount}`;
+        let finishReport = WM.t('✅ Готово! Всего: {0}', loadedCount);
         if (fromCacheCount > 0 && fromNetCount > 0) {
-          finishReport = `✅ Готово: ${fromNetCount} скачано, ${fromCacheCount} из базы`;
+          finishReport = WM.t('✅ Готово: {0} скачано, {1} из базы', fromNetCount, fromCacheCount);
         } else if (fromNetCount === 0 && fromCacheCount > 0) {
-          finishReport = `✅ Все объекты (${fromCacheCount} шт.) уже были в базе!`;
+          finishReport = WM.t('✅ Все объекты ({0} шт.) уже были в базе!', fromCacheCount);
         }
-        if (failedCount > 0) finishReport += ` (ошибок: ${failedCount})`;
+        if (failedCount > 0) finishReport += WM.t(' (ошибок: {0})', failedCount);
 
         if (pStatus) pStatus.textContent = finishReport;
         showToast(finishReport, 2400);
@@ -6019,7 +6026,7 @@
 
     // 6. Wikimapia
     const wmBtn = $('open-coords-wm');
-    if (wmBtn) wmBtn.href = `https://wikimapia.org/#lang=ru&lat=${latStr}&lon=${lngStr}&z=${currentZoom}&m=w`;
+    if (wmBtn) wmBtn.href = `https://wikimapia.org/#lang=${DEFLANG}&lat=${latStr}&lon=${lngStr}&z=${currentZoom}&m=w`;
 
     // 7. В Навигатор
     const geoBtn = $('open-coords-geo');
@@ -6037,9 +6044,9 @@
       if (!activeCoordsStr) return;
       try {
         await navigator.clipboard.writeText(activeCoordsStr);
-        showToast(`📋 Координаты скопированы: ${activeCoordsStr}`);
+        showToast(WM.t('📋 Координаты скопированы: {0}', activeCoordsStr));
       } catch (e) {
-        showToast(`Координаты: ${activeCoordsStr}`);
+        showToast(WM.t('Координаты: {0}', activeCoordsStr));
       }
     };
 
@@ -6066,7 +6073,7 @@
     const summaryEl = $('clear-tiles-total-summary');
     if (!modal || !listEl) return;
 
-    listEl.innerHTML = '<div class="muted">⏳ Анализ кэша карт…</div>';
+    listEl.innerHTML = `<div class="muted">${WM.t('⏳ Анализ кэша карт…')}</div>`;
     modal.classList.add('open');
     pushHistoryState('modal');
 
@@ -6074,20 +6081,20 @@
     listEl.innerHTML = '';
 
     if (!stats.length) {
-      listEl.innerHTML = '<div class="muted">В кэше нет сохранённых тайлов.</div>';
-      if (summaryEl) summaryEl.textContent = 'Сохранено: 0 тайлов';
+      listEl.innerHTML = `<div class="muted">${WM.t('В кэше нет сохранённых тайлов.')}</div>`;
+      if (summaryEl) summaryEl.textContent = WM.t('Сохранено: 0 тайлов');
       return;
     }
 
     const totalCount = stats.reduce((acc, s) => acc + s.count, 0);
     const totalMb = stats.reduce((acc, s) => acc + parseFloat(s.sizeMb), 0).toFixed(1);
-    if (summaryEl) summaryEl.textContent = `Всего: ${totalCount} тайлов (~${totalMb} МБ)`;
+    if (summaryEl) summaryEl.textContent = WM.t('Всего: {0} тайлов (~{1} МБ)', totalCount, totalMb);
 
     stats.forEach(item => {
       const row = el('label', { class: 'toggle-item' },
         el('div', {},
           el('span', { style: 'font-weight: 600; display: block;', text: item.name }),
-          el('small', { class: 'hint-text', text: `${item.count} тайлов · ~${item.sizeMb} МБ` })
+          el('small', { class: 'hint-text', text: WM.t('{0} тайлов · ~{1} МБ', item.count, item.sizeMb) })
         ),
         el('input', {
           type: 'checkbox',
@@ -6121,12 +6128,12 @@
     if (slider && parseInt(slider.value, 10) !== curOffset) {
       slider.value = curOffset;
     }
-    if (badge) badge.textContent = `Поправка: ${formattedOffset}`;
+    if (badge) badge.textContent = WM.t('Поправка: {0}', formattedOffset);
     if (settingsVal) settingsVal.textContent = formattedOffset;
 
     const curH = (WM.pdr && WM.pdr.getHeading) ? WM.pdr.getHeading() : null;
     if (headingEl) {
-      headingEl.textContent = curH !== null ? `Курс: ${Math.round(curH)}°` : 'Курс: --';
+      headingEl.textContent = curH !== null ? WM.t('Курс: {0}°', Math.round(curH)) : WM.t('Курс: --');
     }
 
     // Передаем новый курс напрямую для мгновенного поворота без ожидания движения
@@ -6156,7 +6163,7 @@
     hud.hidden = false;
     pushHistoryState('visualCompass');
 
-    showToast('🧭 Вращайте ползунок, совмещая луч с ориентиром на карте', 3000);
+    showToast(WM.t('🧭 Вращайте ползунок, совмещая луч с ориентиром на карте'), 3000);
   }
 
   function closeVisualCompassHUD() {
@@ -6173,7 +6180,7 @@
       WM.pdr.setAlignmentOffset(initialVisualOffset);
     }
     closeVisualCompassHUD();
-    showToast('Калибровка соосности отменена');
+    showToast(WM.t('Калибровка соосности отменена'));
   }
   window.cancelVisualCompassAdjust = cancelVisualCompassAdjust;
 
@@ -6182,7 +6189,7 @@
     const finalOffset = WM.pdr ? WM.pdr.getAlignmentOffset() : 0;
     closeVisualCompassHUD();
     const formatted = (finalOffset > 0 ? '+' : '') + finalOffset + '°';
-    showToast(`✅ Соосность сохранена: ${formatted}`, 2500);
+    showToast(WM.t('✅ Соосность сохранена: {0}', formatted), 2500);
   }
 
   function initVisualCompassAdjustModule() {
@@ -6248,7 +6255,7 @@
     // 1. Таблица параметров пресетов
     const PDR_PRESETS = {
       walk: {
-        title: 'Пешком',
+        title: WM.t('Пешком'),
         navigationType: 'step',
         carryingMode: 'hand',
         baseStepLength: 0.75,
@@ -6259,7 +6266,7 @@
         elevatorDetection: true
       },
       run: {
-        title: 'Бег / Марш',
+        title: WM.t('Бег / Марш'),
         navigationType: 'step',
         carryingMode: 'pocket',
         baseStepLength: 0.95,
@@ -6270,7 +6277,7 @@
         elevatorDetection: false
       },
       bike: {
-        title: 'Велосипед',
+        title: WM.t('Велосипед'),
         navigationType: 'vehicular',
         vehicularSpeedKmh: 18,
         carryingMode: 'hand',
@@ -6282,7 +6289,7 @@
         elevatorDetection: false
       },
       car: {
-        title: 'Автомобиль',
+        title: WM.t('Автомобиль'),
         navigationType: 'vehicular',
         vehicularSpeedKmh: 50,
         carryingMode: 'hand',
@@ -6317,7 +6324,7 @@
       if (sliderStep) {
         const cm = Math.round(p.baseStepLength * 100);
         sliderStep.value = cm;
-        if (valStep) valStep.textContent = cm + ' см';
+        if (valStep) valStep.textContent = WM.t('{0} см', cm);
       }
 
       // 3. Динамический шаг Weinberg
@@ -6355,7 +6362,7 @@
       }
 
       try { localStorage.setItem('wm_pdr_active_preset', presetKey); } catch (e) {}
-      showToast(`🚀 Применён пресет: «${p.title}»`);
+      showToast(WM.t('🚀 Применён пресет: «{0}»', p.title));
     }
 
     // Восстановление активного пресета
@@ -6374,7 +6381,7 @@
         if (window.WM && WM.setPdrStepPillEnabled) WM.setPdrStepPillEnabled(val);
         const quickChk = $('pdr-quick-toggle-step-pill');
         if (quickChk) quickChk.checked = val;
-        showToast(val ? '👣 Плашка шагов PDR включена' : '👣 Плашка шагов PDR выключена');
+        showToast(val ? WM.t('👣 Плашка шагов PDR включена') : WM.t('👣 Плашка шагов PDR выключена'));
       };
     }
 
@@ -6390,10 +6397,10 @@
         if (WM.pdr) WM.pdr.setConfig({ headingSource: val });
         if (hintHeadingSource) {
           hintHeadingSource.textContent = val === 'compass'
-            ? '«Только компас» отключает гироскоп и стабилизирует курс адаптивным фильтром. Подходит при дрейфе или плохом гироскопе.'
-            : '«Гироскоп + Компас» даёт максимальную плавность и быстроту реакции благодаря слиянию датчиков. Может плохо работать на бюджетных устройствах или при особенностях гироскопа.';
+            ? WM.t('«Только компас» отключает гироскоп и стабилизирует курс адаптивным фильтром. Подходит при дрейфе или плохом гироскопе.')
+            : WM.t('«Гироскоп + Компас» даёт максимальную плавность и быстроту реакции благодаря слиянию датчиков. Может плохо работать на бюджетных устройствах или при особенностях гироскопа.');
         }
-        showToast(val === 'compass' ? '🧭 Режим курса: Только компас' : '🧭 Режим курса: Гироскоп + Компас');
+        showToast(val === 'compass' ? WM.t('🧭 Режим курса: Только компас') : WM.t('🧭 Режим курса: Гироскоп + Компас'));
       };
     }
 
@@ -6405,16 +6412,16 @@
         const val = e.target.value;
         if (WM.pdr) WM.pdr.setConfig({ movementType: val });
         if (hintMov) {
-          if (val === 'straight') hintMov.textContent = '«По прямой» держит генеральный курс и игнорирует виляние при обходе препятствий.';
-          else if (val === 'chaotic') hintMov.textContent = '«Маневренный» мгновенно чертит любой резкий поворот.';
-          else hintMov.textContent = 'Стандартный сбалансированный режим.';
+          if (val === 'straight') hintMov.textContent = WM.t('«По прямой» держит генеральный курс и игнорирует виляние при обходе препятствий.');
+          else if (val === 'chaotic') hintMov.textContent = WM.t('«Маневренный» мгновенно чертит любой резкий поворот.');
+          else hintMov.textContent = WM.t('Стандартный сбалансированный режим.');
         }
         // Синхронизация с быстрым меню
         document.querySelectorAll('#pdr-quick-movement-segmented .pdr-quick-seg-btn').forEach(b => {
           b.classList.toggle('active', b.dataset.mov === val);
         });
         updatePdrQuickMovHint(val);
-        showToast(`🧭 Режим движения: ${selMov.options[selMov.selectedIndex].text.split(' ')[1]}`);
+        showToast(WM.t('🧭 Режим движения: {0}', selMov.options[selMov.selectedIndex].text.split(' ')[1]));
       };
     }
 
@@ -6445,7 +6452,7 @@
       chkStepVibe.checked = WM.pdr ? (WM.pdr.getConfig().stepVibration !== false) : true;
       chkStepVibe.onchange = (e) => {
         if (WM.pdr) WM.pdr.setConfig({ stepVibration: e.target.checked });
-        showToast(e.target.checked ? '📳 Вибрация при шаге включена' : '🔕 Вибрация при шаге выключена');
+        showToast(e.target.checked ? WM.t('📳 Вибрация при шаге включена') : WM.t('🔕 Вибрация при шаге выключена'));
       };
     }
 
@@ -6460,11 +6467,11 @@
       if (wrapVibroInt) wrapVibroInt.hidden = (mode !== 'correct');
       if (hintNavVibro) {
         if (mode === 'correct') {
-          hintNavVibro.textContent = 'Мягкий периодический вибросигнал, пока вы идёте прямо к цели.';
+          hintNavVibro.textContent = WM.t('Мягкий периодический вибросигнал, пока вы идёте прямо к цели.');
         } else if (mode === 'deviation') {
-          hintNavVibro.textContent = 'Влево — один импульс, вправо — двойной импульс при сходе с линии.';
+          hintNavVibro.textContent = WM.t('Влево — один импульс, вправо — двойной импульс при сходе с линии.');
         } else {
-          hintNavVibro.textContent = 'Тактильные сигналы маршрута и цели полностью отключены.';
+          hintNavVibro.textContent = WM.t('Тактильные сигналы маршрута и цели полностью отключены.');
         }
       }
     }
@@ -6493,9 +6500,9 @@
     const valInterval = $('nav-vibro-interval-val');
     if (sliderInterval && valInterval && WM.navVibro) {
       sliderInterval.value = WM.navVibro.getInterval();
-      valInterval.textContent = `каждые ${sliderInterval.value} сек`;
+      valInterval.textContent = WM.t('каждые {0} сек', sliderInterval.value);
       sliderInterval.oninput = (e) => {
-        valInterval.textContent = `каждые ${e.target.value} сек`;
+        valInterval.textContent = WM.t('каждые {0} сек', e.target.value);
         WM.navVibro.setInterval(parseInt(e.target.value, 10));
       };
     }
@@ -6508,7 +6515,7 @@
         if (WM.pdr && WM.pdr.setSoundEnabled) {
           WM.pdr.setSoundEnabled(e.target.checked);
         }
-        showToast(e.target.checked ? '🔊 Звук шага включён' : '🔇 Звук шага выключен');
+        showToast(e.target.checked ? WM.t('🔊 Звук шага включён') : WM.t('🔇 Звук шага выключен'));
       };
     }
 
@@ -6522,7 +6529,7 @@
         if (window.WM && WM.syncWakeLockState) {
           WM.syncWakeLockState();
         }
-        showToast(e.target.checked ? '🔆 Экран всегда включён' : 'Экран гаснет по таймеру ОС (кроме навигации)');
+        showToast(e.target.checked ? WM.t('🔆 Экран всегда включён') : WM.t('Экран гаснет по таймеру ОС (кроме навигации)'));
       };
     }
 
@@ -6533,7 +6540,7 @@
       chkBg.onchange = (e) => {
         const isCapacitor = window.Capacitor !== undefined || /wv|Android.*Version\/[0-9.]+/i.test(navigator.userAgent);
         if (!isCapacitor && e.target.checked) {
-          showToast('⚠️ Фоновый режим в браузере ограничен ОС (доступен в APK)');
+          showToast(WM.t('⚠️ Фоновый режим в браузере ограничен ОС (доступен в APK)'));
         }
         localStorage.setItem('wm_pdr_background', e.target.checked ? 'true' : 'false');
       };
@@ -6580,13 +6587,13 @@
 
       if (!permStatusEl) return;
       if (!isHttps) {
-        permStatusEl.innerHTML = '⚠️ Требуется HTTPS или запуск в приложении (датчики заблокированы браузером)';
+        permStatusEl.innerHTML = WM.t('⚠️ Требуется HTTPS или запуск в приложении (датчики заблокированы браузером)');
         permStatusEl.style.color = 'var(--danger)';
       } else if (hasMotion && hasOrientation) {
-        permStatusEl.innerHTML = '🟢 Датчики движения и компас поддерживаются устройством';
+        permStatusEl.innerHTML = WM.t('🟢 Датчики движения и компас поддерживаются устройством');
         permStatusEl.style.color = '#16a34a';
       } else {
-        permStatusEl.innerHTML = '🟡 Частичная поддержка (отсутствует гироскоп или акселерометр)';
+        permStatusEl.innerHTML = WM.t('🟡 Частичная поддержка (отсутствует гироскоп или акселерометр)');
       }
     }
     checkSensors();
@@ -6596,11 +6603,11 @@
         if (WM.pdr && WM.pdr.requestPermissions) {
           const res = await WM.pdr.requestPermissions();
           if (res.motion && res.orientation) {
-            permStatusEl.innerHTML = '🟢 Доступ к датчикам успешно предоставлен!';
+            permStatusEl.innerHTML = WM.t('🟢 Доступ к датчикам успешно предоставлен!');
             permStatusEl.style.color = '#16a34a';
-            showToast('✅ Доступ к датчикам движения предоставлен');
+            showToast(WM.t('✅ Доступ к датчикам движения предоставлен'));
           } else {
-            showToast('⚠️ Разрешение не получено или отклонено');
+            showToast(WM.t('⚠️ Разрешение не получено или отклонено'));
           }
         }
       };
@@ -6623,7 +6630,7 @@
 
       if (declText) {
         const d = WM.pdr.getMagneticDeclination();
-        declText.textContent = `Автоматическая поправка к истинному Северу (${d >= 0 ? '+' : ''}${d}°)`;
+        declText.textContent = WM.t('Автоматическая поправка к истинному Северу ({0}{1}°)', d >= 0 ? '+' : '', d);
       }
 
       if (chkDecl) {
@@ -6646,7 +6653,7 @@
         selSens.value = cfg.sensitivity || 'normal';
         selSens.onchange = (e) => {
           WM.pdr.setConfig({ sensitivity: e.target.value });
-          showToast(`🎯 Чувствительность: ${selSens.options[selSens.selectedIndex].text.split(' ')[0]}`);
+          showToast(WM.t('🎯 Чувствительность: {0}', selSens.options[selSens.selectedIndex].text.split(' ')[0]));
         };
       }
 
@@ -6665,10 +6672,10 @@
       if (sliderStep) {
         const curCm = Math.round((cfg.baseStepLength || 0.75) * 100);
         sliderStep.value = curCm;
-        if (valStep) valStep.textContent = curCm + ' см';
+        if (valStep) valStep.textContent = WM.t('{0} см', curCm);
         sliderStep.oninput = (e) => {
           const val = parseFloat(e.target.value);
-          if (valStep) valStep.textContent = val + ' см';
+          if (valStep) valStep.textContent = WM.t('{0} см', val);
           WM.pdr.setConfig({ baseStepLength: val / 100 });
         };
       }
@@ -6795,7 +6802,7 @@
         L.marker(mid, {
           icon: L.divIcon({
             className: 'wm-triangle-pin-icon',
-            html: `<div class="wm-triangle-leg-badge">${distM} м</div>`,
+            html: `<div class="wm-triangle-leg-badge">${WM.t('{0} м', distM)}</div>`,
             iconSize: [50, 20],
             iconAnchor: [25, 10]
           }),
@@ -6814,27 +6821,27 @@
           lblA.textContent = `${points.A.lat.toFixed(5)}, ${points.A.lng.toFixed(5)} ✓`;
           lblA.style.color = '#10b981';
         } else {
-          lblA.textContent = 'Не задана';
+          lblA.textContent = WM.t('Не задана');
           lblA.style.color = 'var(--text-muted)';
         }
       }
       if (lblB) {
         if (points.B) {
-          const d = points.A ? ` (${Math.round(points.A.distanceTo(points.B))} м)` : '';
-          lblB.textContent = `Установлена${d} ✓`;
+          const d = points.A ? WM.t(' ({0} м)', Math.round(points.A.distanceTo(points.B))) : '';
+          lblB.textContent = WM.t('Установлена{0} ✓', d);
           lblB.style.color = '#10b981';
         } else {
-          lblB.textContent = 'Не задана';
+          lblB.textContent = WM.t('Не задана');
           lblB.style.color = 'var(--text-muted)';
         }
       }
       if (lblC) {
         if (points.C) {
-          const d = points.B ? ` (${Math.round(points.B.distanceTo(points.C))} м)` : '';
-          lblC.textContent = `Установлена${d} ✓`;
+          const d = points.B ? WM.t(' ({0} м)', Math.round(points.B.distanceTo(points.C))) : '';
+          lblC.textContent = WM.t('Установлена{0} ✓', d);
           lblC.style.color = '#10b981';
         } else {
-          lblC.textContent = 'Не задана';
+          lblC.textContent = WM.t('Не задана');
           lblC.style.color = 'var(--text-muted)';
         }
       }
@@ -6849,9 +6856,9 @@
     function startTrianglePointPicker(char) {
       currentPickingChar = char;
       const pointTitles = {
-        A: 'Точка A (Старт)',
-        B: 'Точка B (Второй ориентир)',
-        C: 'Точка C (Третий ориентир)'
+        A: WM.t('Точка A (Старт)'),
+        B: WM.t('Точка B (Второй ориентир)'),
+        C: WM.t('Точка C (Третий ориентир)')
       };
 
       // Временно скрываем модальные окна, чтобы открыть обзор карты
@@ -6871,15 +6878,15 @@
       }
 
       // Обновляем плашку HUD
-      if (triPickerBadge) triPickerBadge.textContent = `Точка ${char}`;
-      if (triPickerTitle) triPickerTitle.textContent = pointTitles[char] || `Ориентир ${char}`;
+      if (triPickerBadge) triPickerBadge.textContent = WM.t('Точка {0}', char);
+      if (triPickerTitle) triPickerTitle.textContent = pointTitles[char] || WM.t('Ориентир {0}', char);
       onMapMoveTriPicker();
 
       if (WM.map) WM.map.on('move', onMapMoveTriPicker);
       if (triPickerHud) triPickerHud.hidden = false;
 
       redrawTrianglePreview();
-      showToast(`🎯 Наведите прицел на ${pointTitles[char]} и нажмите «OK»`);
+      showToast(WM.t('🎯 Наведите прицел на {0} и нажмите «OK»', pointTitles[char]));
     }
 
     function cancelTrianglePointPicker() {
@@ -6914,7 +6921,7 @@
       if (modalSettings) modalSettings.classList.add('open');
       if (modalTri) modalTri.classList.add('open');
 
-      showToast(`✅ Точка ${currentPickingChar} успешно зафиксирована`);
+      showToast(WM.t('✅ Точка {0} успешно зафиксирована', currentPickingChar));
       currentPickingChar = null;
     }
 
@@ -6952,7 +6959,7 @@
         if (stepWalkingEl) stepWalkingEl.hidden = true;
         if (stepResultEl) stepResultEl.hidden = true;
         if (btnActionTri) {
-          btnActionTri.textContent = 'Начать калибровку';
+          btnActionTri.textContent = WM.t('Начать калибровку');
           btnActionTri.disabled = true;
         }
         if (modalTri) modalTri.classList.add('open');
@@ -6968,7 +6975,7 @@
       function updateLiveWalkedUI() {
         if (!liveWalkedEl || !WM.pdr || !WM.pdr.getTriangleCurrentLegStats) return;
         const stats = WM.pdr.getTriangleCurrentLegStats();
-        liveWalkedEl.textContent = `Пройдено: ${stats.steps} шагов (~${Math.round(stats.dist)} м)`;
+        liveWalkedEl.textContent = WM.t('Пройдено: {0} шагов (~{1} м)', stats.steps, Math.round(stats.dist));
       }
 
       btnActionTri.onclick = async () => {
@@ -6984,15 +6991,15 @@
           if (stepSetupEl) stepSetupEl.hidden = true;
           if (stepWalkingEl) stepWalkingEl.hidden = false;
 
-          if (curStageText) curStageText.textContent = '1/3: Идите в точку B';
+          if (curStageText) curStageText.textContent = WM.t('1/3: Идите в точку B');
           const dAB = Math.round(points.A.distanceTo(points.B));
-          if (legDistText) legDistText.textContent = `${dAB} м по карте`;
+          if (legDistText) legDistText.textContent = WM.t('{0} м по карте', dAB);
 
-          btnActionTri.textContent = 'Я прибыл в точку B ✓';
+          btnActionTri.textContent = WM.t('Я прибыл в точку B ✓');
           WM.pdr.startTriangleLeg();
           updateLiveWalkedUI();
           triUiTimer = setInterval(updateLiveWalkedUI, 500);
-          showToast('🚶 Начните естественное движение к ориентиру B');
+          showToast(WM.t('🚶 Начните естественное движение к ориентиру B'));
         }
         // 2. Дошли до B, начинаем отрезок B -> C
         else if (walkStage === 1) {
@@ -7001,14 +7008,14 @@
           WM.pdr.finishTriangleLeg(dAB, bAB);
 
           walkStage = 2;
-          if (curStageText) curStageText.textContent = '2/3: Идите в точку C';
+          if (curStageText) curStageText.textContent = WM.t('2/3: Идите в точку C');
           const dBC = Math.round(points.B.distanceTo(points.C));
-          if (legDistText) legDistText.textContent = `${dBC} м по карте`;
+          if (legDistText) legDistText.textContent = WM.t('{0} м по карте', dBC);
 
-          btnActionTri.textContent = 'Я прибыл в точку C ✓';
+          btnActionTri.textContent = WM.t('Я прибыл в точку C ✓');
           WM.pdr.startTriangleLeg();
           updateLiveWalkedUI();
-          showToast('🚶 Начните движение к ориентиру C');
+          showToast(WM.t('🚶 Начните движение к ориентиру C'));
         }
         // 3. Дошли до C, возвращаемся C -> A
         else if (walkStage === 2) {
@@ -7017,14 +7024,14 @@
           WM.pdr.finishTriangleLeg(dBC, bBC);
 
           walkStage = 3;
-          if (curStageText) curStageText.textContent = '3/3: Возвращайтесь в точку A';
+          if (curStageText) curStageText.textContent = WM.t('3/3: Возвращайтесь в точку A');
           const dCA = Math.round(points.C.distanceTo(points.A));
-          if (legDistText) legDistText.textContent = `${dCA} м по карте`;
+          if (legDistText) legDistText.textContent = WM.t('{0} м по карте', dCA);
 
-          btnActionTri.textContent = 'Я вернулся в точку A ✓';
+          btnActionTri.textContent = WM.t('Я вернулся в точку A ✓');
           WM.pdr.startTriangleLeg();
           updateLiveWalkedUI();
-          showToast('🚶 Замкните контур, вернувшись в точку A');
+          showToast(WM.t('🚶 Замкните контур, вернувшись в точку A'));
         }
         // 4. Завершение и расчет
         else if (walkStage === 3) {
@@ -7038,15 +7045,15 @@
 
           if (stepWalkingEl) stepWalkingEl.hidden = true;
           if (stepResultEl) stepResultEl.hidden = false;
-          btnActionTri.textContent = 'Применить и закрыть';
+          btnActionTri.textContent = WM.t('Применить и закрыть');
 
           if (res) {
             if (resultDetailsEl) {
               resultDetailsEl.innerHTML = `
-                <div>• Дистанция ориентиров: <b>${res.totalGroundDist} м</b></div>
-                <div>• Зафиксировано шагов: <b>${res.totalSteps}</b></div>
-                <div>• Новая длина шага: <b>${Math.round(res.newStep * 100)} см</b> (было ${Math.round(res.oldStep * 100)} см)</div>
-                <div>• Поправка соосности: <b>${res.offsetApplied > 0 ? '+' : ''}${res.offsetApplied}°</b> (итог: ${res.finalOffset}°)</div>
+                <div>${WM.t('• Дистанция ориентиров:')} <b>${WM.t('{0} м', res.totalGroundDist)}</b></div>
+                <div>${WM.t('• Зафиксировано шагов:')} <b>${res.totalSteps}</b></div>
+                <div>${WM.t('• Новая длина шага:')} <b>${WM.t('{0} см', Math.round(res.newStep * 100))}</b> ${WM.t('(было {0} см)', Math.round(res.oldStep * 100))}</div>
+                <div>${WM.t('• Поправка соосности:')} <b>${res.offsetApplied > 0 ? '+' : ''}${res.offsetApplied}°</b> ${WM.t('(итог: {0}°)', res.finalOffset)}</div>
               `;
             }
 
@@ -7055,7 +7062,7 @@
             if (sliderStep && valStep) {
               const cm = Math.round(res.newStep * 100);
               sliderStep.value = cm;
-              valStep.textContent = cm + ' см';
+              valStep.textContent = WM.t('{0} см', cm);
             }
             const sliderOff = $('pdr-alignment-offset-slider');
             const valOff = $('pdr-alignment-offset-val');
@@ -7066,7 +7073,7 @@
           } else {
             if (resultDetailsEl) {
               resultDetailsEl.innerHTML = `
-                <div style="color:var(--danger);">⚠️ Недостаточно данных о шагах. Убедитесь, что датчики включены, и повторите калибровку.</div>
+                <div style="color:var(--danger);">${WM.t('⚠️ Недостаточно данных о шагах. Убедитесь, что датчики включены, и повторите калибровку.')}</div>
               `;
             }
           }
@@ -7074,7 +7081,7 @@
         // 5. Закрытие после подтверждения
         else if (walkStage === 4) {
           closeTriangleModal();
-          showToast('✅ Новые параметры навигации применены');
+          showToast(WM.t('✅ Новые параметры навигации применены'));
         }
       };
     }
@@ -7095,8 +7102,8 @@
           }
           if (valMag) {
             valMag.textContent = d.isBlockedByZupt 
-              ? `${d.dynMag.toFixed(2)} м/с² (Стоянка/ZUPT)` 
-              : `${d.dynMag.toFixed(2)} м/с²`;
+              ? WM.t('{0} м/с² (Стоянка/ZUPT)', d.dynMag.toFixed(2)) 
+              : WM.t('{0} м/с²', d.dynMag.toFixed(2));
           }
           if (valHeading && d.heading !== null && !isNaN(d.heading)) {
             valHeading.textContent = `${Math.round(d.heading)}°`;
@@ -7105,7 +7112,7 @@
             const maxScale = 3.5;
             const pct = Math.min(100, Math.round((d.dynMag / maxScale) * 100));
             gaugeFill.style.width = pct + '%';
-            gaugeVal.textContent = `${d.dynMag.toFixed(2)} м/с²`;
+            gaugeVal.textContent = WM.t('{0} м/с²', d.dynMag.toFixed(2));
 
             if (gaugeThreshold && d.threshold) {
               const threshPct = Math.min(100, Math.round((d.threshold / maxScale) * 100));
@@ -7143,13 +7150,13 @@
     function onTestStep(strideMeters, headingDeg) {
       testSteps++;
       if (countEl) countEl.textContent = testSteps;
-      if (strideEl) strideEl.textContent = Math.round(strideMeters * 100) + ' см';
+      if (strideEl) strideEl.textContent = WM.t('{0} см', Math.round(strideMeters * 100));
       if (bearingEl) bearingEl.textContent = Math.round(headingDeg) + '°';
 
       const elapsedMinutes = (Date.now() - testStartTime) / 60000;
       if (elapsedMinutes > 0 && cadenceEl) {
         const cadence = Math.round(testSteps / elapsedMinutes);
-        cadenceEl.textContent = cadence + ' ш/мин';
+        cadenceEl.textContent = WM.t('{0} ш/мин', cadence);
       }
 
       if (flashEl) {
@@ -7166,11 +7173,11 @@
         if (!WM.pdr) return;
         if (isTesting) {
           isTesting = false;
-          btnTest.textContent = '▶ Старт теста';
+          btnTest.textContent = WM.t('▶ Старт теста');
           btnTest.classList.remove('btn-danger');
           btnTest.classList.add('btn-primary');
           WM.pdr.stop();
-          showToast('⏹️ Тестирование остановлено');
+          showToast(WM.t('⏹️ Тестирование остановлено'));
         } else {
           if (WM.pdr.requestPermissions) {
             await WM.pdr.requestPermissions();
@@ -7180,15 +7187,15 @@
           testSteps = 0;
           testStartTime = Date.now();
           if (countEl) countEl.textContent = '0';
-          if (cadenceEl) cadenceEl.textContent = '0 ш/мин';
-          btnTest.textContent = '⏹ Стоп теста';
+          if (cadenceEl) cadenceEl.textContent = WM.t('0 ш/мин');
+          btnTest.textContent = WM.t('⏹ Стоп теста');
           btnTest.classList.remove('btn-primary');
           btnTest.classList.add('btn-danger');
 
           WM.pdr.start(onTestStep, (h) => {
             if (valHeading) valHeading.textContent = Math.round(h) + '°';
           });
-          showToast('🚶 Сделайте несколько шагов с устройством в руке или кармане');
+          showToast(WM.t('🚶 Сделайте несколько шагов с устройством в руке или кармане'));
         }
       };
     }
@@ -7198,7 +7205,7 @@
         testSteps = 0;
         testStartTime = Date.now();
         if (countEl) countEl.textContent = '0';
-        if (cadenceEl) cadenceEl.textContent = '0 ш/мин';
+        if (cadenceEl) cadenceEl.textContent = WM.t('0 ш/мин');
       };
     }
   }
@@ -7214,17 +7221,17 @@
       // Состояние 1: Только хвост
       btn.textContent = '🐾';
       btn.classList.add('active');
-      btn.title = 'Режим: Хвост движения (нажмите для смены на траекторию)';
+      btn.title = WM.t('Режим: Хвост движения (нажмите для смены на траекторию)');
     } else if (vectorOn) {
       // Состояние 2: Только стрелочка (траектория)
       btn.textContent = '↗️';
       btn.classList.add('active');
-      btn.title = 'Режим: Траектория курса (нажмите для выключения)';
+      btn.title = WM.t('Режим: Траектория курса (нажмите для выключения)');
     } else {
       // Состояние 0: Выключено
       btn.textContent = '🐾';
       btn.classList.remove('active');
-      btn.title = 'Хвост и траектория выключены (нажмите для включения хвоста)';
+      btn.title = WM.t('Хвост и траектория выключены (нажмите для включения хвоста)');
     }
   }
 
@@ -7239,11 +7246,11 @@
     btn.classList.toggle('active', active);
 
     if (isSpoof) {
-      btn.title = '⚠️ Глушение GPS активно (нажмите, чтобы снять режим и вернуться к GPS)';
+      btn.title = WM.t('⚠️ Глушение GPS активно (нажмите, чтобы снять режим и вернуться к GPS)');
     } else if (isPdr) {
-      btn.title = '📍 Ведение по датчикам активно (нажмите для возврата к GPS)';
+      btn.title = WM.t('📍 Ведение по датчикам активно (нажмите для возврата к GPS)');
     } else {
-      btn.title = '📍 Поместить точку GPS сюда\nПривязать координаты к центру и включить шагомер';
+      btn.title = WM.t('📍 Поместить точку GPS сюда\nПривязать координаты к центру и включить шагомер');
     }
   }
 
@@ -7279,15 +7286,15 @@
     if (tailOn && !vectorOn) {
       // Был только хвост -> переключаем на траекторию
       setMotionMode(true, true);
-      showToast('↗️ Включена траектория движения');
+      showToast(WM.t('↗️ Включена траектория движения'));
     } else if (vectorOn) {
       // Была траектория -> выключаем всё
       setMotionMode(false, false);
-      showToast('🛑 Хвост и траектория выключены');
+      showToast(WM.t('🛑 Хвост и траектория выключены'));
     } else {
       // Было выключено -> включаем хвост
       setMotionMode(true, false);
-      showToast('🐾 Включён хвост движения');
+      showToast(WM.t('🐾 Включён хвост движения'));
     }
   }
 
@@ -7366,7 +7373,7 @@
     $('dem-hud-contour-style-select')?.addEventListener('change', (e) => {
       WM.demRelief.setConfig({ contourStyle: e.target.value });
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast(e.target.value === 'tanaka' ? '🏯 Включён метод объёмных изолиний Танаки' : '〰️ Включены обычные горизонтали');
+        WM.ui.showToast(e.target.value === 'tanaka' ? WM.t('🏯 Включён метод объёмных изолиний Танаки') : WM.t('〰️ Включены обычные горизонтали'));
       }
     });
 
@@ -7575,11 +7582,11 @@
       const updateHint = (val) => {
         if (!hintSelectMode) return;
         if (val === 'crosshair') {
-          hintSelectMode.textContent = 'Перекрестием: наведите прицел в центре экрана на облачко и нажмите на экран для открытия карточки';
+          hintSelectMode.textContent = WM.t('Перекрестием: наведите прицел в центре экрана на облачко и нажмите на экран для открытия карточки');
         } else if (val === 'click') {
-          hintSelectMode.textContent = 'Кликом: нажимайте пальцем или мышью прямо на облачко/метку на карте';
+          hintSelectMode.textContent = WM.t('Кликом: нажимайте пальцем или мышью прямо на облачко/метку на карте');
         } else {
-          hintSelectMode.textContent = 'Оба варианта: карточку можно открыть и перекрестием в центре, и прямым нажатием на облачко';
+          hintSelectMode.textContent = WM.t('Оба варианта: карточку можно открыть и перекрестием в центре, и прямым нажатием на облачко');
         }
       };
 
@@ -7588,11 +7595,11 @@
         WM.inat?.setConfig({ selectMode: val });
         updateHint(val);
         const titles = {
-          crosshair: '🎯 Выделение: Перекрестием (по умолчанию)',
-          click: '👆 Выделение: Кликом пальцем / мышью',
-          both: '🎯 + 👆 Выделение: Оба варианта разом'
+          crosshair: WM.t('🎯 Выделение: Перекрестием (по умолчанию)'),
+          click: WM.t('👆 Выделение: Кликом пальцем / мышью'),
+          both: WM.t('🎯 + 👆 Выделение: Оба варианта разом')
         };
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast(titles[val] || 'Режим обновлён');
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(titles[val] || WM.t('Режим обновлён'));
       });
     }
 
@@ -7602,10 +7609,10 @@
       const updateBadgeHint = (val) => {
         if (!hintBadgeMode) return;
         const hints = {
-          'full': 'Полный вид: названия и бейджи всегда видны целиком.',
-          'auto-hide': 'Автоматически скрывать: метки сжаты в овалы и разворачиваются при наведении прицела или курсора.',
-          'center-bubble': 'Автообласть по центру: карточки около центра экрана раскрываются и увеличиваются линзой.',
-          'manual': 'Ручное: все плашки сжаты в овалы, открываются и закрываются кликом на стрелочку ›.'
+          'full': WM.t('Полный вид: названия и бейджи всегда видны целиком.'),
+          'auto-hide': WM.t('Автоматически скрывать: метки сжаты в овалы и разворачиваются при наведении прицела или курсора.'),
+          'center-bubble': WM.t('Автообласть по центру: карточки около центра экрана раскрываются и увеличиваются линзой.'),
+          'manual': WM.t('Ручное: все плашки сжаты в овалы, открываются и закрываются кликом на стрелочку ›.')
         };
         hintBadgeMode.textContent = hints[val] || '';
       };
@@ -7615,12 +7622,12 @@
         WM.inat?.setConfig({ badgeDisplayMode: val });
         updateBadgeHint(val);
         const titles = {
-          'full': '🏷️ Вид карточек: Полный',
-          'auto-hide': '🏷️ Вид карточек: Авто-скрытие',
-          'center-bubble': '🏷️ Вид карточек: Линза по центру',
-          'manual': '🏷️ Вид карточек: Ручное'
+          'full': WM.t('🏷️ Вид карточек: Полный'),
+          'auto-hide': WM.t('🏷️ Вид карточек: Авто-скрытие'),
+          'center-bubble': WM.t('🏷️ Вид карточек: Линза по центру'),
+          'manual': WM.t('🏷️ Вид карточек: Ручное')
         };
-        if (WM.ui && WM.ui.showToast) WM.ui.showToast(titles[val] || 'Настройки обновлены');
+        if (WM.ui && WM.ui.showToast) WM.ui.showToast(titles[val] || WM.t('Настройки обновлены'));
       });
       updateBadgeHint(selBadgeMode.value);
     }
@@ -7755,7 +7762,7 @@
     // 9. Кнопки обновления и экспорта
     $('btn-inat-refresh-now')?.addEventListener('click', () => {
       WM.inat?.refresh();
-      showToast('🌿 Обновление наблюдений на экране…');
+      showToast(WM.t('🌿 Обновление наблюдений на экране…'));
     });
 
     $('btn-inat-export-json')?.addEventListener('click', () => {
@@ -7772,13 +7779,13 @@
       const inp = $('inat-token-input');
       if (inp) {
         WM.inat?.setToken(inp.value);
-        showToast('🔑 Токен сохранён');
+        showToast(WM.t('🔑 Токен сохранён'));
       }
     });
 
     $('btn-inat-token-clear')?.addEventListener('click', () => {
       WM.inat?.removeToken();
-      showToast('🗑️ Токен удалён');
+      showToast(WM.t('🗑️ Токен удалён'));
     });
   }
 
@@ -7788,7 +7795,7 @@
       if (!badge) return;
 
       if (!window.AndroidBridge || !window.AndroidBridge.isIgnoringBatteryOptimizations) {
-        badge.textContent = 'Недоступно (Web)';
+        badge.textContent = WM.t('Недоступно (Web)');
         badge.style.background = 'var(--bg-secondary)';
         badge.style.color = 'var(--text-muted)';
         return;
@@ -7797,26 +7804,26 @@
       try {
         const isIgnoring = window.AndroidBridge.isIgnoringBatteryOptimizations();
         if (isIgnoring) {
-          badge.textContent = 'Разрешено ✓';
+          badge.textContent = WM.t('Разрешено ✓');
           badge.style.background = '#16a34a';
           badge.style.color = '#ffffff';
           if (btn) {
-            btn.textContent = '✅ Ограничения сняты';
+            btn.textContent = WM.t('✅ Ограничения сняты');
             btn.classList.remove('btn-primary');
             btn.classList.add('btn-secondary');
           }
         } else {
-          badge.textContent = 'Ограничено ⚠️';
+          badge.textContent = WM.t('Ограничено ⚠️');
           badge.style.background = '#f59e0b';
           badge.style.color = '#000000';
           if (btn) {
-            btn.textContent = '⚡ Отключить оптимизацию батареи';
+            btn.textContent = WM.t('⚡ Отключить оптимизацию батареи');
             btn.classList.add('btn-primary');
             btn.classList.remove('btn-secondary');
           }
         }
       } catch (e) {
-        badge.textContent = 'Недоступно';
+        badge.textContent = WM.t('Недоступно');
       }
     }
 
@@ -7842,12 +7849,12 @@
         obj, 
         detail: null, 
         error: null, 
-        lang: 'ru', 
-        loadingLang: 'ru',
-        availableLanguages: extractAvailableLanguages(null, 'ru')
+        lang: DEFLANG, 
+        loadingLang: DEFLANG,
+        availableLanguages: extractAvailableLanguages(null, DEFLANG)
       }; 
       tab = 'info';
-      $('sheet-title').textContent = obj.title || 'Безымянный объект';
+      $('sheet-title').textContent = obj.title || WM.t('Безымянный объект');
       
       const a = $('sheet-alts'); a.textContent = '';
       if (alts.length > 1) alts.forEach(x => a.append(el('button', {
@@ -7862,11 +7869,11 @@
       $('sheet').style.transform = '';
       $('sheet').classList.remove('full');
       const expandBtn = $('sheet-expand');
-      if (expandBtn) { expandBtn.textContent = '⤢'; expandBtn.title = 'Развернуть'; }
+      if (expandBtn) { expandBtn.textContent = '⤢'; expandBtn.title = WM.t('Развернуть'); }
       $('sheet').classList.add('open'); 
       document.body.classList.add('sheet-open');
       pushHistoryState('sheet');
-      load(obj, 'ru');
+      load(obj, DEFLANG);
     },
     closeSheet,
     showToast,
@@ -7881,19 +7888,19 @@
 
       if (obj.isInat) {
         p.dataset.source = 'inat';
-        const rawTitle = obj.title || 'Наблюдение iNaturalist';
+        const rawTitle = obj.title || WM.t('Наблюдение iNaturalist');
         const safeTitle = escapeHtml(rawTitle) + (count > 1 ? ` (${count})` : '') + '  ›';
-        p.innerHTML = `<span class="pill-title">${safeTitle}</span><span class="pill-meta">${escapeHtml(customSubtitle || 'Нажмите для карточки')}</span>`;
+        p.innerHTML = `<span class="pill-title">${safeTitle}</span><span class="pill-meta">${escapeHtml(customSubtitle || WM.t('Нажмите для карточки'))}</span>`;
         return;
       }
       delete p.dataset.source;
 
-      const rawTitle = obj.title || 'Безымянный объект';
+      const rawTitle = obj.title || WM.t('Безымянный объект');
       const safeTitle = escapeHtml(rawTitle) + (count > 1 ? ` (+${count - 1})` : '') + '  ›';
       if (obj.hasDetail || obj.photosCount !== undefined || obj.commentsCount !== undefined) {
         const ph = Number(obj.photosCount) || 0;
         const cm = Number(obj.commentsCount) || 0;
-        const visitedText = obj.isVisited ? ' · просмотрено' : '';
+        const visitedText = obj.isVisited ? WM.t(' · просмотрено') : '';
         p.innerHTML = `<span class="pill-title">${safeTitle}</span><span class="pill-meta">📷 ${ph} · 💬 ${cm}${visitedText}</span>`;
       } else {
         p.innerHTML = `<span class="pill-title">${safeTitle}</span>`;
@@ -7910,7 +7917,7 @@
       const textEl = $('tag-filter-text');
       // Добавляем стрелочку '›' для очевидности кликабельности
       if (textEl) textEl.textContent = `🏷️ «${tag.title}» (${count})  ›`;
-      textEl.title = `Нажмите, чтобы открыть список объектов «${tag.title}»`;
+      textEl.title = WM.t('Нажмите, чтобы открыть список объектов «{0}»', tag.title);
     },
     setStatus(text, warn) {
       const s = $('status');
@@ -8074,7 +8081,7 @@
           if (WM.pdr && WM.pdr.setManualHeading) {
             const res = WM.pdr.setManualHeading(0);
             closeAdj();
-            showToast(`✅ Курс откалиброван: Север (поправка ${res.newOffset > 0 ? '+' : ''}${res.newOffset}°)`, 2500);
+            showToast(WM.t('✅ Курс откалиброван: Север (поправка {0}{1}°)', res.newOffset > 0 ? '+' : '', res.newOffset), 2500);
           }
         });
 
@@ -8085,7 +8092,7 @@
           if (targetAz != null && WM.pdr && WM.pdr.setManualHeading) {
             const res = WM.pdr.setManualHeading(targetAz);
             closeAdj();
-            showToast(`☀️ Курс выставлен по Солнцу (${targetAz}°)`, 2500);
+            showToast(WM.t('☀️ Курс выставлен по Солнцу ({0}°)', targetAz), 2500);
           }
         });
 
@@ -8098,7 +8105,7 @@
             window.AndroidBridge.requestIgnoreBatteryOptimizations();
             setTimeout(updateBatteryOptimizationUI, 1200);
           } else {
-            showToast('Доступно только в собранном APK на Android');
+            showToast(WM.t('Доступно только в собранном APK на Android'));
           }
         });
 
@@ -8106,7 +8113,7 @@
           if (window.AndroidBridge && window.AndroidBridge.openAppSettings) {
             window.AndroidBridge.openAppSettings();
           } else {
-            showToast('Доступно только в собранном APK на Android');
+            showToast(WM.t('Доступно только в собранном APK на Android'));
           }
         });
 
@@ -8122,7 +8129,7 @@
           if (targetAz != null && WM.pdr && WM.pdr.setManualHeading) {
             const res = WM.pdr.setManualHeading(targetAz);
             closeAdj();
-            showToast(`🌙 Курс выставлен по Луне (${targetAz}°)`, 2500);
+            showToast(WM.t('🌙 Курс выставлен по Луне ({0}°)', targetAz), 2500);
           }
         });
 
@@ -8131,7 +8138,7 @@
           if (WM.pdr && WM.pdr.resetAlignmentOffset) {
             WM.pdr.resetAlignmentOffset();
             closeAdj();
-            showToast('↺ Поправка компаса сброшена на 0°');
+            showToast(WM.t('↺ Поправка компаса сброшена на 0°'));
           }
         });
       }
@@ -8334,7 +8341,7 @@
           WM.api.store.set('wm_info_hud_items', JSON.stringify(infoHudConfig));
           updateInfoHudUI();
           updateRaysBtnState();
-          showToast(infoHudConfig.rays ? '✨ Азимуты Солнца и Луны включены' : '✨ Азимуты скрыты');
+          showToast(infoHudConfig.rays ? WM.t('✨ Азимуты Солнца и Луны включены') : WM.t('✨ Азимуты скрыты'));
         };
       }
       updateRaysBtnState();
@@ -8444,7 +8451,7 @@
         hudEl.classList.toggle('collapsed', isCollapsed);
         if (minBtn) {
           minBtn.innerHTML = isCollapsed ? '📊<span style="font-size:10px;margin-left:1px;">▸</span>' : '◀';
-          minBtn.title = isCollapsed ? 'Развернуть инфо-панель' : 'Свернуть в левый бок';
+          minBtn.title = isCollapsed ? WM.t('Развернуть инфо-панель') : WM.t('Свернуть в левый бок');
         }
         try {
           localStorage.setItem('wm_info_hud_collapsed', isCollapsed ? 'true' : 'false');
@@ -8460,7 +8467,7 @@
         setInfoHudCollapsed(isSavedCollapsed);
       } else if (minBtn) {
         minBtn.textContent = '◀';
-        minBtn.title = 'Свернуть в левый бок';
+        minBtn.title = WM.t('Свернуть в левый бок');
       }
 
       // Клик по ВСЕЙ области шапки сворачивает/разворачивает меню
@@ -8530,7 +8537,7 @@
       const btnResetAll = $('btn-reset-all-settings');
       if (btnResetAll) {
         btnResetAll.onclick = () => {
-          if (!confirm('Сбросить все настройки приложения по умолчанию? (Цвета, стили контуров, режимы и фильтры будут возвращены к исходным значениям)')) return;
+          if (!confirm(WM.t('Сбросить все настройки приложения по умолчанию? (Цвета, стили контуров, режимы и фильтры будут возвращены к исходным значениям)'))) return;
 
           for (let i = localStorage.length - 1; i >= 0; i--) {
             const k = localStorage.key(i);
@@ -8539,7 +8546,7 @@
             }
           }
 
-          showToast('Настройки сброшены! Перезагрузка…', 1500);
+          showToast(WM.t('Настройки сброшены! Перезагрузка…'), 1500);
           setTimeout(() => window.location.reload(), 900);
         };
       }
@@ -8648,7 +8655,7 @@
 
           const curTag = WM.view.getActiveTag();
           if (curTag && WM.loader && WM.loader.fetchCategoryInBounds) {
-            showToast(`🏷️ Поиск «${curTag.title}» в текущей области…`, 1300);
+            showToast(WM.t('🏷️ Поиск «{0}» в текущей области…', curTag.title), 1300);
             await WM.loader.fetchCategoryInBounds(curTag);
           }
         };
@@ -8659,9 +8666,9 @@
       const hybridWrap = $('hybrid-zoom-wrap');
       if (hybridSlider && hybridVal) {
         hybridSlider.value = C.VECTOR_ZOOM;
-        hybridVal.textContent = `зум ${parseFloat(C.VECTOR_ZOOM).toFixed(1)}`;
+        hybridVal.textContent = WM.t('зум {0}', parseFloat(C.VECTOR_ZOOM).toFixed(1));
         hybridSlider.oninput = (e) => {
-          hybridVal.textContent = `зум ${parseFloat(e.target.value).toFixed(1)}`;
+          hybridVal.textContent = WM.t('зум {0}', parseFloat(e.target.value).toFixed(1));
         };
       }
 
@@ -8711,10 +8718,10 @@
           // 5. В режиме перекрестия — дополнительно опрашиваем точку в центре
           const pickerMode = WM.picker ? WM.picker.getMode() : 'cross';
           if (pickerMode === 'cross' && WM.picker.fetchAtCrosshair) {
-            showToast('🔄 Обновление карты и объектов…', 1400);
+            showToast(WM.t('🔄 Обновление карты и объектов…'), 1400);
             await WM.picker.fetchAtCrosshair();
           } else {
-            showToast('🔄 Перезагрузка области карты…', 1400);
+            showToast(WM.t('🔄 Перезагрузка области карты…'), 1400);
           }
         };
       }
@@ -8734,7 +8741,7 @@
       $('sheet-expand').onclick = () => {
         const isFull = $('sheet').classList.toggle('full');
         $('sheet-expand').textContent = isFull ? '⤡' : '⤢';
-        $('sheet-expand').title = isFull ? 'Свернуть' : 'Развернуть';
+        $('sheet-expand').title = isFull ? WM.t('Свернуть') : WM.t('Развернуть');
       };
       $('hover-pill').onclick = () => WM.picker.openHover();
       $('lb-close').onclick = () => closeLightbox(true);
@@ -8860,7 +8867,7 @@
         const list = WM.tracker.getTracks();
 
         if (!list.length) {
-          container.innerHTML = '<div class="muted" style="padding: 10px;">Сохранённых треков пока нет.</div>';
+          container.innerHTML = `<div class="muted" style="padding: 10px;">${WM.t('Сохранённых треков пока нет.')}</div>`;
           return;
         }
 
@@ -8868,8 +8875,8 @@
           const isHidden = t.visible === false;
           const isSharedIcon = t.isShared ? (t.sharePassword ? '🔒' : '🌐') : '☁️';
           const isSharedTitle = t.isShared 
-            ? (t.sharePassword ? 'В защищённой комнате (нажмите для смены)' : 'Опубликован публично (нажмите для настроек)') 
-            : 'Поделиться в облако';
+            ? (t.sharePassword ? WM.t('В защищённой комнате (нажмите для смены)') : WM.t('Опубликован публично (нажмите для настроек)')) 
+            : WM.t('Поделиться в облако');
 
           const item = document.createElement('div');
           item.className = 'track-setting-item';
@@ -8877,15 +8884,15 @@
             <div class="track-setting-color" style="background-color: ${t.color || '#ef4444'};"></div>
             <div class="track-setting-info">
               <b class="track-setting-name">${escapeHtml(t.name)}</b>
-              <span class="track-setting-dist">${fmtDistance(t.distance)} · ${t.points ? t.points.length : 0} точек</span>
+              <span class="track-setting-dist">${WM.t('{0} · {1} точек', fmtDistance(t.distance), t.points ? t.points.length : 0)}</span>
             </div>
             <div class="track-setting-actions">
-              <button type="button" class="icon-btn-sm js-vis" title="${isHidden ? 'Показать на карте' : 'Скрыть'}">${isHidden ? '🕶️' : '👁️'}</button>
-              <button type="button" class="icon-btn-sm js-zoom" title="Показать на карте">🎯</button>
+              <button type="button" class="icon-btn-sm js-vis" title="${isHidden ? WM.t('Показать на карте') : WM.t('Скрыть')}">${isHidden ? '🕶️' : '👁️'}</button>
+              <button type="button" class="icon-btn-sm js-zoom" title="${WM.t('Показать на карте')}">🎯</button>
               <button type="button" class="icon-btn-sm js-share" title="${isSharedTitle}">${isSharedIcon}</button>
-              <button type="button" class="icon-btn-sm js-rename" title="Переименовать">✏️</button>
-              <button type="button" class="icon-btn-sm js-gpx" title="Скачать GPX">💾</button>
-              <button type="button" class="icon-btn-sm js-del" style="color:var(--danger);" title="Удалить">🗑️</button>
+              <button type="button" class="icon-btn-sm js-rename" title="${WM.t('Переименовать')}">✏️</button>
+              <button type="button" class="icon-btn-sm js-gpx" title="${WM.t('Скачать GPX')}">💾</button>
+              <button type="button" class="icon-btn-sm js-del" style="color:var(--danger);" title="${WM.t('Удалить')}">🗑️</button>
             </div>
           `;
 
@@ -8903,7 +8910,7 @@
             }
           };
           item.querySelector('.js-rename').onclick = () => {
-            const newName = prompt('Новое название трека:', t.name);
+            const newName = prompt(WM.t('Новое название трека:'), t.name);
             if (newName) {
               WM.tracker.renameTrack(t.id, newName);
               renderTrackSettingsList();
@@ -8913,7 +8920,7 @@
             WM.tracker.exportGpx(t.id);
           };
           item.querySelector('.js-del').onclick = () => {
-            if (confirm(`Удалить трек «${t.name}»?`)) {
+            if (confirm(WM.t('Удалить трек «{0}»?', t.name))) {
               WM.tracker.deleteTrack(t.id);
               renderTrackSettingsList();
             }
@@ -8935,9 +8942,9 @@
           try {
             WM.tracker.importFile(ev.target.result, file.name);
             renderTrackSettingsList();
-            showToast(`✅ Трек «${file.name}» успешно загружен`);
+            showToast(WM.t('✅ Трек «{0}» успешно загружен', file.name));
           } catch (err) {
-            alert('Ошибка чтения трека: ' + err.message);
+            alert(WM.t('Ошибка чтения трека: {0}', err.message));
           }
           importInput.value = '';
         };
@@ -8957,10 +8964,10 @@
         const hintEl = $('track-camera-mode-hint');
         if (!hintEl) return;
         const hints = {
-          'auto': '🎯 Авторежим: камера следует за GPS. При ручном сдвиге карты открепляется и автоматически возвращается через 30 секунд бездействия.',
-          'soft_auto': '🍃 Мягкий авторежим: если GPS виден на экране, камера возвращается через 5 секунд после сдвига. Если сместились далеко — остаётся свободной.',
-          'locked': '🔒 Всегда привязана: камера намертво зафиксирована на позиции GPS и блокирует ручное смещение карты.',
-          'free': '🔓 Свободная: камера никогда не смещается сама, вы управляете картой полностью вручную.'
+          'auto': WM.t('🎯 Авторежим: камера следует за GPS. При ручном сдвиге карты открепляется и автоматически возвращается через 30 секунд бездействия.'),
+          'soft_auto': WM.t('🍃 Мягкий авторежим: если GPS виден на экране, камера возвращается через 5 секунд после сдвига. Если сместились далеко — остаётся свободной.'),
+          'locked': WM.t('🔒 Всегда привязана: камера намертво зафиксирована на позиции GPS и блокирует ручное смещение карты.'),
+          'free': WM.t('🔓 Свободная: камера никогда не смещается сама, вы управляете картой полностью вручную.')
         };
         hintEl.textContent = hints[mode] || hints['auto'];
       }
@@ -9128,7 +9135,7 @@
         }
         if ($('nav-vibro-interval-slider') && WM.navVibro) {
           $('nav-vibro-interval-slider').value = WM.navVibro.getInterval();
-          if ($('nav-vibro-interval-val')) $('nav-vibro-interval-val').textContent = `каждые ${WM.navVibro.getInterval()} сек`;
+          if ($('nav-vibro-interval-val')) $('nav-vibro-interval-val').textContent = WM.t('каждые {0} сек', WM.navVibro.getInterval());
         }
 
         const pdrCfg = WM.pdr ? WM.pdr.getConfig() : {};
@@ -9141,9 +9148,9 @@
         if (stepSlider && stepVal) {
           const stepCm = Math.round((pdrCfg.baseStepLength || 0.75) * 100);
           stepSlider.value = stepCm;
-          stepVal.textContent = stepCm + ' см';
+          stepVal.textContent = WM.t('{0} см', stepCm);
           stepSlider.oninput = (e) => {
-            stepVal.textContent = e.target.value + ' см';
+            stepVal.textContent = WM.t('{0} см', e.target.value);
             if (WM.pdr) WM.pdr.setConfig({ baseStepLength: parseFloat(e.target.value) / 100 });
           };
         }
@@ -9155,8 +9162,8 @@
           const hint = $('pdr-heading-source-hint');
           if (hint) {
             hint.textContent = hSrc === 'compass'
-              ? '«Только компас» отключает гироскоп и стабилизирует курс адаптивным фильтром. Подходит при дрейфе или плохом гироскопе.'
-              : '«Гироскоп + Компас» даёт максимальную плавность и быстроту реакции благодаря слиянию датчиков.';
+              ? WM.t('«Только компас» отключает гироскоп и стабилизирует курс адаптивным фильтром. Подходит при дрейфе или плохом гироскопе.')
+              : WM.t('«Гироскоп + Компас» даёт максимальную плавность и быстроту реакции благодаря слиянию датчиков.');
           }
         }
 
@@ -9262,7 +9269,7 @@
 
         if (hybridSlider && hybridVal) {
           hybridSlider.value = C.VECTOR_ZOOM;
-          hybridVal.textContent = `зум ${parseFloat(C.VECTOR_ZOOM).toFixed(1)}`;
+          hybridVal.textContent = WM.t('зум {0}', parseFloat(C.VECTOR_ZOOM).toFixed(1));
         }
         updateHybridSliderVisibility();
 
@@ -9333,7 +9340,7 @@
               addDiscoveredKeys([trimmed]);
               inputNewKey.value = '';
             } else {
-              alert('Некорректный формат ключа Wikimapia (ожидается 8 групп по 8 символов через дефис).');
+              alert(WM.t('Некорректный формат ключа Wikimapia (ожидается 8 групп по 8 символов через дефис).'));
             }
           }
         }
@@ -9381,7 +9388,7 @@
           const val = area ? area.value : '';
           const keys = extractWikimapiaKeys(val);
           if (!keys.length) {
-            alert('Ключи Wikimapia в тексте не обнаружены.\nУбедитесь, что скопировали страницу со своими ключами на сайте wikimapia.org и повторите попытку.');
+            alert(WM.t('Ключи Wikimapia в тексте не обнаружены.\nУбедитесь, что скопировали страницу со своими ключами на сайте wikimapia.org и повторите попытку.'));
             return;
           }
           addDiscoveredKeys(keys);
@@ -9409,9 +9416,9 @@
       $('btn-export-db').onclick = async () => {
         try {
           const count = await WM.cache.exportDump();
-          showToast(`Экспортировано объектов: ${count}`);
+          showToast(WM.t('Экспортировано объектов: {0}', count));
         } catch (e) {
-          alert('Ошибка экспорта: ' + e.message);
+          alert(WM.t('Ошибка экспорта: {0}', e.message));
         }
       };
 
@@ -9425,12 +9432,12 @@
         reader.onload = async (e) => {
           try {
             const count = await WM.cache.importDump(e.target.result);
-            showToast(`Успешно импортировано объектов: ${count}`, 1500);
+            showToast(WM.t('Успешно импортировано объектов: {0}', count), 1500);
             setTimeout(() => {
               window.location.reload();
             }, 1000);
           } catch (err) {
-            alert('Ошибка импорта базы: ' + err.message);
+            alert(WM.t('Ошибка импорта базы: {0}', err.message));
           } finally {
             fileInput.value = '';
           }
@@ -9471,24 +9478,24 @@
               .map(c => c.dataset.providerId);
 
             if (!selected.length) {
-              showToast('Не выбрано ни одной карты для очистки');
+              showToast(WM.t('Не выбрано ни одной карты для очистки'));
               return;
             }
 
-            showToast('⏳ Удаление тайлов из памяти…', 1500);
+            showToast(WM.t('⏳ Удаление тайлов из памяти…'), 1500);
             const count = await WM.cache.deleteCachedTilesByProviders(selected);
             clearTilesModal.classList.remove('open');
-            showToast(`✅ Удалено тайлов: ${count}`);
+            showToast(WM.t('✅ Удалено тайлов: {0}', count));
           };
         }
       }
 
       $('btn-clear-all').onclick = async () => {
-        if (confirm('Очистить ВСЁ (кэш базы полигонов, сохраненные тайлы карт, все пользовательские метки и измерения линейки)?')) {
+        if (confirm(WM.t('Очистить ВСЁ (кэш базы полигонов, сохраненные тайлы карт, все пользовательские метки и измерения линейки)?'))) {
           await WM.cache.clearAllStorage();
           WM.view.render();
           WM.ui.updateStatusFromLoader();
-          alert('Полная очистка выполнена: база объектов, карты, метки и измерения удалены.');
+          alert(WM.t('Полная очистка выполнена: база объектов, карты, метки и измерения удалены.'));
         }
       };
 
@@ -9769,7 +9776,7 @@
         $('precache-progress-wrap').hidden = true;
         $('precache-start').disabled = false;
         if (wasRunning) {
-          showToast('⏹️ Скачивание остановлено. Успешно загруженное сохранено на карте');
+          showToast(WM.t('⏹️ Скачивание остановлено. Успешно загруженное сохранено на карте'));
         }
       };
       $('precache-cancel').onclick = closePrecache;
@@ -9790,16 +9797,16 @@
 
         WM.loader.precacheArea(bounds, z, withDetails, (prog) => {
           if (prog.stage === 'tiles') {
-            pStatus.textContent = `[1/2] Контуры: ${prog.done} из ${prog.total} тайлов`;
+            pStatus.textContent = WM.t('[1/2] Контуры: {0} из {1} тайлов', prog.done, prog.total);
             pBar.style.width = Math.round((prog.done / prog.total) * (withDetails ? 40 : 100)) + '%';
           } else if (prog.stage === 'details') {
-            pStatus.textContent = `[2/2] Карточки: ${prog.done} из ${prog.total} объектов`;
+            pStatus.textContent = WM.t('[2/2] Карточки: {0} из {1} объектов', prog.done, prog.total);
             const pct = prog.total > 0 ? 40 + Math.round((prog.done / prog.total) * 60) : 100;
             pBar.style.width = pct + '%';
           } else if (prog.stage === 'retry') {
             pStatus.textContent = `⚠️ ${prog.message}`;
           } else if (prog.stage === 'aborted') {
-            showToast(`💾 Сохранено до отмены: ${prog.savedTiles} тайлов${prog.savedDetails ? ', ' + prog.savedDetails + ' карточек' : ''}`);
+            showToast(WM.t('💾 Сохранено до отмены: {0} тайлов{1}', prog.savedTiles, prog.savedDetails ? WM.t(', {0} карточек', prog.savedDetails) : ''));
           }
 
           if ((!withDetails && prog.stage === 'tiles' && prog.done >= prog.total) ||
@@ -9808,7 +9815,7 @@
               $('modal-precache').classList.remove('open');
               pWrap.hidden = true;
               $('precache-start').disabled = false;
-              showToast('✅ Область полностью сохранена в память');
+              showToast(WM.t('✅ Область полностью сохранена в память'));
             }, 600);
           }
         });

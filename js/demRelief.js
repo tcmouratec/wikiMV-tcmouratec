@@ -2834,10 +2834,10 @@
     if (WM.timeWarp && lat !== undefined && lng !== undefined) {
       const events = WM.timeWarp.getSunEvents(lat, lng, date);
       if (events.valid) {
-        if (Math.abs(hourVal - events.set) < 0.45) return `${timeStr} 🌇 Закат`;
-        if (Math.abs(hourVal - events.rise) < 0.45) return `${timeStr} 🌅 Восход`;
-        if (hourVal > events.rise && hourVal < events.set) return `${timeStr} ☀️ День`;
-        return `${timeStr} 🌙 Ночь`;
+        if (Math.abs(hourVal - events.set) < 0.45) return WM.t('{0} 🌇 Закат', timeStr);
+        if (Math.abs(hourVal - events.rise) < 0.45) return WM.t('{0} 🌅 Восход', timeStr);
+        if (hourVal > events.rise && hourVal < events.set) return WM.t('{0} ☀️ День', timeStr);
+        return WM.t('{0} 🌙 Ночь', timeStr);
       }
     }
     return timeStr;
@@ -2896,7 +2896,7 @@
 
     const badgeDither = document.getElementById('dem-hud-dither-status-badge');
     if (badgeDither) {
-      badgeDither.textContent = cfg.ditherEnabled ? 'Вкл' : 'Выкл';
+      badgeDither.textContent = cfg.ditherEnabled ? WM.t('Вкл') : WM.t('Выкл');
       badgeDither.classList.toggle('active', !!cfg.ditherEnabled);
     }
 
@@ -3001,7 +3001,7 @@
     if (timeContainer) timeContainer.hidden = isManualMode;
     if (wrapManualAng) wrapManualAng.hidden = !isManualMode;
     if (spoilerSunTitle) {
-      spoilerSunTitle.textContent = isManualMode ? '📐 Ручные углы и цвета освещения' : '🕒 Время суток и календарь';
+      spoilerSunTitle.textContent = isManualMode ? WM.t('📐 Ручные углы и цвета освещения') : WM.t('🕒 Время суток и календарь');
     }
 
     const sliderTime = document.getElementById('dem-hud-time-slider');
@@ -3125,7 +3125,7 @@
     if (sliderZ && valZ) {
       sliderZ.disabled = !!cfg.zFactorAuto;
       sliderZ.value = cfg.zFactor;
-      valZ.textContent = cfg.zFactorAuto ? `Авто (~×${getEffectiveZFactor()})` : '×' + parseFloat(cfg.zFactor).toFixed(1);
+      valZ.textContent = cfg.zFactorAuto ? WM.t('Авто (~×{0})', getEffectiveZFactor()) : '×' + parseFloat(cfg.zFactor).toFixed(1);
     }
 
     hud.querySelectorAll('.dem-smooth-btn').forEach(btn => {
@@ -3191,7 +3191,7 @@
 
     const badgeHach = document.getElementById('dem-hud-hachure-status-badge');
     if (badgeHach) {
-      badgeHach.textContent = cfg.hachureEnabled ? 'Вкл' : 'Выкл';
+      badgeHach.textContent = cfg.hachureEnabled ? WM.t('Вкл') : WM.t('Выкл');
       badgeHach.classList.toggle('active', !!cfg.hachureEnabled);
     }
 
@@ -3332,7 +3332,7 @@
       a.download = `dem_relief_settings_${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
       URL.revokeObjectURL(url);
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('💾 Настройки 3D сохранены в файл JSON');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('💾 Настройки 3D сохранены в файл JSON'));
     });
 
     // Импорт настроек из JSON
@@ -3352,10 +3352,10 @@
             if (typeof parsed === 'object' && parsed !== null) {
               WM.demRelief.setConfig(parsed);
               renderHudUI();
-              if (WM.ui && WM.ui.showToast) WM.ui.showToast('✅ Настройки 3D успешно загружены');
+              if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('✅ Настройки 3D успешно загружены'));
             }
           } catch (err) {
-            alert('Ошибка чтения файла настроек: ' + err.message);
+            alert(WM.t('Ошибка чтения файла настроек: {0}', err.message));
           }
           importInput.value = '';
         };
@@ -3405,7 +3405,7 @@
         }
 
         if (WM.ui && WM.ui.showToast) {
-          WM.ui.showToast('🔄 Рельеф перезагружается для текущего экрана…');
+          WM.ui.showToast(WM.t('🔄 Рельеф перезагружается для текущего экрана…'));
         }
       });
     }
@@ -3420,7 +3420,7 @@
       applyLayerVisibility();
       renderHudUI();
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast(cfg.hillshadeEnabled ? '⛰️ 3D Отмывка включена' : '⛰️ 3D Отмывка скрыта');
+        WM.ui.showToast(cfg.hillshadeEnabled ? WM.t('⛰️ 3D Отмывка включена') : WM.t('⛰️ 3D Отмывка скрыта'));
       }
     });
 
@@ -3450,7 +3450,7 @@
       applyLayerVisibility();
       renderHudUI();
       if (WM.ui && WM.ui.showToast) {
-        WM.ui.showToast(cfg.contoursEnabled ? '〰️ Горизонтали включены' : '〰️ Горизонтали скрыты');
+        WM.ui.showToast(cfg.contoursEnabled ? WM.t('〰️ Горизонтали включены') : WM.t('〰️ Горизонтали скрыты'));
       }
     });
 
@@ -3461,7 +3461,7 @@
       if (sub) sub.classList.toggle('is-disabled', !e.target.checked);
       const badge = document.getElementById('dem-hud-dither-status-badge');
       if (badge) {
-        badge.textContent = e.target.checked ? 'Вкл' : 'Выкл';
+        badge.textContent = e.target.checked ? WM.t('Вкл') : WM.t('Выкл');
         badge.classList.toggle('active', e.target.checked);
       }
       scheduleLiveHillshade();
@@ -3696,7 +3696,7 @@
       if (sub) sub.classList.toggle('is-disabled', !e.target.checked);
       const badge = document.getElementById('dem-hud-hachure-status-badge');
       if (badge) {
-        badge.textContent = e.target.checked ? 'Вкл' : 'Выкл';
+        badge.textContent = e.target.checked ? WM.t('Вкл') : WM.t('Выкл');
         badge.classList.toggle('active', e.target.checked);
       }
       scheduleLiveHillshade();

@@ -233,7 +233,7 @@
 
     const profileRes = resolveBestProfile();
     if (profileRes.allBlocked) {
-      const err = new Error(`Лимит запросов исчерпан. Ожидание: ${Math.ceil(profileRes.waitMs / 1000)} сек.`);
+      const err = new Error(WM.t('Лимит запросов исчерпан. Ожидание: {0} сек.', Math.ceil(profileRes.waitMs / 1000)));
       err.rateLimit = true;
       err.retryAfterMs = profileRes.waitMs;
       throw err;
@@ -243,7 +243,7 @@
     const state = getProfileState(curIdent);
     state.timestamps.push(Date.now());
 
-    const queryPayload = { format: 'json', language: 'ru', ...params };
+    const queryPayload = { format: 'json', language: WM.i18n.api.wikimapia, ...params };
     queryPayload[AUTH_PARAM] = curIdent;
 
     const q = Object.entries(queryPayload)
@@ -260,7 +260,7 @@
         store.set('wm_last_route', r);
 
         if (data && data.debug && data.debug.code) {
-          const msg = data.debug.message || ('Код ' + data.debug.code);
+          const msg = data.debug.message || (WM.t('Код {0}', data.debug.code));
           const isRateOrQuota = /key|limit|quota|exceed|denied|too many|1001|1004/i.test(msg);
 
           if (isRateOrQuota) {
@@ -293,7 +293,7 @@
         lastErr = e;
       }
     }
-    throw lastErr || new Error('Нет соединения');
+    throw lastErr || new Error(WM.t('Нет соединения'));
   }
 
   function request(params, isHighPriority = false, signal = null) {
@@ -485,7 +485,7 @@
 
     async geocodeOSM(query, lat, lon) {
       try {
-        const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&lat=${lat}&lon=${lon}&limit=10&lang=ru`;
+        const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&lat=${lat}&lon=${lon}&limit=10&lang=${WM.i18n.api.photon}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error('Photon error');
         const data = await res.json();
@@ -502,7 +502,7 @@
         });
       } catch (e) {
         try {
-          const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=8&accept-language=ru`);
+          const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=8&accept-language=${encodeURIComponent(WM.i18n.api.nominatim)}`);
           if (!res.ok) return [];
           const items = await res.json();
           return items.map(it => ({
@@ -518,7 +518,7 @@
       }
     },
 
-    async place(id, lang = 'ru') {
+    async place(id, lang = WM.i18n.api.wikimapia) {
       const cacheKey = `${id}:${lang}`;
       if (detailsMem.has(cacheKey)) return detailsMem.get(cacheKey);
 

@@ -1,4 +1,4 @@
-const SHELL_CACHE = 'wm-shell-v92'; // Обновлено для применения новых модулей
+const SHELL_CACHE = 'wm-shell-v93'; // Обновлено для применения новых модулей
 const FALLBACK_CACHE = 'wm-fallback-v2';
 const TILES_CACHE = 'wm-tiles-v1';
 const MAX_CACHED_TILES = 15000;
@@ -29,6 +29,14 @@ function emptyTileResponse() {
   });
 }
 
+// Текст оффлайн-заглушки на языке браузера (в service worker нет доступа к настройкам приложения)
+function offlineText() {
+  const l = String((self.navigator && self.navigator.language) || 'en').toLowerCase();
+  if (l.indexOf('ru') === 0) return 'Оффлайн-режим активен';
+  if (l.indexOf('pt') === 0) return 'Modo offline ativo';
+  return 'Offline mode active';
+}
+
 const ASSETS_TO_CACHE = [
   './',
   'index.html',
@@ -37,6 +45,9 @@ const ASSETS_TO_CACHE = [
   'icon-512.png',
   'css/leaflet.css',
   'css/style.css',
+  'js/i18n.js',
+  'js/lang/en.js',
+  'js/lang/pt-BR.js',
   'js/leaflet.js',
   'js/tile-retry.js',
   'js/geomag.js',
@@ -169,7 +180,7 @@ self.addEventListener('fetch', (event) => {
         return (
           (await cache.match('index.html')) ||
           (await cache.match('./index.html')) ||
-          new Response('Оффлайн-режим активен', { headers: { 'Content-Type': 'text/html; charset=utf-8' } })
+          new Response(offlineText(), { headers: { 'Content-Type': 'text/html; charset=utf-8' } })
         );
       })
     );

@@ -5,33 +5,33 @@
 
   const SCENARIOS = {
     cardinal: {
-      title: '4 стороны света (по 5 сек)',
-      desc: 'Идите по 5 секунд в каждую сторону света, слегка покачивая смартфон вперед-назад.',
+      title: WM.t('4 стороны света (по 5 сек)'),
+      desc: WM.t('Идите по 5 секунд в каждую сторону света, слегка покачивая смартфон вперед-назад.'),
       durationSec: 20,
       phases: [
-        { from: 0,  to: 5,  label: '🧭 Фаза 1/4: Идите на СЕВЕР (держите ровно или слегка наклоняйте)' },
-        { from: 5,  to: 10, label: '🧭 Фаза 2/4: Повернитесь и идите на ВОСТОК' },
-        { from: 10, to: 15, label: '🧭 Фаза 3/4: Повернитесь и идите на ЮГ' },
-        { from: 15, to: 20, label: '🧭 Фаза 4/4: Повернитесь и идите на ЗАПАД' }
+        { from: 0,  to: 5,  label: WM.t('🧭 Фаза 1/4: Идите на СЕВЕР (держите ровно или слегка наклоняйте)') },
+        { from: 5,  to: 10, label: WM.t('🧭 Фаза 2/4: Повернитесь и идите на ВОСТОК') },
+        { from: 10, to: 15, label: WM.t('🧭 Фаза 3/4: Повернитесь и идите на ЮГ') },
+        { from: 15, to: 20, label: WM.t('🧭 Фаза 4/4: Повернитесь и идите на ЗАПАД') }
       ]
     },
     pitch_tilt: {
-      title: 'Тест наклонов вперед-назад (20 сек)',
-      desc: 'Выявляет ошибки компенсации наклона корпуса при движении в одном направлении.',
+      title: WM.t('Тест наклонов вперед-назад (20 сек)'),
+      desc: WM.t('Выявляет ошибки компенсации наклона корпуса при движении в одном направлении.'),
       durationSec: 20,
       phases: [
-        { from: 0,  to: 5,  label: '📱 Фаза 1/4: Держите телефон ровно горизонтально' },
-        { from: 5,  to: 10, label: '📐 Фаза 2/4: Наклоните телефон экраном ОТ СЕБЯ (вперед на ~30-40°)' },
-        { from: 10, to: 15, label: '📐 Фаза 3/4: Наклоните телефон НА СЕБЯ (назад на ~30-40°)' },
-        { from: 15, to: 20, label: '🔄 Фаза 4/4: Медленно повернитесь вокруг своей оси на 360°' }
+        { from: 0,  to: 5,  label: WM.t('📱 Фаза 1/4: Держите телефон ровно горизонтально') },
+        { from: 5,  to: 10, label: WM.t('📐 Фаза 2/4: Наклоните телефон экраном ОТ СЕБЯ (вперед на ~30-40°)') },
+        { from: 10, to: 15, label: WM.t('📐 Фаза 3/4: Наклоните телефон НА СЕБЯ (назад на ~30-40°)') },
+        { from: 15, to: 20, label: WM.t('🔄 Фаза 4/4: Медленно повернитесь вокруг своей оси на 360°') }
       ]
     },
     free: {
-      title: 'Свободная запись (Ручной старт / стоп)',
-      desc: 'Включите запись и идите в направлении, где компас начинает лихорадить.',
+      title: WM.t('Свободная запись (Ручной старт / стоп)'),
+      desc: WM.t('Включите запись и идите в направлении, где компас начинает лихорадить.'),
       durationSec: 60,
       phases: [
-        { from: 0, to: 9999, label: '🚶 Идет запись... Нажмите «Стоп» в любой момент' }
+        { from: 0, to: 9999, label: WM.t('🚶 Идет запись... Нажмите «Стоп» в любой момент') }
       ]
     }
   };
@@ -198,17 +198,17 @@
     if (activeScenarioKey !== 'free') {
       const totalSec = sc.durationSec;
       const leftSec = Math.max(0, totalSec - elapsedSec);
-      if (timerEl) timerEl.textContent = `${leftSec.toFixed(1)} с`;
+      if (timerEl) timerEl.textContent = WM.t('{0} с', leftSec.toFixed(1));
       if (progressFill) progressFill.style.width = `${Math.min(100, (elapsedSec / totalSec) * 100)}%`;
     } else {
-      if (timerEl) timerEl.textContent = `${elapsedSec.toFixed(1)} с`;
+      if (timerEl) timerEl.textContent = WM.t('{0} с', elapsedSec.toFixed(1));
       if (progressFill) progressFill.style.width = '100%';
     }
 
     if (liveTelemEl && latestOrientation) {
       const pdrH = (WM.pdr && WM.pdr.getHeading) ? WM.pdr.getHeading() : '--';
       liveTelemEl.textContent = 
-        `Alpha: ${latestOrientation.alpha}° | Beta (наклон): ${latestOrientation.beta}° | Gamma: ${latestOrientation.gamma}° | Курс PDR: ${pdrH}° | Точек: ${recordedSamples.length}`;
+        WM.t('Alpha: {0}° | Beta (наклон): {1}° | Gamma: {2}° | Курс PDR: {3}° | Точек: {4}', latestOrientation.alpha, latestOrientation.beta, latestOrientation.gamma, pdrH, recordedSamples.length);
     }
 
     animTimer = requestAnimationFrame(updateLiveUI);
@@ -278,33 +278,21 @@
         }
       },
       legend: {
-        t: 'Время (сек)',
-        ph: 'Номер фазы теста',
-        ori: '[alpha (yaw/компас), beta (pitch/наклон вперед-назад), gamma (roll/крен)]',
-        rot: '[gyroX (pitchRate), gyroY (rollRate), gyroZ (yawRate)] в град/с',
-        acc: '[ax, ay, az] акселерометр в м/с²',
-        comp: 'Курс из компаса приложения',
-        fused: 'Курс после фильтра сшивки PDR',
-        madg: 'Курс кватерниона Madgwick',
+        t: WM.t('Время (сек)'),
+        ph: WM.t('Номер фазы теста'),
+        ori: WM.t('[alpha (yaw/компас), beta (pitch/наклон вперед-назад), gamma (roll/крен)]'),
+        rot: WM.t('[gyroX (pitchRate), gyroY (rollRate), gyroZ (yawRate)] в град/с'),
+        acc: WM.t('[ax, ay, az] акселерометр в м/с²'),
+        comp: WM.t('Курс из компаса приложения'),
+        fused: WM.t('Курс после фильтра сшивки PDR'),
+        madg: WM.t('Курс кватерниона Madgwick'),
         q: '[qW, qX, qY, qZ]',
-        anom: '1 если сработал детектор магнитных аномалий'
+        anom: WM.t('1 если сработал детектор магнитных аномалий')
       },
       data: recordedSamples
     };
 
-    const promptText = `
-=== ЗАДАЧА ДЛЯ НЕЙРОСЕТИ ===
-Проанализируй телеметрию датчиков DeviceOrientation, Gyroscope и вычисленного курса (PDR / Comp) при ходьбе/наклонах устройства.
-Проблема: в некоторых направлениях компас и конус направления ведут себя стабильно, а при наклоне телефона вперед-назад (угол beta) или при смене направления на перпендикулярное — курс начинает сильно лихорадить и скакать.
-
-Определи:
-1. Связан ли скачок курса со сменой знака или проекции угла наклона beta/gamma на горизонтальную плоскость?
-2. Есть ли несоответствие между фактической угловой скоростью рыскания (rot[2] / yawRate) и поворотом кватерниона/компаса при наклонах?
-3. Какая математическая ошибка в фильтре ориентации или тригонометрии приводит к этим колебаниям и как её исправить в коде?
-
-=== ТЕЛЕМЕТРИЯ (JSON) ===
-${JSON.stringify(payload)}
-`.trim();
+    const promptText = WM.t('\n=== ЗАДАЧА ДЛЯ НЕЙРОСЕТИ ===\nПроанализируй телеметрию датчиков DeviceOrientation, Gyroscope и вычисленного курса (PDR / Comp) при ходьбе/наклонах устройства.\nПроблема: в некоторых направлениях компас и конус направления ведут себя стабильно, а при наклоне телефона вперед-назад (угол beta) или при смене направления на перпендикулярное — курс начинает сильно лихорадить и скакать.\n\nОпредели:\n1. Связан ли скачок курса со сменой знака или проекции угла наклона beta/gamma на горизонтальную плоскость?\n2. Есть ли несоответствие между фактической угловой скоростью рыскания (rot[2] / yawRate) и поворотом кватерниона/компаса при наклонах?\n3. Какая математическая ошибка в фильтре ориентации или тригонометрии приводит к этим колебаниям и как её исправить в коде?\n\n=== ТЕЛЕМЕТРИЯ (JSON) ===\n{0}\n', JSON.stringify(payload)).trim();
 
     const textarea = $('imu-log-output');
     if (textarea) textarea.value = promptText;
@@ -312,9 +300,7 @@ ${JSON.stringify(payload)}
     const statsEl = $('imu-log-stats-summary');
     if (statsEl) {
       statsEl.innerHTML = `
-        Записано сэмплов: <b>${recordedSamples.length}</b> (~${(recordedSamples.length / 20).toFixed(1)} с) · 
-        Диапазон наклона Beta: <b>${minPitch === Infinity ? '--' : minPitch + '°...' + maxPitch + '°'}</b> · 
-        Резких скачков курса (&gt;15°): <b>${headingJumps}</b>
+        ${WM.t('Записано сэмплов:')} <b>${recordedSamples.length}</b> ${WM.t('(~{0} с) · Диапазон наклона Beta:', (recordedSamples.length / 20).toFixed(1))} <b>${minPitch === Infinity ? '--' : minPitch + '°...' + maxPitch + '°'}</b> ${WM.t('· Резких скачков курса (&gt;15°):')} <b>${headingJumps}</b>
       `;
     }
   }
@@ -325,10 +311,10 @@ ${JSON.stringify(payload)}
 
     textarea.select();
     navigator.clipboard.writeText(textarea.value).then(() => {
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('📋 Лог телеметрии скопирован в буфер обмена!');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('📋 Лог телеметрии скопирован в буфер обмена!'));
     }).catch(() => {
       document.execCommand('copy');
-      if (WM.ui && WM.ui.showToast) WM.ui.showToast('📋 Лог скопирован');
+      if (WM.ui && WM.ui.showToast) WM.ui.showToast(WM.t('📋 Лог скопирован'));
     });
   }
 
