@@ -114,8 +114,11 @@
     try { saved = JSON.parse(localStorage.getItem('wm_view')); } catch (e) {}
   }
 
-  const initialCenter = urlView ? urlView.c : (saved ? saved.c : [55.751244, 37.618423]);
-  const initialZoom = urlView ? urlView.z : (saved ? saved.z : 16);
+  // First run (no link, no saved view): start in the language's region instead of always Moscow
+  const DEFAULT_VIEW = { 'ru': { c: [55.751244, 37.618423], z: 16 }, 'pt-BR': { c: [-12.9714, -38.5014], z: 12 }, 'en': { c: [20, 0], z: 3 } }[WM.i18n.lang] || { c: [55.751244, 37.618423], z: 16 };
+  const initialCenter = urlView ? urlView.c : (saved ? saved.c : DEFAULT_VIEW.c);
+  const initialZoom = urlView ? urlView.z : (saved ? saved.z : DEFAULT_VIEW.z);
+  const isFirstRun = !urlView && !saved;
 
   const map = L.map('map', { 
     zoomControl: false, 
@@ -133,6 +136,17 @@
 
   // ДОБАВЬТЕ ЭТУ СТРОКУ СЮДА СРАЗУ ПОСЛЕ СОЗДАНИЯ КАРТЫ:
   WM.map = map;
+
+  // First run: centre on the user's real position (one silent attempt, only if the map was not moved yet)
+  if (isFirstRun && navigator.geolocation) {
+    let movedByUser = false;
+    map.once('dragstart zoomstart', function () { movedByUser = true; });
+    try {
+      navigator.geolocation.getCurrentPosition(function (p) {
+        if (!movedByUser) map.setView([p.coords.latitude, p.coords.longitude], 15, { animate: false });
+      }, function () {}, { enableHighAccuracy: false, maximumAge: 600000, timeout: 10000 });
+    } catch (e) {}
+  }
   L.control.zoom({ position: 'topleft' }).addTo(map);
 
   const isMobile = L.Browser.mobile;
